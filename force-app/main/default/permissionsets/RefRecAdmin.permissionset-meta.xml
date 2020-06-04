@@ -64,6 +64,11 @@
         <editable>true</editable>
         <field>Client_Profile__c.Postal_Code__c</field>
     </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Referral__c.Preferred_Channel__c</field>
+    </fieldPermissions>
     <tabSettings>
         <tab>Service__c</tab>
         <visibility>Visible</visibility>
