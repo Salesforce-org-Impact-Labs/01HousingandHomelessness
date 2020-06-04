@@ -44,12 +44,41 @@
         <editable>true</editable>
         <field>Client_Profile__c.Date_of_Birth__c</field>
     </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Referral__c.Score__c</field>
+    </fieldPermissions>
     <tabSettings>
         <tab>Service__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>Client_Profile__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Service__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Client_Profile__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Referral__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Service__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Client_Profile__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Referral__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
