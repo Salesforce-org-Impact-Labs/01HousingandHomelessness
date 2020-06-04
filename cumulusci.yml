@@ -1,22 +1,22 @@
-minimum_cumulusci_version: '3.12.2'
+minimum_cumulusci_version: "3.12.2"
 project:
+  name: 01HousingandHomelessness
+  package:
     name: 01HousingandHomelessness
-    package:
-        name:  01HousingandHomelessness
-        namespace: refrec
-        api_version: '48.0'
-    dependencies:
-        - github: 'https://github.com/SalesforceFoundation/PMM'
-    source_format: sfdx
+    namespace: refrec
+    api_version: "48.0"
+  # dependencies:
+  #     - github: 'https://github.com/SalesforceFoundation/PMM'
+  source_format: sfdx
 
 tasks:
-    robot:
-        options:
-            suites: robot/01HousingandHomelessness/tests
-            options:
-                outputdir: robot/01HousingandHomelessness/results
+  robot:
+    options:
+      suites: robot/01HousingandHomelessness/tests
+      options:
+        outputdir: robot/01HousingandHomelessness/results
 
-    robot_testdoc:
-        options:
-            path: robot/01HousingandHomelessness/tests
-            output: robot/01HousingandHomelessness/doc/01HousingandHomelessness_tests.html
+  robot_testdoc:
+    options:
+      path: robot/01HousingandHomelessness/tests
+      output: robot/01HousingandHomelessness/doc/01HousingandHomelessness_tests.html
