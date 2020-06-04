@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Last Name</label>
+    <type>Text</type>
+    <fullName>Last_Name__c</fullName>
+    <length>255</length>
+</CustomField>

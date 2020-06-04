@@ -11,11 +11,27 @@
                 <behavior>Readonly</behavior>
                 <field>Name</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>First_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Date_of_Birth__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OwnerId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Last_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Postal_Code__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -29,10 +45,6 @@
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>CreatedById</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Date_of_Birth__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -78,7 +90,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00hS0000001upV4</masterLabel>
+        <masterLabel>00h3B000000yJOg</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
