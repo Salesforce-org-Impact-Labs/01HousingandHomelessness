@@ -6,7 +6,7 @@ project:
     namespace: refrec
     api_version: "48.0"
   # dependencies:
-  #     - github: 'https://github.com/SalesforceFoundation/PMM'
+  # - github: 'https://github.com/SalesforceFoundation/PMM'
   source_format: sfdx
 
 tasks:

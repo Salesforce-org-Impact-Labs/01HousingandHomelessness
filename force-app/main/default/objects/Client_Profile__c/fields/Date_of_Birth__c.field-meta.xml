@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Date of Birth</label>
+    <type>Date</type>
+    <fullName>Date_of_Birth__c</fullName>
+</CustomField>
