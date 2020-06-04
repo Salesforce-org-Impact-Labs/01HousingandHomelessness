@@ -32,3 +32,10 @@ flows:
     steps:
       3:
         task: assign_permset
+        ignore_failure: True
+      4:
+        task: load_dataset
+      5:
+        task: command
+        options:
+          command: cci org default dev
