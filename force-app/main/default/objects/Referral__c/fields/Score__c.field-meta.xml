@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField>
+    <label>Score</label>
+    <type>Number</type>
+    <fullName>Score__c</fullName>
+    <scale>0</scale>
+    <precision>1</precision>
+    <description>1-5 score (star rating)</description>
+    <inlineHelpText>1-5 score (star rating)</inlineHelpText>
+</CustomField>
