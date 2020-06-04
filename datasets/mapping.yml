@@ -58,3 +58,13 @@ Insert Task:
       table: Contact
     WhatId:
       table: Referral__c
+Insert Service_Exclusion__c:
+  sf_object: Service_Exclusion__c
+  table: Service_Exclusion__c
+  fields:
+    Id: sf_id
+  lookups:
+    Contact__c:
+      table: Contact
+    Service__c:
+      table: Service__c
