@@ -44,3 +44,17 @@ Insert Referral__c:
       table: Contact
     Service__c:
       table: Service__c
+Insert Task:
+  sf_object: Task
+  table: Task
+  fields:
+    Id: sf_id
+    Subject: Subject
+    Description: Description
+    Status: Status
+    Priority: Priority
+  lookups:
+    WhoId:
+      table: Contact
+    WhatId:
+      table: Referral__c
