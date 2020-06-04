@@ -22,10 +22,10 @@ tasks:
       output: robot/01HousingandHomelessness/doc/01HousingandHomelessness_tests.html
 
   assign_permset:
-    description: Assigns the YourPermSet permset
+    description: Assigns the package's Admin permset
     class_path: cumulusci.tasks.sfdx.SFDXOrgTask
     options:
-      command: "force:user:permset:assign -n YourPermSet"
+      command: "force:user:permset:assign -n RefRecAdmin"
 
 flows:
   config_dev:
