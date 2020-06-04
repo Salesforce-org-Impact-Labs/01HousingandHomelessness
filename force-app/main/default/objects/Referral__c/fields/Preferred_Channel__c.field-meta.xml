@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField>
+    <label>Preferred Channel</label>
+    <type>Picklist</type>
+    <fullName>Preferred_Channel__c</fullName>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>SMS</fullName>
+                <label>SMS</label>
+                <default>true</default>
+            </value>
+            <value>
+                <fullName>Email</fullName>
+                <label>Email</label>
+                <default>false</default>
+            </value>
+            <sorted>false</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
