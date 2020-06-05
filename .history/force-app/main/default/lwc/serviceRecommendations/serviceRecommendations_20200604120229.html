@@ -1,0 +1,48 @@
+<template>
+    <div>
+        <lightning-button label="Get Recommendations" title="Recommendations" onclick={handleGetRecommendations}></lightning-button>
+    </div>
+
+    <div>
+
+            <!-- later - iteration of recommendation -->
+            
+            <!-- TODO: list only the top X number of recommendations? -->
+            <lightning-card  variant="Narrow" >
+                <div slot="title">
+                    <p>Relevance 91 %</p>
+                    <lightning-button-icon  icon-name="custom:custom51" variant="border-filled" alternative-text="Food" ></lightning-button-icon>
+                    <p>Service Name</p>
+                </div>
+                <div slot="actions">
+                    <lightning-button-group>
+                        <lightning-button label="Send"></lightning-button>
+                        <lightning-button-icon  icon-name="utility:print" variant="border-filled" alternative-text="Print" ></lightning-button-icon>
+                        <lightning-button-icon  icon-name="utility:down" variant="border-filled" alternative-text="Show More"></lightning-button-icon>
+                    </lightning-button-group>
+                </div>
+                <!-- types of icons based on program type? -->
+                
+                <p>Provided by <a href="#">Provider Name</a></p>
+                <p>description</p>
+                <span></span>
+
+                <!-- phone and website -->
+                <a href="#">(222)222-2222</a> * <a href="#">Website</a>
+
+                <!-- likes and comments -->
+                <div class="slds-clearfix">
+                    <div class="slds-float_left">
+
+                    </div>
+                    <div class="slds-float_right">
+                        
+                    </div>
+                </div>
+            </lightning-card>
+        </div>
+
+    <template if:true={returnRecommendations}>
+        <p>got some recommendations</p>
+    </template>
+</template>
