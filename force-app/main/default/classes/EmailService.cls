@@ -85,6 +85,7 @@ public with sharing class EmailService {
 
     }
 
+    @TestVisible
     private static Boolean sendEmailToCarrier(Messaging.SingleEmailMessage emailToSend) {
         Messaging.SendEmailResult[] results = Messaging.sendEmail( new List<Messaging.SingleEmailMessage>{ emailToSend } );
 

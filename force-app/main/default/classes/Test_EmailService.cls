@@ -51,4 +51,18 @@ public with sharing class Test_EmailService {
         System.assertNotEquals(null, email);
     }
 
+    static testMethod void testSendEmailToCarrier() {
+        String messageToSend = 'test message';
+        String phoneNumber = '(610) 555-1212';
+        String carrierName = 'AT&T';
+        Messaging.SingleEmailMessage email = EmailService.createEmailForCarrier (messageToSend, phoneNumber, carrierName);
+
+        Test.startTest();
+        EmailService.sendEmailToCarrier(email);
+        Integer invocations = Limits.getEmailInvocations();
+        Test.stopTest();
+       
+        System.assertEquals(1, invocations);
+    }
+
 }
