@@ -3,6 +3,10 @@
     <label>AT&amp;T</label>
     <protected>false</protected>
     <values>
+        <field>Carrier_Name__c</field>
+        <value xsi:type="xsd:string">AT&amp;T</value>
+    </values>
+    <values>
         <field>Email_Domain__c</field>
         <value xsi:type="xsd:string">txt.att.net</value>
     </values>
