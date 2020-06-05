@@ -248,5 +248,30 @@
         "component://c/serviceRecommendations@en-US": {
             "dev": "99b26ccd5c"
         }
+    },
+    "f484575e4d": {
+        "component://@webruntime/app@en-US": {
+            "dev": "4692823486"
+        },
+        "component://localdevserver/home@en-US": {
+            "dev": "69f3bacab1"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "8ba3aad9e7"
+        }
+    },
+    "ddfa211339": {
+        "component://@webruntime/app@en-US": {
+            "dev": "4692823486"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "8d8d84e804"
+        }
     }
 }
