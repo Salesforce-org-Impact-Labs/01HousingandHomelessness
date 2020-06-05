@@ -38,6 +38,15 @@
         <object>Service_Exclusion__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Open_Hours__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <fieldPermissions>
         <readable>true</readable>
         <editable>true</editable>
@@ -77,6 +86,66 @@
         <readable>true</readable>
         <editable>true</editable>
         <field>Referral__c.Preferred_Channel__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Account__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Description__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Type__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.City__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Phone__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Street__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Website__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Open_Hours__c.End_Time__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Open_Hours__c.Start_Time__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Zip_Code__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.External_ID__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Open_Hours__c.Day__c</field>
     </fieldPermissions>
     <tabSettings>
         <tab>Service__c</tab>

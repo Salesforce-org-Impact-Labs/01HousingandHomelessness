@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Phone</label>
+    <type>Phone</type>
+    <fullName>Phone__c</fullName>
+</CustomField>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>External ID</label>
+    <type>Text</type>
+    <fullName>External_ID__c</fullName>
+    <length>255</length>
+    <required>false</required>
+    <unique>false</unique>
+    <externalId>true</externalId>
+    <description>ID from the aggregator that supplied this service</description>
+    <inlineHelpText>ID from the aggregator that supplied this service</inlineHelpText>
+    <trackHistory>false</trackHistory>
+</CustomField>

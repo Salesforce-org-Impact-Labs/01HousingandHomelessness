@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Street</label>
+    <type>Text</type>
+    <fullName>Street__c</fullName>
+    <length>255</length>
+</CustomField>
