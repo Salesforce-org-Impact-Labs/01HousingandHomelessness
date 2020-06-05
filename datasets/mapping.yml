@@ -7,6 +7,12 @@ Insert Client_Profile__c:
     First_Name__c: First_Name__c
     Last_Name__c: Last_Name__c
     Postal_Code__c: Postal_Code__c
+Insert Account:
+  sf_object: Account
+  table: Account
+  fields:
+    Id: sf_id
+    Name: Name
 Insert Contact:
   sf_object: Contact
   table: Contact
@@ -32,6 +38,28 @@ Insert Service__c:
     Name: Name
     Maximum_Age__c: Maximum_Age__c
     Minimum_Age__c: Minimum_Age__c
+    City__c: City__c
+    Description__c: Description__c
+    Phone__c: Phone__c
+    Street__c: Street__c
+    Type__c: Type__c
+    Website__c: Website__c
+    Zip_Code__c: Zip_Code__c
+    External_ID__c: External_ID__c
+  lookups:
+    Account__c:
+      table: Account
+Insert Open_Hours__c:
+  sf_object: Open_Hours__c
+  table: Open_Hours__c
+  fields:
+    Id: sf_id
+    End_Time__c: End_Time__c
+    Start_Time__c: Start_Time__c
+    Day__c: Day__c
+  lookups:
+    Service__c:
+      table: Service__c
 Insert Referral__c:
   sf_object: Referral__c
   table: Referral__c
