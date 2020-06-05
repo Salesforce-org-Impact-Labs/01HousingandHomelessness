@@ -38,15 +38,33 @@ public with sharing class EmailService {
                     // failed to create email
                     throw new EmailServiceException('Failed to create outgoing email to carrier'); 
                 }
-                sendEmailToCarrier(emailToSend);
+                Boolean emailWasSent = sendEmailToCarrier(emailToSend);
 
                 // get response???
 
                 // if email bounced, call carrier lookup
+                if (!emailWasSent) {
+                    String carrier = lookupCarrierByPhone (clientContact.Phone);
+                    if (carrier == null) {
+                        throw new EmailServiceException('Unable to locate carrier for Contact with Id: '+clientContactId);
+                    }
+                    if (!carrier.equals(clientContact.Mobile_Phone_Carrier__c)) {
+                        // if carrier is different, add it to contact record, resend email
+                        clientContact.Mobile_Phone_Carrier__c = carrier;
+                        contactNeedsUpdate = true;
 
-                // if carrier is different, add it to contact record, resend email
-
-                // do something with the response?
+                        emailToSend = 
+                            createEmailForCarrier (messageToSend, clientContact.Phone, clientContact.Mobile_Phone_Carrier__c);
+                        if (emailToSend == null) {
+                            // failed to create email
+                            throw new EmailServiceException('Failed to create outgoing email to carrier on retry'); 
+                        }  
+                        emailWasSent = sendEmailToCarrier(emailToSend);
+                        if (!emailWasSent) {
+                            throw new EmailServiceException('Failed to successfully send outgoing email to carrier on retry');
+                        } 
+                    }
+                }
 
                 // if contact needs to be updated, then update it
                 if (contactNeedsUpdate) {
@@ -67,8 +85,22 @@ public with sharing class EmailService {
 
     }
 
-    private static void sendEmailToCarrier(Messaging.SingleEmailMessage emailToSend) {
+    private static Boolean sendEmailToCarrier(Messaging.SingleEmailMessage emailToSend) {
         Messaging.SendEmailResult[] results = Messaging.sendEmail( new List<Messaging.SingleEmailMessage>{ emailToSend } );
+
+        for (Messaging.SendEmailResult result : results) {
+            if (!result.isSuccess()) {
+                Messaging.SendEmailError[] errors = result.getErrors();
+                for (Messaging.SendEmailError error : errors) {
+                    // TODO is this okay?
+                    if (error.getMessage().contains('bounced')) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     @TestVisible
