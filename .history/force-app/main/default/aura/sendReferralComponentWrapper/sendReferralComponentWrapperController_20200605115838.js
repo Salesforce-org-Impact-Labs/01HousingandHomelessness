@@ -7,14 +7,13 @@
         console.log('handling flow launch');
         var eventData = event.getParam('eventParams');
         component.set("v.showModal",eventData.showFlow);
-        
+        var inputVariables = [
+            { name : "contactId", type : "String", value: eventData.contactId }, 
+            { name : "serviceId", type : "String", value: eventData.serviceId }, 
+        ];
 
         //will need to pass input variables
         if(eventData.showFlow){
-            var inputVariables = [
-                { name : "contactId", type : "String", value: eventData.contactId }, 
-                { name : "serviceId", type : "String", value: eventData.serviceId }, 
-            ];
             var flow = component.find("flow");
             flow.startFlow("Send_Referral_Flow", inputVariables);
             var childcomp = component.find('childCmp');
