@@ -8,7 +8,7 @@
             <!-- later - iteration of recommendation -->
             
             <!-- TODO: list only the top X number of recommendations? -->
-            <lightning-card  >
+            <lightning-card  variant="Narrow" >
                 <div slot="title">
                     <p><a href="#" onclick={handleRelevancePopover}>Relevance 91 %</a></p>
                     <template if:true={showRelevancePopover}>
@@ -57,14 +57,14 @@
                         </div>
                     </template>
                 </div>
-                <div class="slds-m-around_small">
+                <div>
 
-                    <p>Provided by: <a href="#">Provider Name</a></p>
+                    <p>Provided by <a href="#">Provider Name</a></p>
                     <p>description</p>
                     <span>Open until XX:XX PM</span><span>Address</span>
                     
                     <!-- phone and website -->
-                    <span><a href="#">(222)222-2222</a> * <a href="#">Website</a></span>
+                    <a href="#">(222)222-2222</a> * <a href="#">Website</a>
                     
                     
                 </div>

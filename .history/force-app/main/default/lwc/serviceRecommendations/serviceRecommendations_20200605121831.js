@@ -69,7 +69,7 @@ export default class ServiceRecommendations extends LightningElement {
         let eventParams = {
             showFlow: true,
             contactId: this.contactId,  
-            serviceId: 'test'
+            serviceId: 'a0263000003x85qAAA'
         };
         
         const flowLaunchEvent = new CustomEvent('flowLaunch', {
@@ -85,12 +85,10 @@ export default class ServiceRecommendations extends LightningElement {
 
     handleRelevancePopover(){
         window.console.log('handle popover');
-        this.showRelevancePopover = !this.showRelevancePopover;
     }
 
     handleShowMoreDropdown(){
         window.console.log('toggle drop down');
-        this.showDropdown = !this.showDropdown;
     }
 
     handleHideForThisContact(){

@@ -85,12 +85,10 @@ export default class ServiceRecommendations extends LightningElement {
 
     handleRelevancePopover(){
         window.console.log('handle popover');
-        this.showRelevancePopover = !this.showRelevancePopover;
     }
 
     handleShowMoreDropdown(){
         window.console.log('toggle drop down');
-        this.showDropdown = !this.showDropdown;
     }
 
     handleHideForThisContact(){
