@@ -5,8 +5,6 @@ export default class ServiceRecommendations extends LightningElement {
     @track returnRecommendations;
     @track contactId;
     @track serviceId;
-    @track showRelevancePopover;
-    @track showDropdown;
 
     handleRequestRecommendations(){
         console.log('getting recommendations');

@@ -5,8 +5,6 @@ export default class ServiceRecommendations extends LightningElement {
     @track returnRecommendations;
     @track contactId;
     @track serviceId;
-    @track showRelevancePopover;
-    @track showDropdown;
 
     handleRequestRecommendations(){
         console.log('getting recommendations');
@@ -68,7 +66,7 @@ export default class ServiceRecommendations extends LightningElement {
     handleSendReferral(){
         let eventParams = {
             showFlow: true,
-            contactId: '0036300000ZmhqmAAB',  
+            contactId: this.contactId,  
             serviceId: 'a0263000003x85qAAA'
         };
         
@@ -81,21 +79,5 @@ export default class ServiceRecommendations extends LightningElement {
         
         this.dispatchEvent(flowLaunchEvent);
         
-    }
-
-    handleRelevancePopover(){
-        window.console.log('handle popover');
-    }
-
-    handleShowMoreDropdown(){
-        window.console.log('toggle drop down');
-    }
-
-    handleHideForThisContact(){
-        window.console.log('toggle hide for contact');
-    }
-
-    handleHideForAllContacts(){
-        window.console.log('toggle hide for all contacts');
     }
 }

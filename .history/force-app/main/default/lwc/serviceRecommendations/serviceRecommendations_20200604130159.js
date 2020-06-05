@@ -3,10 +3,6 @@ import { LightningElement, track } from 'lwc';
 
 export default class ServiceRecommendations extends LightningElement {
     @track returnRecommendations;
-    @track contactId;
-    @track serviceId;
-    @track showRelevancePopover;
-    @track showDropdown;
 
     handleRequestRecommendations(){
         console.log('getting recommendations');
@@ -50,52 +46,11 @@ export default class ServiceRecommendations extends LightningElement {
         //     // objData.Exchange_Rate = exchangeData['5. Exchange Rate'];
         //     // objData.Last_Refershed = exchangeData['6. Last Refreshed'];
 
-        // fields to include:
-        // name
-        // recommendation %
-        // service type
-        //
-
-
         //     // adding data object to show in UI
         //     this.returnRecommendations = objData;
         // })
         // .catch(error => {
         //     window.console.log('callout error ===> '+JSON.stringify(error));
         // })
-    }
-
-    handleSendReferral(){
-        let eventParams = {
-            showFlow: true,
-            contactId: '0036300000ZmhqmAAB',  
-            serviceId: 'a0263000003x85qAAA'
-        };
-        
-        const flowLaunchEvent = new CustomEvent('flowLaunch', {
-            detail: {
-                eventParams
-            },
-        });
-        // Fire the custom event
-        
-        this.dispatchEvent(flowLaunchEvent);
-        
-    }
-
-    handleRelevancePopover(){
-        window.console.log('handle popover');
-    }
-
-    handleShowMoreDropdown(){
-        window.console.log('toggle drop down');
-    }
-
-    handleHideForThisContact(){
-        window.console.log('toggle hide for contact');
-    }
-
-    handleHideForAllContacts(){
-        window.console.log('toggle hide for all contacts');
     }
 }

@@ -1,0 +1,5 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <aura:attribute name="showModal" type="Boolean" default="false"/>
+
+    <c:serviceRecommendations onflowLaunch="{!c.handleFlowLaunch}"/> 
+</aura:component>	
