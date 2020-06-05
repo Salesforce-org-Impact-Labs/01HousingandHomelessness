@@ -2,10 +2,9 @@
     <aura:attribute name="showModal" type="Boolean" default="false"/>
     <div class="slds-m-around_medium">
             <lightning:layout>   
-                <c:serviceRecommendations aura:id="childCmp" onflowLaunch="{!c.handleFlowLaunch}"/> 
+                    <c:serviceRecommendations onflowLaunch="{!c.handleFlowLaunch}"/> 
 
-
-                <lightning:flow aura:id="flow" onstatuschange="{!c.statusChange}"/>  
+                    <lightning:flow aura:id="flow" onstatuschange="{!c.statusChange}"/>  
 
             </lightning:layout>
         </div>

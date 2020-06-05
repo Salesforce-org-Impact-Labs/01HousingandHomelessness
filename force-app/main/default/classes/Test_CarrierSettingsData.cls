@@ -8,4 +8,12 @@ private with sharing class Test_CarrierSettingsData {
 
         System.assertEquals('txt.att.net', email);
     }
+
+    static testMethod void testGetNoEmailForBadCarrier() {
+        test.startTest();
+        String email = carrierSettingsData.getEmailForCarrier('foo');
+        test.stopTest();
+
+        System.assertEquals(null, email);
+    }
 }
