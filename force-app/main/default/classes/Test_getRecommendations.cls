@@ -16,6 +16,9 @@ public with sharing class Test_getRecommendations {
     System.assertEquals(endHour, recs[0].TodaysHours.End_Time__c.hour());
     System.assert(recs[0].Relevance >= 0);
     System.assert(recs[0].Relevance <= 100);
+
+    System.assertEquals(1, recs[0].Comments.size());
+    System.assertEquals('It is great', recs[0].Comments[0].CommentText);
   }
 
   static testMethod void omitsTeenService() {
@@ -76,6 +79,13 @@ public with sharing class Test_getRecommendations {
     insert hours;
 
     // service plus exclusions
+    // service with comment
+    FeedItem fi = new FeedItem();
+    fi.Body = 'It is great';
+    fi.Type = 'TextPost';
+    fi.ParentId = GoodService.Id;
+    insert fi;
+
     // referrals with scores
     Referral__c ref = new Referral__c();
     ref.Contact__c = c.Id;

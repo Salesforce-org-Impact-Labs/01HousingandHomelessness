@@ -11,7 +11,7 @@ public with sharing class getRecommendations {
     // do the hours for each service
     output = addHours(output);
     // do the comments for each service
-
+    output = getComments(output);
     // do the Star Rating for each service
     output = addStars(output);
     // final Relevancy score + factors
@@ -100,10 +100,43 @@ public with sharing class getRecommendations {
     return recs;
   }
 
+  public static List<ServiceRecommendation> getComments(
+    List<ServiceRecommendation> recs
+  ) {
+    list<FeedItem> FeedItems = [
+      SELECT id, ParentId, Body
+      FROM FeedItem
+      WHERE ParentId IN :IDsFromRecommendations(recs) AND Type = 'TextPost'
+      ORDER BY ParentId
+    ];
+    map<id, list<string>> feedItemsByService = new Map<id, list<string>>();
+    for (feedItem fi : FeedItems) {
+      list<string> existing = feedItemsByService.get(fi.ParentId);
+      if (existing == null) {
+        existing = new List<string>();
+      }
+      existing.add(fi.Body);
+      feedItemsByService.put(fi.ParentId, existing);
+    }
+
+    for (ServiceRecommendation rec : recs) {
+      list<string> comments = feedItemsByService.get(rec.ServiceId);
+      if (comments.size() > 0) {
+        rec.Comments = new List<ServiceRecommendation.Comment>();
+        for (string comment : comments) {
+          ServiceRecommendation.Comment commentToAdd = new ServiceRecommendation.Comment();
+          commentToAdd.CommentText = comment;
+          rec.Comments.add(commentToAdd);
+        }
+      }
+    }
+    return recs;
+  }
+
   public static List<ServiceRecommendation> addHours(
     List<ServiceRecommendation> recs
   ) {
-    map<id, Open_Hours__c> hours = gerHoursByService(
+    map<id, Open_Hours__c> hours = getHoursByService(
       IDsFromRecommendations(recs)
     );
     for (ServiceRecommendation SR : recs) {
@@ -135,7 +168,7 @@ public with sharing class getRecommendations {
     return output;
   }
 
-  public static map<id, Open_Hours__c> gerHoursByService(list<id> serviceIds) {
+  public static map<id, Open_Hours__c> getHoursByService(list<id> serviceIds) {
     map<id, Open_Hours__c> output = new Map<id, Open_Hours__c>();
     for (Open_Hours__c hours : [
       SELECT Day__c, End_Time__c, Service__c, Start_Time__c
