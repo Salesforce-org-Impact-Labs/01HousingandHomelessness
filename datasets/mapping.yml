@@ -99,3 +99,13 @@ Insert Service_Exclusion__c:
       table: Contact
     Service__c:
       table: Service__c
+Insert FeedItem:
+  sf_object: FeedItem
+  table: FeedItem
+  fields:
+    Id: sf_id
+    Body: Body
+    Type: Type
+  lookups:
+    ParentId:
+      table: Service__c

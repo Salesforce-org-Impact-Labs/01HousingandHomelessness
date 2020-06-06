@@ -33,6 +33,16 @@ CREATE TABLE "Contact" (
 );
 INSERT INTO "Contact" VALUES('00317000012R0kwAAC','Micah','McLaughlin','8324728021','micah@mailinator.com','2005-05-24','false','false','false','');
 INSERT INTO "Contact" VALUES('00317000012R0kxAAC','Shane','McLaughlin','8324728021','shane.m@mailinator.com','1979-04-20','false','false','false','');
+INSERT INTO "Contact" VALUES('00317000012R6mBAAS','Contact','WithoutProfile','8324728021','noprofile@mailinator.com','','false','false','false','');
+CREATE TABLE "FeedItem" (
+	sf_id VARCHAR(255) NOT NULL, 
+	"Body" VARCHAR(255), 
+	"Type" VARCHAR(255), 
+	parent_id VARCHAR(255), 
+	PRIMARY KEY (sf_id)
+);
+INSERT INTO "FeedItem" VALUES('0D51700000d6DgSCAU','<p>Here is another comment</p>','TextPost','a041700000K472BAAR');
+INSERT INTO "FeedItem" VALUES('0D51700000d6DgNCAU','<p>This one is my favorite</p>','TextPost','a041700000K472BAAR');
 CREATE TABLE "Open_Hours__c" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"End_Time__c" VARCHAR(255), 
