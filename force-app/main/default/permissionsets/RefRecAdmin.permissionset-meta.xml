@@ -147,6 +147,11 @@
         <editable>true</editable>
         <field>Open_Hours__c.Day__c</field>
     </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Client_Profile__c.Contact__c</field>
+    </fieldPermissions>
     <tabSettings>
         <tab>Service__c</tab>
         <visibility>Visible</visibility>
