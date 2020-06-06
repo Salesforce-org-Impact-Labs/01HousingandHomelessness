@@ -5,9 +5,6 @@
         "paths": {
             "c/serviceRecommendations": [
                 "serviceRecommendations/serviceRecommendations.js"
-            ],
-            "c/ServiceRecommendations": [
-                "ServiceRecommendations/ServiceRecommendations.js"
             ]
         }
     },
