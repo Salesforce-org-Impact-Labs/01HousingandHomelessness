@@ -1,5 +1,6 @@
 public with sharing class getRecommendations {
   // default version...uses the clientProfileId
+  @AuraEnabled
   public static list<ServiceRecommendation> getRecommendations(id contactId) {
     Client_Profile__c CP = getProfile(contactId);
     List<Service__c> services = primaryQuery(CP);
