@@ -27,6 +27,37 @@ public with sharing class Test_EmailService {
         System.assertEquals(false,exceptionWasCaught);
     }
 
+    static testMethod void testSendMessageToContactNoPhone() {
+        Contact testContact = [
+            SELECT 
+                Id,
+                Phone 
+            FROM Contact
+            WHERE LastName = 'Tester'
+            LIMIT 1
+        ];  
+        testContact.Phone = null;
+        update(testContact);
+
+        EmailService.ContactMessage contactMsg = new EmailService.ContactMessage();
+        contactMsg.clientContactId = testContact.Id;
+        contactMsg.messageToSend = 'foo';
+        
+        Boolean exceptionWasCaught = false;
+        String exceptionMsg = '';
+        Test.startTest();
+        try {
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg});
+        } catch (EmailService.EmailServiceException ese) {
+            exceptionWasCaught = true;
+            exceptionMsg = ese.getMessage();
+        }
+        Test.stopTest();
+
+        System.assertEquals(true,exceptionWasCaught);
+        System.assert(exceptionMsg.contains('Failed to find Phone on the Contact record for Contact Id'));
+    }
+
      static testMethod void testCreateClientContactMap() {
         EmailService.ContactMessage contactMsg = createContactMessage();
 
@@ -95,6 +126,8 @@ public with sharing class Test_EmailService {
         Contact testContact = [
             SELECT 
                 Id,
+                LastName,
+                Phone,
                 Mobile_Phone_Carrier__c 
             FROM Contact
             WHERE LastName = 'Tester'
