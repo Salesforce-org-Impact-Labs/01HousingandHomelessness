@@ -1,7 +1,7 @@
 public with sharing class EmailService {
 
     public static void sendMessageToContact (List<ContactMessage> contactMessages) {
-        List<Contact> contactsToUpdate = null;
+        List<Contact> contactsToUpdate = new List<Contact>();
 
         // create a map of contact records from the incoming list
         Map<Id,Contact> clientContactMap = createClientContactMap(contactMessages);

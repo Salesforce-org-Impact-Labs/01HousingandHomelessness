@@ -12,24 +12,60 @@ public with sharing class Test_EmailService {
         insert clientContact;
     }
 
-     static testMethod void testCreateClientContactMap() {
+    static testMethod void testSendMessageToContact() {
+        EmailService.ContactMessage contactMsg = createContactMessage();
+        Boolean exceptionWasCaught = false;
+
+        Test.startTest();
+        try {
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg});
+        } catch (EmailService.EmailServiceException ese) {
+            exceptionWasCaught = true;
+        }
+        Test.stopTest();
+
+        System.assertEquals(false,exceptionWasCaught);
+    }
+
+    static testMethod void testSendMessageToContactNoPhone() {
         Contact testContact = [
             SELECT 
                 Id,
-                Mobile_Phone_Carrier__c 
+                Phone 
             FROM Contact
             WHERE LastName = 'Tester'
             LIMIT 1
-        ];    
+        ];  
+        testContact.Phone = null;
+        update(testContact);
 
         EmailService.ContactMessage contactMsg = new EmailService.ContactMessage();
         contactMsg.clientContactId = testContact.Id;
         contactMsg.messageToSend = 'foo';
+        
+        Boolean exceptionWasCaught = false;
+        String exceptionMsg = '';
+        Test.startTest();
+        try {
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg});
+        } catch (EmailService.EmailServiceException ese) {
+            exceptionWasCaught = true;
+            exceptionMsg = ese.getMessage();
+        }
+        Test.stopTest();
+
+        System.assertEquals(true,exceptionWasCaught);
+        System.assert(exceptionMsg.contains('Failed to find Phone on the Contact record for Contact Id'));
+    }
+
+     static testMethod void testCreateClientContactMap() {
+        EmailService.ContactMessage contactMsg = createContactMessage();
 
         Test.startTest();
         Map<Id,Contact> contactMap = EmailService.createClientContactMap(new List<EmailService.ContactMessage>{contactMsg});
         Test.stopTest();
 
+        Contact testContact = contactMap.values()[0];
         System.assertEquals('AT&T',testContact.Mobile_Phone_Carrier__c);
     }
 
@@ -84,6 +120,25 @@ public with sharing class Test_EmailService {
         Test.stopTest();
        
         System.assertEquals(1, invocations);
+    }
+
+    static EmailService.ContactMessage createContactMessage() {
+        Contact testContact = [
+            SELECT 
+                Id,
+                LastName,
+                Phone,
+                Mobile_Phone_Carrier__c 
+            FROM Contact
+            WHERE LastName = 'Tester'
+            LIMIT 1
+        ];    
+
+        EmailService.ContactMessage contactMsg = new EmailService.ContactMessage();
+        contactMsg.clientContactId = testContact.Id;
+        contactMsg.messageToSend = 'foo';
+
+        return contactMsg;
     }
 
 }
