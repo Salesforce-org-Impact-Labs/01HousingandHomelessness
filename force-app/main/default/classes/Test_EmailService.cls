@@ -12,6 +12,27 @@ public with sharing class Test_EmailService {
         insert clientContact;
     }
 
+     static testMethod void testCreateClientContactMap() {
+        Contact testContact = [
+            SELECT 
+                Id,
+                Mobile_Phone_Carrier__c 
+            FROM Contact
+            WHERE LastName = 'Tester'
+            LIMIT 1
+        ];    
+
+        EmailService.ContactMessage contactMsg = new EmailService.ContactMessage();
+        contactMsg.clientContactId = testContact.Id;
+        contactMsg.messageToSend = 'foo';
+
+        Test.startTest();
+        Map<Id,Contact> contactMap = EmailService.createClientContactMap(new List<EmailService.ContactMessage>{contactMsg});
+        Test.stopTest();
+
+        System.assertEquals('AT&T',testContact.Mobile_Phone_Carrier__c);
+    }
+
     static testMethod void testGetContactForId() {
         Contact testContact = [
             SELECT 

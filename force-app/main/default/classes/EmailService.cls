@@ -1,88 +1,103 @@
 public with sharing class EmailService {
 
-    public static void sendMessageToContact (String messageToSend, Id clientContactId) {
-        // flag to indicate if we need to update the contact record
-        Boolean contactNeedsUpdate = false; 
+    public static void sendMessageToContact (List<ContactMessage> contactMessages) {
+        List<Contact> contactsToUpdate = null;
 
-        if (String.isEmpty(messageToSend)) {
-            throw new EmailServiceException('The message to send is empty'); 
-         } 
-        if (clientContactId == null) {
-            throw new EmailServiceException('The client contact ID is empty'); 
-        }
-            
-        // get the contact record
-        Contact clientContact = getContactForId(clientContactId);
-        if (clientContact != null) {
+        // create a map of contact records from the incoming list
+        Map<Id,Contact> clientContactMap = createClientContactMap(contactMessages);
+        
+        for (ContactMessage contactMsg : contactMessages) {
+            // handle each contact/message, one record at a time
+            String clientContactId = contactMsg.clientContactId;
+            String messageToSend = contactMsg.messageToSend;
+        
+            // flag to indicate if we need to update the contact record
+            Boolean contactNeedsUpdate = false; 
 
-            if (clientContact.Phone != null) {
+            if (String.isEmpty(messageToSend)) {
+                throw new EmailServiceException('The message to send is empty'); 
+            } 
+            if (clientContactId == null) {
+                throw new EmailServiceException('The client contact ID is empty'); 
+            }
                 
-                if (clientContact.Mobile_Phone_Carrier__c == null) {
-                    // if no carrier, look it up, add it to contact record
-                    clientContact.Mobile_Phone_Carrier__c = lookupCarrierByPhone(clientContact.Phone);
+            // get the contact record from the map we created
+            Contact clientContact = clientContactMap.get(clientContactId);
+            if (clientContact != null) {
+
+                if (clientContact.Phone != null) {
                     
                     if (clientContact.Mobile_Phone_Carrier__c == null) {
-                        // if still no carrier
-                        throw new EmailServiceException('The carrier cannot be found for Contact with Id: '+clientContactId);
-                    } else {
-                        contactNeedsUpdate = true;
+                        // if no carrier, look it up, add it to contact record
+                        clientContact.Mobile_Phone_Carrier__c = lookupCarrierByPhone(clientContact.Phone);
+                        
+                        if (clientContact.Mobile_Phone_Carrier__c == null) {
+                            // if still no carrier
+                            throw new EmailServiceException('The carrier cannot be found for Contact with Id: '+clientContactId);
+                        } else {
+                            contactNeedsUpdate = true;
+                        }
                     }
-                }
 
-                // create email
-                Messaging.SingleEmailMessage emailToSend = 
-                    createEmailForCarrier (messageToSend, clientContact.Phone, clientContact.Mobile_Phone_Carrier__c);
+                    // create email
+                    Messaging.SingleEmailMessage emailToSend = 
+                        createEmailForCarrier (messageToSend, clientContact.Phone, clientContact.Mobile_Phone_Carrier__c);
 
-                // send email
-                if (emailToSend == null) {
-                    // failed to create email
-                    throw new EmailServiceException('Failed to create outgoing email to carrier'); 
-                }
-                Boolean emailWasSent = sendEmailToCarrier(emailToSend);
-
-                // get response???
-
-                // if email bounced, call carrier lookup
-                if (!emailWasSent) {
-                    String carrier = lookupCarrierByPhone (clientContact.Phone);
-                    if (carrier == null) {
-                        throw new EmailServiceException('Unable to locate carrier for Contact with Id: '+clientContactId);
+                    // send email
+                    if (emailToSend == null) {
+                        // failed to create email
+                        throw new EmailServiceException('Failed to create outgoing email to carrier'); 
                     }
-                    if (!carrier.equals(clientContact.Mobile_Phone_Carrier__c)) {
-                        // if carrier is different, add it to contact record, resend email
-                        clientContact.Mobile_Phone_Carrier__c = carrier;
-                        contactNeedsUpdate = true;
+                    Boolean emailWasSent = sendEmailToCarrier(emailToSend);
 
-                        emailToSend = 
-                            createEmailForCarrier (messageToSend, clientContact.Phone, clientContact.Mobile_Phone_Carrier__c);
-                        if (emailToSend == null) {
-                            // failed to create email
-                            throw new EmailServiceException('Failed to create outgoing email to carrier on retry'); 
-                        }  
-                        emailWasSent = sendEmailToCarrier(emailToSend);
-                        if (!emailWasSent) {
-                            throw new EmailServiceException('Failed to successfully send outgoing email to carrier on retry');
-                        } 
+                    // get response???
+
+                    // if email bounced, call carrier lookup
+                    if (!emailWasSent) {
+                        String carrier = lookupCarrierByPhone (clientContact.Phone);
+                        if (carrier == null) {
+                            throw new EmailServiceException('Unable to locate carrier for Contact with Id: '+clientContactId);
+                        }
+                        if (!carrier.equals(clientContact.Mobile_Phone_Carrier__c)) {
+                            // if carrier is different, add it to contact record, resend email
+                            clientContact.Mobile_Phone_Carrier__c = carrier;
+                            contactNeedsUpdate = true;
+
+                            emailToSend = 
+                                createEmailForCarrier (messageToSend, clientContact.Phone, clientContact.Mobile_Phone_Carrier__c);
+                            if (emailToSend == null) {
+                                // failed to create email
+                                throw new EmailServiceException('Failed to create outgoing email to carrier on retry'); 
+                            }  
+                            emailWasSent = sendEmailToCarrier(emailToSend);
+                            if (!emailWasSent) {
+                                throw new EmailServiceException('Failed to successfully send outgoing email to carrier on retry');
+                            } 
+                        }
                     }
+
+                    // if contacts need to be updated, then add it to the list for update
+                    if (contactNeedsUpdate) {
+                            contactsToUpdate.add(clientContact);
+                    }
+
+                    // all is well
+
+                } else {
+                        // contact found but phone is missing
+                        throw new EmailServiceException('Failed to find Phone on the Contact record for Contact Id: '+clientContactId); 
                 }
-
-                // if contact needs to be updated, then update it
-                if (contactNeedsUpdate) {
-                        update clientContact;
-                }
-
-                // all is well
-
+    
             } else {
-                    // contact found but phone is missing
-                    throw new EmailServiceException('Failed to find Phone on the Contact record for Contact Id: '+clientContactId); 
-            }
- 
-        } else {
-            // contact wasn't found
-            throw new EmailServiceException('Failed to find Contact record for Contact Id: '+clientContactId);
-        }
+                // contact wasn't found
+                throw new EmailServiceException('Failed to find Contact record for Contact Id: '+clientContactId);
+            } 
 
+        }
+        // update any contacts that have been changed (eg the mobile carrier has been changed)
+        if (!contactsToUpdate.isEmpty()) {
+            update contactsToUpdate;
+        }
     }
 
     @TestVisible
@@ -148,6 +163,32 @@ public with sharing class EmailService {
     }
 
     @TestVisible
+    private static Map<Id,Contact> createClientContactMap(List<ContactMessage> contactMessages) {
+        Map<Id,Contact> clientContactMap = new Map<Id,Contact>();
+
+        // create set of contact ids
+        Set<Id> contactIds = new Set<Id>();
+        for (ContactMessage contactMsg : contactMessages) {
+            contactIds.add(contactMsg.clientContactId);
+        }
+
+        List<Contact> contactList = [
+            SELECT  
+                Id,
+                MobilePhone,
+                Mobile_Phone_Carrier__c,
+                Phone
+            FROM Contact
+            WHERE Id IN :contactIds
+        ];
+
+        for (Contact cont : contactList) {
+            clientContactMap.put(cont.Id, cont);
+        }
+        return clientContactMap;
+    }
+    
+    @TestVisible
     private static Contact getContactForId (Id clientContactId) {
         List<Contact> clientContacts = [
             SELECT  
@@ -166,5 +207,10 @@ public with sharing class EmailService {
         }
     }
 
-    public class EmailServiceException extends Exception {}
+    public without sharing class ContactMessage {
+        public Id clientContactId;
+        public String messageToSend;
+    }
+
+     public class EmailServiceException extends Exception {}
 }
