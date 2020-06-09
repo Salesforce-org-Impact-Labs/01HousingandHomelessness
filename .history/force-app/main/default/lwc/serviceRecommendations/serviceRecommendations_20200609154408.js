@@ -97,6 +97,12 @@ export default class ServiceRecommendations extends LightningElement {
 
     handleHideForThisContact(){
         window.console.log('toggle hide for contact');
+
+        //is service hidden?
+
+        //how to chain these correctly?
+
+
         hideContacts({ serviceId: this.searchKey, contactId: this.contactId })
             .this(() => {
                 window.console.log('success');
@@ -105,6 +111,13 @@ export default class ServiceRecommendations extends LightningElement {
                 window.console.log('error:' + error);
             });
 
+        // unHideContacts({ serviceId: this.searchKey, contactId: this.contactId })
+        //     .this(() => {
+        //         window.console.log('success');
+        //     })
+        //     .catch((error) => {
+        //         window.console.log('error:' + error);
+        //     });
 
     }
 
@@ -118,16 +131,17 @@ export default class ServiceRecommendations extends LightningElement {
                 window.console.log('error:' + error);
             });
 
+        // unHideContacts({ serviceId: this.searchKey, contactId: this.contactId })
+        //     .this(() => {
+        //         window.console.log('success');
+        //     })
+        //     .catch((error) => {
+        //         window.console.log('error:' + error);
+        //     });
     }
 
     handleUnhideForThisContact(){
-        unhideContacts({ serviceId: this.searchKey, contactId: this.contactId })
-            .this(() => {
-                window.console.log('success');
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
+
     }
 
     handleUnhideForAllContacts(){
