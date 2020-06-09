@@ -34,7 +34,7 @@ public class ServiceRecommendation {
     public String Website {get;set;}
 
     @AuraEnabled
-    public Decimal Rating {get;set;}
+    public Integer Rating {get;set;}
 
     @AuraEnabled
     public List<Comment> Comments {get;set;}
