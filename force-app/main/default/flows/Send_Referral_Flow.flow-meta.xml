@@ -9,6 +9,14 @@
         </value>
     </choices>
     <choices>
+        <name>SMS</name>
+        <choiceText>SMS</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>SMS</stringValue>
+        </value>
+    </choices>
+    <choices>
         <name>Text</name>
         <choiceText>Text</choiceText>
         <dataType>String</dataType>
@@ -31,6 +39,49 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Referral</name>
+        <label>Create Referral</label>
+        <locationX>752</locationX>
+        <locationY>171</locationY>
+        <connector>
+            <targetReference>Create_Task_on_Referral</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Contact__c</field>
+            <value>
+                <elementReference>contactId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Preferred_Channel__c</field>
+            <value>
+                <elementReference>Preferred_Method_of_Contact</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Service__c</field>
+            <value>
+                <elementReference>serviceId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Referral__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_on_Referral</name>
+        <label>Create Task on Referral</label>
+        <locationX>888</locationX>
+        <locationY>173</locationY>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>Create_Referral</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Get_Contact</name>
         <label>Get Contact</label>
@@ -54,11 +105,14 @@
     <screens>
         <name>Screen_1_Referral_Confirmation</name>
         <label>Screen 1 Referral Confirmation</label>
-        <locationX>256</locationX>
-        <locationY>188</locationY>
+        <locationX>538</locationX>
+        <locationY>172</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_Referral</targetReference>
+        </connector>
         <fields>
             <name>Confirm</name>
             <fieldText>&lt;p&gt;Confirm Contact Information:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
@@ -67,7 +121,7 @@
         <fields>
             <name>Preferred_Method_of_Contact</name>
             <choiceReferences>Email</choiceReferences>
-            <choiceReferences>Text</choiceReferences>
+            <choiceReferences>SMS</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Preferred Method of Contact</fieldText>
             <fieldType>MultiSelectCheckboxes</fieldType>
@@ -86,6 +140,13 @@
     <status>Active</status>
     <variables>
         <name>contactId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>serviceId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
