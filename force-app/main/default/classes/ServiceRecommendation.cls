@@ -15,6 +15,9 @@ public class ServiceRecommendation {
   public String ProgramName { get; set; }
 
   @AuraEnabled
+  public Open_Hours__c TodaysHours {get;set;}
+
+  @AuraEnabled
   public String ProgramType { get; set; }
 
   @AuraEnabled
