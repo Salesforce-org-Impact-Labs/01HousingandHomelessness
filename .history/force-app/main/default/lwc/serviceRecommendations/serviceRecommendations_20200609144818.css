@@ -1,0 +1,12 @@
+.iconNameDiv {
+    height: 40px;
+    line-height: 40px;       
+}
+
+.parentCard {
+    min-width: 300px;
+}
+
+.slds-popover__close {
+    color:black;
+}

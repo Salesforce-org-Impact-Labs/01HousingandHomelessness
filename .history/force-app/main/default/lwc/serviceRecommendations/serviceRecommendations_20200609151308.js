@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { LightningElement, track, api } from 'lwc';
 import hideContacts from '@salesforce/apex/serviceHide.hide';
-//import unhideContacts from '@salesforce/apex/serviceHide.unHide';
+import unhideContacts from '@salesforce/apex/serviceHide.unHide';
 
 export default class ServiceRecommendations extends LightningElement {
     @track returnRecommendations;
@@ -97,48 +97,9 @@ export default class ServiceRecommendations extends LightningElement {
 
     handleHideForThisContact(){
         window.console.log('toggle hide for contact');
-
-        //is service hidden?
-
-        //how to chain these correctly?
-
-
-        hideContacts({ serviceId: this.searchKey, contactId: this.contactId })
-            .this(() => {
-                window.console.log('success');
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
-
-        // unHideContacts({ serviceId: this.searchKey, contactId: this.contactId })
-        //     .this(() => {
-        //         window.console.log('success');
-        //     })
-        //     .catch((error) => {
-        //         window.console.log('error:' + error);
-        //     });
-
     }
 
     handleHideForAllContacts(){
         window.console.log('toggle hide for all contacts');
-        hideContacts({ serviceId: this.searchKey, contactId: this.contactId })
-            .this(() => {
-                window.console.log('success');
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
-
-        // unHideContacts({ serviceId: this.searchKey, contactId: this.contactId })
-        //     .this(() => {
-        //         window.console.log('success');
-        //     })
-        //     .catch((error) => {
-        //         window.console.log('error:' + error);
-        //     });
     }
-
-
 }

@@ -13,13 +13,4 @@
 
 .factorsDiv {
     overflow: auto;
-    height: 100px;
-}
-
-.factorsList ul {
-    padding: 10px;
-}
-
-.factorsList li{
-    color: grey;
 }

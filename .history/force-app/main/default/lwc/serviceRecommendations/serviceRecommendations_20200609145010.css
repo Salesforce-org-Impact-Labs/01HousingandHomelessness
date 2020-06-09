@@ -10,16 +10,3 @@
 .slds-popover__body {
     font-size:12px;
 }
-
-.factorsDiv {
-    overflow: auto;
-    height: 100px;
-}
-
-.factorsList ul {
-    padding: 10px;
-}
-
-.factorsList li{
-    color: grey;
-}
