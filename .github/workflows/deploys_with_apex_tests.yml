@@ -1,4 +1,4 @@
-name: Apex Tests
+name: Deploy, Run Apex Tests, Delete Org
 
 on: [push]
 
