@@ -41,16 +41,40 @@ public with sharing class ServiceProviderClient {
             }
 
         }
-        
         System.debug(LoggingLevel.DEBUG, '----> status :' + m.get('success'));        
+        // aunt bertha call
+        //1. Search by a program id
+
+        // method = 'GET';
+        // url = 'https://api.auntberthaqa.com/v2/programs/4715932429582336';
+        // authString = null;
+        // authHeader = token;
+        // auntBerthaResults.setServiceParams(api_key, username, pwd, url, method, authString, authHeader);
+        // string abQueryResult = auntBerthaResults.getResults('testing ab degree');        
+        // system.debug(LoggingLevel.DEBUG, '---> ab query results by program id : ' + abQueryResult);
+        //2. search by zipcode
         method = 'GET';
-        url = 'https://api.auntberthaqa.com/v2/programs/4715932429582336';
+        url = 'https://api.auntberthaqa.com/v2/zipcodes/78041/programs?serviceTag=food%20pantry&cursor=25&limit=50';
         authString = null;
         authHeader = token;
         auntBerthaResults.setServiceParams(api_key, username, pwd, url, method, authString, authHeader);
         string abQueryResult = auntBerthaResults.getResults('testing ab degree');        
-        system.debug(LoggingLevel.DEBUG, '---> query results : ' + abQueryResult);
+        system.debug(LoggingLevel.DEBUG, '---> ab query results by zipcode : ' + abQueryResult);
         
+
+
+
+
+        // One degree call
+        ServiceResults oneDegreeResults = spFactoryResults.getServiceProviderResults('OnedegreeResults');
+        method = 'GET';
+        api_key = 'be9a3c70842d0138f4d20614a1d2fcd4';
+        url = 'https://data.1degree.org/v1/opportunities?api_key=' + api_key + '&query[text]=health+clinic&query[lat]=37.7823&query[long]=-122.46';
+        authString = null;
+        authHeader = null;
+        oneDegreeResults.setServiceParams(api_key, username, pwd, url, method, authString, authHeader);        
+        string odQueryResult = oneDegreeResults.getResults('testing od degree');
+        system.debug(LoggingLevel.DEBUG, '---> od query results : ' + odQueryResult);
 
     }
 }

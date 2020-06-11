@@ -30,8 +30,12 @@ public abstract class ServiceResults {
         if (response.getStatusCode() == 200) {
             results = response.getBody();
         } else {
-            System.debug('The status code returned was not expected: ' +
-            response.getStatusCode() + ' ' + response.getStatus());
+            if(response.getBody() != null) {
+                results = response.getBody();
+            }else {
+                results = 'Status Code : ' + response.getStatusCode() + ', Status : ' + response.getStatus();
+            }
+
         }
         return results;
     }    
