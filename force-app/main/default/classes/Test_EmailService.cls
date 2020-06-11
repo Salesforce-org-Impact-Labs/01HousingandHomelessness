@@ -1,7 +1,6 @@
 @IsTest
 public with sharing class Test_EmailService {
 
-
     @TestSetup
     static void makeData(){
         Contact clientContact = new Contact (
@@ -13,12 +12,23 @@ public with sharing class Test_EmailService {
     }
 
     static testMethod void testSendMessageToContact() {
+        Contact testContact = [
+            SELECT 
+                Id,
+                Phone 
+            FROM Contact
+            WHERE LastName = 'Tester'
+            LIMIT 1
+        ];  
+        Map<Id,Contact> contactMap = new Map<Id,Contact>();
+        contactMap.put(testContact.Id,testContact);
+
         EmailService.ContactMessage contactMsg = createContactMessage();
         Boolean exceptionWasCaught = false;
 
         Test.startTest();
         try {
-            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg});
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg},contactMap);
         } catch (EmailService.EmailServiceException ese) {
             exceptionWasCaught = true;
         }
@@ -39,15 +49,16 @@ public with sharing class Test_EmailService {
         testContact.Phone = null;
         update(testContact);
 
-        EmailService.ContactMessage contactMsg = new EmailService.ContactMessage();
-        contactMsg.clientContactId = testContact.Id;
-        contactMsg.messageToSend = 'foo';
-        
+        EmailService.ContactMessage contactMsg = createContactMessage();
+
+        Map<Id,Contact> contactMap = new Map<Id,Contact>();
+        contactMap.put(testContact.Id,testContact);
+       
         Boolean exceptionWasCaught = false;
         String exceptionMsg = '';
         Test.startTest();
         try {
-            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg});
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg},contactMap);
         } catch (EmailService.EmailServiceException ese) {
             exceptionWasCaught = true;
             exceptionMsg = ese.getMessage();
@@ -59,10 +70,18 @@ public with sharing class Test_EmailService {
     }
 
      static testMethod void testCreateClientContactMap() {
-        EmailService.ContactMessage contactMsg = createContactMessage();
+        Contact clientContact = [
+            SELECT 
+                Id 
+            FROM Contact
+            WHERE LastName = 'Tester'
+            LIMIT 1
+        ];
+        Set<Id> ids = new Set<Id>();
+        ids.add(clientContact.Id);
 
         Test.startTest();
-        Map<Id,Contact> contactMap = EmailService.createClientContactMap(new List<EmailService.ContactMessage>{contactMsg});
+        Map<Id,Contact> contactMap = EmailService.createClientContactMap(ids);
         Test.stopTest();
 
         Contact testContact = contactMap.values()[0];
@@ -97,7 +116,7 @@ public with sharing class Test_EmailService {
     }
 
     static testMethod void testCreateEmailForCarrier() {
-        String messageToSend = 'test message';
+        Messaging.SingleEmailMessage messageToSend = createTestEmail();
         String phoneNumber = '(610) 555-1212';
         String carrierName = 'AT&T';
 
@@ -109,7 +128,7 @@ public with sharing class Test_EmailService {
     }
 
     static testMethod void testSendEmailToCarrier() {
-        String messageToSend = 'test message';
+        Messaging.SingleEmailMessage messageToSend = createTestEmail();
         String phoneNumber = '(610) 555-1212';
         String carrierName = 'AT&T';
         Messaging.SingleEmailMessage email = EmailService.createEmailForCarrier (messageToSend, phoneNumber, carrierName);
@@ -135,10 +154,16 @@ public with sharing class Test_EmailService {
         ];    
 
         EmailService.ContactMessage contactMsg = new EmailService.ContactMessage();
-        contactMsg.clientContactId = testContact.Id;
-        contactMsg.messageToSend = 'foo';
+        contactMsg.clientContact = testContact;
+        contactMsg.messageToSend = createTestEmail();
 
         return contactMsg;
+    }
+
+    static Messaging.SingleEmailMessage createTestEmail() {
+        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        email.setPlainTextBody('foo message');
+        return email;
     }
 
 }
