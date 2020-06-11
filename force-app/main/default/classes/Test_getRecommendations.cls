@@ -4,6 +4,8 @@ public with sharing class Test_getRecommendations {
   static final integer endHour = 17;
   static final string goodServiceName = 'The good service';
   static final string badServiceName = 'The service nobody likes';
+  static final decimal lat = 37.7897;
+  static final decimal lon = -122.397;
 
   static testMethod void GoodServiceLooksGood() {
     test.startTest();
@@ -34,6 +36,15 @@ public with sharing class Test_getRecommendations {
       'It is great',
       recs[goodServiceIndex].Comments[0].CommentText
     );
+    // check for preferred factor
+    for (
+      ServiceRecommendation.Indicator indicator : recs[goodServiceIndex]
+        .Indicators
+    ) {
+      if (indicator.IndicatorType == 'Preferred Service') {
+        system.assertEquals('TRUE', indicator.IndicatorValue);
+      }
+    }
   }
 
   static testMethod void omitsTeenService() {
@@ -43,9 +54,23 @@ public with sharing class Test_getRecommendations {
     );
     test.stopTest();
     // you are too old for the teen service
-    for (ServiceRecommendation rec : recs) {
-      system.assertNotEquals(rec.ProgramName, 'The teen service');
-    }
+    system.assertEquals(
+      -1,
+      getRecommendationIndexByServiceName(recs, 'The teen service')
+    );
+  }
+
+  static testMethod void omitsFarService() {
+    test.startTest();
+    List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
+      getTestContact().Id
+    );
+    test.stopTest();
+    // too far away!
+    system.assertEquals(
+      -1,
+      getRecommendationIndexByServiceName(recs, 'FarService')
+    );
   }
 
   static testMethod void badServiceVisibleWithoutExclusions() {
@@ -119,6 +144,8 @@ public with sharing class Test_getRecommendations {
     profile.Date_of_Birth__c = c.BirthDate;
     profile.First_Name__c = c.Firstname;
     profile.Last_Name__c = c.LastName;
+    profile.Location__Latitude__s = lat;
+    profile.Location__Longitude__s = lon;
     insert Profile;
 
     // create 2 services
@@ -127,18 +154,32 @@ public with sharing class Test_getRecommendations {
     Service__c GoodService = new Service__c();
     GoodService.Account__c = Provider.Id;
     GoodService.Name = goodServiceName;
+    GoodService.Preferred__c = true;
+    GoodService.Location__Latitude__s = lat;
+    GoodService.Location__Longitude__s = lon;
     Services.add(GoodService);
 
     Service__c TeenService = new Service__c();
     TeenService.Account__c = Provider.Id;
     TeenService.Name = 'The teen service';
     TeenService.Maximum_Age__c = 18;
+    TeenService.Location__Latitude__s = lat;
+    TeenService.Location__Longitude__s = lon;
     Services.add(TeenService);
 
     Service__c TheServiceNobodyLikes = new Service__c();
     TheServiceNobodyLikes.Account__c = Provider.Id;
     TheServiceNobodyLikes.Name = badServiceName;
+    TheServiceNobodyLikes.Location__Latitude__s = lat;
+    TheServiceNobodyLikes.Location__Longitude__s = lon;
     Services.add(TheServiceNobodyLikes);
+
+    Service__c FarService = new Service__c();
+    FarService.Account__c = Provider.Id;
+    FarService.Name = 'FarService';
+    FarService.Location__Latitude__s = 0;
+    FarService.Location__Longitude__s = 0;
+    Services.add(FarService);
 
     insert Services;
 
