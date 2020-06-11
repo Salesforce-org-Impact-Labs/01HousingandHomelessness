@@ -49,6 +49,7 @@ Insert Service__c:
     Website__c: Website__c
     Zip_Code__c: Zip_Code__c
     External_ID__c: External_ID__c
+    Preferred__c: Preferred__c
   lookups:
     Account__c:
       table: Account
