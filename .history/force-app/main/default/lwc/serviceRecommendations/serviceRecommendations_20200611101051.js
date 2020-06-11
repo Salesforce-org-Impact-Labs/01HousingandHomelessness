@@ -9,6 +9,7 @@ export default class ServiceRecommendations extends LightningElement {
     @track serviceId;
     @track showRelevancePopover = false;
     @track showDropdown = false;
+
     @track showAddComment = false;
 
     handleRequestRecommendations(){
@@ -143,8 +144,6 @@ export default class ServiceRecommendations extends LightningElement {
 
     handleAddComment(){
         window.console.log('add comment');
-
-        this.showAddComment = !this.showAddComment;
     }
 
 
