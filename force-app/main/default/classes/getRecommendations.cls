@@ -1,5 +1,4 @@
 public with sharing class getRecommendations {
-  // default version...uses the clientProfileId
   @AuraEnabled
   public static list<ServiceRecommendation> getRecommendations(id contactId) {
     Client_Profile__c CP = getProfile(contactId);
@@ -26,6 +25,11 @@ public with sharing class getRecommendations {
   // hard filters are currently Age
   public static list<Service__c> primaryQuery(Client_Profile__c client) {
     decimal age = calculateAge(client.Date_Of_Birth__c);
+    decimal defaultMaxDistance = [
+      SELECT Default_Max_Distance__c
+      FROM RefRecSettings__mdt
+    ]
+    .Default_Max_Distance__c;
     return [
       SELECT
         id,
@@ -38,13 +42,21 @@ public with sharing class getRecommendations {
         Street__c,
         Type__c,
         Website__c,
-        Zip_Code__c
+        Zip_Code__c,
+        Preferred__c
       FROM Service__c
       WHERE
         (Minimum_Age__c = null
         OR Minimum_Age__c < :age)
         AND (Maximum_Age__c = null
         OR Maximum_Age__c > :age)
+        AND DISTANCE(
+          Location__c,
+          GEOLOCATION(:client.Location__Latitude__s,
+            :client.Location__Longitude__s
+          ),
+          'mi'
+        ) < :defaultMaxDistance
     ];
   }
 
@@ -66,11 +78,21 @@ public with sharing class getRecommendations {
       SR.MailingCity = service.City__c;
       SR.Website = service.Website__c;
       SR.Hidden = false;
+      SR.Indicators = new List<ServiceRecommendation.Indicator>();
+      SR.Comments = new List<ServiceRecommendation.Comment>();
+
+      if (service.Preferred__c) {
+        ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
+        indicator.IndicatorType = 'Preferred Service';
+        indicator.IndicatorValue = 'TRUE';
+        SR.Indicators.add(indicator);
+      }
       output.add(SR);
     }
     return output;
   }
 
+  // would rather spend one more query to use aggregates than an unknown number of query rows
   public static List<ServiceRecommendation> addStars(
     List<ServiceRecommendation> recs
   ) {
@@ -102,7 +124,7 @@ public with sharing class getRecommendations {
       SELECT id, Service__c, Contact__c
       FROM Service_Exclusion__c
       WHERE
-        OwnerId = :UserInfo.getUserId()
+        CreatedById = :UserInfo.getUserId()
         AND Service__c IN :IDsFromRecommendations(recs)
         AND (Contact__c = null
         OR Contact__c = :contactId)
@@ -133,8 +155,9 @@ public with sharing class getRecommendations {
   public static list<ServiceRecommendation> finalScores(
     List<ServiceRecommendation> recs
   ) {
+    // somehow get the weighting for each category, probably cached
+    // somehow get the org's min/max distribution for each numerical category, probably cached
     for (ServiceRecommendation rec : recs) {
-      // TODO: do real scoring!
       rec.Relevance = Integer.valueof((Math.random() * 100));
     }
     return recs;
@@ -162,7 +185,6 @@ public with sharing class getRecommendations {
     for (ServiceRecommendation rec : recs) {
       list<string> comments = feedItemsByService.get(rec.ServiceId);
       if (comments != null && comments.size() > 0) {
-        rec.Comments = new List<ServiceRecommendation.Comment>();
         for (string comment : comments) {
           ServiceRecommendation.Comment commentToAdd = new ServiceRecommendation.Comment();
           commentToAdd.CommentText = comment;
@@ -186,11 +208,26 @@ public with sharing class getRecommendations {
   }
 
   public static Client_Profile__c getProfile(id contactId) {
-    return [
-      SELECT id, Date_Of_Birth__c
+    Client_Profile__c output = [
+      SELECT id, Date_Of_Birth__c, Location__Latitude__s, Location__Longitude__s
       FROM Client_Profile__c
       WHERE Contact__c = :contactId
     ];
+    if (output.Location__Latitude__s == null) {
+      output.Location__Latitude__s = [
+        SELECT Default_Latitude__c
+        FROM RefRecSettings__mdt
+      ]
+      .Default_Latitude__c;
+    }
+    if (output.Location__Longitude__s == null) {
+      output.Location__Longitude__s = [
+        SELECT Default_Longitude__c
+        FROM RefRecSettings__mdt
+      ]
+      .Default_Longitude__c;
+    }
+    return output;
   }
 
   public static decimal calculateAge(Date DOB) {
