@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <available>true</available>
+    <description>Initial message sent to client for a service referral</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Initial Client Referral</name>
+    <style>none</style>
+    <subject>Referral information to {!Referral__c.Service__c}</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
