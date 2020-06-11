@@ -10,6 +10,8 @@ public with sharing class getRecommendations {
 
     // do the hours for each service
     output = addHours(output);
+    // figure out which services to hide
+    output = addHides(output, contactId);
     // do the comments for each service
     output = getComments(output);
     // do the Star Rating for each service
@@ -90,6 +92,44 @@ public with sharing class getRecommendations {
     return recs;
   }
 
+  public static list<ServiceRecommendation> addHides(
+    List<ServiceRecommendation> recs,
+    id contactId
+  ) {
+    // build a map of exclusions for each service ID that the running user has created at the service or contact+service level
+    map<id, list<Service_Exclusion__c>> exclusionsByService = new Map<id, list<Service_Exclusion__c>>();
+    for (Service_Exclusion__c exclusion : [
+      SELECT id, Service__c, Contact__c
+      FROM Service_Exclusion__c
+      WHERE
+        OwnerId = :UserInfo.getUserId()
+        AND Service__c IN :IDsFromRecommendations(recs)
+        AND (Contact__c = null
+        OR Contact__c = :contactId)
+      ORDER BY Service__c
+    ]) {
+      list<Service_Exclusion__c> existing = exclusionsByService.get(
+        exclusion.Service__c
+      );
+      if (existing == null) {
+        existing = new List<Service_Exclusion__c>();
+      }
+      existing.add(exclusion);
+      exclusionsByService.put(exclusion.Service__c, existing);
+    }
+    // iterate the recommendations
+    for (ServiceRecommendation rec : recs) {
+      // get the exclusions for this service
+      list<Service_Exclusion__c> exclusions = exclusionsByService.get(
+        rec.ServiceId
+      );
+      if (exclusions != null && exclusions.size() > 0) {
+        rec.Hidden = true;
+      }
+    }
+    return recs;
+  }
+
   public static list<ServiceRecommendation> finalScores(
     List<ServiceRecommendation> recs
   ) {
@@ -121,7 +161,7 @@ public with sharing class getRecommendations {
 
     for (ServiceRecommendation rec : recs) {
       list<string> comments = feedItemsByService.get(rec.ServiceId);
-      if (comments.size() > 0) {
+      if (comments != null && comments.size() > 0) {
         rec.Comments = new List<ServiceRecommendation.Comment>();
         for (string comment : comments) {
           ServiceRecommendation.Comment commentToAdd = new ServiceRecommendation.Comment();

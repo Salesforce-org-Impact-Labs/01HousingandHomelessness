@@ -2,6 +2,8 @@
 public with sharing class Test_getRecommendations {
   static final integer startHour = 9;
   static final integer endHour = 17;
+  static final string goodServiceName = 'The good service';
+  static final string badServiceName = 'The service nobody likes';
 
   static testMethod void GoodServiceLooksGood() {
     test.startTest();
@@ -10,15 +12,28 @@ public with sharing class Test_getRecommendations {
     );
     test.stopTest();
 
-    system.assertEquals(5, recs[0].Rating);
-    system.assertEquals(false, recs[0].Hidden);
-    System.assertEquals(startHour, recs[0].TodaysHours.Start_Time__c.hour());
-    System.assertEquals(endHour, recs[0].TodaysHours.End_Time__c.hour());
-    System.assert(recs[0].Relevance >= 0);
-    System.assert(recs[0].Relevance <= 100);
+    integer goodServiceIndex = getRecommendationIndexByServiceName(
+      recs,
+      goodServiceName
+    );
+    system.assertEquals(5, recs[goodServiceIndex].Rating);
+    system.assertEquals(false, recs[goodServiceIndex].Hidden);
+    System.assertEquals(
+      startHour,
+      recs[goodServiceIndex].TodaysHours.Start_Time__c.hour()
+    );
+    System.assertEquals(
+      endHour,
+      recs[goodServiceIndex].TodaysHours.End_Time__c.hour()
+    );
+    System.assert(recs[goodServiceIndex].Relevance >= 0);
+    System.assert(recs[goodServiceIndex].Relevance <= 100);
 
-    System.assertEquals(1, recs[0].Comments.size());
-    System.assertEquals('It is great', recs[0].Comments[0].CommentText);
+    System.assertEquals(1, recs[goodServiceIndex].Comments.size());
+    System.assertEquals(
+      'It is great',
+      recs[goodServiceIndex].Comments[0].CommentText
+    );
   }
 
   static testMethod void omitsTeenService() {
@@ -31,6 +46,58 @@ public with sharing class Test_getRecommendations {
     for (ServiceRecommendation rec : recs) {
       system.assertNotEquals(rec.ProgramName, 'The teen service');
     }
+  }
+
+  static testMethod void badServiceVisibleWithoutExclusions() {
+    test.startTest();
+    List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
+      getTestContact().Id
+    );
+    test.stopTest();
+
+    integer badServiceIndex = getRecommendationIndexByServiceName(
+      recs,
+      badServiceName
+    );
+    System.assertEquals(false, recs[badServiceIndex].Hidden);
+  }
+
+  static testMethod void badServiceHiddenWithContactLevelExclusion() {
+    Service_Exclusion__c exclusion = new Service_Exclusion__c();
+    exclusion.Service__c = getBadServiceId();
+    exclusion.Contact__c = getTestContact().Id;
+
+    insert exclusion;
+
+    test.startTest();
+    List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
+      getTestContact().Id
+    );
+    test.stopTest();
+
+    integer badServiceIndex = getRecommendationIndexByServiceName(
+      recs,
+      badServiceName
+    );
+    System.assertEquals(true, recs[badServiceIndex].Hidden);
+  }
+
+  static testMethod void badServiceHiddenWithServiceLevelExclusion() {
+    Service_Exclusion__c exclusion = new Service_Exclusion__c();
+    exclusion.Service__c = getBadServiceId();
+    insert exclusion;
+
+    test.startTest();
+    List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
+      getTestContact().Id
+    );
+    test.stopTest();
+
+    integer badServiceIndex = getRecommendationIndexByServiceName(
+      recs,
+      badServiceName
+    );
+    System.assertEquals(true, recs[badServiceIndex].Hidden);
   }
 
   @testSetup
@@ -59,7 +126,7 @@ public with sharing class Test_getRecommendations {
 
     Service__c GoodService = new Service__c();
     GoodService.Account__c = Provider.Id;
-    GoodService.Name = 'The good service';
+    GoodService.Name = goodServiceName;
     Services.add(GoodService);
 
     Service__c TeenService = new Service__c();
@@ -67,6 +134,11 @@ public with sharing class Test_getRecommendations {
     TeenService.Name = 'The teen service';
     TeenService.Maximum_Age__c = 18;
     Services.add(TeenService);
+
+    Service__c TheServiceNobodyLikes = new Service__c();
+    TheServiceNobodyLikes.Account__c = Provider.Id;
+    TheServiceNobodyLikes.Name = badServiceName;
+    Services.add(TheServiceNobodyLikes);
 
     insert Services;
 
@@ -78,7 +150,6 @@ public with sharing class Test_getRecommendations {
     hours.Day__c = getRecommendations.whatDayIsIt();
     insert hours;
 
-    // service plus exclusions
     // service with comment
     FeedItem fi = new FeedItem();
     fi.Body = 'It is great';
@@ -97,5 +168,23 @@ public with sharing class Test_getRecommendations {
 
   private static contact getTestContact() {
     return [SELECT id FROM contact WHERE FirstName = 'testContact'];
+  }
+
+  private static integer getRecommendationIndexByServiceName(
+    list<ServiceRecommendation> recs,
+    string servicename
+  ) {
+    integer counter = -1;
+    for (ServiceRecommendation rec : recs) {
+      counter++;
+      if (rec.ProgramName == servicename) {
+        return counter;
+      }
+    }
+    return -1; // never found a match
+  }
+
+  private static id getBadServiceId() {
+    return [SELECT id FROM Service__c WHERE Name = :badServiceName].Id;
   }
 }
