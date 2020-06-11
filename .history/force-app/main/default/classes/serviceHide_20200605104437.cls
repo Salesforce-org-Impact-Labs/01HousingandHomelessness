@@ -3,7 +3,7 @@ public with sharing class serviceHide {
   public static void hide(id serviceId, Id contactId) {
     Service_Exclusion__c SE = new Service_Exclusion__c();
     SE.Service__c = serviceId;
-    if (serviceId != null && contactId != null) {
+    if (serviceId != null) {
       SE.Contact__c = contactId;
     }
     insert SE;
