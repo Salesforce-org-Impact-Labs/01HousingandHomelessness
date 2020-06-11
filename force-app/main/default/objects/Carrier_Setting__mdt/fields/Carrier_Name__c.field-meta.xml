@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Carrier_Name__c</fullName>
+    <description>The name of the carrier. This should match one of the values in the Contact&apos;s picklist.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>The name of the carrier. This should match one of the values in the Contact&apos;s picklist.</inlineHelpText>
+    <label>Carrier Name</label>
+    <length>50</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

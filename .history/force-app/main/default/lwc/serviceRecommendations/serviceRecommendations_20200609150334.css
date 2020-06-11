@@ -1,0 +1,25 @@
+.iconNameDiv {
+    height: 40px;
+    line-height: 40px;       
+}
+
+.parentCard {
+    min-width: 300px;
+}
+
+.slds-popover__body {
+    font-size:12px;
+}
+
+.factorsDiv {
+    overflow: auto;
+    height: 100px;
+}
+
+.factorsList ul {
+    padding: 10px;
+}
+
+.factorsList li{
+    color: grey;
+}

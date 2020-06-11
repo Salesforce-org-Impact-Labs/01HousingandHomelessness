@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField>
+    <label>Day</label>
+    <type>Picklist</type>
+    <fullName>Day__c</fullName>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Sunday</fullName>
+                <label>Sunday</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Monday</fullName>
+                <label>Monday</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Tuesday</fullName>
+                <label>Tuesday</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Wednesday</fullName>
+                <label>Wednesday</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Thursday</fullName>
+                <label>Thursday</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Friday</fullName>
+                <label>Friday</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Saturday</fullName>
+                <label>Saturday</label>
+                <default>false</default>
+            </value>
+            <sorted>false</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
