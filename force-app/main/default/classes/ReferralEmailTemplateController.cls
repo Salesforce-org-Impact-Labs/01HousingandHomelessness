@@ -8,6 +8,8 @@ global class ReferralEmailTemplateController {
                     SELECT  
                         Id,
                         Contact__c,
+                        Contact__r.LastName,
+                        Preferred_Channel__c,
                         Service__c,
                         Service__r.Type__c
                     FROM Referral__c
