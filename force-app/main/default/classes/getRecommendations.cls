@@ -78,6 +78,7 @@ public with sharing class getRecommendations {
       SR.MailingCity = service.City__c;
       SR.Website = service.Website__c;
       SR.Hidden = false;
+      SR.totalRatings = 0;
       SR.Indicators = new List<ServiceRecommendation.Indicator>();
       SR.Comments = new List<ServiceRecommendation.Comment>();
 
@@ -96,20 +97,26 @@ public with sharing class getRecommendations {
   public static List<ServiceRecommendation> addStars(
     List<ServiceRecommendation> recs
   ) {
-    map<id, decimal> ratingsByService = new Map<id, decimal>();
+    map<id, decimal> ratingsAverageByService = new Map<id, decimal>();
+    map<id, integer> ratingsCountByService = new Map<id, integer>();
     for (AggregateResult result : [
-      SELECT Service__c, AVG(Score__c) averageScore
+      SELECT Service__c, AVG(Score__c) averageScore, Count(Id) ratingsCount
       FROM Referral__c
       WHERE Service__c IN :IDsFromRecommendations(recs) AND Score__c != null
       GROUP BY Service__c
     ]) {
-      ratingsByService.put(
+      ratingsAverageByService.put(
         (id) result.get('Service__c'),
         (decimal) result.get('averageScore')
       );
+      ratingsCountByService.put(
+        (id) result.get('Service__c'),
+        (integer) result.get('ratingsCount')
+      );
     }
     for (ServiceRecommendation rec : recs) {
-      rec.Rating = ratingsByService.get(rec.ServiceId);
+      rec.Rating = ratingsAverageByService.get(rec.ServiceId);
+      rec.totalRatings = ratingsCountByService.get(rec.ServiceId);
     }
     return recs;
   }
