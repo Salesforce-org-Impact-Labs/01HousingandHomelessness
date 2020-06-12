@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Preferred</label>
+    <type>Checkbox</type>
+    <fullName>Preferred__c</fullName>
+    <defaultValue>false</defaultValue>
+</CustomField>

@@ -152,6 +152,21 @@
         <editable>true</editable>
         <field>Client_Profile__c.Contact__c</field>
     </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Preferred__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Location__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Client_Profile__c.Location__c</field>
+    </fieldPermissions>
     <tabSettings>
         <tab>Service__c</tab>
         <visibility>Visible</visibility>
