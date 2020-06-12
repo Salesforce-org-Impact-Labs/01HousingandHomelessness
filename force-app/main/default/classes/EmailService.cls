@@ -5,6 +5,20 @@ public with sharing class EmailService {
         Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
         // create the emails
         List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails);
+    }
+
+    public static void sendReferralFollowupMessages(List<Id> referralIds) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails);
+    }
+
+    public static void prepareAndSendEmails(List<Messaging.SingleEmailMessage> emails) {
         Map<Id,Messaging.SingleEmailMessage> contactIdEmailMap = ClientMessageHelper.getContactEmailMap(emails);
         
         Map<Id,Contact> clientContactMap = createClientContactMap(contactIdEmailMap.keySet());
