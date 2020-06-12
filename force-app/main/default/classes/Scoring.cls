@@ -38,5 +38,51 @@ public with sharing class Scoring {
 
   // calculate metrics class
   // iterate the metrics
-  // if
+
+  // calcualte all the scoring
+  public static void scoreAllServices() {
+    // container for the updates
+    Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
+
+    // iterate all metrics
+    for (Scoring_Metric__mdt metricIterator : [
+      SELECT
+        Org_Minimum__c,
+        Org_Maximum__c,
+        Org_SOQL_Query__c,
+        QualifiedApiName,
+        NamespacePrefix,
+        DeveloperName
+      FROM Scoring_Metric__mdt
+    ]) {
+      list<AggregateResult> results = database.query(
+        metricIterator.Org_SOQL_Query__c
+      );
+      // default order is ASC, so [0] is min and last is max
+      if (!results.isEmpty()) {
+        Metadata.CustomMetadata recordToUpdate = new Metadata.CustomMetadata();
+        recordToUpdate.fullName =
+          'Scoring_Metric.' + metricIterator.DeveloperName;
+        recordToUpdate.label = metricIterator.DeveloperName;
+
+        Metadata.CustomMetadataValue orgMin = new Metadata.CustomMetadataValue();
+        orgMin.field = 'Org_Minimum__c';
+        orgMin.value = (decimal) results[0].get('metric');
+        recordToUpdate.values.add(orgMin);
+
+        Metadata.CustomMetadataValue orgMax = new Metadata.CustomMetadataValue();
+        orgMax.field = 'Org_Maximum__c';
+        orgMax.value = (decimal) results[results.size() - 1].get('metric');
+        recordToUpdate.values.add(orgMax);
+
+        mdContainer.addMetadata(recordToUpdate);
+      }
+    }
+    // apply the update
+    CustomMetadataCallback callback = new customMetadataCallback();
+    Metadata.Operations.enqueueDeployment(mdContainer, callback);
+  }
 }
+
+// Scoring.scoreAllServices();
+
