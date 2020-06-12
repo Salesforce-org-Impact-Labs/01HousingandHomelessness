@@ -28,11 +28,11 @@
     </values>
     <values>
         <field>Org_SOQL_Query__c</field>
-        <value xsi:type="xsd:string">SELECT Service__c, COUNT(id) metric FROM Referral__c GROUP BY Service__c Order BY COUNT(id)</value>
+        <value xsi:type="xsd:string">SELECT Service__c Id, COUNT(id) metric FROM Referral__c GROUP BY Service__c Order BY COUNT(id)</value>
     </values>
     <values>
         <field>Service_Level_SOQL_Query__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:string">SELECT Service__c Id, COUNT(id) metric FROM Referral__c Where service__c in: ServiceIds GROUP BY Service__c </value>
     </values>
     <values>
         <field>User_ID__c</field>
