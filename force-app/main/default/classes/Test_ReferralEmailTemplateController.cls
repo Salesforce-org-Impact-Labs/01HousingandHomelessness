@@ -59,6 +59,7 @@ public  class Test_ReferralEmailTemplateController {
 
         Referral__c referral = controller.referral;
         System.assertEquals('Care',referral.Service__r.Type__c);
+        System.assertEquals('Test Service',referral.Service__r.Name);
         System.assertEquals('Tester',referral.Contact__r.LastName);
     }
 
