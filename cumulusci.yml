@@ -38,6 +38,10 @@ flows:
       4:
         task: load_dataset
       5:
+        task: execute_anon
+        options:
+          apex: "Scoring.scoreAllServices();"
+      6:
         task: command
         options:
           command: cci org default dev

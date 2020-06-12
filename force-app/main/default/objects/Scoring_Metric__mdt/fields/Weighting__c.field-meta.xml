@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Weightning</label>
+    <type>Number</type>
+    <fullName>Weighting__c</fullName>
+    <scale>0</scale>
+    <precision>18</precision>
+    <defaultValue>5</defaultValue>
+
+</CustomField>

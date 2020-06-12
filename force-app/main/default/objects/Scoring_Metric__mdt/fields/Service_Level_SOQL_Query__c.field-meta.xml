@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Service-Level SOQL Query</label>
+    <type>LongTextArea</type>
+    <fullName>Service_Level_SOQL_Query__c</fullName>
+    <length>131072</length>
+    <visibleLines>3</visibleLines>
+</CustomField>
