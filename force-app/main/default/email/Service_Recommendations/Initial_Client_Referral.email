@@ -1,4 +1,4 @@
-<messaging:emailTemplate subject="Referral information to {!relatedTo.Service__c}" recipientType="Contact" relatedToType="Referral__c">
+<messaging:emailTemplate subject="Referral information to {!relatedTo.Service__r.Name}" recipientType="Contact" relatedToType="Referral__c">
 <messaging:htmlEmailBody >
     <c:Initial_Client_Referral_Email refId="{!relatedTo.Id}"/>
 </messaging:htmlEmailBody>
