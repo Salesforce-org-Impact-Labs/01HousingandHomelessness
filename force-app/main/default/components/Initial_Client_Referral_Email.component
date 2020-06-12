@@ -16,7 +16,7 @@
           Your case manager, [Case Manager Name], has also included a personal message “[insert message]”
         </p>
         <p>
-          Location: [Insert Street, City, State, Zip]<br/>
+          Location: {!referral.Service__r.Street__c} {!referral.Service__r.City__c}, {!referral.Service__r.Zip_Code__c}<br/>
           Hours: [Insert Hours and Days]<br/>
           Phone: [Insert Phone Number]<br/>
           Website: [Insert Organization’s Website]<br/>

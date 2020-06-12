@@ -13,7 +13,10 @@ global class ReferralEmailTemplateController {
                         Preferred_Channel__c,
                         Service__c,
                         Service__r.Name,
-                        Service__r.Type__c
+                        Service__r.Type__c,
+                        Service__r.Street__c,
+                        Service__r.City__c,
+                        Service__r.Zip_Code__c
                     FROM Referral__c
                     WHERE Id = :referralId
                 ]
