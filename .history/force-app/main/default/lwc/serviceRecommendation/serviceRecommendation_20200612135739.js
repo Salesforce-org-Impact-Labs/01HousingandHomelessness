@@ -136,7 +136,6 @@ export default class ServiceRecommendation extends LightningElement {
     }
 
     handleAddComment(){
-        window.console.log(this.servicerecommendation.ServiceId);
         addComment({serviceId : this.servicerecommendation.ServiceId, newComment : this.newComment})
             .then(() => {
                 window.console.log('success');

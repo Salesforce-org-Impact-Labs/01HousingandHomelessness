@@ -74,7 +74,7 @@
                     <ul>
                         <li><p>Provided by: <a href="#">Org Name</a></p></li>
                         <li><p>{servicerecommendation.ProgramDescription}</p></li>
-                        <li><span>Open until XX:XX PM</span>&nbsp;&nbsp;&nbsp;<span>{servicerecommendation.MailingStreet}, {servicerecommendation.MailingCity}</span></li>
+                        <li><span>Open until XX:XX PM</span>&nbsp;<span>{servicerecommendation.MailingStreet}, {servicerecommendation.MailingCity}</span></li>
                         <li><span><a href="#">(222)222-2222</a> * <a href={servicerecommendation.Website}>Website</a></span></li>
                     </ul>
                 </div>
@@ -92,7 +92,7 @@
                     <div if:true={showAddComment}>
                         <div class="slds-clearfix">
                             
-                            <lightning-textarea class="commentInput" label='Add Comment' value={newComment} onblur={handleCommentChange}></lightning-textarea>
+                            <lightning-textarea class="commentInput" label='Add Comment' value={newComment}></lightning-textarea>
                             <div class="slds-float_right slds-p-top_small slds-p-bottom_small">
                                 <lightning-button title="Comments" label="Add Comment" onclick={handleAddComment}></lightning-button>
                             </div>

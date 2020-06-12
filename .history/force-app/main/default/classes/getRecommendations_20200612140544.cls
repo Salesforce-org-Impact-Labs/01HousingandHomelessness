@@ -196,14 +196,14 @@ public with sharing class getRecommendations {
   }
 
   @AuraEnabled
-  public static String addNewComment(id serviceId, String newComment){
-   
+  public static List<ServiceRecommendation> addNewComment(id serviceId, String newComment){
     FeedItem newFeedItem = new  FeedItem();
     newFeedItem.ParentId = serviceId;
     newFeedItem.Body = newComment;
     newFeedItem.Type = 'TextPost';
     insert newFeedItem;
-    return newFeedItem.Id;
+
+    List<ServiceRecommendation> updatedServiceRecs = new List<ServiceRecommendation>();
   }
 
   public static List<ServiceRecommendation> addHours(

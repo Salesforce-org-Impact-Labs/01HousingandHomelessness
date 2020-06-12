@@ -197,7 +197,6 @@ public with sharing class getRecommendations {
 
   @AuraEnabled
   public static String addNewComment(id serviceId, String newComment){
-   
     FeedItem newFeedItem = new  FeedItem();
     newFeedItem.ParentId = serviceId;
     newFeedItem.Body = newComment;

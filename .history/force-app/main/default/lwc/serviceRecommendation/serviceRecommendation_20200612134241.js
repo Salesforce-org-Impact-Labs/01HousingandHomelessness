@@ -2,7 +2,6 @@
 import { LightningElement, api, track } from 'lwc';
 import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
-import addComment from '@salesforce/apex/getRecommendations.addNewComment';
 
 export default class ServiceRecommendation extends LightningElement {
     @api servicerecommendation;
@@ -131,19 +130,10 @@ export default class ServiceRecommendation extends LightningElement {
         this.showAddComment = !this.showAddComment;
     }
 
-    handleCommentChange(evt){
-        this.newComment = evt.target.value;
-    }
-
-    handleAddComment(){
-        window.console.log(this.servicerecommendation.ServiceId);
-        addComment({serviceId : this.servicerecommendation.ServiceId, newComment : this.newComment})
-            .then(() => {
-                window.console.log('success');
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
+    handleAddComment(event){
+        let rec = this.servicerecommendation;
+        window.console.log(rec.Comments);
+        let comments = rec.Comments;
 
     }
 }
