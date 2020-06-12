@@ -93,6 +93,12 @@ public with sharing class Scoring {
         }
       }
     }
+
+    // round all the relevance scores now
+    for (ServiceRecommendation rec : recs) {
+      rec.Relevance = Math.round(rec.Relevance);
+      rec.Rating = Math.round(rec.Rating * 10) / 10;
+    }
     return recs;
   }
 
