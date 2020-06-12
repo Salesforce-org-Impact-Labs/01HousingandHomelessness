@@ -117,6 +117,9 @@ public with sharing class getRecommendations {
     for (ServiceRecommendation rec : recs) {
       rec.Rating = ratingsAverageByService.get(rec.ServiceId);
       rec.totalRatings = ratingsCountByService.get(rec.ServiceId);
+      if (rec.totalRatings == null) {
+        rec.totalRatings = 0;
+      }
     }
     return recs;
   }
