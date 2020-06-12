@@ -1,4 +1,3 @@
-/* eslint-disable no-empty */
 import { LightningElement, api, track } from 'lwc';
 import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
@@ -8,44 +7,16 @@ export default class ServiceRecommendation extends LightningElement {
 
     @track programTypeFood = false;
     @track programTypeEducation =  false;
-    @track programTypeHousing = false;
-    @track programTypeGoods = false;
-    @track prgoramTypeTransit = false;
-    @track programTypeHealth = false;
-    @track programTypeMoney = false;
-    @track programTypeCare = false;
-    @track programTypeWork = false;
-    @track programTypeLegal = false;
 
     @track showRelevancePopover = false;
     @track showDropdown = false;
     @track showAddComment = false;
 
     connectedCallback(rec = this.servicerecommendation){
-        if(rec.ProgramType === 'Food'){
+        if(rec.ProgramType == 'Food'){
             this.programTypeFood = true
-        } else if(rec.ProgramType === 'Education'){
+        } else if(rec.ProgramType == 'Education'){
             this.programTypeEducation = true;
-        }else if(rec.ProgramType === 'Housing'){
-            this.programTypeHousing = true;
-        }else if(rec.ProgramType === 'Goods'){
-            this.programTypeGoods = true;
-        }else if(rec.ProgramType === 'Transit'){
-            this.programTypeTransit = true;
-        }else if(rec.ProgramType === 'Health'){
-            this.programTypeHealth = true;
-        }else if(rec.ProgramType === 'Money'){
-            this.programTypeMoney = true;
-        }else if(rec.ProgramType === 'Care'){
-            this.programTypeCare = true;
-        }else if(rec.ProgramType === 'Work'){
-            this.programTypeWork = true;
-        }else if(rec.ProgramType === 'Legal'){
-            this.programTypeLegal = true;
-        }
-        
-        else{
-            
         }
     }
 
