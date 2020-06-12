@@ -57,7 +57,11 @@ public with sharing class Scoring {
         DeveloperName,
         Weightning__c
       FROM Scoring_Metric__mdt
-      WHERE Weightning__c > 0 AND Org_Level__c = true
+      WHERE
+        Weightning__c > 0
+        AND Org_Level__c = true
+        AND Org_Minimum__c != null
+        AND Org_Maximum__c != null
     ];
 
     for (Scoring_Metric__mdt metricIterator : metrics) {
@@ -126,11 +130,17 @@ public with sharing class Scoring {
         Metadata.CustomMetadataValue orgMin = new Metadata.CustomMetadataValue();
         orgMin.field = 'Org_Minimum__c';
         orgMin.value = (decimal) results[0].get('metric');
+        if (orgMin.value == null) {
+          orgMin.value = 0;
+        }
         recordToUpdate.values.add(orgMin);
 
         Metadata.CustomMetadataValue orgMax = new Metadata.CustomMetadataValue();
         orgMax.field = 'Org_Maximum__c';
         orgMax.value = (decimal) results[results.size() - 1].get('metric');
+        if (orgMax.value == null) {
+          orgMax.value = 0;
+        }
         recordToUpdate.values.add(orgMax);
 
         mdContainer.addMetadata(recordToUpdate);

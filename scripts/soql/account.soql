@@ -3,4 +3,4 @@
 //     query text and running the command:
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
-SELECT Id, Name FROM Account;
+SELECT Service__c Id, AVG(Score__c) metric FROM Referral__c GROUP BY Service__c Order BY AVG(Score__c)

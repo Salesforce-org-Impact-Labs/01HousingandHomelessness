@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Org_Maximum__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:double">0.0</value>
     </values>
     <values>
         <field>Org_Minimum__c</field>
@@ -32,11 +32,11 @@
     </values>
     <values>
         <field>Service_Level_SOQL_Query__c</field>
-        <value xsi:type="xsd:string">SELECT Service__c Id, AVG(Score__c) metric FROM Referral__c Where service__c in: ServiceIds GROUP BY Service__c</value>
+        <value xsi:type="xsd:string">SELECT Service__c Id, AVG(Score__c) metric FROM Referral__c Where Service__c in: ServiceIds GROUP BY Service__c</value>
     </values>
     <values>
         <field>User_ID__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:nil="true" />
     </values>
     <values>
         <field>Weightning__c</field>
