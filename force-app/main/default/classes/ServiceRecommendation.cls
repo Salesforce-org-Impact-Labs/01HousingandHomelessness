@@ -53,6 +53,9 @@ public class ServiceRecommendation {
 
     @AuraEnabled
     public String IndicatorValue { get; set; }
+
+    @AuraEnabled
+    public Decimal IndicatorPercentile { get; set; }
   }
 
   public class Comment {
