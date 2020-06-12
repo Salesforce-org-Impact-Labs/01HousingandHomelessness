@@ -17,6 +17,7 @@ public with sharing class getRecommendations {
     output = addStars(output);
     // final Relevancy score + factors
     output = finalScores(output);
+    output = Scoring.scoreRecommendations(output);
 
     return output;
   }

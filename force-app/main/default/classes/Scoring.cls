@@ -42,9 +42,10 @@ public with sharing class Scoring {
   ) {
     // get the serviceIDs
     list<id> serviceIds = getRecommendations.IDsFromRecommendations(recs);
-    // query CMDT for the metrics
+    // gets the total of all the weights so we only have to make one pass on the recs list
+    decimal weightTotal = 0;
 
-    for (Scoring_Metric__mdt metricIterator : [
+    list<Scoring_Metric__mdt> metrics = [
       SELECT
         Label,
         Org_Minimum__c,
@@ -53,10 +54,18 @@ public with sharing class Scoring {
         Service_Level_SOQL_Query__c,
         QualifiedApiName,
         NamespacePrefix,
-        DeveloperName
+        DeveloperName,
+        Weightning__c
       FROM Scoring_Metric__mdt
       WHERE Weightning__c > 0 AND Org_Level__c = true
-    ]) {
+    ];
+
+    for (Scoring_Metric__mdt metricIterator : metrics) {
+      weightTotal = weightTotal + metricIterator.Weightning__c;
+    }
+    // query CMDT for the metrics
+
+    for (Scoring_Metric__mdt metricIterator : metrics) {
       //for each metric, get the stat for relevant services
       map<id, AggregateResult> results = new Map<id, AggregateResult>(
         (list<AggregateResult>) database.query(
@@ -69,14 +78,18 @@ public with sharing class Scoring {
       if (spread != 0) {
         // do a percentile-based conversion for each metric
         for (ServiceRecommendation rec : recs) {
-          decimal serviceValue = (decimal) results.get(rec.ServiceId)
-            .get('metric');
-          // create and calculate the new indicator
-          ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
-          indicator.IndicatorType = metricIterator.Label;
-          indicator.IndicatorPercentile =
-            (serviceValue - metricIterator.Org_Minimum__c) / spread;
-          Rec.Indicators.add(indicator);
+          AggregateResult result = results.get(rec.ServiceId);
+          if (result != null) {
+            decimal serviceValue = (decimal) result.get('metric');
+            // create and calculate the new indicator
+            ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
+            indicator.IndicatorType = metricIterator.Label;
+            // base percentile * this metric's share of the total weight
+            indicator.IndicatorPercentile =
+              ((serviceValue - metricIterator.Org_Minimum__c) / spread) *
+              (metricIterator.Weightning__c / weightTotal);
+            Rec.Indicators.add(indicator);
+          }
         }
       }
     }

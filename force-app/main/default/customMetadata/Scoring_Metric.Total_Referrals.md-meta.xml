@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Total_Referrals</label>
+    <label>Total Referrals</label>
     <protected>false</protected>
     <values>
         <field>Based_on_Service_Field__c</field>
@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Description__c</field>
-        <value xsi:nil="true" />
+        <value xsi:type="xsd:string">A service is prioritized based on the total number of referrals it has relative to all the other services in the org.</value>
     </values>
     <values>
         <field>Org_Level__c</field>
