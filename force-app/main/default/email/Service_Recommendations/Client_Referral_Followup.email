@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Referral Follow Up" recipientType="Contact" relatedToType="Referral__c">
+<messaging:htmlEmailBody >
+    <c:Client_Referral_Followup_Email refId="{!relatedTo.Id}"/>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>
