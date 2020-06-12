@@ -16,7 +16,6 @@ public with sharing class getRecommendations {
     // do the Star Rating for each service
     output = addStars(output);
     // final Relevancy score + factors
-    output = finalScores(output);
     output = Scoring.scoreRecommendations(output);
 
     return output;
@@ -159,17 +158,6 @@ public with sharing class getRecommendations {
       if (exclusions != null && exclusions.size() > 0) {
         rec.Hidden = true;
       }
-    }
-    return recs;
-  }
-
-  public static list<ServiceRecommendation> finalScores(
-    List<ServiceRecommendation> recs
-  ) {
-    // somehow get the weighting for each category, probably cached
-    // somehow get the org's min/max distribution for each numerical category, probably cached
-    for (ServiceRecommendation rec : recs) {
-      rec.Relevance = Integer.valueof((Math.random() * 100));
     }
     return recs;
   }

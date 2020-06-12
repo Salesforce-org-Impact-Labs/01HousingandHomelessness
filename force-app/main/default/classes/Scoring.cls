@@ -1,12 +1,6 @@
 public with sharing class Scoring {
   // Positive Weights
 
-  // example metric: ratings
-  // ratingPercentile = service rating / (orgMax - orgMin)
-
-  // example metric: total referrals
-  // orgReferralsPercentile: service referrals / (orgMax - orgMin)
-
   // example metric: my referrals
   // myReferralsPercentile: service referrals / (orgMax - orgMin)
 
@@ -94,6 +88,7 @@ public with sharing class Scoring {
               ((serviceValue - metricIterator.Org_Minimum__c) / spread) *
               (metricIterator.Weighting__c / weightTotal);
             Rec.Indicators.add(indicator);
+            Rec.Relevance = Rec.Relevance + indicator.IndicatorPercentile;
           }
         }
       }

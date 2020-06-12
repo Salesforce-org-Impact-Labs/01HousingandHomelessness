@@ -1,6 +1,6 @@
 public class ServiceRecommendation {
   @AuraEnabled
-  public Integer Relevance { get; set; }
+  public Decimal Relevance { get; set; }
 
   @AuraEnabled
   public String ServiceId { get; set; }
