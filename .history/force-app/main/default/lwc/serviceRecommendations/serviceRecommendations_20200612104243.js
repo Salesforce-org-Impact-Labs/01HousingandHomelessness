@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { LightningElement, track, api } from 'lwc';
-
+import hideContacts from '@salesforce/apex/serviceHide.hide';
+import unhideContacts from '@salesforce/apex/serviceHide.unHide';
 import getRecs from '@salesforce/apex/getRecommendations.getRecommendations'
 
 export default class ServiceRecommendations extends LightningElement {

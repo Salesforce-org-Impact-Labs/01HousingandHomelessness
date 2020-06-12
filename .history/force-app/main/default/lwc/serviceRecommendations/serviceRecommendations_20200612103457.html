@@ -28,7 +28,7 @@
     
         <div if:true={returnRecommendations} class="innerRecDiv">
             <template for:each={returnRecommendations} for:item='recommendation'>
-                <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation}></c-service-recommendation>
+                <c-service-recommendation key={recommendation.ServiceId}></c-service-recommendation>
                 
             </template>
         </div>
