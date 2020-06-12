@@ -17,6 +17,66 @@
                 <default>false</default>
                 <label>AT&amp;T</label>
             </value>
+            <value>
+                <fullName>Boost Mobile</fullName>
+                <default>false</default>
+                <label>Boost Mobile</label>
+            </value>
+            <value>
+                <fullName>Cricket Wireless</fullName>
+                <default>false</default>
+                <label>Cricket Wireless</label>
+            </value>
+            <value>
+                <fullName>Google Project Fi</fullName>
+                <default>false</default>
+                <label>Google Project Fi</label>
+            </value>
+            <value>
+                <fullName>Republic Wireless</fullName>
+                <default>false</default>
+                <label>Republic Wireless</label>
+            </value>
+            <value>
+                <fullName>Sprint</fullName>
+                <default>false</default>
+                <label>Sprint</label>
+            </value>
+            <value>
+                <fullName>Straight Talk</fullName>
+                <default>false</default>
+                <label>Straight Talk</label>
+            </value>
+            <value>
+                <fullName>T-Mobile</fullName>
+                <default>false</default>
+                <label>T-Mobile</label>
+            </value>
+            <value>
+                <fullName>Ting</fullName>
+                <default>false</default>
+                <label>Ting</label>
+            </value>
+            <value>
+                <fullName>Tracfone</fullName>
+                <default>false</default>
+                <label>Tracfone</label>
+            </value>
+            <value>
+                <fullName>U.S. Cellular</fullName>
+                <default>false</default>
+                <label>U.S. Cellular</label>
+            </value>
+            <value>
+                <fullName>Verizon</fullName>
+                <default>false</default>
+                <label>Verizon</label>
+            </value>
+            <value>
+                <fullName>Virgin Mobile</fullName>
+                <default>false</default>
+                <label>Virgin Mobile</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
