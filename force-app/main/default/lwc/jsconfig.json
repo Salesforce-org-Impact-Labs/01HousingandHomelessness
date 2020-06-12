@@ -3,6 +3,12 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
+            "c/adminPanel": [
+                "adminPanel/adminPanel.js"
+            ],
+            "c/serviceRecommendation": [
+                "serviceRecommendation/serviceRecommendation.js"
+            ],
             "c/serviceRecommendations": [
                 "serviceRecommendations/serviceRecommendations.js"
             ]

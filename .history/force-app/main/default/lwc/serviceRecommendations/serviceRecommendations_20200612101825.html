@@ -1,0 +1,126 @@
+<template>
+    <div class="outerDiv">
+
+    
+        <div >
+            <ul class="slds-list_horizontal iconNameDiv slds-p-left_x-small">
+                <li>
+                    <lightning-icon icon-name="custom:custom1" size="medium" alternative-text="Services" ></lightning-icon>
+                </li>
+                <li>
+                    <p class="slds-p-left_xx-small">Recommended Services</p>
+                </li>
+                <li>
+                    <lightning-button-icon class="slds-p-left_large" variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
+                </li>
+            </ul>
+            <div if:false={showRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
+                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                    <h3>No Recommendations Yet</h3>
+                </div>
+                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                    <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
+                </div>
+            </div>
+        </div>
+
+        
+    
+        <div if:true={returnRecommendations} class="innerRecDiv">
+            <template for:each={returnRecommendations} for:item='recommendation'>
+                <lightning-card key={recommendation.ServiceId} class="parentCard" >
+                    <div slot="title">
+                        <p><a href="#" class="relevanceHeader" onclick={handleRelevancePopover}>Relevance {recommendation.Relevance} %</a></p>
+                        <template if:true={showRelevancePopover}>
+                            <!-- <section aria-describedby="dialog-body-id-99" aria-labelledby="dialog-heading-id-104" class="slds-popover">
+                                <header class="slds-popover__header">
+                                    <h2 class="slds-text-heading_x-small" id="dialog-heading-id-104">Matched based on 10 factors:</h2>
+                                </header>
+                                <div class="slds-popover__body" id="dialog-body-id-99">
+                                    <div class="slds-size_1-of-1 slds-wrap slds-text-body_regular factorsDiv">
+                                        <div class="slds-col factorsList">
+                                            <ul>
+                                                <li>Age</li>
+                                                <li>55</li>
+                                            </ul>
+                                            <ul>
+                                                <li>Age</li>
+                                                <li>55</li>
+                                            </ul>
+                                            <ul>
+                                                <li>Age</li>
+                                                <li>55</li>
+                                            </ul>
+                                            <ul>
+                                                <li>Age</li>
+                                                <li>55</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </section> -->
+                        </template>
+                        <ul class="slds-list_horizontal iconNameDiv">
+                            <!-- types of icons based on program type? -->
+                            <li>
+                                <lightning-icon icon-name="custom:custom51" size="medium" alternative-text="Food" ></lightning-icon>
+                            </li>
+                            <li>
+                                <p class="slds-p-left_xx-small">{recommendation.ProgramName}</p>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                    <div slot="actions">
+                        <lightning-button-group>
+                            <lightning-button label="Send" onclick={handleSendReferral}></lightning-button>
+                            <lightning-button-icon  icon-name="utility:print" variant="border-filled" alternative-text="Print" ></lightning-button-icon>
+                            <lightning-button-menu alternative-text="Show More">
+                                <lightning-menu-item value="Hide for this Contact" label="Hide for this Contact" onclick={handleHideForThisContact}></lightning-menu-item>
+                                <lightning-menu-item value="Hide for all Contacts" label="Hide for all Contacts" onclick={handleHideForAllContacts}></lightning-menu-item>
+    
+                            </lightning-button-menu>
+                            <!-- when to show hide/unhide? -->
+                            <!-- <lightning-button-menu alternative-text="Show More">
+                                <lightning-menu-item value="unhide for this Contact" label="Unhide for this Contact" onclick={handleUnhideForThisContact}></lightning-menu-item>
+                                <lightning-menu-item value="unhide for all Contacts" label="Unhide for all Contacts" onclick={handleUnhideForAllContacts}></lightning-menu-item>
+    
+                            </lightning-button-menu> -->
+                        </lightning-button-group>
+                        
+                    </div>
+                    <div class="slds-m-around_small">
+                        <ul>
+                            <li><p>Provided by: <a href="#">Org Name</a></p></li>
+                            <li><p>{recommendation.ProgramDescription}</p></li>
+                            <li><span>Open until XX:XX PM</span>&nbsp;<span>{recommendation.MailingStreet}, {recommendation.MailingCity}</span></li>
+                            <li><span><a href="#">(222)222-2222</a> * <a href={recommendation.Website}>Website</a></span></li>
+                        </ul>
+                    </div>
+                    <div slot="footer">
+                        <!-- likes and comments -->
+                        <div class="slds-clearfix">
+                            <div class="slds-float_left">
+                                <span>Rating: 4 Stars</span>
+                            </div>
+                            <div class="slds-float_right">
+                                <a>X Comments</a> | <a href="#" onclick={handleShowAddComment}>Add Comment</a>
+                            </div>
+                        </div>
+    
+                        <div if:true={showAddComment}>
+                            <div class="slds-clearfix">
+                                
+                                <lightning-textarea class="commentInput" label='Add Comment'></lightning-textarea>
+                                <div class="slds-float_right slds-p-top_small slds-p-bottom_small">
+                                    <lightning-button title="Comments" label="Add Comment" onclick={handleAddComment}></lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </lightning-card>
+            </template>
+        </div>
+    </div>
+</template>

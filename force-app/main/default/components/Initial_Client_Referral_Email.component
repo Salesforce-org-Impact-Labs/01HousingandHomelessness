@@ -1,0 +1,31 @@
+<apex:component controller="ReferralEmailTemplateController" access="global">
+  <apex:attribute 
+    name="refId" 
+    type="String" 
+    description="This is the ID of the referral" 
+    assignTo="{!referralId}" 
+    access="global"
+    />
+  <html>
+    <body>
+      <div>
+        <p>
+          Hi {!referral.Contact__r.FirstName} {!referral.Contact__r.LastName}! It's {!org.Name}. Here's your referral information to {!referral.Service__r.Name} for {!referral.Service__r.Type__c}.
+        </p>
+        <p>
+          Your case manager, [Case Manager Name], has also included a personal message [insert message]
+        </p>
+        <p>
+          Location: {!referral.Service__r.Street__c} {!referral.Service__r.City__c}, {!referral.Service__r.Zip_Code__c}<br/>
+          Hours: [Insert Hours and Days]<br/>
+          Phone: {!referral.Service__r.Phone__c}<br/>
+          Website: {!referral.Service__r.Website__c}<br/>
+          Directions: The best way to get this organization from your location is by [car/foot/public transport]. It should take about [insert time]<br/>           
+        </p>
+        <p>
+          Questions? Reply *Help* and your case manager, [Case Manager Name], will be alerted that you need assistance.
+        </p>
+      </div>
+    </body>
+  </html>
+</apex:component>
