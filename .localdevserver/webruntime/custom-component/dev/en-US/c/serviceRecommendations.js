@@ -1,0 +1,1 @@
+{"errors":[{"filename":"/Users/andrew.irwin/Documents/Salesforce projects/ImpactLabs/force-app/main/default/lwc/serviceRecommendations/serviceRecommendations.html","location":{"line":15,"column":17,"start":426,"length":79},"code":"","message":"<lightning-button-icon> has no matching closing tag."}]}
