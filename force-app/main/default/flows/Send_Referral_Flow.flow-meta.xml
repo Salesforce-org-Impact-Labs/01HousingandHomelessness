@@ -73,6 +73,21 @@
         <label>Create Task on Referral</label>
         <locationX>888</locationX>
         <locationY>173</locationY>
+        <connector>
+            <targetReference>Create_Survey_Task_Reminder</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Referral Reminder</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>TaskSubtype</field>
+            <value>
+                <stringValue>Task</stringValue>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>WhatId</field>
             <value>
@@ -82,6 +97,30 @@
         <object>Task</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
+    <recordLookups>
+        <name>Create_Survey_Task_Reminder</name>
+        <label>Create Survey Task Reminder</label>
+        <locationX>999</locationX>
+        <locationY>186</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <filters>
+            <field>Subject</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Survey Reminder</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Create_Referral</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>Get_Contact</name>
         <label>Get Contact</label>
