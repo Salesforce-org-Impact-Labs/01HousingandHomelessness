@@ -1,28 +1,58 @@
 public with sharing class EmailService {
 
-    public static void sendMessageToContact (List<ContactMessage> contactMessages) {
+    public static void sendInitialReferralMessages(List<Id> referralIds) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails);
+    }
+
+    public static void sendReferralFollowupMessages(List<Id> referralIds) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails);
+    }
+
+    public static void prepareAndSendEmails(List<Messaging.SingleEmailMessage> emails) {
+        Map<Id,Messaging.SingleEmailMessage> contactIdEmailMap = ClientMessageHelper.getContactEmailMap(emails);
+        
+        Map<Id,Contact> clientContactMap = createClientContactMap(contactIdEmailMap.keySet());
+        List<ContactMessage> contactMessages = new List<ContactMessage>();
+        for (Id contactId : contactIdEmailMap.keySet()) {
+            ContactMessage contMsg = new ContactMessage();
+            contMsg.clientContact = clientContactMap.get(contactId);
+            contMsg.messageToSend = contactIdEmailMap.get(contactId);
+            contactMessages.add(contMsg);
+        }
+
+        // try to send the messages
+        sendMessageToContact(contactMessages, clientContactMap);
+    }
+    
+    public static void sendMessageToContact (List<ContactMessage> contactMessages, Map<Id,Contact> clientContactMap) {
         List<Contact> contactsToUpdate = new List<Contact>();
 
-        // create a map of contact records from the incoming list
-        Map<Id,Contact> clientContactMap = createClientContactMap(contactMessages);
-        
         for (ContactMessage contactMsg : contactMessages) {
             // handle each contact/message, one record at a time
-            String clientContactId = contactMsg.clientContactId;
-            String messageToSend = contactMsg.messageToSend;
+            Contact clientContact = contactMsg.clientContact;
+            Messaging.SingleEmailMessage messageToSend = contactMsg.messageToSend;
         
             // flag to indicate if we need to update the contact record
             Boolean contactNeedsUpdate = false; 
 
-            if (String.isEmpty(messageToSend)) {
+            if (messageToSend == null) {
                 throw new EmailServiceException('The message to send is empty'); 
             } 
-            if (clientContactId == null) {
-                throw new EmailServiceException('The client contact ID is empty'); 
+            if (clientContact == null) {
+                throw new EmailServiceException('The client contact is empty'); 
             }
                 
-            // get the contact record from the map we created
-            Contact clientContact = clientContactMap.get(clientContactId);
+            // check the contact
             if (clientContact != null) {
 
                 if (clientContact.Phone != null) {
@@ -33,13 +63,13 @@ public with sharing class EmailService {
                         
                         if (clientContact.Mobile_Phone_Carrier__c == null) {
                             // if still no carrier
-                            throw new EmailServiceException('The carrier cannot be found for Contact with Id: '+clientContactId);
+                            throw new EmailServiceException('The carrier cannot be found for Contact with Id: '+clientContact.Id);
                         } else {
                             contactNeedsUpdate = true;
                         }
                     }
 
-                    // create email
+                    // add the destination to the email, based on the client's carrier
                     Messaging.SingleEmailMessage emailToSend = 
                         createEmailForCarrier (messageToSend, clientContact.Phone, clientContact.Mobile_Phone_Carrier__c);
 
@@ -56,7 +86,7 @@ public with sharing class EmailService {
                     if (!emailWasSent) {
                         String carrier = lookupCarrierByPhone (clientContact.Phone);
                         if (carrier == null) {
-                            throw new EmailServiceException('Unable to locate carrier for Contact with Id: '+clientContactId);
+                            throw new EmailServiceException('Unable to locate carrier for Contact with Id: '+clientContact.Id);
                         }
                         if (!carrier.equals(clientContact.Mobile_Phone_Carrier__c)) {
                             // if carrier is different, add it to contact record, resend email
@@ -85,12 +115,12 @@ public with sharing class EmailService {
 
                 } else {
                         // contact found but phone is missing
-                        throw new EmailServiceException('Failed to find Phone on the Contact record for Contact Id: '+clientContactId); 
+                        throw new EmailServiceException('Failed to find Phone on the Contact record for Contact Id: '+clientContact.Id); 
                 }
     
             } else {
                 // contact wasn't found
-                throw new EmailServiceException('Failed to find Contact record for Contact Id: '+clientContactId);
+                throw new EmailServiceException('Failed to find Contact record for Contact Id: '+clientContact.Id);
             } 
 
         }
@@ -120,19 +150,16 @@ public with sharing class EmailService {
     }
 
     @TestVisible
-    private static Messaging.SingleEmailMessage createEmailForCarrier (String messageToSend, String phoneNumber, String carrierName) {
-
-        Messaging.SingleEmailMessage emailToSend = new Messaging.SingleEmailMessage();
+    private static Messaging.SingleEmailMessage createEmailForCarrier (Messaging.SingleEmailMessage messageToSend, String phoneNumber, String carrierName) {
 
         String carrierEmail = convertPhoneToCarrierEmail (phoneNumber, carrierName);
         if (carrierEmail == null) {
             return null;
         }
 
-        emailToSend.setToAddresses(new List<String>{carrierEmail});
-        emailToSend.setPlainTextBody(messageToSend);
+        messageToSend.setToAddresses(new List<String>{carrierEmail});
 
-        return emailToSend;
+        return messageToSend;
     }
 
     @TestVisible
@@ -163,14 +190,8 @@ public with sharing class EmailService {
     }
 
     @TestVisible
-    private static Map<Id,Contact> createClientContactMap(List<ContactMessage> contactMessages) {
+    private static Map<Id,Contact> createClientContactMap(Set<Id> contactIds) {
         Map<Id,Contact> clientContactMap = new Map<Id,Contact>();
-
-        // create set of contact ids
-        Set<Id> contactIds = new Set<Id>();
-        for (ContactMessage contactMsg : contactMessages) {
-            contactIds.add(contactMsg.clientContactId);
-        }
 
         List<Contact> contactList = [
             SELECT  
@@ -208,8 +229,8 @@ public with sharing class EmailService {
     }
 
     public without sharing class ContactMessage {
-        public Id clientContactId;
-        public String messageToSend;
+        public Contact clientContact;
+        public Messaging.SingleEmailMessage messageToSend;
     }
 
      public class EmailServiceException extends Exception {}
