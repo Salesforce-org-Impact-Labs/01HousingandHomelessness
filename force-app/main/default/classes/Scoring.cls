@@ -36,10 +36,54 @@ public with sharing class Scoring {
   // Org Soql query (string)
   // Service-level SOQL Query
 
-  // calculate metrics class
-  // iterate the metrics
+  // Scoring.scoreRecommendations(getRecommendations.getRecommendations([select Id from contact where firstname='Shane'].Id));
+  public static list<ServiceRecommendation> scoreRecommendations(
+    list<ServiceRecommendation> recs
+  ) {
+    // get the serviceIDs
+    list<id> serviceIds = getRecommendations.IDsFromRecommendations(recs);
+    // query CMDT for the metrics
 
-  // calcualte all the scoring
+    for (Scoring_Metric__mdt metricIterator : [
+      SELECT
+        Label,
+        Org_Minimum__c,
+        Org_Maximum__c,
+        Org_SOQL_Query__c,
+        Service_Level_SOQL_Query__c,
+        QualifiedApiName,
+        NamespacePrefix,
+        DeveloperName
+      FROM Scoring_Metric__mdt
+      WHERE Weightning__c > 0 AND Org_Level__c = true
+    ]) {
+      //for each metric, get the stat for relevant services
+      map<id, AggregateResult> results = new Map<id, AggregateResult>(
+        (list<AggregateResult>) database.query(
+          metricIterator.Service_Level_SOQL_Query__c
+        )
+      );
+      decimal spread =
+        metricIterator.Org_Maximum__c - metricIterator.Org_Minimum__c;
+      // we'll not assign any points if there is nothing to base it on
+      if (spread != 0) {
+        // do a percentile-based conversion for each metric
+        for (ServiceRecommendation rec : recs) {
+          decimal serviceValue = (decimal) results.get(rec.ServiceId)
+            .get('metric');
+          // create and calculate the new indicator
+          ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
+          indicator.IndicatorType = metricIterator.Label;
+          indicator.IndicatorPercentile =
+            (serviceValue - metricIterator.Org_Minimum__c) / spread;
+          Rec.Indicators.add(indicator);
+        }
+      }
+    }
+    return recs;
+  }
+
+  // Scoring.scoreAllServices();
   public static void scoreAllServices() {
     // container for the updates
     Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
@@ -54,6 +98,7 @@ public with sharing class Scoring {
         NamespacePrefix,
         DeveloperName
       FROM Scoring_Metric__mdt
+      WHERE Weightning__c > 0
     ]) {
       list<AggregateResult> results = database.query(
         metricIterator.Org_SOQL_Query__c
@@ -83,6 +128,3 @@ public with sharing class Scoring {
     Metadata.Operations.enqueueDeployment(mdContainer, callback);
   }
 }
-
-// Scoring.scoreAllServices();
-
