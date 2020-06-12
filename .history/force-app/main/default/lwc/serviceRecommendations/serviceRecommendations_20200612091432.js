@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import { LightningElement, track, api } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
 import getRecs from '@salesforce/apex/getRecommendations.getRecommendations'
 
 export default class ServiceRecommendations extends LightningElement {
     @track returnRecommendations;
-    @api recordId;
+    @track contactId;
     @track serviceId;
 
     @track showRecommendations = false;
@@ -16,8 +16,8 @@ export default class ServiceRecommendations extends LightningElement {
 
     handleRequestRecommendations(){
         console.log('getting recommendations');
-        console.log('recorid Id'+ this.recordId)
-        getRecs({contactId: this.recordId })
+        console.log('recorid Id'+ this.contactId)
+        getRecs({contactId: this.contactId })
             .this(() => {
                 window.console.log('success');
                 if(this.showRecommendations === false){
