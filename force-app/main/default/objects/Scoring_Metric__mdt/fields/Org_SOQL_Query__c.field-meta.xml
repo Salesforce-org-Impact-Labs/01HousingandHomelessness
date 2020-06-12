@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Org SOQL Query</label>
+    <type>Text</type>
+    <fullName>Org_SOQL_Query__c</fullName>
+    <length>255</length>
+</CustomField>

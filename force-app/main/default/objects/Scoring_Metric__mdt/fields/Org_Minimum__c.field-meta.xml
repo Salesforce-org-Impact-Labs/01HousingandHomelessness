@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Org Minimum</label>
+    <type>Number</type>
+    <fullName>Org_Minimum__c</fullName>
+    <scale>2</scale>
+    <precision>16</precision>
+    <defaultValue>0</defaultValue>
+</CustomField>
