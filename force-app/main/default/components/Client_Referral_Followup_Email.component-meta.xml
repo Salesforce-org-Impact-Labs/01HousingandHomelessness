@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <description>Message that is sent to a client to follow-up after referrals have been sent</description>
+    <label>Client_Referral_Followup_Email</label>
+</ApexComponent>

@@ -1,0 +1,21 @@
+<apex:component controller="ReferralEmailTemplateController" access="global">
+  <apex:attribute 
+    name="refId" 
+    type="String" 
+    description="This is the ID of the referral" 
+    assignTo="{!referralId}" 
+    access="global"
+    />
+  <html>
+    <body>
+      <div>
+        <p>
+          Hi {!referral.Contact__r.FirstName} {!referral.Contact__r.LastName}! It's {!org.Name}. 
+          We wanted to check in and see how you are doing.
+          Have you successfully met with your referral {!referral.Service__r.Name}?
+          Please reply with <b>Yes</b>, <b>No</b>, or <b>Help</b>, so we can better support you.
+        </p>
+      </div>
+    </body>
+  </html>
+</apex:component>
