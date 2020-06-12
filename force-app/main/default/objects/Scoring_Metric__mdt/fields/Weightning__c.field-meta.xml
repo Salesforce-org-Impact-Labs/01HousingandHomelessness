@@ -2,7 +2,7 @@
 <CustomField>
     <label>Weightning</label>
     <type>Number</type>
-    <fullName>Weightning__c</fullName>
+    <fullName>Weighting__c</fullName>
     <scale>0</scale>
     <precision>18</precision>
     <defaultValue>5</defaultValue>

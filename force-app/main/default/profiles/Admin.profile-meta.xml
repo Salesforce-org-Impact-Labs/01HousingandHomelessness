@@ -177,7 +177,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Scoring_Metric__mdt.Weightning__c</field>
+        <field>Scoring_Metric__mdt.Weighting__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

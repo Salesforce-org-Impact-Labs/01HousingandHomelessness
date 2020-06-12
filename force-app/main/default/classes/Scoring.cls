@@ -55,17 +55,17 @@ public with sharing class Scoring {
         QualifiedApiName,
         NamespacePrefix,
         DeveloperName,
-        Weightning__c
+        Weighting__c
       FROM Scoring_Metric__mdt
       WHERE
-        Weightning__c > 0
+        Weighting__c > 0
         AND Org_Level__c = true
         AND Org_Minimum__c != null
         AND Org_Maximum__c != null
     ];
 
     for (Scoring_Metric__mdt metricIterator : metrics) {
-      weightTotal = weightTotal + metricIterator.Weightning__c;
+      weightTotal = weightTotal + metricIterator.Weighting__c;
     }
     // query CMDT for the metrics
 
@@ -91,7 +91,7 @@ public with sharing class Scoring {
             // base percentile * this metric's share of the total weight
             indicator.IndicatorPercentile =
               ((serviceValue - metricIterator.Org_Minimum__c) / spread) *
-              (metricIterator.Weightning__c / weightTotal);
+              (metricIterator.Weighting__c / weightTotal);
             Rec.Indicators.add(indicator);
           }
         }
@@ -115,7 +115,7 @@ public with sharing class Scoring {
         NamespacePrefix,
         DeveloperName
       FROM Scoring_Metric__mdt
-      WHERE Weightning__c > 0
+      WHERE Weighting__c > 0
     ]) {
       list<AggregateResult> results = database.query(
         metricIterator.Org_SOQL_Query__c
