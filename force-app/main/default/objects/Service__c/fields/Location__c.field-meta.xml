@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomField>
+    <label>Location</label>
+    <type>Location</type>
+    <fullName>Location__c</fullName>
+    <scale>4</scale>
+    <displayLocationInDecimal>true</displayLocationInDecimal>
+</CustomField>

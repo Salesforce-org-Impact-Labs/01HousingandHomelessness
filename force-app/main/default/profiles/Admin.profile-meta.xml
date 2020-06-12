@@ -5,6 +5,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Scoring</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ServiceRecommendation</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -68,6 +72,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Client_Profile__c.Location__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Client_Profile__c.Postal_Code__c</field>
         <readable>true</readable>
@@ -91,6 +100,21 @@
         <editable>true</editable>
         <field>Open_Hours__c.Start_Time__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RefRecSettings__mdt.Default_Latitude__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RefRecSettings__mdt.Default_Longitude__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RefRecSettings__mdt.Default_Max_Distance__c</field>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
@@ -128,6 +152,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Service__c.Location__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Service__c.Maximum_Age__c</field>
         <readable>true</readable>
@@ -140,6 +169,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Service__c.Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Service__c.Preferred__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -173,6 +207,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Open_Hours__c-Open Hours Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>RefRecSettings__mdt-Referral Recommendations Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Referral__c-Referral Layout</layout>

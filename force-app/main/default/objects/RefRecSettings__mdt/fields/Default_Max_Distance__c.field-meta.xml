@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Max_Distance__c</fullName>
+    <defaultValue>25</defaultValue>
+    <description>In miles, how far from the client or default location should a search extend</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>In miles, how far from the client or default location should a search extend</inlineHelpText>
+    <label>Default Max Distance</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

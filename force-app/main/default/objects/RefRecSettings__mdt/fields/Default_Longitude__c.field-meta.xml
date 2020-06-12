@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Default_Longitude__c</fullName>
+    <defaultValue>-122.3972</defaultValue>
+    <description>Used to find services when no information about the Client&apos;s location is provided.  East is positive longitude, west is negative.</description>
+    <externalId>false</externalId>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <inlineHelpText>Used to find services when no information about the Client&apos;s location is provided.  East is positive longitude, west is negative.</inlineHelpText>
+    <label>Default Longitude</label>
+    <precision>7</precision>
+    <required>false</required>
+    <scale>4</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

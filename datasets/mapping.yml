@@ -30,6 +30,8 @@ Insert Client_Profile__c:
     First_Name__c: First_Name__c
     Last_Name__c: Last_Name__c
     Postal_Code__c: Postal_Code__c
+    Location__Latitude__s: Location__Latitude__s
+    Location__Longitude__s: Location__Longitude__s
   lookups:
     Contact__c:
       table: Contact
@@ -49,6 +51,9 @@ Insert Service__c:
     Website__c: Website__c
     Zip_Code__c: Zip_Code__c
     External_ID__c: External_ID__c
+    Preferred__c: Preferred__c
+    Location__Latitude__s: Location__Latitude__s
+    Location__Longitude__s: Location__Longitude__s
   lookups:
     Account__c:
       table: Account
