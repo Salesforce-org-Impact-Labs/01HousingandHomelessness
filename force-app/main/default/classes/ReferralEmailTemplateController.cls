@@ -42,4 +42,35 @@ global class ReferralEmailTemplateController {
         set;
     }
 
+    global List<Open_Hours__c> openHours {
+        get {
+            List<Open_Hours__c> hours = [
+                SELECT
+                    Day__c,
+                    End_Time__c,
+                    Start_Time__c
+                FROM Open_Hours__c
+                WHERE Service__c = :referral.Service__c
+            ];
+            return hours;
+        }
+        set;
+    }
+
+    global String openHoursString {
+        get {
+            String hoursString = '';
+            for (Open_Hours__c hour : openHours) {
+                Datetime startDt = Datetime.newInstance(Date.today(),hour.Start_Time__c);
+                String startTime = startDt.format('h:mm a');
+                Datetime endDt = Datetime.newInstance(Date.today(),hour.End_Time__c);
+                String endTime = endDt.format('h:mm a');
+
+                hoursString = hour.Day__c + ': '+startTime+' - '+endTime+'';
+            }
+            return hoursString;
+        }
+        set;
+    }
+
 }
