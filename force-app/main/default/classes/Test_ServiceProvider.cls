@@ -21,13 +21,18 @@ public class Test_ServiceProvider {
         System.assertEquals(null, spNullFactoryResults, 'Service results should return null.');
 
 
+        AuthParams ap = new AuthParams();
+        ap.api_key = 'api_key';
+        ap.password = 'user name';
+        ap.username = 'password';
+
         //checking service results factory
         String api_key = 'api_key';
         String username = 'user name';
         String pwd = 'password';
         String url = 'https://api.serviceprovider.com/authenticate';
         String method = 'GET';
-        String body = 'req body';
+        String body = JSON.serializePretty(ap);
         String authHeader = 'token';
         //check for null, when passed null
         System.assertEquals(null, spFactoryResults.getServiceProviderResults(null), 'Service results should return null.');
