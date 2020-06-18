@@ -14,4 +14,8 @@
         <field>Default_Max_Distance__c</field>
         <value xsi:type="xsd:double">25.0</value>
     </values>
+    <values>
+        <field>Recommendations_Email_Service_Address__c</field>
+        <value xsi:type="xsd:string">client_referral_email_service@a-ezzea2p3pkbsjhbz662tlplbfxvr7yf8vwjwv635mxrq440mi.63-aiwneaw.cs43.apex.sandbox.salesforce.com</value>
+    </values>
 </CustomMetadata>
