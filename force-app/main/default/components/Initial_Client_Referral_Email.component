@@ -23,6 +23,7 @@
         </p>
         <p>
           Questions? Reply *Help* and your case manager, [Case Manager Name], will be alerted that you need assistance.
+          ref#{!referral.Id}
         </p>
       </div>
     </body>
