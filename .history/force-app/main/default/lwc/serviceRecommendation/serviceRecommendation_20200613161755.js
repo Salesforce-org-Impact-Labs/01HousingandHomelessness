@@ -7,7 +7,7 @@ import addComment from '@salesforce/apex/getRecommendations.addNewComment';
 export default class ServiceRecommendation extends LightningElement {
     @api servicerecommendation;
 
-    @api contactid;
+    @track contactId;
 
     @track programTypeFood = false;
     @track programTypeEducation =  false;
@@ -57,7 +57,7 @@ export default class ServiceRecommendation extends LightningElement {
     handleSendReferral(){
         let eventParams = {
             showFlow: true,
-            contactId: this.contactid,  
+            contactId: this.contactId,  
             serviceId: this.servicerecommendation.ServiceId
         };
         

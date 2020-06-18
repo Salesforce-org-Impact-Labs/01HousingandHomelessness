@@ -12,21 +12,7 @@ export default class ServiceRecommendations extends LightningElement {
     @track showRelevancePopover = false;
     @track showDropdown = false;
     @track showAddComment = false;
-    @track showExpandedMap = false;
-
-    mapMarkers = [
-        {
-            location: {
-                Street: '415 Mission St',
-                City: 'San Francisco',
-                State: 'CA',
-            },
-
-            title: 'Salesforce Tower',
-            description:
-                'lorem ipsum',
-        },
-    ];
+    @track showExpandedMap = false
 
     handleRequestRecommendations(){
         console.log('getting recommendations');

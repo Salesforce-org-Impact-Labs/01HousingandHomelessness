@@ -57,7 +57,7 @@ export default class ServiceRecommendation extends LightningElement {
     handleSendReferral(){
         let eventParams = {
             showFlow: true,
-            contactId: this.contactid,  
+            contactId: this.contactId,  
             serviceId: this.servicerecommendation.ServiceId
         };
         

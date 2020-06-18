@@ -18,7 +18,7 @@
                         <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
                     </li>
                     <li class="slds-p-right_large slds-p-top_xx-small">
-                        <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
+                        <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleMap}></lightning-button-icon>
                     </li>
                 </ul>
             </div>
@@ -29,10 +29,6 @@
                 <div class="slds-size_1-of-1 slds-align_absolute-center">
                     <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
                 </div>
-            </div>
-
-            <div class="mapExpansion">
-                <lightning-map map-markers={mapMarkers}></lightning-map>
             </div>
         </div>
 
