@@ -26,13 +26,13 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 // if we can parse out the referral Id, we need to see what they replied with
                 if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_YES)) {
                     // they met with the referral
-                    System.debug('+++ YES');
+                    EmailService.sendClientRateExperienceMessage(referralId);
                 } else if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_NO)) {
                     // they were unable to meet with the referral
                     System.debug('+++ NO');
                 } else if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_HELP)) {
                     // they need help
-                    System.debug('+++ HELP');
+                    EmailService.sendClientHelpResponseMessage(referralId);
                 }
             }
 
