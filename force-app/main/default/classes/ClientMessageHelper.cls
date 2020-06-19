@@ -9,8 +9,12 @@ public with sharing class ClientMessageHelper {
         // get the email template for this kind of message
         EmailTemplate template = getEmailTemplateByName(INITIAL_CLIENT_REFERRAL_TEMPLATE);
 
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
         for (Id referralId : referralMap.keySet()) {
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+            message.setOrgWideEmailAddressId(emailAddress.Id);
             message.setTemplateId(template.Id);
             message.setTargetObjectId(referralMap.get(referralId).Contact__c);
             message.setWhatId(referralId);
@@ -27,8 +31,12 @@ public with sharing class ClientMessageHelper {
         // get the email template for this kind of message
         EmailTemplate template = getEmailTemplateByName(CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
 
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
         for (Id referralId : referralMap.keySet()) {
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+            message.setOrgWideEmailAddressId(emailAddress.Id);
             message.setTemplateId(template.Id);
             message.setTargetObjectId(referralMap.get(referralId).Contact__c);
             message.setWhatId(referralId);
@@ -73,6 +81,35 @@ public with sharing class ClientMessageHelper {
         }
 
         return referralMap;
+    }
+
+    @TestVisible
+    private static OrgWideEmailAddress getReferralOrgWideEmailAddress() {
+        OrgWideEmailAddress emailAddress = null;
+
+        List<RefRecSettings__mdt> settings = [
+            SELECT
+                Id,
+                Recommendations_Email_Service_Address__c
+            FROM RefRecSettings__mdt
+            WHERE DeveloperName = 'Organization_Default'
+        ];
+
+        if (settings.size() > 0) {
+            String recommendationsAddress = settings[0].Recommendations_Email_Service_Address__c;
+            List<OrgWideEmailAddress> emailAddresses = [
+                SELECT  
+                    Id,
+                    Address
+                FROM OrgWideEmailAddress
+                WHERE Address = :recommendationsAddress
+            ];
+            if (emailAddresses.size() > 0) {
+                emailAddress = emailAddresses[0];
+            }
+        }
+
+        return emailAddress;
     }
 
 }
