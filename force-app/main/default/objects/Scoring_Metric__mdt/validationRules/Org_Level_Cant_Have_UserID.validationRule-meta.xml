@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Org_Level_Cant_Have_UserID</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (Org_Level__c,  NOT(ISBLANK(User_ID__c)))</errorConditionFormula>
+    <errorMessage>Org-level records can&apos;t have a user ID</errorMessage>
+</ValidationRule>

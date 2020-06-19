@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Calculate User-Level</label>
+    <type>Checkbox</type>
+    <fullName>Calculate_User_Level__c</fullName>
+    <defaultValue>false</defaultValue>
+</CustomField>
