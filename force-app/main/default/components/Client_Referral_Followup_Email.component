@@ -14,6 +14,8 @@
           We wanted to check in and see how you are doing.
           Have you successfully met with your referral {!referral.Service__r.Name}?
           Please reply with <b>Yes</b>, <b>No</b>, or <b>Help</b>, so we can better support you.
+
+          ref#{!referral.Id}
         </p>
       </div>
     </body>

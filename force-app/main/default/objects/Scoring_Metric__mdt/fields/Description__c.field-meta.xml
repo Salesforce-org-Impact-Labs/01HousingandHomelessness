@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Description</label>
+    <type>LongTextArea</type>
+    <fullName>Description__c</fullName>
+    <length>131072</length>
+    <visibleLines>3</visibleLines>
+</CustomField>

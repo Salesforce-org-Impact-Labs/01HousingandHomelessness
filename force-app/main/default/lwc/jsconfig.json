@@ -6,9 +6,6 @@
             "c/adminPanel": [
                 "adminPanel/adminPanel.js"
             ],
-            "c/recommendationsMapModal": [
-                "recommendationsMapModal/recommendationsMapModal.js"
-            ],
             "c/serviceRecommendation": [
                 "serviceRecommendation/serviceRecommendation.js"
             ],
