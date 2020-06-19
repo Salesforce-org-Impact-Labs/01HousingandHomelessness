@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>48.0</apiVersion>
     <available>true</available>
     <description>Message asking the client to rate their experience</description>
     <encodingKey>ISO-8859-1</encodingKey>
