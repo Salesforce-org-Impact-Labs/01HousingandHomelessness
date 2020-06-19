@@ -1,8 +1,8 @@
 <template>
-    <div class="outerDiv slds-size_1-of-1 slds-grid">
+    <div class="outerDiv">
 
     
-        <div class="slds-size_1-of-1">
+        <div >
             <div class="slds-clearfix">
                 <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
                     <li>
@@ -30,11 +30,6 @@
                     <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
                 </div>
             </div>
-
-            
-        </div>
-        <div class="mapExpansion slds-size_1-of-1" if:true={showExpandedMap} >
-            <lightning-map map-markers={mapMarkers}></lightning-map>
         </div>
 
         

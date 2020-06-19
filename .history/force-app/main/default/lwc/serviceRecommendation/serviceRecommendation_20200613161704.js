@@ -7,8 +7,6 @@ import addComment from '@salesforce/apex/getRecommendations.addNewComment';
 export default class ServiceRecommendation extends LightningElement {
     @api servicerecommendation;
 
-    @api contactid;
-
     @track programTypeFood = false;
     @track programTypeEducation =  false;
     @track programTypeHousing = false;
@@ -19,8 +17,6 @@ export default class ServiceRecommendation extends LightningElement {
     @track programTypeCare = false;
     @track programTypeWork = false;
     @track programTypeLegal = false;
-
-    @track ratingIcon;
 
     @track showRelevancePopover = false;
     @track showDropdown = false;
@@ -54,24 +50,12 @@ export default class ServiceRecommendation extends LightningElement {
         else{
             
         }
-
-        if(rec.Rating === 1){
-            this.ratingIcon = '';
-        }else if(rec.Rating === 2){
-            this.ratingIcon = '';
-        }else if(rec.Rating === 3){
-            this.ratingIcon = '';
-        }else if(rec.Rating === 4){
-            this.ratingIcon = '';
-        }else if(rec.Rating === 5){
-            this.ratingIcon = '';
-        }
     }
 
     handleSendReferral(){
         let eventParams = {
             showFlow: true,
-            contactId: this.contactid,  
+            contactId: this.contactId,  
             serviceId: this.servicerecommendation.ServiceId
         };
         

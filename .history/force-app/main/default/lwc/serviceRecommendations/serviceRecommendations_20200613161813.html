@@ -1,8 +1,8 @@
 <template>
-    <div class="outerDiv slds-size_1-of-1 slds-grid">
+    <div class="outerDiv">
 
     
-        <div class="slds-size_1-of-1">
+        <div >
             <div class="slds-clearfix">
                 <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
                     <li>
@@ -13,12 +13,9 @@
                     </li>
                     
                 </ul>
-                <ul class="slds-float_right list_horizontal">
+                <ul class="slds-float_right">
                     <li class="slds-p-right_large slds-p-top_xx-small">
                         <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
-                    </li>
-                    <li class="slds-p-right_large slds-p-top_xx-small">
-                        <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
                     </li>
                 </ul>
             </div>
@@ -30,18 +27,13 @@
                     <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
                 </div>
             </div>
-
-            
-        </div>
-        <div class="mapExpansion slds-size_1-of-1" if:true={showExpandedMap} >
-            <lightning-map map-markers={mapMarkers}></lightning-map>
         </div>
 
         
     
         <div if:true={returnRecommendations} class="innerRecDiv">
             <template for:each={returnRecommendations} for:item='recommendation'>
-                <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation} contactid={recordId}></c-service-recommendation>
+                <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation} contactId={recordId}></c-service-recommendation>
                 
             </template>
         </div>
