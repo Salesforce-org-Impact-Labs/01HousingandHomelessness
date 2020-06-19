@@ -29,7 +29,7 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                     EmailService.sendClientRateExperienceMessage(referralId);
                 } else if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_NO)) {
                     // they were unable to meet with the referral
-                    System.debug('+++ NO');
+                    EmailService.sendClientCantConnectMessage(referralId);
                 } else if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_HELP)) {
                     // they need help
                     EmailService.sendClientHelpResponseMessage(referralId);
