@@ -1,0 +1,100 @@
+<template>
+        <lightning-card key={servicerecommendation.ServiceId} class="parentCard" >
+                <div slot="title">
+                    <p><a href="#" class="relevanceHeader" onclick={handleRelevancePopover}>Relevance {servicerecommendation.Relevance} %</a></p>
+                    <template if:true={showRelevancePopover} class="relevanceDiv">
+                        <header >
+                            <p>Matched based on 10 factors:</p>
+                        </header>
+                            <div class="slds-size_1-of-1 slds-grid slds-wrap slds-text-body_regular factorsDiv">
+                                <div class="slds-col">
+                                    <ul class="slds-list_horizontal">
+                                        <li>Age</li>
+                                        <li>55</li>
+                                    </ul>
+                                </div>
+                                <div class="slds-col">
+                                    <ul class="slds-list_horizontal">
+                                        <li>Age</li>
+                                        <li>55</li>
+                                    </ul>
+                                </div>
+                                <div class="slds-col">
+                                    <ul class="slds-list_horizontal">
+                                        <li>Age</li>
+                                        <li>55</li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            
+                    </template>
+                    <ul class="slds-list_horizontal iconNameDiv">
+                        <!-- types of icons based on program type? -->
+                        <li>
+                            <lightning-icon if:true={programTypeFood} icon-name="custom:custom51" size="medium" alternative-text="Food" ></lightning-icon>
+                            <lightning-icon if:true={programTypeEducation} icon-name="custom:custom33" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeHousing} icon-name="custom:custom107" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeGoods} icon-name="custom:custom93" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeMoney} icon-name="custom:custom17" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeTransit} icon-name="custom:custom36" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeHealth} icon-name="custom:custom86" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeCare} icon-name="custom:custom94" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeWork} icon-name="custom:custom24" size="medium" alternative-text="Education" ></lightning-icon>
+                            <lightning-icon if:true={programTypeLegal} icon-name="custom:custom16" size="medium" alternative-text="Education" ></lightning-icon>
+                        </li>
+                        <li>
+                            <p class="slds-p-left_xx-small">{servicerecommendation.ProgramName} ({servicerecommendation.ProgramType})</p>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div slot="actions">
+                    <lightning-button-group>
+                        <lightning-button label="Send" onclick={handleSendReferral}></lightning-button>
+                        <lightning-button-icon  icon-name="utility:print" variant="border-filled" alternative-text="Print" ></lightning-button-icon>
+                        <lightning-button-menu alternative-text="Show More">
+                            <lightning-menu-item value="Hide for this Contact" label="Hide for this Contact" onclick={handleHideForThisContact}></lightning-menu-item>
+                            <lightning-menu-item value="Hide for all Contacts" label="Hide for all Contacts" onclick={handleHideForAllContacts}></lightning-menu-item>
+
+                        </lightning-button-menu>
+                        <!-- when to show hide/unhide? -->
+                        <!-- <lightning-button-menu alternative-text="Show More">
+                            <lightning-menu-item value="unhide for this Contact" label="Unhide for this Contact" onclick={handleUnhideForThisContact}></lightning-menu-item>
+                            <lightning-menu-item value="unhide for all Contacts" label="Unhide for all Contacts" onclick={handleUnhideForAllContacts}></lightning-menu-item>
+
+                        </lightning-button-menu> -->
+                    </lightning-button-group>
+                    
+                </div>
+                <div class="slds-m-around_small">
+                    <ul>
+                        <li><p>Provided by: <a href="#">Org Name</a></p></li>
+                        <li><p>{servicerecommendation.ProgramDescription}</p></li>
+                        <li><span>Open until XX:XX PM</span>&nbsp;&nbsp;&nbsp;<span>{servicerecommendation.MailingStreet}, {servicerecommendation.MailingCity}</span></li>
+                        <li><span><a href="#">(222)222-2222</a> * <a href={servicerecommendation.Website}>Website</a></span></li>
+                    </ul>
+                </div>
+                <div slot="footer">
+                    <!-- likes and comments -->
+                    <div class="slds-clearfix">
+                        <div class="slds-float_left">
+                            <span>Rating: {ratingIcon}</span>
+                        </div>
+                        <div class="slds-float_right">
+                            <a>X Comments</a> | <a href="#" onclick={handleShowAddComment}>Add Comment</a>
+                        </div>
+                    </div>
+
+                    <div if:true={showAddComment}>
+                        <div class="slds-clearfix">
+                            
+                            <lightning-textarea class="commentInput" label='Add Comment' value={newComment} onblur={handleCommentChange}></lightning-textarea>
+                            <div class="slds-float_right slds-p-top_small slds-p-bottom_small">
+                                <lightning-button title="Comments" label="Add Comment" onclick={handleAddComment}></lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </lightning-card>
+</template>
