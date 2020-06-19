@@ -78,6 +78,26 @@ public with sharing class Test_EmailService {
        System.assertEquals(false,exceptionCaught);
     }
 
+    static testMethod void testSendClientRateExperienceMessage() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendClientRateExperienceMessage(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);
+    }
+
     static testMethod void testSendMessageToContact() {
         Contact testContact = [
             SELECT 
