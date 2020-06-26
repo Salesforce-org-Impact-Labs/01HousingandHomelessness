@@ -76,7 +76,7 @@ export default class ServiceRecommendation extends LightningElement {
 
     handleRelevancePopover(event){
         window.console.log('handle popover');
-        event.preventDefault();
+        event.preventDefault()
         this.showRelevancePopover = !this.showRelevancePopover;
     }
 
