@@ -1,0 +1,10 @@
+<template>
+    <li class={listClass} onclick={handleItemSelection} data-value={value} data-selected={selected}>
+        <a role="menuitemcheckbox" aria-checked="true" tabindex="0">
+            <span class="slds-truncate">
+                <lightning-icon icon-name="utility:check" size="x-small" class="slds-icon slds-icon--selected slds-icon--x-small slds-icon-text-default slds-m-right--x-small"></lightning-icon>
+                {value}
+            </span>
+        </a>
+    </li>
+</template>

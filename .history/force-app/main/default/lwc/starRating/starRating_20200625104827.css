@@ -1,0 +1,193 @@
+.star-container {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    justify-content: center;
+    margin: 0.5rem;
+    transition: all 0.3s ease;
+    flex-wrap: wrap;
+  }
+  
+  .star-container + .star {
+    margin-left: 0.5rem;
+  }
+  
+  .star-container .star,
+  .star-container .star svg {
+    transition: all 0.3s ease;
+  }
+  
+  .star-container svg {
+    z-index: 2;
+  }
+  
+  .star {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .star svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-style: normal;
+  }
+  
+  .rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background-color: var(--lwc-colorBackgroundAlt, rgb(255, 255, 255));
+  }
+  .star-container-wrapper:focus,
+  .star-container:focus {
+    outline: none;
+  }
+  :focus > .star-container {
+    box-shadow: 0 0 1px 2px var(--lwc-brandTextLinkActive, rgb(0, 95, 178));
+  }
+  
+  .rating.direction-rtl {
+    direction: rtl;
+  }
+  
+  .rating.direction-ltr {
+    direction: ltr;
+  }
+  
+  .rating.direction-rtl .star-container,
+  .star-container.direction-rtl {
+    direction: rtl;
+  }
+  
+  .star-container.direction-ltr {
+    direction: ltr;
+  }
+  
+  .rating.direction-rtl .star-container .star svg.star-half,
+  .star-container.direction-rtl .star svg.star-half,
+  .star.direction-rtl svg.star-half {
+    transform: scale(1, -1);
+  }
+  
+  .rating.space-none .star {
+    margin: 0px;
+  }
+  
+  .rating.space-small .star {
+    margin: 0 0.25rem;
+  }
+  
+  .rating.space-medium .star {
+    margin: 0 0.5rem;
+  }
+  
+  .rating.space-large .star {
+    margin: 0 0.75rem;
+  }
+  
+  .rating.space-xlarge .star {
+    margin: 0 1rem;
+  }
+  
+  .rating.space-xxlarge .star {
+    margin: 0 2rem;
+  }
+  
+  /**Label position starts **/
+  .rating.label-hidden .label-value {
+    display: none;
+  }
+  
+  .rating.label-hidden {
+    display: block;
+  }
+  
+  .rating.label-visible {
+    display: flex;
+  }
+  
+  .rating.label-top {
+    flex-direction: column;
+  }
+  
+  .rating.label-right {
+    flex-direction: row-reverse;
+  }
+  
+  .rating.label-bottom {
+    flex-direction: column-reverse;
+  }
+  
+  /**Label position end **/
+  
+  .star svg.star-filled,
+  .star svg.star-half {
+    opacity: 0;
+  }
+  
+  .rating.disabled .star-container .star,
+  .star.disabled {
+    opacity: 0.5;
+    cursor: unset;
+  }
+  
+  .rating.read-only .star-container .star {
+    cursor: unset;
+  }
+  .rating.xsmall .star,
+  .star.xsmall {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .rating.small .star,
+  .star.small {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .rating.medium .star,
+  .star.medium {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .rating.large .star,
+  .star.large {
+    width: 35px;
+    height: 33.3px;
+  }
+  
+  .rating.xlarge .star,
+  .star.xlarge {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .rating.xxlarge .star,
+  .star.xxlarge {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .rating .star-container .value-filled svg.star-filled {
+    opacity: 1;
+  }
+  
+  .rating .star-container .value-half svg.star-half {
+    opacity: 1;
+  }
+  
+  .rating .star-container .value-empty svg.star-empty {
+    opacity: 1;
+  }
