@@ -246,6 +246,7 @@ public with sharing class EmailService {
         List<Contact> contactList = [
             SELECT  
                 Id,
+                Email,
                 MobilePhone,
                 Mobile_Phone_Carrier__c,
                 Phone
@@ -264,6 +265,7 @@ public with sharing class EmailService {
         List<Contact> clientContacts = [
             SELECT  
                 Id,
+                Email,
                 MobilePhone,
                 Mobile_Phone_Carrier__c,
                 Phone
