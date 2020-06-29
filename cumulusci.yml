@@ -42,6 +42,10 @@ tasks:
     options:
       apex: "Scoring.scoreAllServices();"
 
+  run_tests:
+    options:
+      required_org_code_coverage_percent: 78
+
   uninstall_packaged_incremental:
     options:
       ignore:
