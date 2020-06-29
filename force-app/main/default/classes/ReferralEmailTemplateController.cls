@@ -11,6 +11,7 @@ global class ReferralEmailTemplateController {
                         Contact__r.FirstName,
                         Contact__r.LastName,
                         Preferred_Channel__c,
+                        Owner.Name,
                         Service__c,
                         Service__r.Name,
                         Service__r.Type__c,
