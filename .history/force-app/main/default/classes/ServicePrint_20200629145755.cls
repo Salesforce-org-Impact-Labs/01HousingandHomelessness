@@ -9,8 +9,7 @@ public class ServicePrint {
     }
 
     @AuraEnabled
-    public static Attachment PrintPage(String serviceId){
-        Attachment attach;
+    public static Blob PrintPage(String serviceId){
         Blob body;
 
         System.debug('serviceId' + serviceId);
@@ -18,8 +17,9 @@ public class ServicePrint {
         Service__c service = [SELECT Id, Name FROM Service__c WHERE Id =:serviceId];
 
         try {
+            body = ref.getContentAsPDF();
            	PageReference nr = Page.ServicePrintPage;
-            //nr.getParameters().put('service', service);
+            nr.getParameters().put('service', service);
             body = nr.getContentAsPDF();
             
             System.debug('Body of PDF should be good.');
@@ -29,14 +29,6 @@ public class ServicePrint {
             body = Blob.valueOf('Err');
         }
 
-        attach.Body = body;
-        // Create name with today's date
-        Integer count = 1;
-        attach.Name = 'Referral - ' + Datetime.now().format('yyyy-MM-dd') + ' - ' + String.valueOf(count) + '.pdf';
-        attach.IsPrivate = false; //make public
-        attach.ParentId = serviceId; //attach pdf to record
-
-        return attach;
-
+        return body;
     }
 }
