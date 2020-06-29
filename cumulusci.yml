@@ -9,7 +9,7 @@ project:
   # - github: 'https://github.com/SalesforceFoundation/PMM'
   source_format: sfdx
   test:
-    name_match: "%Test%"
+    name_match: "Test_"
 
 tasks:
   robot:
