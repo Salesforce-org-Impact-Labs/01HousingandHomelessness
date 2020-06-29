@@ -18,9 +18,9 @@ public class ServicePrint {
 
         try {
             //body = ref.getContentAsPDF();
-           	// PageReference nr = Page.ServicePrintPage;
-            // nr.getParameters().put('service', service);
-            // body = nr.getContentAsPDF();
+           	PageReference nr = Page.ServicePrintPage;
+            nr.getParameters().put('service', service);
+            body = nr.getContentAsPDF();
             
             System.debug('Body of PDF should be good.');
             // need to pass unit test -- current bug
