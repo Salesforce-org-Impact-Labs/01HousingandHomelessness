@@ -9,12 +9,12 @@ public class ServicePrint {
     }
 
     @AuraEnabled
-    public static Blob PrintPage(String serviceId){
+    public Blob PrintPage(String serviceId){
         Blob body;
 
         System.debug('serviceId' + serviceId);
 
-        Service__c service [SELECT Id, Name FROM Service__c LIMIT 1];
+        Service__c service [SELECT Id, Name FROM Service__c WHERE Id = :serviceId];
 
         try {
             //body = ref.getContentAsPDF();

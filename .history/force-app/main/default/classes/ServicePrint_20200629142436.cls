@@ -9,7 +9,7 @@ public class ServicePrint {
     }
 
     @AuraEnabled
-    public static Blob PrintPage(String serviceId){
+    public Blob PrintPage(String serviceId){
         Blob body;
 
         System.debug('serviceId' + serviceId);
