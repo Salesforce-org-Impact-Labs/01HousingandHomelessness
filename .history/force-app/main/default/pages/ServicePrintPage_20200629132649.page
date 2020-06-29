@@ -1,5 +1,0 @@
-<apex:page id="ServicePrint" controller="ServicePrint">
-    <div>
-        <p>Here is your Service Referral</p>
-    </div>
-</apex:page>
