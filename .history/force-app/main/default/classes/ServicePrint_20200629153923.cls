@@ -29,7 +29,7 @@ public class ServicePrint {
             body = Blob.valueOf('Err');
         }
 
-        attach.Body = body;
+         attach.Body = body;
         // Create name with today's date
         Integer count = 1;
         attach.Name = 'Referral - ' + Datetime.now().format('yyyy-MM-dd') + ' - ' + String.valueOf(count) + '.pdf';
