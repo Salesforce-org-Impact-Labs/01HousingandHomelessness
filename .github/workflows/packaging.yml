@@ -1,4 +1,4 @@
-name: Deploy, Run Apex Tests, Delete Org
+name: Package and Install
 
 on:
   push:
