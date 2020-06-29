@@ -168,7 +168,7 @@ export default class ServiceRecommendation extends LightningElement {
                 // downloadLink.click();
             })
             .catch((error) => {
-                window.console.log('error:' + JSON.stringify(error));
+                window.console.log('error:' + error);
             });
     }
 }

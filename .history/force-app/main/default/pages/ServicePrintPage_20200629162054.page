@@ -1,4 +1,4 @@
-<apex:page controller="ServicePrint" showHeader="false" applyHtmlTag="false" applyBodyTag="false" renderAs="pdf">
+<apex:page controller="ServicePrint" renderAs="pdf">
     <html>
 
         <div>
