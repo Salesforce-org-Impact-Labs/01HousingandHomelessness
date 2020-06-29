@@ -6,16 +6,14 @@
     assignTo="{!referralId}" 
     access="global"
     />
-          Hi {!referral.Contact__r.FirstName} {!referral.Contact__r.LastName}! It's {!org.Name}. Here's your referral information to {!referral.Service__r.Name} for {!referral.Service__r.Type__c}.
-
-          Your case manager, [Case Manager Name], has also included a personal message [insert message]
-
+          Hi {!referral.Contact__r.FirstName} {!referral.Contact__r.LastName}! It's {!org.Name}. Here's your referral information for {!referral.Service__r.Type__c}.
+        
           Location: {!referral.Service__r.Street__c} {!referral.Service__r.City__c}, {!referral.Service__r.Zip_Code__c}<br/>
           Hours: {!openHoursString}<br/>
           Phone: {!referral.Service__r.Phone__c}<br/>
           Website: {!referral.Service__r.Website__c}<br/>
           <apex:outputText 
             rendered="{!IF((referral.Preferred_Channel__c = "Email"),true,false)}"
-            value=" Questions? Reply *Help* and your case manager, [Case Manager Name], will be alerted that you need assistance.
+            value=" Questions? Reply *Help* and your case manager, {!referral.Owner.Name}, will be alerted.
                   ref#{!referral.Id}"/>
 </apex:component>
