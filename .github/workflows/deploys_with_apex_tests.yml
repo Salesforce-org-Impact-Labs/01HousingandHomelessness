@@ -1,6 +1,10 @@
 name: Deploy, Run Apex Tests, Delete Org
 
-on: [push]
+on:
+  push:
+    branches:
+      - "*"
+      - "!master"
 
 env:
   CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
