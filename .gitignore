@@ -81,5 +81,5 @@
 **/node_modules
 
 test_results*
-**/history
+**/.history
 **/.localdevserver
