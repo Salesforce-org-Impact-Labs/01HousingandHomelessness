@@ -3,7 +3,7 @@
   access="global"
 >
   <aura:attribute name="showModal" type="Boolean" default="false" />
-  <div class="slds-m-around_medium">
+  <div class="">
     <c:serviceRecommendations
       aura:id="childCmp"
       recordId="{!v.recordId}"

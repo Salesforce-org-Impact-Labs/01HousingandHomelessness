@@ -1,0 +1,133 @@
+<template>
+    <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
+        <div class="slds-size_1-of-1 fullRecDiv">
+            <div class="slds-clearfix">
+                <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
+                    <li>
+                        <lightning-icon icon-name="custom:custom1" size="medium" alternative-text="Services" ></lightning-icon>
+                    </li>
+                    <li>
+                        <p class="slds-p-left_xx-small">Recommended Services</p>
+                    </li>
+                    
+                </ul>
+                <ul class="slds-float_right slds-list_horizontal">
+                    <li class="slds-p-right_medium slds-p-top_xx-small">
+                        <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
+                    </li>
+                    <li class="slds-p-right_medium slds-p-top_xx-small">
+                        <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
+                    </li>
+                </ul>
+            </div>
+            <div if:false={showRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
+                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                    <h3>No Recommendations Yet</h3>
+                </div>
+                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                    <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
+                </div>
+            </div>
+
+            
+        </div>
+        
+        <div class="mapDiv" if:true={returnRecommendations}>
+            <lightning-map map-markers={mapMarkers}>
+
+            </lightning-map>
+        </div>
+        
+    
+        <div if:true={returnRecommendations} class="innerRecDiv">
+            <template for:each={returnRecommendations} for:item='recommendation'>
+                <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation} contactid={recordId}></c-service-recommendation>
+                
+            </template>
+        </div>
+        
+    </div>
+    <template if:true={showExpandedMap} >
+        <!-- <c-recommendations-map-modal showmodal={showExpandedMap} ></c-recommendations-map-modal> -->
+
+                <section role="dialog" tabindex="-1" aria-label="Expanded Map View" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                    <div class="slds-modal__container mapModal">
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-size_1-of-1 slds-grid slds-wrap">
+                                <div class="slds-col recommendationsDiv recommendationsDivWide">
+                                    <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
+                                        <div class="slds-size_1-of-1 fullRecDiv">
+                                            <div class="slds-clearfix">
+                                                <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
+                                                    <li>
+                                                        <lightning-icon icon-name="custom:custom1" size="medium" alternative-text="Services" ></lightning-icon>
+                                                    </li>
+                                                    <li>
+                                                        <p class="slds-p-left_xx-small">Recommended Services</p>
+                                                    </li>
+                                                    
+                                                </ul>
+                                                <ul class="slds-float_right slds-list_horizontal">
+                                                    <li class="slds-p-right_medium slds-p-top_xx-small">
+                                                        <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
+                                                    </li>
+                                                    <li class="slds-p-right_medium slds-p-top_xx-small">
+                                                        <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div if:false={showRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
+                                                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                                                    <h3>No Recommendations Yet</h3>
+                                                </div>
+                                                <div class="slds-size_1-of-1 slds-align_absolute-center">
+                                                    <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
+                                                </div>
+                                            </div>
+                                
+                                            
+                                        </div>
+                                        
+                                
+                                        <div>
+                                            <!-- show me filter -->
+                                            <lightning-button-icon icon-name="utility:filterList" variant="border-filled" title="Filter List" onclick={handleFilterList}></lightning-button-icon>
+                                        </div>
+                                    
+                                        <div if:true={returnRecommendations} class="innerRecDiv">
+                                            <template for:each={returnRecommendations} for:item='recommendation'>
+                                                <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation} contactid={recordId}></c-service-recommendation>
+                                                
+                                            </template>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="slds-col mapDiv mapDivWide">
+                                    <lightning-map map-markers={mapMarkers}>
+
+                                    </lightning-map>
+                               
+                                    <lightning-button-icon class='mapClose' icon-name="utility:close" variant="bare" onclick={handleExpand} title="Close">
+                                    </lightning-button-icon>
+                        
+                                </div>
+                                <div class="slds-col filterDiv slds-hide">
+                                    <header>
+                                        <h2>Filters</h2>
+                                        <lightning-button-icon class='mapClose' icon-name="utility:close" variant="bare" onclick={handleCloseFilters} title="Close">
+                                            </lightning-button-icon>
+                                    </header>
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+                
+  
+    </template>
+</template>

@@ -1,0 +1,18 @@
+.relativePosition{
+    position: relative;
+}
+
+.buttonWidth{
+    width: 180px;
+}
+
+.dropdownButtonIconContainer{
+    position: absolute;
+    top: 0.9375rem;
+    left: 10rem;
+    z-index: 5;
+}
+
+.checkBox{
+    padding-top: 2.1rem;
+}

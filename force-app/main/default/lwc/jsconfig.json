@@ -6,11 +6,20 @@
             "c/adminPanel": [
                 "adminPanel/adminPanel.js"
             ],
+            "c/multiSelectListItem": [
+                "multiSelectListItem/multiSelectListItem.js"
+            ],
+            "c/multiselectPicklist": [
+                "multiselectPicklist/multiselectPicklist.js"
+            ],
             "c/serviceRecommendation": [
                 "serviceRecommendation/serviceRecommendation.js"
             ],
             "c/serviceRecommendations": [
                 "serviceRecommendations/serviceRecommendations.js"
+            ],
+            "c/starRating": [
+                "starRating/starRating.js"
             ]
         }
     },

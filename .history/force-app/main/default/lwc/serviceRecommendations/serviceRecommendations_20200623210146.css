@@ -1,0 +1,120 @@
+.outerDiv {
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 5px;
+    padding:10px;
+}
+
+.innerRecDiv {
+    margin:5px;
+    border: 1px solid grey;
+    border-radius:5px;
+}
+
+.innerRecModalDiv {
+    margin:5px;
+    border: 1px solid grey;
+    border-radius:5px;
+}
+
+.relevanceHeader {
+    font-size:12px;
+}
+.iconNameDiv {
+    height: 40px;
+    line-height: 40px;       
+}
+
+.slds-popover__body {
+    font-size:12px;
+}
+
+.factorsList ul {
+    padding: 10px;
+}
+
+.factorsList li{
+    color: grey;
+}
+
+.commentInput {
+    text-align:left;
+}
+.fullRecDiv {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.mapExpansion {
+    display: inline-block;
+}
+
+.recommendationsDivWide {
+    width: 33%;
+}
+
+.recommendationsDivNarrow {
+    width: 25%;
+}
+
+.innerRecModalDiv {
+    width: 100%;
+}
+
+.width25 {
+    width:25%;
+}
+
+.width33 {
+    width: 33%;
+}
+
+.mapModalDiv {
+    position:relative;
+    margin-top:-15px;
+    margin-bottom: -15px;
+    height:100%;
+    
+}
+
+.width67 {
+    width: 67%;
+    height:100%;
+    padding-left:10px;
+}
+
+.mapDivNarrow {
+    width: 50%;
+    height:100%;
+    padding-left:10px;
+}
+
+.filterDiv {
+    width: 25%;
+}
+
+.filterDiv h2 {
+    font-size:16px;
+}
+
+.modalWidth100 {
+    width:100%;
+}
+
+.mapClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    
+}
+
+.hiddenRecsDiv h3 {
+    color: grey;
+}
+
+.pillFilterDiv {
+    border: solid 1px grey;
+    border-radius: 4px;
+    margin: 10px;
+    padding:5px;
+}

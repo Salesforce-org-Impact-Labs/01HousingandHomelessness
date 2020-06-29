@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Unable to visit {!relatedTo.Service__r.Name}" recipientType="Contact" relatedToType="Referral__c">
+    <messaging:htmlEmailBody >
+        <c:Client_Cant_Connect refId="{!relatedTo.Id}"/>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

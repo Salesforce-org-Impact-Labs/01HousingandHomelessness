@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Star Rating</masterLabel>
+    <description>This is a lightining star rating web component.</description>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__RecordPage</target>
+        <target>lightning__HomePage</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__HomePage,lightning__RecordPage,lightning__AppPage">
+            <property name="size" type="String" label="Size" default="medium" datasource="xsmall,small,medium,large,xlarge,xxlarge" />
+            <property name="numberOfStars" label="Number Of Stars" type="Integer" min="0" max="15" default="5" />
+            <property name="rating" label="rating" type="String" default="0" />
+            <property name="direction" label="Star Direction" type="String" datasource="ltr, rtl" default="ltr" />
+            <property name="labelText" label="Label text" type="String" placeholder="My rating (${rating})" />
+            <property name="labelPosition" label="Label position" type="String" datasource="top,left,right,bottom" default="left" />
+            <property name="labelStyle" label="Label styling" type="String" placeholder="Style label with slds" />
+            <property name="labelHidden" type="Boolean" label="Hide Label" default="false" />
+            <property name="spaceBetween" label="Space between" type="String" default="small" datasource="none,small,medium,large, xlarge, xxlarge" />
+
+            <property name="staticColor" type="String" label="Static color" placeholder="Rating color"/>
+            <property name="colorPositive" type="String" label="Excellent rating color" default="#029bdb" />
+            <property name="colorOk" type="String" label="Average rating color" default="#f6da3f" />
+            <property name="colorNegative" type="String" label="Bad rating color" default="#f03c56" />
+            <property name="colorDefault" type="String" label="Default rating color" default="#999" />
+
+            <property name="showHalfStars" type="Boolean" label="Show HalfStars" default="false" />
+            <property name="readOnlyStar" type="Boolean" label="Read only" default="false" />
+            <property name="disabled" type="Boolean" label="Disable" default="false" />
+            <supportedFormFactors>
+                <supportedFormFactor type="Small" />
+                <supportedFormFactor type="Large" />
+            </supportedFormFactors>
+        </targetConfig>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="size" type="String" label="Size" default="medium" datasource="xsmall,small,medium,large,xlarge,xxlarge" />
+            <property name="numberOfStars" label="Number Of Stars" type="Integer" min="0" max="15" default="5" />
+            <property name="rating" label="rating" type="String" default="0" />
+            <property name="direction" label="Star Direction" type="String" datasource="ltr, rtl" default="ltr" />
+            <property name="labelText" label="Label Text" type="String" placeholder="My rating (${rating})" />
+            <property name="labelPosition" label="Label Position" type="String" datasource="top,left,right,bottom" default="left" />
+            <property name="labelHidden" type="Boolean" label="Hide Label" default="false" />
+            <property name="spaceBetween" label="Space between" type="String" default="small" datasource="none,small,medium,large, xlarge, xxlarge" />
+
+            <property name="staticColor" type="Color" label="Static color"/>
+            <property name="colorPositive" type="Color" label="Excellent rating color" default="#029bdb" />
+            <property name="colorOk" type="Color" label="Acceptable rating color" default="#f6da3f" />
+            <property name="colorNegative" type="Color" label="Bad rating color" default="#f03c56" />
+            <property name="colorDefault" type="Color" label="Default Color" default="#999" />
+
+            <property name="showHalfStars" type="Boolean" label="Show HalfStars" default="false" />
+            <property name="readOnlyStar" type="Boolean" label="Read only" default="false" />
+            <property name="disabled" type="Boolean" label="Disable" default="false" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,5 @@
+<apex:page service="service" controller="ServicePrint" renderAs="pdf">
+    <div>
+        <p>Here is your Service Referral</p>
+    </div>
+</apex:page>

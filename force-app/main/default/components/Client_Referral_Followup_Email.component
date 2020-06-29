@@ -6,16 +6,12 @@
     assignTo="{!referralId}" 
     access="global"
     />
-  <html>
-    <body>
-      <div>
-        <p>
           Hi {!referral.Contact__r.FirstName} {!referral.Contact__r.LastName}! It's {!org.Name}. 
           We wanted to check in and see how you are doing.
           Have you successfully met with your referral {!referral.Service__r.Name}?
-          Please reply with <b>Yes</b>, <b>No</b>, or <b>Help</b>, so we can better support you.
-        </p>
-      </div>
-    </body>
-  </html>
+          <apex:outputText 
+            rendered="{!IF((referral.Preferred_Channel__c = "Email"),true,false)}"
+            value="Please reply with Yes, No, or Help, so we can better support you.
+                  ref#{!referral.Id}"/>
+
 </apex:component>

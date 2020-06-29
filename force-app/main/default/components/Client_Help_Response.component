@@ -1,0 +1,12 @@
+<apex:component controller="ReferralEmailTemplateController" access="global">
+  <apex:attribute name="refId" 
+    type="String" 
+    description="This is the ID of the referral" 
+    assignTo="{!referralId}" 
+    access="global"
+    />
+           Thank you for letting us know you need help. 
+            {!referral.Owner.Name} has been alerted that you need assistance and will reach out to you shortly. 
+            If it’s urgent, please call {!org.Name} directly at [insert phone number]
+            If you’re experiencing a medical emergency, please call 911. 
+</apex:component>
