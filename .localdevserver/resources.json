@@ -33,6 +33,29 @@
             "dev": "abe0864fbc"
         }
     },
+    "3807747657": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "05ae6d0dc2"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "28e3c899ff"
+        }
+    },
     "3961142343": {
         "component://@webruntime/app@en-US": {
             "dev": "4692823486"
@@ -6907,6 +6930,840 @@
         },
         "component://c/starRating@en-US": {
             "dev": "25e2ed4883"
+        }
+    },
+    "be7932f684": {
+        "component://@webruntime/app@en-US": {
+            "dev": "1badc6bda2"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "93e0fd7c63"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "f94d2df5a0"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "8b6ee7d78d": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "f94d2df5a0"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "4e05ff78ba"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "3e2421517b"
+        }
+    },
+    "f8662b3372": {
+        "component://@webruntime/app@en-US": {
+            "dev": "3c1fc774c8"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "3d82ad8719"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "f94d2df5a0"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "68fe570fc9"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "306d34dde5": {
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "8b4a35d3f2": {
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "3c462732af"
+        }
+    },
+    "841f23f9d6": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": ""
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "58f0978fc8"
+        }
+    },
+    "8b98401ea4": {
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "86bf972b76"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "77838edd3e"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "886d0b870e"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "44a3f23ee9": {
+        "component://@webruntime/app@en-US": {
+            "dev": "ce375f25fa"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "e67dc034b4"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "33983d4bf6"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "886d0b870e"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "b1231766fc": {
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "2de43c0f52": {
+        "component://@webruntime/app@en-US": {
+            "dev": "1badc6bda2"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "5703ac9344"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "efdc3d7286"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "886d0b870e"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "4e323d062e": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "d19cd5fac7"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "efdc3d7286"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "7c128e0d11"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        }
+    },
+    "8d2f249ebf": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "efdc3d7286"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "7c128e0d11"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "ac282b0a44": {
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "0f26c37d55"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "efdc3d7286"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "7c128e0d11"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "4d133ccf1c": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "efdc3d7286"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        }
+    },
+    "5ea500aa14": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "637c77f84d"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "08a00e07c6"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "f258c999ff"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        }
+    },
+    "6b4472c9e2": {
+        "component://@webruntime/app@en-US": {
+            "dev": "b23a63fd77"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "b15b4fb89b"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": ""
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "3a297247b1": {
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "db697b06c7": {
+        "component://@webruntime/app@en-US": {
+            "dev": "ce375f25fa"
+        }
+    },
+    "3f93bfa98b": {
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "4d2253b718"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": ""
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        }
+    },
+    "2d96a1ce85": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "42356cd3c5"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "d3e5795575"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        }
+    },
+    "bef09b37e3": {
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "23a4a14e6e": {
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "f2c4b252b3"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "9b48e9a33a"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "f4a58541af": {
+        "component://@webruntime/app@en-US": {
+            "dev": "f258c999ff"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "c5a42f2165"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "5e20478d3b"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "25cd95a229": {
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "3ba973957c"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "656b35993f"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "f104bacbdf": {
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "ce375f25fa"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "c048159df1"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "8bfd12f0aa"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        }
+    },
+    "039e5eba79": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "c048159df1"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "2a7f5e565b"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "0e9b751782": {
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "269ca13760"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "fd234fba78"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "c2679ea100": {
+        "component://@webruntime/app@en-US": {
+            "dev": "e9d0765960"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "dc41f900d9"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "24913af78d"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "1d5c771da1": {
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "4aad8b180c"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "24913af78d"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "50c7f3dfc3": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "e78ae6a788"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "1dc5f254e7"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        }
+    },
+    "8b7de48c4e": {
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "a0c89ed895"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "2825ce5db4"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "ce314fb8c7": {
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "4aff7c1ee1"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "0a3bac32ed"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "51f1258632": {
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "b839a11e16"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "c342c2af54"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "29e6181d3c": {
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "957f4346ef"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "52ce302f63"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "7116f66e38": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "f55618c6d0"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "1085a72b7e"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        }
+    },
+    "e9e1baa4a7": {
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "011ca4b9be"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "6009109430"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "3c1fc774c8"
+        }
+    },
+    "9aa4580e13": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "e8c72db2a7"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "87990131e0"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "89897f613d"
+        }
+    },
+    "126cc34c9c": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "fc72b42053"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "f8692accbf"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        }
+    },
+    "5bbb1356c2": {
+        "component://@webruntime/app@en-US": {
+            "dev": "dc2a7150df"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "297869ad01"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "d540450b5c"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "045d8695ff": {
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "5dfa97c4e5"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "ce375f25fa"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "fa6a7f4e0a"
+        }
+    },
+    "bb79601a59": {
+        "component://@webruntime/app@en-US": {
+            "dev": "e9d0765960"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
+        },
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "eb38326299"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "f39a2dc7ee"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        }
+    },
+    "cdcb60ff27": {
+        "component://c/serviceRecommendations@en-US": {
+            "dev": "ff49d613f1"
+        },
+        "component://c/multiselectPicklist@en-US": {
+            "dev": "f04ef636aa"
+        },
+        "component://c/multiSelectListItem@en-US": {
+            "dev": "cda6912c7f"
+        },
+        "component://c/serviceRecommendation@en-US": {
+            "dev": "e8e99b27ee"
+        },
+        "component://c/starRating@en-US": {
+            "dev": "25e2ed4883"
+        },
+        "component://@webruntime/app@en-US": {
+            "dev": "2f08ae8e4b"
+        },
+        "component://localdevserver/preview@en-US": {
+            "dev": "81f563ff07"
         }
     }
 }
