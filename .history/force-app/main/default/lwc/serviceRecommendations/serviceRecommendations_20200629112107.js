@@ -53,7 +53,7 @@ export default class ServiceRecommendations extends LightningElement {
     handleRequestRecommendations(){
         console.log('getting recommendations');
         console.log('recorid Id'+ this.recordId)
-        getRecs({contactId: '0033D00000fnC6sQAE'})
+        getRecs({contactId: this.recordId})
             .then((result) => {
                 window.console.log('success');
                 if(this.showRecommendations === false){
@@ -124,7 +124,6 @@ export default class ServiceRecommendations extends LightningElement {
     }
 
     handleSortMenu(event){
-        window.console.log('show sort menu');
         const menuItem = event.currentTarget;
         const parent = menuItem.parentElement;
         window.console.log('children' + parent.children);
