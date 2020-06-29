@@ -17,6 +17,11 @@ To work on this project in a scratch org:
 1. Put data in the org however you like
 2. Run `cci task run extract_dataset`
 
+## Packaging
+
+1. The packaging flow runs when you merge your PR into master
+2. It's possible that you'll get a passing PR check (it deploys, all tests pass) but then there are packaging errors (namespace issues, overall code coverage < 75%, etc)
+
 ## Troubleshooting
 
 If the default org doesn't show up down in the vscode tray, you can run `cci org default dev` to manually set the default org
