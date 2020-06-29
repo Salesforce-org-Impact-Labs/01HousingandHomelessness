@@ -29,6 +29,12 @@ tasks:
     options:
       command: "force:user:permset:assign -n RefRecAdmin"
 
+  assign_permset_apex:
+    description: Assigns the package's Admin permset
+    class_path: cumulusci.tasks.apex.anon.AnonymousApexTask
+    options:
+      path: "scripts/apex/PermSetAssign.apex"
+
   score_services:
     description: "Score the org's data and deploy the updated CMDT"
     group: "ReferralRecommendations"
@@ -66,7 +72,7 @@ flows:
   config_packaging:
     steps:
       2:
-        task: assign_permset
+        task: assign_permset_apex
         ignore_failure: True
       3:
         task: score_services
