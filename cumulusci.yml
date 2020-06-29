@@ -57,3 +57,13 @@ flows:
         task: command
         options:
           command: cci org default dev
+
+  config_packaging:
+    steps:
+      2:
+        task: assign_permset
+        ignore_failure: True
+      3:
+        task: execute_anon
+        options:
+          apex: "Scoring.scoreAllServices();"
