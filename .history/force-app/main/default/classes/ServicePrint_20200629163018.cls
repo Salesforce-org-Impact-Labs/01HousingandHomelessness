@@ -19,7 +19,7 @@ public class ServicePrint {
 
         try {
            	PageReference nr = new PageReference('/apex/ServicePrintPage');
-            System.debug('nr' + nr);
+
             //nr.getParameters().put('service', service);
             body = nr.getContentAsPDF();
             

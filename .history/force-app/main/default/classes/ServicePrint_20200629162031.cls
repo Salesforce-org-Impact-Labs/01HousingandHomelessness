@@ -18,8 +18,7 @@ public class ServicePrint {
         Service__c service = [SELECT Id, Name FROM Service__c WHERE Id =:serviceId];
 
         try {
-           	PageReference nr = new PageReference('/apex/ServicePrintPage');
-            System.debug('nr' + nr);
+           	PageReference nr = Page.ServicePrintPage;
             //nr.getParameters().put('service', service);
             body = nr.getContentAsPDF();
             
