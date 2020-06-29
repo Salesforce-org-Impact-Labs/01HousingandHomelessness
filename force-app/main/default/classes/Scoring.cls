@@ -103,9 +103,6 @@ public with sharing class Scoring {
 
   // Scoring.scoreAllServices();
   public static void scoreAllServices() {
-    // container for the updates
-    Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
-
     // iterate all metrics
     for (Scoring_Metric__mdt metricIterator : [
       SELECT
@@ -123,6 +120,9 @@ public with sharing class Scoring {
       );
       // default order is ASC, so [0] is min and last is max
       if (!results.isEmpty()) {
+        // container for the updates
+        Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
+
         Metadata.CustomMetadata recordToUpdate = new Metadata.CustomMetadata();
         recordToUpdate.fullName =
           'Scoring_Metric.' + metricIterator.DeveloperName;
@@ -145,10 +145,10 @@ public with sharing class Scoring {
         recordToUpdate.values.add(orgMax);
 
         mdContainer.addMetadata(recordToUpdate);
+        // apply the update
+        CustomMetadataCallback callback = new customMetadataCallback();
+        Metadata.Operations.enqueueDeployment(mdContainer, callback);
       }
     }
-    // apply the update
-    CustomMetadataCallback callback = new customMetadataCallback();
-    Metadata.Operations.enqueueDeployment(mdContainer, callback);
   }
 }
