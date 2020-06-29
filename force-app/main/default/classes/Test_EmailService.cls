@@ -151,11 +151,18 @@ public with sharing class Test_EmailService {
         contactMap.put(testContact.Id,testContact);
 
         EmailService.ContactMessage contactMsg = createContactMessage();
-        Boolean exceptionWasCaught = false;
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referrals[0].Id});
 
+        Boolean exceptionWasCaught = false;
         Test.startTest();
         try {
-            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg},contactMap);
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg},contactMap,referralMap);
         } catch (EmailService.EmailServiceException ese) {
             exceptionWasCaught = true;
         }
@@ -181,11 +188,19 @@ public with sharing class Test_EmailService {
         Map<Id,Contact> contactMap = new Map<Id,Contact>();
         contactMap.put(testContact.Id,testContact);
        
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referrals[0].Id});
+
         Boolean exceptionWasCaught = false;
         String exceptionMsg = '';
         Test.startTest();
         try {
-            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg},contactMap);
+            EmailService.sendMessageToContact(new List<EmailService.ContactMessage>{contactMsg},contactMap,referralMap);
         } catch (EmailService.EmailServiceException ese) {
             exceptionWasCaught = true;
             exceptionMsg = ese.getMessage();
@@ -261,7 +276,7 @@ public with sharing class Test_EmailService {
         Messaging.SingleEmailMessage email = EmailService.createEmailForCarrier (messageToSend, phoneNumber, carrierName);
 
         Test.startTest();
-        EmailService.sendEmailToCarrier(email);
+        EmailService.sendEmail(email);
         Integer invocations = Limits.getEmailInvocations();
         Test.stopTest();
        
@@ -288,8 +303,16 @@ public with sharing class Test_EmailService {
     }
 
     static Messaging.SingleEmailMessage createTestEmail() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+ 
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         email.setPlainTextBody('foo message');
+        email.setWhatId(referrals[0].Id);
         return email;
     }
 

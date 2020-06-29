@@ -6,7 +6,7 @@ public with sharing class EmailService {
         // create the emails
         List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
         // prep and send the emails
-        prepareAndSendEmails(emails);
+        prepareAndSendEmails(emails, referralMap);
     }
 
     public static void sendReferralFollowupMessages(List<Id> referralIds) {
@@ -15,7 +15,7 @@ public with sharing class EmailService {
         // create the emails
         List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap);
         // prep and send the emails
-        prepareAndSendEmails(emails);
+        prepareAndSendEmails(emails, referralMap);
     }
 
     public static void sendClientRateExperienceMessage(Id referralId) {
@@ -24,7 +24,7 @@ public with sharing class EmailService {
         // create the emails
         List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralRateServiceEmails(referralMap);
         // prep and send the emails
-        prepareAndSendEmails(emails);
+        prepareAndSendEmails(emails, referralMap);
     }
 
     public static void sendClientHelpResponseMessage(Id referralId) {
@@ -33,7 +33,7 @@ public with sharing class EmailService {
         // create the emails
         List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createClientHelpResponseEmails(referralMap);
         // prep and send the emails
-        prepareAndSendEmails(emails);
+        prepareAndSendEmails(emails, referralMap);
     }
 
     public static void sendClientCantConnectMessage(Id referralId) {
@@ -42,10 +42,10 @@ public with sharing class EmailService {
         // create the emails
         List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createClientCantConnectEmails(referralMap);
         // prep and send the emails
-        prepareAndSendEmails(emails);
+        prepareAndSendEmails(emails, referralMap);
     }
 
-    public static void prepareAndSendEmails(List<Messaging.SingleEmailMessage> emails) {
+    public static void prepareAndSendEmails(List<Messaging.SingleEmailMessage> emails, Map<Id, Referral__c> referralMap) {
         Map<Id,Messaging.SingleEmailMessage> contactIdEmailMap = ClientMessageHelper.getContactEmailMap(emails);
         
         Map<Id,Contact> clientContactMap = createClientContactMap(contactIdEmailMap.keySet());
@@ -58,10 +58,10 @@ public with sharing class EmailService {
         }
 
         // try to send the messages
-        sendMessageToContact(contactMessages, clientContactMap);
+        sendMessageToContact(contactMessages, clientContactMap, referralMap);
     }
     
-    public static void sendMessageToContact (List<ContactMessage> contactMessages, Map<Id,Contact> clientContactMap) {
+    public static void sendMessageToContact (List<ContactMessage> contactMessages, Map<Id,Contact> clientContactMap, Map<Id, Referral__c> referralMap) {
         List<Contact> contactsToUpdate = new List<Contact>();
 
         for (ContactMessage contactMsg : contactMessages) {
@@ -82,7 +82,23 @@ public with sharing class EmailService {
             // check the contact
             if (clientContact != null) {
 
-                if (clientContact.Phone != null) {
+                // if their preferred channel is email, this becomes easier
+                // get the referral id from the email message, it will be the WhatId
+                Id referralId = messageToSend.getWhatId();
+                // get the referral from the map
+                Referral__c theReferral = referralMap.get(referralId);
+                
+                // determine their preferred channel of contact
+                if ('Email'.equalsIgnoreCase(theReferral.Preferred_Channel__c)) {
+                    Messaging.SingleEmailMessage emailToSend = 
+                        createEmailForContact (messageToSend, clientContact.Email);
+                    Boolean emailWasSent = sendEmail(emailToSend);
+                    if (!emailWasSent) {
+                        throw new EmailServiceException('Failed to successfully send outgoing email to contact');
+                    } 
+
+                } else if (clientContact.Phone != null) {
+                    // if the preferred channel is SMS, we must use their phone number to create an email to the carrier
                     
                     if (clientContact.Mobile_Phone_Carrier__c == null) {
                         // if no carrier, look it up, add it to contact record
@@ -105,7 +121,7 @@ public with sharing class EmailService {
                         // failed to create email
                         throw new EmailServiceException('Failed to create outgoing email to carrier'); 
                     }
-                    Boolean emailWasSent = sendEmailToCarrier(emailToSend);
+                    Boolean emailWasSent = sendEmail(emailToSend);
 
                     // get response???
 
@@ -126,7 +142,7 @@ public with sharing class EmailService {
                                 // failed to create email
                                 throw new EmailServiceException('Failed to create outgoing email to carrier on retry'); 
                             }  
-                            emailWasSent = sendEmailToCarrier(emailToSend);
+                            emailWasSent = sendEmail(emailToSend);
                             if (!emailWasSent) {
                                 throw new EmailServiceException('Failed to successfully send outgoing email to carrier on retry');
                             } 
@@ -158,7 +174,7 @@ public with sharing class EmailService {
     }
 
     @TestVisible
-    private static Boolean sendEmailToCarrier(Messaging.SingleEmailMessage emailToSend) {
+    private static Boolean sendEmail(Messaging.SingleEmailMessage emailToSend) {
         Messaging.SendEmailResult[] results = Messaging.sendEmail( new List<Messaging.SingleEmailMessage>{ emailToSend } );
 
         for (Messaging.SendEmailResult result : results) {
@@ -185,6 +201,13 @@ public with sharing class EmailService {
         }
 
         messageToSend.setToAddresses(new List<String>{carrierEmail});
+
+        return messageToSend;
+    }
+
+    @TestVisible
+    private static Messaging.SingleEmailMessage createEmailForContact (Messaging.SingleEmailMessage messageToSend, String contactEmail) {
+        messageToSend.setToAddresses(new List<String>{contactEmail});
 
         return messageToSend;
     }

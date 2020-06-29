@@ -41,7 +41,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 
@@ -59,7 +60,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 
@@ -77,7 +79,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 
@@ -95,7 +98,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 
@@ -113,7 +117,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 
@@ -131,7 +136,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 
@@ -151,7 +157,8 @@ public class Test_ClientMessageHelper {
         Referral__c ref = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
         ][0];
 

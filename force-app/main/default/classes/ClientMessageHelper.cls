@@ -122,7 +122,8 @@ public with sharing class ClientMessageHelper {
         List<Referral__c> referrals = [
             SELECT
                 Id,
-                Contact__c
+                Contact__c,
+                Preferred_Channel__c
             FROM Referral__c
             WHERE Id IN :referralIds
         ];
