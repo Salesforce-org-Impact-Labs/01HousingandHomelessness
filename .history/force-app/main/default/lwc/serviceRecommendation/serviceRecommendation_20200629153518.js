@@ -160,7 +160,7 @@ export default class ServiceRecommendation extends LightningElement {
         print({serviceId : this.serviceid})
             .then((result)=>{
                 window.console.log('success');
-                window.console.log('res' + JSON.stringify(result));
+                window.console.log('res' + result);
 
                 // let downloadLink = document.createElement("a"); 
                 // downloadLink.href = 'data:application/pdf;base64,'+result.pdfContentData; 
