@@ -145,9 +145,11 @@ public with sharing class Scoring {
         recordToUpdate.values.add(orgMax);
 
         mdContainer.addMetadata(recordToUpdate);
-        // apply the update
+        // apply the update, but not during tests
         CustomMetadataCallback callback = new customMetadataCallback();
-        Metadata.Operations.enqueueDeployment(mdContainer, callback);
+        if (!Test.isRunningTest()) {
+          Metadata.Operations.enqueueDeployment(mdContainer, callback);
+        }
       }
     }
   }
