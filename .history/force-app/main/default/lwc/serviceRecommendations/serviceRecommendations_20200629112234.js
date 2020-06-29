@@ -124,7 +124,6 @@ export default class ServiceRecommendations extends LightningElement {
     }
 
     handleSortMenu(event){
-        window.console.log('show sort menu');
         const menuItem = event.currentTarget;
         const parent = menuItem.parentElement;
         window.console.log('children' + parent.children);

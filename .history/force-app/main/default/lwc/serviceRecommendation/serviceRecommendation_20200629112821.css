@@ -7,10 +7,6 @@
     background-color:rgb(232, 232, 232);
     width:100%;
 }
-
-.relevanceDiv p {
-    word-wrap: break-word;
-}
 .iconNameDiv {
     height: 40px;
     line-height: 40px;       

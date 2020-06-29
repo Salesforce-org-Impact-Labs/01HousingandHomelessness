@@ -134,6 +134,18 @@ export default class ServiceRecommendations extends LightningElement {
         menuItem.checked = !menuItem.checked;
         //run sorting
     }
+
+    handleSortModalMenu(event){
+        window.console.log('show sort menu');
+        const menuItem = event.currentTarget;
+        const parent = menuItem.parentElement;
+        window.console.log('children' + parent.children);
+        for (let sibling of parent.children){
+            sibling.checked = false;
+        }
+        menuItem.checked = !menuItem.checked;
+        //run sorting
+    }
     
     handleUpdateTypeFilters(event){
         window.console.log('type filters' + event.typefilters);
