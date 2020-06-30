@@ -38,7 +38,7 @@ public class ServicePrint {
         insert attach;
 
         String fullURL = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/ServicePrintPage';
-        
+        System.debug(fullURL);
         return fullURL;
 
     }
