@@ -30,6 +30,8 @@ public with sharing class Test_getRecommendations {
     );
     System.assert(recs[goodServiceIndex].Relevance >= 0);
     System.assert(recs[goodServiceIndex].Relevance <= 100);
+    System.assert(recs[goodServiceIndex].Distance >= 0);
+    System.assertEquals(1, recs[goodServiceIndex].Preferred);
 
     System.assertEquals(1, recs[goodServiceIndex].Comments.size());
     System.assertEquals(
@@ -37,14 +39,19 @@ public with sharing class Test_getRecommendations {
       recs[goodServiceIndex].Comments[0].CommentText
     );
     // check for preferred factor
+    boolean DistanceMetricExists = false;
     for (
       ServiceRecommendation.Indicator indicator : recs[goodServiceIndex]
         .Indicators
     ) {
-      if (indicator.IndicatorType == 'Preferred Service') {
-        system.assertEquals('TRUE', indicator.IndicatorValue);
+      if (indicator.IndicatorType == 'Distance') {
+        DistanceMetricExists = true;
+      }
+      if (indicator.IndicatorType == 'Preferred') {
+        system.assertEquals('1', indicator.IndicatorValue);
       }
     }
+    // system.assert(DistanceMetricExists);
   }
 
   static testMethod void omitsTeenService() {
