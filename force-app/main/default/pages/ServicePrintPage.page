@@ -1,7 +1,35 @@
-<apex:page controller="ServicePrint" showHeader="false" applyHtmlTag="false" applyBodyTag="false" renderAs="pdf">
-    <html>
+<apex:page controller="ServicePrint" showHeader="false" applyHtmlTag="false" applyBodyTag="false" renderAs="pdf" >
+        <apex:stylesheet value="{!$Resource.pdfStyle}"></apex:stylesheet>
+    <body >
         <div>
-            <p>Here is your Service Referral</p>
+            <p><span>Referral For:</span> {!service.Name} ({!service.Type__c})</p>
+            <p><span>Provided By:</span> {!service.Account__r.Name}</p>
         </div>
-    </html>
+
+        <div>
+            <p>{!service.Description__c}</p>
+        </div>
+
+        <div>
+            <h3>Contact Information</h3>
+
+            <p>{!service.Account__r.ShippingStreet}</p>
+            <p>{!service.Account__r.ShippingCity}, {!service.Account__r.ShippingState} {!service.Account__r.ShippingPostalCode}</p>
+            <p>{!service.Account__r.Phone}</p>
+            <a href='{!service.Website__c}'>{!service.Website__c}</a>
+        </div>
+
+        <div>
+            <h3>Hours</h3>
+            <ul>
+                <li>{!Sunday}</li>
+                <li>{!Monday}</li>
+                <li>{!Tuesday}</li>
+                <li>{!Wednesday}</li>
+                <li>{!Thursday}</li>
+                <li>{!Friday}</li>
+                <li>{!Saturday}</li>
+            </ul>
+        </div>
+    </body>
 </apex:page>

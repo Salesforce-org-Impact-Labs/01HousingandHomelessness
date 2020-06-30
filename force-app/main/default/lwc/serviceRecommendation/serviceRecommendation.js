@@ -31,6 +31,7 @@ export default class ServiceRecommendation extends LightningElement {
     @track newComment;
 
     connectedCallback(rec = this.servicerecommendation){
+        window.console.log(rec.Website);
         if(rec.ProgramType === 'Food'){
             this.programTypeFood = true
         } else if(rec.ProgramType === 'Education'){
