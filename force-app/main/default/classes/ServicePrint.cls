@@ -9,7 +9,7 @@ public class ServicePrint {
     }
 
     @AuraEnabled
-    public static Blob PrintPage(Id serviceId){
+    public static String PrintPage(Id serviceId){
         Attachment attach = new Attachment();
         attach.body = Blob.valueOf('');  
         Blob body = Blob.valueOf(''); 
@@ -36,9 +36,10 @@ public class ServicePrint {
         attach.IsPrivate = false; //make public
         attach.ParentId = serviceId; //attach pdf to record
         insert attach;
-        return body;
+
+        String fullURL = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/ServicePrintPage';
         
-        // return attach;
+        return fullURL;
 
     }
 }
