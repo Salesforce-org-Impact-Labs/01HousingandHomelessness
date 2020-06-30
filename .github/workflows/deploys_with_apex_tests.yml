@@ -3,7 +3,7 @@ name: Deploy, Run Apex Tests, Delete Org
 on:
   push:
     branches:
-      - "*"
+      - "**"
       - "!master"
 
 env:
