@@ -45,6 +45,15 @@ public with sharing class EmailService {
         prepareAndSendEmails(emails, referralMap);
     }
 
+    public static void sendRateServiceSavedMessage(Id referralId) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referralId});
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createRateServiceSavedEmails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails, referralMap);
+    }
+
     public static void prepareAndSendEmails(List<Messaging.SingleEmailMessage> emails, Map<Id, Referral__c> referralMap) {
         Map<Id,Messaging.SingleEmailMessage> contactIdEmailMap = ClientMessageHelper.getContactEmailMap(emails);
         

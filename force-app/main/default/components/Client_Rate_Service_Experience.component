@@ -6,16 +6,8 @@
     assignTo="{!referralId}" 
     access="global"
     />
-    <html>
-        <body>
-            <div>
-                <p>
                     That’s great to hear. 
                     How was your experience with {!referral.Service__r.Name}? 
                     Rate your experience on a scale of 1-5 (1 being terrible, 5 being awesome). 
                     ref#{!referral.Id}
-                </p>
-            </div>
-        </body>
-    </html>
 </apex:component>

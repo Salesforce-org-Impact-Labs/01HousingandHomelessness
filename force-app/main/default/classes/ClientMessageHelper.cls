@@ -5,6 +5,7 @@ public with sharing class ClientMessageHelper {
     public static final String CLIENT_RATE_SERVICE_TEMPLATE = 'Client_Rate_Service_Experience';
     public static final String CLIENT_HELP_RESPONSE_TEMPLATE = 'Client_Help_Response';
     public static final String CLIENT_CANT_CONNECT_TEMPLATE = 'Client_Cant_Connect';
+    public static final String RATE_SERVICE_SAVED_TEMPLATE = 'Rate_Service_Saved_Response';
 
     public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap) {
 
@@ -16,7 +17,6 @@ public with sharing class ClientMessageHelper {
 
         // create email messages containing this information
         List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
-
 
         return messages;
     }
@@ -67,6 +67,20 @@ public with sharing class ClientMessageHelper {
  
         // get the email template for this kind of message
         EmailTemplate template = getEmailTemplateByName(CLIENT_CANT_CONNECT_TEMPLATE);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
+    public static List<Messaging.SingleEmailMessage> createRateServiceSavedEmails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(RATE_SERVICE_SAVED_TEMPLATE);
 
         // get the org wide email for the reply-to
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();

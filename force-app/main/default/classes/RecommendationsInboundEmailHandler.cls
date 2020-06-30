@@ -17,11 +17,11 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
             String referralId = 
                 email.plainTextBody.substringAfterLast(EMAIL_REFERRAL_TOKEN);
             referralId = referralId.substring(0,REFERRAL_ID_LENGTH);
-            System.debug('+++ referral id '+referralId);
 
             if (referralId != null) {
                 // we need to parse out their response, which would be in the first portion of the response
                 String truncatedResponse = email.plainTextBody.left(RESPONSE_TRUNCATION_LEN);
+                String firstChar = truncatedResponse.substring(0,1);
 
                 // if we can parse out the referral Id, we need to see what they replied with
                 if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_YES)) {
@@ -33,6 +33,16 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 } else if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_HELP)) {
                     // they need help
                     EmailService.sendClientHelpResponseMessage(referralId);
+                } else if (firstChar.equals('1') ||
+                            firstChar.equals('2') ||
+                            firstChar.equals('3') ||
+                            firstChar.equals('4') || 
+                            firstChar.equals('5') ) {
+                    // save the score to the referral record, etc
+                    Integer score = Integer.valueOf(firstChar);
+                    ReferralResponseHelper.saveReferralScore(referralId, score);
+                    // send response email to client
+                    EmailService.sendRateServiceSavedMessage(referralId);
                 }
             }
 
