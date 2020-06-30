@@ -41,6 +41,8 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                     // save the score to the referral record, etc
                     Integer score = Integer.valueOf(firstChar);
                     ReferralResponseHelper.saveReferralScore(referralId, score);
+                    // send response email to client
+                    EmailService.sendRateServiceSavedMessage(referralId);
                 }
             }
 
