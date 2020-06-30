@@ -31,6 +31,7 @@ public with sharing class Test_getRecommendations {
     System.assert(recs[goodServiceIndex].Relevance >= 0);
     System.assert(recs[goodServiceIndex].Relevance <= 100);
     System.assert(recs[goodServiceIndex].Distance >= 0);
+    System.assertEquals(1, recs[goodServiceIndex].Preferred);
 
     System.assertEquals(1, recs[goodServiceIndex].Comments.size());
     System.assertEquals(
