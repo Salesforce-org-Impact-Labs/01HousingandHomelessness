@@ -47,7 +47,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());
+        System.assertEquals('Initial Client Referral',messages[0].getTemplateName());
     }
 
     static testMethod void testCreateReferralFollowupEmails() {
@@ -60,7 +60,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createReferralFollowupEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());
+        System.assertEquals('Client Referral Followup',messages[0].getTemplateName());
     }
 
     static testMethod void testCreateReferralRateServiceEmails() {
@@ -73,7 +73,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createReferralRateServiceEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());       
+        System.assertEquals('Client Rate Service Experience',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateClientHelpResponseEmails() {
@@ -92,7 +92,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createClientHelpResponseEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());       
+        System.assertEquals('Client Help Response',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateClientCantConnectEmails() {
@@ -105,7 +105,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createClientCantConnectEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());       
+        System.assertEquals('Client Cant Connect',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateRateServiceSavedEmails() {
@@ -118,7 +118,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createRateServiceSavedEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());               
+        System.assertEquals('Rate Service Saved Response',messages[0].getTemplateName());               
     }
 
     static testMethod void testSaveReferralQuestion() {
@@ -129,7 +129,7 @@ public class Test_ClientMessageHelper {
             ClientMessageHelper.saveReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
         Test.stopTest();
 
-        System.assertEquals(ClientMessageHelper.CLIENT_FOLLOWUP_QUESTION, response.Question__c);
+        System.assertEquals(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_QUESTION, response.Question__c);
     }
 
     static testMethod void testGetContactEmailMap() {

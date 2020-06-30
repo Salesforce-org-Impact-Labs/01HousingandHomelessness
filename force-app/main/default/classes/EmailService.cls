@@ -73,6 +73,25 @@ public with sharing class EmailService {
     public static void sendMessageToContact (List<ContactMessage> contactMessages, Map<Id,Contact> clientContactMap, Map<Id, Referral__c> referralMap) {
         List<Contact> contactsToUpdate = new List<Contact>();
 
+        // we need to get the referral id from the referral response record
+        //  the id to this record will be in the WhatId field on the email
+        Set<Id> referralResponseIds = new Set<Id>();
+        for (ContactMessage contMsg : contactMessages) {
+            Messaging.SingleEmailMessage email = contMsg.messageToSend;
+            referralResponseIds.add(email.getWhatId());
+        }
+        List<Referral_Response__c> referralResponses = [
+            SELECT 
+                Id,
+                Referral__c
+            FROM Referral_Response__c
+            WHERE Id IN :referralResponseIds
+        ];
+        Map<Id, Id> referralResponseIdToReferralIdMap = new Map<Id, Id>();
+        for (Referral_Response__c refResp : referralResponses) {
+            referralResponseIdToReferralIdMap.put(refResp.Id, refResp.Referral__c);
+        }
+
         for (ContactMessage contactMsg : contactMessages) {
             // handle each contact/message, one record at a time
             Contact clientContact = contactMsg.clientContact;
@@ -92,8 +111,9 @@ public with sharing class EmailService {
             if (clientContact != null) {
 
                 // if their preferred channel is email, this becomes easier
-                // get the referral id from the email message, it will be the WhatId
-                Id referralId = messageToSend.getWhatId();
+                // get the referral id from the email message, via the referral response
+                Id referralResponseId = messageToSend.getWhatId();
+                Id referralId = referralResponseIdToReferralIdMap.get(referralResponseId);
                 // get the referral from the map
                 Referral__c theReferral = referralMap.get(referralId);
                 

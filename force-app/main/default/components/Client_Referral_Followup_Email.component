@@ -1,17 +1,17 @@
 <apex:component controller="ReferralEmailTemplateController" access="global">
   <apex:attribute 
-    name="refId" 
+    name="refRespId" 
     type="String" 
-    description="This is the ID of the referral" 
-    assignTo="{!referralId}" 
+    description="This is the ID of the referral response" 
+    assignTo="{!referralResponseId}" 
     access="global"
     />
-          Hi {!referral.Contact__r.FirstName} {!referral.Contact__r.LastName}! It's {!org.Name}. 
+          Hi {!referralResponse.Referral__r.Contact__r.FirstName} {!referralResponse.Referral__r.Contact__r.LastName}! It's {!org.Name}. 
           We wanted to check in and see how you are doing.
-          Have you successfully met with your referral {!referral.Service__r.Name}?
+          Have you successfully met with your referral {!referralResponse.Referral__r.Service__r.Name}?
           <apex:outputText 
-            rendered="{!IF((referral.Preferred_Channel__c = "Email"),true,false)}"
+            rendered="{!IF((referralResponse.Referral__r.Preferred_Channel__c = "Email"),true,false)}"
             value=" Please reply with Yes, No, or Help, so we can better support you.
-                  ref#{!referral.Id}"/>
+                  ref#{!referralResponse.Id}"/>
 
 </apex:component>

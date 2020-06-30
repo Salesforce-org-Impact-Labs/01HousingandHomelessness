@@ -1,8 +1,8 @@
 <apex:component controller="ReferralEmailTemplateController" access="global">
-  <apex:attribute name="refId" 
+  <apex:attribute name="refRespId" 
     type="String" 
-    description="This is the ID of the referral" 
-    assignTo="{!referralId}" 
+    description="This is the ID of the referral response" 
+    assignTo="{!referralResponseId}" 
     access="global"
     />
   <html>
@@ -16,7 +16,7 @@
             2 - I contacted the service but they didn’t get back to me
             3 - I tried to contact the service but the contact information was wrong
             4 - Other
-            ref#{!referral.Id}
+            ref#{!referralResponse.Id}
         </p>
       </div>
     </body>
