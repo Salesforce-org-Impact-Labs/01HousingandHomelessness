@@ -39,6 +39,8 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                             firstChar.equals('4') || 
                             firstChar.equals('5') ) {
                     // save the score to the referral record, etc
+                    Integer score = Integer.valueOf(firstChar);
+                    ReferralResponseHelper.saveReferralScore(referralId, score);
                 }
             }
 
