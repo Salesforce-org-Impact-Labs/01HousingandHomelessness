@@ -43,7 +43,14 @@ public with sharing class getRecommendations {
         Type__c,
         Website__c,
         Zip_Code__c,
-        Preferred__c
+        Preferred__c,
+        DISTANCE(
+          Location__c,
+          GEOLOCATION(:client.Location__Latitude__s,
+            :client.Location__Longitude__s
+          ),
+          'mi'
+        ) dist
       FROM Service__c
       WHERE
         (Minimum_Age__c = null
@@ -66,6 +73,8 @@ public with sharing class getRecommendations {
     List<ServiceRecommendation> output = new List<ServiceRecommendation>();
     for (Service__c service : services) {
       ServiceRecommendation SR = new ServiceRecommendation();
+      SR.Service = service;
+      SR.Distance = (decimal)service.get('dist');
       SR.Relevance = 0;
       SR.ServiceId = service.Id;
       SR.ProviderName = service.Account__r.Name;
@@ -81,13 +90,7 @@ public with sharing class getRecommendations {
       SR.totalRatings = 0;
       SR.Indicators = new List<ServiceRecommendation.Indicator>();
       SR.Comments = new List<ServiceRecommendation.Comment>();
-
-      if (service.Preferred__c) {
-        ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
-        indicator.IndicatorType = 'Preferred Service';
-        indicator.IndicatorValue = 'TRUE';
-        SR.Indicators.add(indicator);
-      }
+      SR.Preferred = service.Preferred__c ? 1 : 0; //translate checkbox to 1,0 value      
       output.add(SR);
     }
     return output;
