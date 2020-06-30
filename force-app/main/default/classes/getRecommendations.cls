@@ -2,7 +2,7 @@ public with sharing class getRecommendations {
   @AuraEnabled
   public static list<ServiceRecommendation> getRecommendations(id contactId) {
     Client_Profile__c CP = getProfile(contactId);
-    List<Service__c> services = primaryQuery(CP);
+    List<Service__c> services = getRecommendationsServiceQuery.primaryQuery(CP);
 
     // convert to ServiceRecommendation
     list<ServiceRecommendation> output = servicesToRecommendations(services);
@@ -15,57 +15,12 @@ public with sharing class getRecommendations {
     output = getComments(output);
     // do the Star Rating for each service
     output = addStars(output);
+
+    output = addMatches(output, CP);
     // final Relevancy score + factors
     output = Scoring.scoreRecommendations(output);
 
     return output;
-  }
-
-  // list of services with any hard filters
-  // hard filters are currently Age
-  public static list<Service__c> primaryQuery(Client_Profile__c client) {
-    decimal age = calculateAge(client.Date_Of_Birth__c);
-    decimal defaultMaxDistance = [
-      SELECT Default_Max_Distance__c
-      FROM RefRecSettings__mdt
-    ]
-    .Default_Max_Distance__c;
-    return [
-      SELECT
-        id,
-        Name,
-        Account__c,
-        Account__r.Name,
-        Description__c,
-        City__c,
-        Phone__c,
-        Street__c,
-        Type__c,
-        Website__c,
-        Zip_Code__c,
-        Preferred__c,
-        Near_Homeless__c, Homeless__c, Runaway__c, Home_Owner__c, Home_Renter__c,
-        DISTANCE(
-          Location__c,
-          GEOLOCATION(:client.Location__Latitude__s,
-            :client.Location__Longitude__s
-          ),
-          'mi'
-        ) dist
-      FROM Service__c
-      WHERE
-        (Minimum_Age__c = null
-        OR Minimum_Age__c < :age)
-        AND (Maximum_Age__c = null
-        OR Maximum_Age__c > :age)
-        AND DISTANCE(
-          Location__c,
-          GEOLOCATION(:client.Location__Latitude__s,
-            :client.Location__Longitude__s
-          ),
-          'mi'
-        ) < :defaultMaxDistance
-    ];
   }
 
   public static List<ServiceRecommendation> servicesToRecommendations(
@@ -75,8 +30,9 @@ public with sharing class getRecommendations {
     for (Service__c service : services) {
       ServiceRecommendation SR = new ServiceRecommendation();
       SR.Service = service;
-      SR.Distance = (decimal)service.get('dist');
+      SR.Distance = (decimal) service.get('dist');
       SR.Relevance = 0;
+      SR.Matches = new List<String>();
       SR.ServiceId = service.Id;
       SR.ProviderName = service.Account__r.Name;
       SR.AccountId = service.Account__c;
@@ -91,7 +47,7 @@ public with sharing class getRecommendations {
       SR.totalRatings = 0;
       SR.Indicators = new List<ServiceRecommendation.Indicator>();
       SR.Comments = new List<ServiceRecommendation.Comment>();
-      SR.Preferred = service.Preferred__c ? 1 : 0; //translate checkbox to 1,0 value      
+      SR.Preferred = service.Preferred__c ? 1 : 0; //translate checkbox to 1,0 value
       output.add(SR);
     }
     return output;
@@ -126,6 +82,31 @@ public with sharing class getRecommendations {
       rec.totalRatings = ratingsCountByService.get(rec.ServiceId);
       if (rec.totalRatings == null) {
         rec.totalRatings = 0;
+      }
+    }
+    return recs;
+  }
+
+  public static list<ServiceRecommendation> addMatches(
+    List<ServiceRecommendation> recs,
+    Client_Profile__c CP
+  ) {
+    for (ServiceRecommendation rec : recs) {
+      // housing fields are all checkboxes on both sides
+      if (rec.Service.Homeless__c && CP.Homeless__c) {
+        rec.Matches.add('Homeless');
+      }
+      if (rec.Service.Near_Homeless__c && CP.Near_Homeless__c) {
+        rec.Matches.add('NearHomeless');
+      }
+      if (rec.Service.Runaway__c && CP.Runaway__c) {
+        rec.Matches.add('Runaway');
+      }
+      if (rec.Service.Home_Owner__c && CP.Home_Owner__c) {
+        rec.Matches.add('Owner');
+      }
+      if (rec.Service.Home_Renter__c && CP.Home_Renter__c) {
+        rec.Matches.add('Renter');
       }
     }
     return recs;
@@ -225,7 +206,16 @@ public with sharing class getRecommendations {
 
   public static Client_Profile__c getProfile(id contactId) {
     Client_Profile__c output = [
-      SELECT id, Date_Of_Birth__c, Location__Latitude__s, Location__Longitude__s
+      SELECT
+        id,
+        Date_Of_Birth__c,
+        Location__Latitude__s,
+        Location__Longitude__s,
+        Near_Homeless__c,
+        Homeless__c,
+        Runaway__c,
+        Home_Owner__c,
+        Home_Renter__c
       FROM Client_Profile__c
       WHERE Contact__c = :contactId
     ];
@@ -244,10 +234,6 @@ public with sharing class getRecommendations {
       .Default_Longitude__c;
     }
     return output;
-  }
-
-  public static decimal calculateAge(Date DOB) {
-    return DOB.daysBetween(system.today()) / 365;
   }
 
   public static list<id> IDsFromRecommendations(

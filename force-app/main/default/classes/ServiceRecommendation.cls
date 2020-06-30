@@ -56,6 +56,9 @@ public class ServiceRecommendation {
   @AuraEnabled
   public List<Indicator> Indicators { get; set; }
 
+  @AuraEnabled
+  public List<String> Matches { get; set; }
+
   // dynamic getter for supporting returning certain properties
   public Decimal getValue(string property) {
     if (property == 'Distance') {
@@ -79,6 +82,19 @@ public class ServiceRecommendation {
 
     @AuraEnabled
     public Decimal IndicatorPercentile { get; set; }
+  }
+
+  public ServiceRecommendation addIndicator(
+    string typ,
+    string value,
+    decimal pct
+  ) {
+    Indicator i = new Indicator();
+    i.IndicatorPercentile = pct;
+    i.IndicatorType = typ;
+    i.IndicatorValue = value;
+    this.Indicators.add(i);
+    return this;
   }
 
   public class Comment {
