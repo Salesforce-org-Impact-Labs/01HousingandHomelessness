@@ -101,7 +101,6 @@ public with sharing class ClientMessageHelper {
         String referralId = email.getWhatId();
         String question = '';
         //  determine the question that was asked, based on the email template
-  System.debug('++++ template name '+email.getTemplateName());      
         if (CLIENT_REFERRAL_FOLLOWUP_TEMPLATE_NAME.equals(email.getTemplateName())) {
             question = CLIENT_FOLLOWUP_QUESTION;
         } else if (CLIENT_RATE_SERVICE_TEMPLATE_NAME.equals(email.getTemplateName())) {

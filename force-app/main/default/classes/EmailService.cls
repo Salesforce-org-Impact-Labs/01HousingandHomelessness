@@ -203,7 +203,7 @@ public with sharing class EmailService {
     }
 
     @TestVisible
-    private static Messaging.SingleEmailMessage createEmailForCarrier (Messaging.SingleEmailMessage messageToSend, String phoneNumber, String carrierName) {
+    private static Messaging.SingleEmailMessage createEmailForCarrier(Messaging.SingleEmailMessage messageToSend, String phoneNumber, String carrierName) {
 
         String carrierEmail = convertPhoneToCarrierEmail (phoneNumber, carrierName);
         if (carrierEmail == null) {
