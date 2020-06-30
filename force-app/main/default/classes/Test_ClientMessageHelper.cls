@@ -132,6 +132,25 @@ public class Test_ClientMessageHelper {
         System.assertEquals(ref.Id,messages[0].getWhatId());       
     }
 
+    static testMethod void testCreateRateServiceSavedEmails() {
+        Referral__c ref = [
+            SELECT
+                Id,
+                Contact__c,
+                Preferred_Channel__c
+            FROM Referral__c
+        ][0];
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createRateServiceSavedEmails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals(ref.Id,messages[0].getWhatId());               
+    }
+
     static testMethod void testGetContactEmailMap() {
         Referral__c ref = [
             SELECT

@@ -9,7 +9,7 @@ project:
   # - github: 'https://github.com/SalesforceFoundation/PMM'
   source_format: sfdx
   test:
-    name_match: "%Test%"
+    name_match: "Test_%"
 
 tasks:
   robot:
@@ -41,6 +41,10 @@ tasks:
     class_path: cumulusci.tasks.apex.anon.AnonymousApexTask
     options:
       apex: "Scoring.scoreAllServices();"
+
+  run_tests:
+    options:
+      required_org_code_coverage_percent: 75
 
   uninstall_packaged_incremental:
     options:
