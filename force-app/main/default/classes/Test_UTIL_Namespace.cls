@@ -35,7 +35,7 @@
  * such as detecting whether we are in a managed package, and some string helpers.
  */
 @isTest
-private with sharing class UTIL_Namespace_TEST {
+private with sharing class Test_UTIL_Namespace {
   @isTest
   private static void TestNamespacePrefixFixups() {
     if (UTIL_Namespace.getNamespace() != '') {
@@ -131,13 +131,5 @@ private with sharing class UTIL_Namespace_TEST {
       actualClassName,
       'The class name should be returned as is'
     );
-  }
-
-  @isTest
-  private static void testSandboxEmailToRealEmail() {
-    String fixedEmail = UTIL_Namespace.sandboxEmailToRealEmail(
-      'awheeler=universalcontainers.com@example.com'
-    );
-    System.assertEquals('awheeler@universalcontainers.com', fixedEmail);
   }
 }
