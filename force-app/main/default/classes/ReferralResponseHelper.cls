@@ -9,4 +9,14 @@ public with sharing class ReferralResponseHelper {
             update refer;
         }
     }
+
+    public static Referral_Response__c createQuestionRecord(String referralId, String question) {
+        Referral_Response__c refRes = new Referral_Response__c (
+            Referral__c = referralId,
+            Question__c = question
+        );
+        insert refRes;
+
+        return refRes;
+    }
 }
