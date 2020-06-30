@@ -50,7 +50,7 @@ public with sharing class getRecommendations {
             :client.Location__Longitude__s
           ),
           'mi'
-        )
+        ) dist
       FROM Service__c
       WHERE
         (Minimum_Age__c = null
@@ -74,6 +74,7 @@ public with sharing class getRecommendations {
     for (Service__c service : services) {
       ServiceRecommendation SR = new ServiceRecommendation();
       SR.Service = service;
+      SR.Distance = (decimal)service.get('dist');
       SR.Relevance = 0;
       SR.ServiceId = service.Id;
       SR.ProviderName = service.Account__r.Name;

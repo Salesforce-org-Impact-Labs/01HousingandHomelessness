@@ -61,25 +61,36 @@ public with sharing class Scoring {
     for (Scoring_Metric__mdt metricIterator : metrics) {
       weightTotal = weightTotal + metricIterator.Weighting__c;
     }
-    // query CMDT for the metrics
 
     for (Scoring_Metric__mdt metricIterator : metrics) {
+      map<id, AggregateResult> queryResults = new Map<id, AggregateResult>();
       //for each metric, get the stat for relevant services
-      map<id, AggregateResult> results = new Map<id, AggregateResult>(
-        (list<AggregateResult>) database.query(
-          metricIterator.Service_Level_SOQL_Query__c
-        )
-      );
+      if (metricIterator.Service_Level_SOQL_Query__c != null) {
+        queryResults = new Map<id, AggregateResult>(
+          (list<AggregateResult>) database.query(
+            metricIterator.Service_Level_SOQL_Query__c
+          )
+        );
+      }
+      decimal serviceValue;
       decimal spread =
         metricIterator.Org_Maximum__c - metricIterator.Org_Minimum__c;
       // we'll not assign any points if there is nothing to base it on
       if (spread != 0) {
         // do a percentile-based conversion for each metric
         for (ServiceRecommendation rec : recs) {
-          AggregateResult result = results.get(rec.ServiceId);
+          AggregateResult result = queryResults.get(rec.ServiceId);
           if (result != null) {
-            decimal serviceValue = (decimal) result.get('metric');
-            // create and calculate the new indicator
+            // the result was found from the aggregateQuery
+            serviceValue = (decimal) result.get('metric');
+          } else if (rec.getValue(metricIterator.Label) != null) {
+            // the metric has a matching property on the ServiceRecommendationObject (ex: Distance) that is populated
+            serviceValue = (decimal) rec.getValue(metricIterator.Label);
+          } else {
+            continue;
+          }
+          if (serviceValue != null) {
+            // still here?  we must have a service value.  Create and calculate the new indicator
             ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
             indicator.IndicatorType = metricIterator.Label;
             // base percentile * this metric's share of the total weight
@@ -115,40 +126,42 @@ public with sharing class Scoring {
       FROM Scoring_Metric__mdt
       WHERE Weighting__c > 0
     ]) {
-      list<AggregateResult> results = database.query(
-        metricIterator.Org_SOQL_Query__c
-      );
-      // default order is ASC, so [0] is min and last is max
-      if (!results.isEmpty()) {
-        // container for the updates
-        Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
+      if (metricIterator.Org_SOQL_Query__c != null) {
+        list<AggregateResult> results = database.query(
+          metricIterator.Org_SOQL_Query__c
+        );
+        // default order is ASC, so [0] is min and last is max
+        if (!results.isEmpty()) {
+          // container for the updates
+          Metadata.DeployContainer mdContainer = new Metadata.DeployContainer();
 
-        Metadata.CustomMetadata recordToUpdate = new Metadata.CustomMetadata();
-        recordToUpdate.fullName =
-          'Scoring_Metric.' + metricIterator.DeveloperName;
-        recordToUpdate.label = metricIterator.DeveloperName;
+          Metadata.CustomMetadata recordToUpdate = new Metadata.CustomMetadata();
+          recordToUpdate.fullName =
+            'Scoring_Metric.' + metricIterator.DeveloperName;
+          recordToUpdate.label = metricIterator.DeveloperName;
 
-        Metadata.CustomMetadataValue orgMin = new Metadata.CustomMetadataValue();
-        orgMin.field = 'Org_Minimum__c';
-        orgMin.value = (decimal) results[0].get('metric');
-        if (orgMin.value == null) {
-          orgMin.value = 0;
-        }
-        recordToUpdate.values.add(orgMin);
+          Metadata.CustomMetadataValue orgMin = new Metadata.CustomMetadataValue();
+          orgMin.field = 'Org_Minimum__c';
+          orgMin.value = (decimal) results[0].get('metric');
+          if (orgMin.value == null) {
+            orgMin.value = 0;
+          }
+          recordToUpdate.values.add(orgMin);
 
-        Metadata.CustomMetadataValue orgMax = new Metadata.CustomMetadataValue();
-        orgMax.field = 'Org_Maximum__c';
-        orgMax.value = (decimal) results[results.size() - 1].get('metric');
-        if (orgMax.value == null) {
-          orgMax.value = 0;
-        }
-        recordToUpdate.values.add(orgMax);
+          Metadata.CustomMetadataValue orgMax = new Metadata.CustomMetadataValue();
+          orgMax.field = 'Org_Maximum__c';
+          orgMax.value = (decimal) results[results.size() - 1].get('metric');
+          if (orgMax.value == null) {
+            orgMax.value = 0;
+          }
+          recordToUpdate.values.add(orgMax);
 
-        mdContainer.addMetadata(recordToUpdate);
-        // apply the update, but not during tests
-        CustomMetadataCallback callback = new customMetadataCallback();
-        if (!Test.isRunningTest()) {
-          Metadata.Operations.enqueueDeployment(mdContainer, callback);
+          mdContainer.addMetadata(recordToUpdate);
+          // apply the update, but not during tests
+          CustomMetadataCallback callback = new customMetadataCallback();
+          if (!Test.isRunningTest()) {
+            Metadata.Operations.enqueueDeployment(mdContainer, callback);
+          }
         }
       }
     }

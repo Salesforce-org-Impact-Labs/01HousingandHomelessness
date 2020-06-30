@@ -53,6 +53,17 @@ public class ServiceRecommendation {
   @AuraEnabled
   public List<Indicator> Indicators { get; set; }
 
+  // dynamic getter for supporting returning certain properties
+  public Decimal getValue(string property) {
+    if (property == 'Distance') {
+      return this.Distance;
+    }
+    if (property == 'Rating') {
+      return this.Rating;
+    }
+    return null;
+  }
+
   public class Indicator {
     @AuraEnabled
     public String IndicatorType { get; set; }
