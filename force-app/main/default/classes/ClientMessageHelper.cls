@@ -2,9 +2,7 @@ public with sharing class ClientMessageHelper {
     // email template names
     public static final String INITIAL_CLIENT_REFERRAL_TEMPLATE = 'Initial_Client_Referral';
     public static final String CLIENT_REFERRAL_FOLLOWUP_TEMPLATE = 'Client_Referral_Followup';
-    public static final String CLIENT_REFERRAL_FOLLOWUP_TEMPLATE_NAME = 'Client Referral Followup';
     public static final String CLIENT_RATE_SERVICE_TEMPLATE = 'Client_Rate_Service_Experience';
-    public static final String CLIENT_RATE_SERVICE_TEMPLATE_NAME = 'Client Rate Service Experience';
     public static final String CLIENT_HELP_RESPONSE_TEMPLATE = 'Client_Help_Response';
     public static final String CLIENT_CANT_CONNECT_TEMPLATE = 'Client_Cant_Connect';
     public static final String RATE_SERVICE_SAVED_TEMPLATE = 'Rate_Service_Saved_Response';
@@ -96,14 +94,12 @@ public with sharing class ClientMessageHelper {
         return messages;
     }
 
-    public static Referral_Response__c saveReferralQuestion(Messaging.SingleEmailMessage email) {
-        // the referral id will be in the what id of the email message
-        String referralId = email.getWhatId();
+    public static Referral_Response__c saveReferralQuestion(String referralId, String templateName) {
         String question = '';
         //  determine the question that was asked, based on the email template
-        if (CLIENT_REFERRAL_FOLLOWUP_TEMPLATE_NAME.equals(email.getTemplateName())) {
+        if (CLIENT_REFERRAL_FOLLOWUP_TEMPLATE.equals(templateName)) {
             question = CLIENT_FOLLOWUP_QUESTION;
-        } else if (CLIENT_RATE_SERVICE_TEMPLATE_NAME.equals(email.getTemplateName())) {
+        } else if (CLIENT_RATE_SERVICE_TEMPLATE.equals(templateName)) {
             question = CLIENT_RATE_SERVICE_QUESTION;        
         }
 

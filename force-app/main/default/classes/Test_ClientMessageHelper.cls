@@ -123,18 +123,10 @@ public class Test_ClientMessageHelper {
 
     static testMethod void testSaveReferralQuestion() {
         Referral__c ref = getReferral();
-        //OrgWideEmailAddress orgWideEmail =  ClientMessageHelper.getReferralOrgWideEmailAddress();
-        EmailTemplate template = ClientMessageHelper.getEmailTemplateByName(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
-       
-        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-        //email.setOrgWideEmailAddressId(orgWideEmail.Id);
-        email.setTemplateId(template.Id);
-        email.setTargetObjectId(ref.Contact__c);
-        email.setWhatId(ref.Id);
-        email.setUseSignature(false);
 
         Test.startTest();
-        Referral_Response__c response = ClientMessageHelper.saveReferralQuestion(email);
+        Referral_Response__c response = 
+            ClientMessageHelper.saveReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
         Test.stopTest();
 
         System.assertEquals(ClientMessageHelper.CLIENT_FOLLOWUP_QUESTION, response.Question__c);

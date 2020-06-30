@@ -185,10 +185,7 @@ public with sharing class EmailService {
         Messaging.SendEmailResult[] results = Messaging.sendEmail( new List<Messaging.SingleEmailMessage>{ emailToSend } );
 
         for (Messaging.SendEmailResult result : results) {
-            if (result.isSuccess()) { 
-                // email was sent, save the question to a referral response record...
-                ClientMessageHelper.saveReferralQuestion(emailToSend);
-            } else {
+            if (!result.isSuccess()) { 
                 Messaging.SendEmailError[] errors = result.getErrors();
                 for (Messaging.SendEmailError error : errors) {
                     // TODO is this okay?
