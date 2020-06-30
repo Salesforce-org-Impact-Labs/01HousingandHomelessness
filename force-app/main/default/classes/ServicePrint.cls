@@ -9,7 +9,7 @@ public class ServicePrint {
     }
 
     @AuraEnabled
-    public static Attachment PrintPage(String serviceId){
+    public static Attachment PrintPage(Id serviceId){
         Attachment attach = new Attachment();
         Blob body;
 

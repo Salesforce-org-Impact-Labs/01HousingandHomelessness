@@ -16,7 +16,7 @@ private with sharing class Test_ServicePrint {
         id serviceId = getTestServiceId();
 
         Test.StartTest();
-        PrintPage(serviceId);
+        ServicePrint.PrintPage(serviceId);
         Test.StopTest();
 
         list<Attachment> attachs = [Select Id, Name FROM Attachment WHERE ParentId = :serviceId];
