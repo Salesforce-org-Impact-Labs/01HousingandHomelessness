@@ -44,6 +44,7 @@ public with sharing class getRecommendations {
         Website__c,
         Zip_Code__c,
         Preferred__c,
+        Near_Homeless__c, Homeless__c, Runaway__c, Home_Owner__c, Home_Renter__c,
         DISTANCE(
           Location__c,
           GEOLOCATION(:client.Location__Latitude__s,
