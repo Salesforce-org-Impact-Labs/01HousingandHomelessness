@@ -205,6 +205,8 @@ public with sharing class Test_getRecommendations {
     ref.Score__c = 5;
     ref.Preferred_Channel__c = 'Email';
     insert ref;
+
+    Scoring.scoreAllServices();
   }
 
   private static contact getTestContact() {
