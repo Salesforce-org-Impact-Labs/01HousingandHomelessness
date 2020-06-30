@@ -80,9 +80,12 @@ public with sharing class Scoring {
           } else if (rec.getValue(metricIterator.Label) != null) {
             // the metric has a matching property on the ServiceRecommendationObject (ex: Distance) that is populated
             serviceValue = (decimal) rec.getValue(metricIterator.Label);
+          } else if (rec.Matches.contains(metricIterator.Label)) {
+            serviceValue = 1;
           } else {
             continue;
           }
+
           if (serviceValue != null) {
             // still here?  we must have a service value.  Create and calculate the new indicator
             ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
