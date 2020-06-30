@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>48.0</apiVersion>
-    <available>false</available>
+    <available>true</available>
     <description>Message send to client in response to their 1-5 rating</description>
     <encodingKey>ISO-8859-1</encodingKey>
     <name>Rate Service Saved Response</name>
