@@ -1,5 +1,7 @@
 {
   "orgName": "01HousingandHomelessness - Feature Test Org",
+  "adminEmail": "dotorg@mailinator.com",
+
   "edition": "Developer",
   "settings": {
     "lightningExperienceSettings": {
