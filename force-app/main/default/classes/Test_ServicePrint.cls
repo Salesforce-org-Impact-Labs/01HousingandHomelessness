@@ -19,7 +19,7 @@ private with sharing class Test_ServicePrint {
         ServicePrint.PrintPage(serviceId);
         Test.StopTest();
 
-        list<Attachment> attachs = [Select Id, Name FROM Attachment WHERE ParentId = :serviceId];
+        list<Attachment> attachs = [Select Id, Name FROM, ParentId Attachment WHERE ParentId = :serviceId];
         System.assertEquals(1, attachs.size());
         System.assertEquals(attachs[0].ParentId, serviceId);
     }
