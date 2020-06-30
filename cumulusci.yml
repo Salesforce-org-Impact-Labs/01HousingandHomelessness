@@ -73,17 +73,6 @@ flows:
         options:
           command: cci org default dev
 
-  config_apextest:
-    steps:
-      3:
-        task: assign_permset
-      4:
-        task: load_dataset
-      5:
-        task: score_services
-      6:
-        task: run_tests
-
   config_packaging:
     steps:
       2:

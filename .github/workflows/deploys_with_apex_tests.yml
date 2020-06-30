@@ -33,4 +33,4 @@ jobs:
           pip install cumulusci
       - name: Deploy and Run Tests
         run: |
-          cci flow run config_apextest --org dev --delete-org
+          cci flow run ci_feature --org dev --delete-org
