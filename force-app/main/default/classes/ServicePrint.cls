@@ -9,7 +9,7 @@ public class ServicePrint {
     }
 
     @AuraEnabled
-    public static Attachment PrintPage(Id serviceId){
+    public static Blob PrintPage(Id serviceId){
         Attachment attach = new Attachment();
         attach.body = Blob.valueOf('');  
         Blob body = Blob.valueOf(''); 
@@ -28,16 +28,16 @@ public class ServicePrint {
             System.debug('An Error occurred generating the PDF: ' + err);
             body = Blob.valueOf('Err');
         }
-
-        attach.Body = body;
+        return body;
+        // attach.Body = body;
         
-        // Create name with today's date
-        Integer count = 1;
-        attach.Name = 'Referral - ' + Datetime.now().format('yyyy-MM-dd') + ' - ' + String.valueOf(count) + '.pdf';
-        attach.IsPrivate = false; //make public
-        attach.ParentId = serviceId; //attach pdf to record
-        insert attach;
-        return attach;
+        // // Create name with today's date
+        // Integer count = 1;
+        // attach.Name = 'Referral - ' + Datetime.now().format('yyyy-MM-dd') + ' - ' + String.valueOf(count) + '.pdf';
+        // attach.IsPrivate = false; //make public
+        // attach.ParentId = serviceId; //attach pdf to record
+        // insert attach;
+        // return attach;
 
     }
 }
