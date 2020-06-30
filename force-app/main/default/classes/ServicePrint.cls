@@ -10,7 +10,7 @@ public class ServicePrint {
 
     @AuraEnabled
     public static Attachment PrintPage(String serviceId){
-        Attachment attach;
+        Attachment attach = new Attachment();
         Blob body;
 
         System.debug('serviceId' + serviceId);
