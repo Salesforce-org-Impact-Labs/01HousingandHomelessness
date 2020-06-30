@@ -2,13 +2,7 @@
 import { LightningElement, track, api } from 'lwc';
 import { loadStyle } from 'lightning/platformResourceLoader';
 import mapModal from '@salesforce/resourceUrl/mapModal';
-import {
-  subscribe,
-  unsubscribe,
-  onError,
-  setDebugFlag,
-  isEmpEnabled
-} from 'lightning/empApi';
+import { subscribe, unsubscribe } from 'lightning/empApi';
 
 import getRecs from '@salesforce/apex/getRecommendations.getRecommendations';
 
