@@ -53,7 +53,7 @@ export default class ServiceRecommendations extends LightningElement {
     handleRequestRecommendations(){
         console.log('getting recommendations');
         console.log('recorid Id'+ this.recordId)
-        getRecs({contactId: this.recordId})
+        getRecs({contactId: '0033D00000frqTsQAI'})
             .then((result) => {
                 window.console.log('success');
                 if(this.showRecommendations === false){
