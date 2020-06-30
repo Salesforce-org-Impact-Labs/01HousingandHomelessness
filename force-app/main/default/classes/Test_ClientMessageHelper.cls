@@ -38,13 +38,7 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testCreateInitialClientReferralEmails() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
@@ -57,13 +51,7 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testCreateReferralFollowupEmails() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
@@ -76,13 +64,7 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testCreateReferralRateServiceEmails() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
@@ -114,13 +96,7 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testCreateClientCantConnectEmails() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
@@ -133,13 +109,7 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testCreateRateServiceSavedEmails() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
@@ -151,14 +121,27 @@ public class Test_ClientMessageHelper {
         System.assertEquals(ref.Id,messages[0].getWhatId());               
     }
 
+    static testMethod void testSaveReferralQuestion() {
+        Referral__c ref = getReferral();
+        OrgWideEmailAddress orgWideEmail =  ClientMessageHelper.getReferralOrgWideEmailAddress();
+        EmailTemplate template = ClientMessageHelper.getEmailTemplateByName(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
+       
+        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
+        email.setOrgWideEmailAddressId(orgWideEmail.Id);
+        email.setTemplateId(template.Id);
+        email.setTargetObjectId(ref.Contact__c);
+        email.setWhatId(ref.Id);
+        email.setUseSignature(false);
+
+        Test.startTest();
+        Referral_Response__c response = ClientMessageHelper.saveReferralQuestion(email);
+        Test.stopTest();
+
+        System.assertEquals(ClientMessageHelper.CLIENT_FOLLOWUP_QUESTION,response.Question__c);
+    }
+
     static testMethod void testGetContactEmailMap() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
@@ -173,13 +156,7 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testGetReferralRecords() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-        ][0];
+        Referral__c ref = getReferral();
 
         List<Id> referralIds = new List<Id>();
         referralIds.add(ref.Id);
@@ -189,6 +166,17 @@ public class Test_ClientMessageHelper {
         Test.stopTest();
 
         System.assertEquals(ref.Contact__c,referralMap.get(ref.Id).Contact__c);
+    }
+
+    private static Referral__c getReferral() {
+        Referral__c ref = [
+            SELECT
+                Id,
+                Contact__c,
+                Preferred_Channel__c
+            FROM Referral__c
+        ][0];
+        return ref;
     }
 
 }
