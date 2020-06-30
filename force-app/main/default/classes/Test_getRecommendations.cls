@@ -7,6 +7,22 @@ public with sharing class Test_getRecommendations {
   static final decimal lat = 37.7897;
   static final decimal lon = -122.397;
 
+  static testMethod void testAddComment() {
+    test.startTest();
+    id newFeedItemId = getRecommendations.addNewComment(
+      getbadServiceId(),
+      'not that great'
+    );
+    test.stopTest();
+
+    FeedItem post = [
+      SELECT id, type, parentid
+      FROM FeedItem
+      WHERE id = :newFeedItemId
+    ];
+    system.assertEquals(getbadServiceId(), post.ParentId);
+  }
+
   static testMethod void GoodServiceLooksGood() {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
@@ -39,19 +55,20 @@ public with sharing class Test_getRecommendations {
       'It is great',
       recs[goodServiceIndex].Comments[0].CommentText
     );
-    // check for preferred factor
-    boolean DistanceMetricExists = false;
+
+    system.assertEquals(
+      true,
+      indicatorExists('Distance', recs[goodServiceIndex])
+    );
     for (
       ServiceRecommendation.Indicator indicator : recs[goodServiceIndex]
         .Indicators
     ) {
-      if (indicator.IndicatorType == 'Distance') {
-        DistanceMetricExists = true;
-      }
+      // check for preferred factor
       if (indicator.IndicatorType == 'Preferred') {
         system.assertEquals('1', indicator.IndicatorValue);
       }
-      if (indicator.IndicatorType == 'Homess') {
+      if (indicator.IndicatorType == 'Homeless') {
         system.assertEquals('1', indicator.IndicatorValue);
       }
     }
@@ -242,5 +259,17 @@ public with sharing class Test_getRecommendations {
 
   private static id getBadServiceId() {
     return [SELECT id FROM Service__c WHERE Name = :badServiceName].Id;
+  }
+
+  private static Boolean indicatorExists(
+    string indicatorToFind,
+    ServiceRecommendation SR
+  ) {
+    for (ServiceRecommendation.Indicator indicator : sr.Indicators) {
+      if (indicator.IndicatorType == indicatorToFind) {
+        return true;
+      }
+    }
+    return false;
   }
 }
