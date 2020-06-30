@@ -46,7 +46,7 @@ public with sharing class Scoring {
         Weighting__c
       FROM Scoring_Metric__mdt
       WHERE
-        Weighting__c > 0
+        Weighting__c != 0
         AND Org_Level__c = true
         AND Org_Minimum__c != null
         AND Org_Maximum__c != null
@@ -118,7 +118,7 @@ public with sharing class Scoring {
         NamespacePrefix,
         DeveloperName
       FROM Scoring_Metric__mdt
-      WHERE Weighting__c > 0
+      WHERE Weighting__c != 0
     ]) {
       if (metricIterator.Org_SOQL_Query__c != null) {
         list<AggregateResult> results = database.query(
