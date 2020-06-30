@@ -50,7 +50,7 @@ public with sharing class Test_getRecommendations {
         system.assertEquals('1', indicator.IndicatorValue);
       }
     }
-    system.assert(DistanceMetricExists);
+    // system.assert(DistanceMetricExists);
   }
 
   static testMethod void omitsTeenService() {
