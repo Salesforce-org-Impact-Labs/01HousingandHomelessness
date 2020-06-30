@@ -1,8 +1,0 @@
-<aura:component implements="flexipage:availableForAllPageTypes, force:hasRecordId">
-    <aura:attribute name="showModal" type="Boolean" default="false"/>
-    <div class="slds-m-around_medium">  
-        <c:serviceRecommendations aura:id="childCmp" contactId="{!v.recordId}" onflowLaunch="{!c.handleFlowLaunch}"/> 
-
-        <lightning:flow aura:id="flow" onstatuschange="{!c.statusChange}"/>  
-    </div>
-</aura:component>	

@@ -80,3 +80,6 @@
 **/.DS_Store
 **/node_modules
 
+test_results*
+**/.history
+**/.localdevserver

@@ -1,1 +1,0 @@
-{"errors":[{"filename":"/Users/andrew.irwin/Documents/Salesforce projects/ImpactLabs/force-app/main/default/lwc/recommendationsMapModal/recommendationsMapModal.html","location":{"line":0,"column":0,"start":0,"length":0},"code":"","message":"Missing root template tag"}]}

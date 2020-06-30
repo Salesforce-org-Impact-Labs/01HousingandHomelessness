@@ -37,7 +37,7 @@
                 <div slot="actions">
                     <lightning-button-group>
                         <lightning-button label="Share" onclick={handleSendReferral}></lightning-button>
-                        <lightning-button-icon  icon-name="utility:print" variant="border-filled" alternative-text="Print" onclick={handlePrintReferral}></lightning-button-icon>
+                        <lightning-button-icon  icon-name="utility:print" variant="border-filled" value={serviceid} alternative-text="Print" onclick={handlePrintReferral}></lightning-button-icon>
                         <lightning-button-menu alternative-text="Show More">
                             <lightning-menu-item value="Hide for this Contact" label="Hide for this Contact" onclick={handleHideForThisContact}></lightning-menu-item>
                             <lightning-menu-item value="Hide for all Contacts" label="Hide for all Contacts" onclick={handleHideForAllContacts}></lightning-menu-item>

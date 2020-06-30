@@ -106,11 +106,11 @@ public with sharing class getRecommendations {
       GROUP BY Service__c
     ]) {
       ratingsAverageByService.put(
-        (id) result.get('Service__c'),
+        (id) result.get(UTIL_Namespace.StrTokenNSPrefix('Service__c')),
         (decimal) result.get('averageScore')
       );
       ratingsCountByService.put(
-        (id) result.get('Service__c'),
+        (id) result.get(UTIL_Namespace.StrTokenNSPrefix('Service__c')),
         (integer) result.get('ratingsCount')
       );
     }
@@ -198,9 +198,8 @@ public with sharing class getRecommendations {
   }
 
   @AuraEnabled
-  public static String addNewComment(id serviceId, String newComment){
-   
-    FeedItem newFeedItem = new  FeedItem();
+  public static String addNewComment(id serviceId, String newComment) {
+    FeedItem newFeedItem = new FeedItem();
     newFeedItem.ParentId = serviceId;
     newFeedItem.Body = newComment;
     newFeedItem.Type = 'TextPost';
