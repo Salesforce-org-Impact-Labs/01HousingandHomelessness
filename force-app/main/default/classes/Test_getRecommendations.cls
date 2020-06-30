@@ -33,6 +33,7 @@ public with sharing class Test_getRecommendations {
     System.assert(recs[goodServiceIndex].Distance >= 0);
     System.assertEquals(1, recs[goodServiceIndex].Preferred);
 
+    System.assert(recs[goodServiceIndex].Matches.contains('Homeless'));
     System.assertEquals(1, recs[goodServiceIndex].Comments.size());
     System.assertEquals(
       'It is great',
@@ -48,6 +49,9 @@ public with sharing class Test_getRecommendations {
         DistanceMetricExists = true;
       }
       if (indicator.IndicatorType == 'Preferred') {
+        system.assertEquals('1', indicator.IndicatorValue);
+      }
+      if (indicator.IndicatorType == 'Homess') {
         system.assertEquals('1', indicator.IndicatorValue);
       }
     }
@@ -153,6 +157,7 @@ public with sharing class Test_getRecommendations {
     profile.Last_Name__c = c.LastName;
     profile.Location__Latitude__s = lat;
     profile.Location__Longitude__s = lon;
+    profile.Homeless__c = true;
     insert Profile;
 
     // create 2 services
@@ -164,6 +169,7 @@ public with sharing class Test_getRecommendations {
     GoodService.Preferred__c = true;
     GoodService.Location__Latitude__s = lat;
     GoodService.Location__Longitude__s = lon;
+    GoodService.Homeless__c = true;
     Services.add(GoodService);
 
     Service__c TeenService = new Service__c();
