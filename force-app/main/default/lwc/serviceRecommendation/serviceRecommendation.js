@@ -159,12 +159,9 @@ export default class ServiceRecommendation extends LightningElement {
         window.console.log(this.serviceid);
         print({serviceId : this.serviceid})
             .then((result)=>{
-                window.console.log('success');
-                window.console.log('res' + JSON.stringify(result));
-                window.console.log('here');
-                let downloadLink = document.createElement("a"); 
-                window.console.log(downloadLink);
-                downloadLink.href = '/apex/ServicePrintPage'; 
+                window.console.log('result' + result);
+                let downloadLink = document.createElement("a");                 
+                downloadLink.href = result; 
                 downloadLink.download = "referral.pdf"; 
 
                 
