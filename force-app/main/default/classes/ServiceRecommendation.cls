@@ -1,5 +1,8 @@
 public class ServiceRecommendation {
   @AuraEnabled
+  public Service__c Service { get; set; }
+
+  @AuraEnabled
   public Decimal Relevance { get; set; }
 
   @AuraEnabled
@@ -34,6 +37,9 @@ public class ServiceRecommendation {
 
   @AuraEnabled
   public Decimal Rating { get; set; }
+
+  @AuraEnabled
+  public Decimal Distance { get; set; }
 
   @AuraEnabled
   public List<Comment> Comments { get; set; }

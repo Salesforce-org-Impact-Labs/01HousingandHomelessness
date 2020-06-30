@@ -43,7 +43,14 @@ public with sharing class getRecommendations {
         Type__c,
         Website__c,
         Zip_Code__c,
-        Preferred__c
+        Preferred__c,
+        DISTANCE(
+          Location__c,
+          GEOLOCATION(:client.Location__Latitude__s,
+            :client.Location__Longitude__s
+          ),
+          'mi'
+        )
       FROM Service__c
       WHERE
         (Minimum_Age__c = null
@@ -66,6 +73,7 @@ public with sharing class getRecommendations {
     List<ServiceRecommendation> output = new List<ServiceRecommendation>();
     for (Service__c service : services) {
       ServiceRecommendation SR = new ServiceRecommendation();
+      SR.Service = service;
       SR.Relevance = 0;
       SR.ServiceId = service.Id;
       SR.ProviderName = service.Account__r.Name;
