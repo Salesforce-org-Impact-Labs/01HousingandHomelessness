@@ -1,4 +1,4 @@
-name: Deploy, Run Apex Tests, Delete Org
+name: Package and Install
 
 on:
   push:
@@ -39,7 +39,4 @@ jobs:
           cci flow run release_beta --org packaging
       - name: Deploy the new package to a scratch org
         run: |
-          cci flow run ci_beta --org beta
-      - name: Delete org
-        run: |
-          cci org scratch_delete beta
+          cci flow run ci_beta --org beta --delete-org
