@@ -4,13 +4,7 @@ public with sharing class Scoring {
   // example metric: my referrals
   // myReferralsPercentile: service referrals / (orgMax - orgMin)
 
-  // example metric: Preferred
-  // true = 100, false = 0
-
   // Negative Weights
-
-  // example metric: Distance
-  // distancePercential: service distance / (orgMax - orgMin) from CMDT
 
   // example metric: service-level-hides
   // hidesPercentile = service hides / (orgMax - orgMin)

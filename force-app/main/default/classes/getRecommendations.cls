@@ -90,13 +90,7 @@ public with sharing class getRecommendations {
       SR.totalRatings = 0;
       SR.Indicators = new List<ServiceRecommendation.Indicator>();
       SR.Comments = new List<ServiceRecommendation.Comment>();
-
-      if (service.Preferred__c) {
-        ServiceRecommendation.Indicator indicator = new ServiceRecommendation.Indicator();
-        indicator.IndicatorType = 'Preferred Service';
-        indicator.IndicatorValue = 'TRUE';
-        SR.Indicators.add(indicator);
-      }
+      SR.Preferred = service.Preferred__c ? 1 : 0; //translate checkbox to 1,0 value      
       output.add(SR);
     }
     return output;

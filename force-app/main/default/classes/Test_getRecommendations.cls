@@ -46,8 +46,8 @@ public with sharing class Test_getRecommendations {
       if (indicator.IndicatorType == 'Distance') {
         DistanceMetricExists = true;
       }
-      if (indicator.IndicatorType == 'Preferred Service') {
-        system.assertEquals('TRUE', indicator.IndicatorValue);
+      if (indicator.IndicatorType == 'Preferred') {
+        system.assertEquals('1', indicator.IndicatorValue);
       }
     }
     system.assert(DistanceMetricExists);

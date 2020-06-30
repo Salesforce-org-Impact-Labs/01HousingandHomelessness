@@ -51,6 +51,9 @@ public class ServiceRecommendation {
   public Integer totalRatings { get; set; }
 
   @AuraEnabled
+  public Integer Preferred { get; set; }
+
+  @AuraEnabled
   public List<Indicator> Indicators { get; set; }
 
   // dynamic getter for supporting returning certain properties
@@ -61,8 +64,8 @@ public class ServiceRecommendation {
     if (property == 'Rating') {
       return this.Rating;
     }
-    if (property == 'IsPreferred') {
-      return this.Service.Preferred__c ? 1 : 0;
+    if (property == 'Preferred') {
+      return this.Preferred;
     }
     return null;
   }
