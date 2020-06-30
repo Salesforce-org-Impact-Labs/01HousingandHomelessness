@@ -34,16 +34,6 @@ public class Test_RecommendationsInboundEmailHandler {
         );
         insert ref;
     }
-    static testMethod void testSaveReferralScore() {
-        Referral__c preReferral = getReferral();
-
-        Test.startTest();
-        ReferralResponseHelper.saveReferralScore(preReferral.Id, 4);
-        Test.stopTest();
-
-        Referral__c postReferral = getReferral();
-        System.assertEquals(4, postReferral.Score__c);
-    }
 
     static Referral__c getReferral() {
         List<Referral__c> referrals = [
