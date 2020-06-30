@@ -61,6 +61,9 @@ public class ServiceRecommendation {
     if (property == 'Rating') {
       return this.Rating;
     }
+    if (property == 'IsPreferred') {
+      return this.Service.Preferred__c ? 1 : 0;
+    }
     return null;
   }
 
