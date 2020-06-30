@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Thank you for the feedback for {!relatedTo.Service__r.Name}" recipientType="Contact" relatedToType="Referral__c">
+<messaging:htmlEmailBody >
+    <c:Rate_Service_Saved_Response refId="{!relatedTo.Id}"/>
+</messaging:htmlEmailBody>
+</messaging:emailTemplate>
