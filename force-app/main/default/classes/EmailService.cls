@@ -132,8 +132,6 @@ public with sharing class EmailService {
                     }
                     Boolean emailWasSent = sendEmail(emailToSend);
 
-                    // get response???
-
                     // if email bounced, call carrier lookup
                     if (!emailWasSent) {
                         String carrier = lookupCarrierByPhone (clientContact.Phone);
@@ -187,7 +185,10 @@ public with sharing class EmailService {
         Messaging.SendEmailResult[] results = Messaging.sendEmail( new List<Messaging.SingleEmailMessage>{ emailToSend } );
 
         for (Messaging.SendEmailResult result : results) {
-            if (!result.isSuccess()) {
+            if (result.isSuccess()) { 
+                // email was sent, save the question to a referral response record...
+                ClientMessageHelper.saveReferralQuestion(emailToSend);
+            } else {
                 Messaging.SendEmailError[] errors = result.getErrors();
                 for (Messaging.SendEmailError error : errors) {
                     // TODO is this okay?
@@ -202,7 +203,7 @@ public with sharing class EmailService {
     }
 
     @TestVisible
-    private static Messaging.SingleEmailMessage createEmailForCarrier (Messaging.SingleEmailMessage messageToSend, String phoneNumber, String carrierName) {
+    private static Messaging.SingleEmailMessage createEmailForCarrier(Messaging.SingleEmailMessage messageToSend, String phoneNumber, String carrierName) {
 
         String carrierEmail = convertPhoneToCarrierEmail (phoneNumber, carrierName);
         if (carrierEmail == null) {
