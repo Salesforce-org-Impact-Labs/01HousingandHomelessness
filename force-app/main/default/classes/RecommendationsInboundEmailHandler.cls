@@ -1,11 +1,11 @@
 global class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
-        // the referral response id should follow this token in the subject line
-        private static final String EMAIL_REFERRAL_RESPONSE_TOKEN = 'ref#';
-        private static final Integer REFERRAL_RESPONSE_ID_LENGTH = 18;
-        private static final String EMAIL_REPLY_YES = 'YES';
-        private static final String EMAIL_REPLY_NO = 'NO';
-        private static final String EMAIL_REPLY_HELP = 'HELP';
-        private static final Integer RESPONSE_TRUNCATION_LEN = 10;
+    // the referral response id should follow this token in the subject line
+    public static final String EMAIL_REFERRAL_RESPONSE_TOKEN = 'ref#';
+    public static final Integer REFERRAL_RESPONSE_ID_LENGTH = 18;
+    public static final String EMAIL_REPLY_YES = 'YES';
+    public static final String EMAIL_REPLY_NO = 'NO';
+    public static final String EMAIL_REPLY_HELP = 'HELP';
+    public static final Integer RESPONSE_TRUNCATION_LEN = 10;
 
 
     global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
@@ -37,7 +37,7 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
     }
 
     @TestVisible
-    private void handleClientResponse(String truncatedResponse, String firstChar, Referral_Response__c refResponse, String referralId) {
+    private static void handleClientResponse(String truncatedResponse, String firstChar, Referral_Response__c refResponse, String referralId) {
         String referralResponseId = refResponse.Id;
 
         if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_YES)) {

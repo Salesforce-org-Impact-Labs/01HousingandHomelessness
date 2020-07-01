@@ -36,10 +36,65 @@ public class Test_RecommendationsInboundEmailHandler {
 
         Referral_Response__c refResp = new Referral_Response__c (
             Referral__c = ref.Id,
-            Question__c = 'How are you',
-            Response__c = 'I am fine'
+            Question__c = 'How are you'
         );
         insert refResp;
+    }
+
+    static testMethod void testHandleClientResponseYes() {
+        String truncatedResponse = RecommendationsInboundEmailHandler.EMAIL_REPLY_YES;
+        String firstChar = truncatedResponse.substring(0,1);
+        Referral_Response__c refResponse = getReferralResponse();
+        String referralId = refResponse.Referral__c;
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        Test.stopTest();
+
+        Referral_Response__c refResponseCheck = getReferralResponse();
+        System.assertEquals(RecommendationsInboundEmailHandler.EMAIL_REPLY_YES,refResponseCheck.Response__c);
+    }
+
+    static testMethod void testHandleClientResponseNo() {
+        String truncatedResponse = RecommendationsInboundEmailHandler.EMAIL_REPLY_NO;
+        String firstChar = truncatedResponse.substring(0,1);
+        Referral_Response__c refResponse = getReferralResponse();
+        String referralId = refResponse.Referral__c;
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        Test.stopTest();
+
+        Referral_Response__c refResponseCheck = getReferralResponse();
+        System.assertEquals(RecommendationsInboundEmailHandler.EMAIL_REPLY_NO,refResponseCheck.Response__c);
+    }
+
+    static testMethod void testHandleClientResponseHelp() {
+        String truncatedResponse = RecommendationsInboundEmailHandler.EMAIL_REPLY_HELP;
+        String firstChar = truncatedResponse.substring(0,1);
+        Referral_Response__c refResponse = getReferralResponse();
+        String referralId = refResponse.Referral__c;
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        Test.stopTest();
+
+        Referral_Response__c refResponseCheck = getReferralResponse();
+        System.assertEquals(RecommendationsInboundEmailHandler.EMAIL_REPLY_HELP,refResponseCheck.Response__c);
+    }
+
+    static testMethod void testHandleClientResponseScore() {
+        String truncatedResponse = '3';
+        String firstChar = truncatedResponse.substring(0,1);
+        Referral_Response__c refResponse = getReferralResponse();
+        String referralId = refResponse.Referral__c;
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        Test.stopTest();
+
+        Referral_Response__c refResponseCheck = getReferralResponse();
+        System.assertEquals('3',refResponseCheck.Response__c);
     }
 
     static testMethod void testGetReferralResponse() {
