@@ -13,9 +13,9 @@
         <div>
             <h3>Contact Information</h3>
 
-            <p>{!service.Account__r.ShippingStreet}</p>
-            <p>{!service.Account__r.ShippingCity}, {!service.Account__r.ShippingState} {!service.Account__r.ShippingPostalCode}</p>
-            <p>{!service.Account__r.Phone}</p>
+            <p>{!service.Street__c}</p>
+            <p>{!service.City__c}, {!service.Zip_Code__c}</p>
+            <p>{!service.Phone__c}</p>
             <a href='{!service.Website__c}'>{!service.Website__c}</a>
         </div>
 

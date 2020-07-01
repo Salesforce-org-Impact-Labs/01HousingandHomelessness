@@ -2,10 +2,7 @@ public class ServicePrint {
 
 
     @AuraEnabled
-    public String serviceId {get;set;}
     public Service__c service {get;set;}
-    public List<Open_Hours__c> hrs {get;set;}
-    public List<Open_Hours__c> allHours {get;set;}
     public String Sunday {
         get {
             if(Sunday == null){
@@ -84,7 +81,7 @@ public class ServicePrint {
     }
 
     public Service__c getServices(string serviceId) {
-        Service__c newserv = [SELECT Id, Name, Account__r.Name, Type__c,Description__c, Website__c, Account__r.ShippingStreet, Account__r.ShippingCity, Account__r.ShippingState, Account__r.ShippingPostalCode, Account__r.Phone FROM Service__c WHERE Id = :serviceId];
+        Service__c newserv = [SELECT Id, Name, Account__r.Name, Type__c,Description__c, Website__c, Street__c, City__c, Zip_Code__c, Phone__c FROM Service__c WHERE Id = :serviceId];
         system.debug('serv' + newserv);
         return newserv;
     }
