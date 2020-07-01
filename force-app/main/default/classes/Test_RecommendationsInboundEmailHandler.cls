@@ -101,6 +101,22 @@ public class Test_RecommendationsInboundEmailHandler {
         System.assertEquals(3,referral.Score__c);
     }
 
+    static testMethod void testHandleClientResponseGuidance1() {
+        String truncatedResponse = '1';
+        String firstChar = truncatedResponse.substring(0,1);
+        Referral_Response__c refResponse = getReferralResponse();
+        // we need to ask the right question
+        refResponse.Question__c = ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_1;
+        String referralId = refResponse.Referral__c;
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        Test.stopTest();
+
+        Referral_Response__c refResponseCheck = getReferralResponse();
+        System.assertEquals('1',refResponseCheck.Response__c);
+    }
+
     static testMethod void testGetReferralResponse() {
         Referral_Response__c refResp = getReferralResponse();
 
