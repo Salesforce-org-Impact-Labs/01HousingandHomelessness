@@ -4,9 +4,9 @@ CREATE TABLE "Account" (
 	"Name" VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Account" VALUES('001S000001CBEYZIA5','Test Provider 3');
-INSERT INTO "Account" VALUES('001S000001CBEYaIAP','Test Provider 1');
-INSERT INTO "Account" VALUES('001S000001CBEYbIAP','Test Provider 2');
+INSERT INTO "Account" VALUES('0011100001vqJwAAAU','Test Provider 3');
+INSERT INTO "Account" VALUES('0011100001vqJwBAAU','Test Provider 1');
+INSERT INTO "Account" VALUES('0011100001vqJwCAAU','Test Provider 2');
 CREATE TABLE "Client_Profile__c" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"Date_of_Birth__c" VARCHAR(255), 
@@ -15,11 +15,16 @@ CREATE TABLE "Client_Profile__c" (
 	"Postal_Code__c" VARCHAR(255), 
 	"Location__Latitude__s" VARCHAR(255), 
 	"Location__Longitude__s" VARCHAR(255), 
+	"Homeless__c" VARCHAR(255), 
+	"Runaway__c" VARCHAR(255), 
+	"Home_Owner__c" VARCHAR(255), 
+	"Home_Renter__c" VARCHAR(255), 
+	"Near_Homeless__c" VARCHAR(255), 
 	contact__c VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Client_Profile__c" VALUES('a00S0000007dUHBIA2','2005-05-24','Micah','McLaughlin','94102','','','003S000001LarKCIAZ');
-INSERT INTO "Client_Profile__c" VALUES('a00S0000007dUHCIA2','1979-04-20','Shane','McLaughlin','94102','','','003S000001LarKDIAZ');
+INSERT INTO "Client_Profile__c" VALUES('a001100000FSejMAAT','2005-05-24','Micah','McLaughlin','94102','','','false','false','false','false','false','0031100001ffeU1AAI');
+INSERT INTO "Client_Profile__c" VALUES('a001100000FSejNAAT','1979-04-20','Shane','McLaughlin','94102','','','false','false','false','false','false','0031100001ffeU2AAI');
 CREATE TABLE "Contact" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"FirstName" VARCHAR(255), 
@@ -33,12 +38,12 @@ CREATE TABLE "Contact" (
 	reports_to_id VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Contact" VALUES('003S000001LarKCIAZ','Micah','McLaughlin','8324728021','micah@mailinator.com','2005-05-24','false','false','false','');
-INSERT INTO "Contact" VALUES('003S000001LarKDIAZ','Shane','McLaughlin','8324728021','shane.m@mailinator.com','1979-04-20','false','false','false','');
-INSERT INTO "Contact" VALUES('003S000001LarKEIAZ','Contact','WithoutProfile','8324728021','noprofile@mailinator.com','','false','false','false','');
-INSERT INTO "Contact" VALUES('003S000001LarOQIAZ','Test 1','Contact','','','','false','false','false','');
-INSERT INTO "Contact" VALUES('003S000001LarHKIAZ','Test 3','Contact','','','','false','false','false','');
-INSERT INTO "Contact" VALUES('003S000001LarPSIAZ','Test 2','Contact','','','','false','false','false','');
+INSERT INTO "Contact" VALUES('0031100001ffeU1AAI','Micah','McLaughlin','8324728021','micah@mailinator.com','2005-05-24','false','false','false','');
+INSERT INTO "Contact" VALUES('0031100001ffeU2AAI','Shane','McLaughlin','8324728021','shane.m@mailinator.com','1979-04-20','false','false','false','');
+INSERT INTO "Contact" VALUES('0031100001ffeU3AAI','Contact','WithoutProfile','8324728021','noprofile@mailinator.com','','false','false','false','');
+INSERT INTO "Contact" VALUES('0031100001ffeU4AAI','Test 1','Contact','','','','false','false','false','');
+INSERT INTO "Contact" VALUES('0031100001ffeV1AAI','Test 3','Contact','','','','false','false','false','');
+INSERT INTO "Contact" VALUES('0031100001ffeV2AAI','Test 2','Contact','','','','false','false','false','');
 CREATE TABLE "FeedItem" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"Body" VARCHAR(255), 
@@ -46,8 +51,8 @@ CREATE TABLE "FeedItem" (
 	parent_id VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "FeedItem" VALUES('0D5S000000RU4uIKAT','<p>This one is my favorite</p>','TextPost','a04S0000009JpNcIAK');
-INSERT INTO "FeedItem" VALUES('0D5S000000RU4uHKAT','<p>Here is another comment</p>','TextPost','a04S0000009JpNcIAK');
+INSERT INTO "FeedItem" VALUES('0D51100000jRqGoCAK','<p>This one is my favorite</p>','TextPost','a0511000009MhizAAC');
+INSERT INTO "FeedItem" VALUES('0D51100000jRqGpCAK','<p>Here is another comment</p>','TextPost','a0511000009MhizAAC');
 CREATE TABLE "Open_Hours__c" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"End_Time__c" VARCHAR(255), 
@@ -56,10 +61,10 @@ CREATE TABLE "Open_Hours__c" (
 	service__c VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Open_Hours__c" VALUES('a01S000000JktoMIAR','17:00:00.000Z','09:00:00.000Z','Thursday','a04S0000009JpNdIAK');
-INSERT INTO "Open_Hours__c" VALUES('a01S000000JktoNIAR','17:00:00.000Z','09:00:00.000Z','Tuesday','a04S0000009JpNdIAK');
-INSERT INTO "Open_Hours__c" VALUES('a01S000000JktoOIAR','17:00:00.000Z','09:00:00.000Z','Monday','a04S0000009JpNdIAK');
-INSERT INTO "Open_Hours__c" VALUES('a01S000000JktoPIAR','17:00:00.000Z','09:00:00.000Z','Wednesday','a04S0000009JpNdIAK');
+INSERT INTO "Open_Hours__c" VALUES('a011100000igZywAAE','17:00:00.000Z','09:00:00.000Z','Thursday','a0511000009Mhj0AAC');
+INSERT INTO "Open_Hours__c" VALUES('a011100000igZyxAAE','17:00:00.000Z','09:00:00.000Z','Tuesday','a0511000009Mhj0AAC');
+INSERT INTO "Open_Hours__c" VALUES('a011100000igZyyAAE','17:00:00.000Z','09:00:00.000Z','Monday','a0511000009Mhj0AAC');
+INSERT INTO "Open_Hours__c" VALUES('a011100000igZyzAAE','17:00:00.000Z','09:00:00.000Z','Wednesday','a0511000009Mhj0AAC');
 CREATE TABLE "Referral__c" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"Preferred_Channel__c" VARCHAR(255), 
@@ -68,21 +73,21 @@ CREATE TABLE "Referral__c" (
 	service__c VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvNIAV','Email','','003S000001LarKCIAZ','a04S0000009JpNcIAK');
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvOIAV','SMS','3.0','003S000001LarKDIAZ','a04S0000009JpNdIAK');
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvcIAF','SMS','1.0','003S000001LarPSIAZ','a04S0000009JpNbIAK');
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvhIAF','SMS','3.0','003S000001LarPSIAZ','a04S0000009JpNeIAK');
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvXIAV','SMS','3.0','003S000001LarHKIAZ','a04S0000009JpNdIAK');
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvYIAV','SMS','','003S000001LarOQIAZ','a04S0000009JpNcIAK');
-INSERT INTO "Referral__c" VALUES('a02S000000EjCvZIAV','SMS','','003S000001LarOQIAZ','a04S0000009JpNaIAK');
+INSERT INTO "Referral__c" VALUES('a0311000009dalLAAQ','SMS','3.0','0031100001ffeV1AAI','a0511000009Mhj0AAC');
+INSERT INTO "Referral__c" VALUES('a0311000009dalMAAQ','Email','','0031100001ffeU1AAI','a0511000009MhizAAC');
+INSERT INTO "Referral__c" VALUES('a0311000009dalNAAQ','SMS','3.0','0031100001ffeU2AAI','a0511000009Mhj0AAC');
+INSERT INTO "Referral__c" VALUES('a0311000009dalOAAQ','SMS','','0031100001ffeU4AAI','a0511000009MhixAAC');
+INSERT INTO "Referral__c" VALUES('a0311000009dalPAAQ','SMS','','0031100001ffeU4AAI','a0511000009MhizAAC');
+INSERT INTO "Referral__c" VALUES('a0311000009dalQAAQ','SMS','1.0','0031100001ffeV2AAI','a0511000009MhiyAAC');
+INSERT INTO "Referral__c" VALUES('a0311000009dalRAAQ','SMS','3.0','0031100001ffeV2AAI','a0511000009Mhj1AAC');
 CREATE TABLE "Service_Exclusion__c" (
 	sf_id VARCHAR(255) NOT NULL, 
 	contact__c VARCHAR(255), 
 	service__c VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Service_Exclusion__c" VALUES('a03S0000007KiR5IAK','','a04S0000009JpNaIAK');
-INSERT INTO "Service_Exclusion__c" VALUES('a03S0000007KiR6IAK','','a04S0000009JpNeIAK');
+INSERT INTO "Service_Exclusion__c" VALUES('a041100000GnUYJAA3','','a0511000009MhixAAC');
+INSERT INTO "Service_Exclusion__c" VALUES('a041100000GnUYKAA3','','a0511000009Mhj1AAC');
 CREATE TABLE "Service__c" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"Name" VARCHAR(255), 
@@ -99,14 +104,19 @@ CREATE TABLE "Service__c" (
 	"Preferred__c" VARCHAR(255), 
 	"Location__Latitude__s" VARCHAR(255), 
 	"Location__Longitude__s" VARCHAR(255), 
+	"Homeless__c" VARCHAR(255), 
+	"Runaway__c" VARCHAR(255), 
+	"Home_Owner__c" VARCHAR(255), 
+	"Home_Renter__c" VARCHAR(255), 
+	"Near_Homeless__c" VARCHAR(255), 
 	account__c VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Service__c" VALUES('a04S0000009JpNaIAK','hidden service (all contacts)','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Housing','www.google.com','94102','','false','37.7897','-122.397','');
-INSERT INTO "Service__c" VALUES('a04S0000009JpNbIAK','far service','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Housing','www.google.com','94102','','false','2.0','-2.0','');
-INSERT INTO "Service__c" VALUES('a04S0000009JpNcIAK','Test Service for Adults','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Food','www.google.com','94102','','false','37.7897','-122.397','');
-INSERT INTO "Service__c" VALUES('a04S0000009JpNdIAK','Test Service for Teens','17.0','13.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Education','www.google.com','94102','','false','37.7897','-122.397','');
-INSERT INTO "Service__c" VALUES('a04S0000009JpNeIAK','hidden service (only hidden from Shane)','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Health','www.google.com','94102','','false','37.7897','-122.397','');
+INSERT INTO "Service__c" VALUES('a0511000009MhixAAC','hidden service (all contacts)','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Housing','www.google.com','94102','','false','37.7897','-122.397','false','false','false','false','false','');
+INSERT INTO "Service__c" VALUES('a0511000009MhiyAAC','far service','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Housing','www.google.com','94102','','false','2.0','-2.0','false','false','false','false','false','');
+INSERT INTO "Service__c" VALUES('a0511000009MhizAAC','Test Service for Adults','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Food','www.google.com','94102','','false','37.7897','-122.397','false','false','false','false','false','');
+INSERT INTO "Service__c" VALUES('a0511000009Mhj0AAC','Test Service for Teens','17.0','13.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Education','www.google.com','94102','','false','37.7897','-122.397','false','false','false','false','false','');
+INSERT INTO "Service__c" VALUES('a0511000009Mhj1AAC','hidden service (only hidden from Shane)','','18.0','San Francisco','Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut efficitur lacus in aliquet dignissim. Cras molestie risus vel magna gravida congue facilisis non nisl. Maecenas laoreet est libero, vitae cursus justo posuere in. Nunc vel elit sapien. Integer velit augue, volutpat ut mattis et, lacinia at orci.','555 555 5555','2400 Clay','Health','www.google.com','94102','','false','37.7897','-122.397','false','false','false','false','false','');
 CREATE TABLE "Task" (
 	sf_id VARCHAR(255) NOT NULL, 
 	"Subject" VARCHAR(255), 
@@ -117,7 +127,7 @@ CREATE TABLE "Task" (
 	what_id VARCHAR(255), 
 	PRIMARY KEY (sf_id)
 );
-INSERT INTO "Task" VALUES('00TS000000cMiJ4MAK','Info to Client','','Completed','Normal','','a02S000000EjCvNIAV');
-INSERT INTO "Task" VALUES('00TS000000cMiJ5MAK','Reminder','','Not Started','Normal','','a02S000000EjCvNIAV');
-INSERT INTO "Task" VALUES('00TS000000cMiJ6MAK','Survey','','Not Started','Normal','','a02S000000EjCvNIAV');
+INSERT INTO "Task" VALUES('00T1100000OxrlOEAR','Info to Client','','Completed','Normal','','a0311000009dalMAAQ');
+INSERT INTO "Task" VALUES('00T1100000OxrlPEAR','Reminder','','Not Started','Normal','','a0311000009dalMAAQ');
+INSERT INTO "Task" VALUES('00T1100000OxrlQEAR','Survey','','Not Started','Normal','','a0311000009dalMAAQ');
 COMMIT;

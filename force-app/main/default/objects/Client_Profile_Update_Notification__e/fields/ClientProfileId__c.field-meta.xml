@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>ClientProfileId</label>
+    <type>Text</type>
+    <fullName>ClientProfileId__c</fullName>
+    <length>18</length>
+</CustomField>

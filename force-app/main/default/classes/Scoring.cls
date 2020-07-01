@@ -92,9 +92,11 @@ public with sharing class Scoring {
             indicator.IndicatorType = metricIterator.Label;
             // base percentile * this metric's share of the total weight
             indicator.IndicatorValue = string.valueOf(serviceValue);
-            indicator.IndicatorPercentile =
+            indicator.IndicatorPercentile = Math.round(
               ((serviceValue - metricIterator.Org_Minimum__c) / spread) *
-              (metricIterator.Weighting__c / weightTotal);
+              (metricIterator.Weighting__c / weightTotal) *
+              100
+            );
             Rec.Indicators.add(indicator);
             Rec.Relevance = Rec.Relevance + indicator.IndicatorPercentile;
           }
