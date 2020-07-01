@@ -33,6 +33,44 @@ export default class ServiceRecommendations extends LightningElement {
       { label: 'In Progress', value: 'inProgress' },
       { label: 'Finished', value: 'finished' }
     ];
+    }
+   connectedCallback(){
+
+        Promise.all([
+            loadStyle(this, mapModal)
+        ])
+    }
+
+    handleRequestRecommendations(){
+        console.log('getting recommendations');
+        console.log('recorid Id'+ this.recordId)
+        getRecommendations({contactId: this.recordId })
+            .then((result) => {
+                window.console.log('success');
+                if(this.showRecommendations === false){
+                    this.showRecommendations = !this.showRecommendations;
+                }
+                window.console.log('result' + JSON.stringify(result));
+                this.returnRecommendations = result;
+            })
+            .catch((error) => {
+                window.console.log('error:' + error);
+            });
+    }
+
+    handleExpand(){
+        this.showExpandedMap = !this.showExpandedMap;
+    }
+
+    handleFilterList(){
+        window.console.log('show filter window'+ this.template.querySelector('.mapModalDiv').classList);
+        
+        this.template.querySelector('.mapModalDiv').classList.toggle('width67');
+        this.template.querySelector('.mapModalDiv').classList.toggle('mapDivNarrow');
+        this.template.querySelector('.recommendationsDiv').classList.toggle('recommendationsDivWide');
+        //this.template.querySelector('.innerRecModalDiv').classList.toggle('modalWidth100');
+        this.template.querySelector('.recommendationsDiv').classList.toggle('recommendationsDivNarrow');
+        this.template.querySelector('.filterDiv').classList.toggle('slds-hide');
   }
 
   mapMarkers = [
@@ -45,53 +83,9 @@ export default class ServiceRecommendations extends LightningElement {
 
       title: 'Salesforce Tower',
       description: 'lorem ipsum'
+
     }
   ];
-  connectedCallback() {
-    Promise.all([loadStyle(this, mapModal)]);
-  }
-
-  handleRequestRecommendations() {
-    console.log('getting recommendations');
-    console.log('record Id' + this.recordId);
-    getRecommendations({ contactId: this.recordId })
-      .then((result) => {
-        window.console.log('success');
-        if (this.showRecommendations === false) {
-          this.showRecommendations = !this.showRecommendations;
-        }
-        console.log('result', JSON.parse(JSON.stringify(result)));
-        this.returnRecommendations = result;
-      })
-      .catch((error) => {
-        // window.console.log('error:' + error);
-        console.log(JSON.parse(JSON.stringify(error)));
-      });
-  }
-
-  handleExpand() {
-    this.showExpandedMap = !this.showExpandedMap;
-  }
-
-  handleFilterList() {
-    window.console.log(
-      'show filter window' +
-        this.template.querySelector('.mapModalDiv').classList
-    );
-
-    this.template.querySelector('.mapModalDiv').classList.toggle('width67');
-    this.template
-      .querySelector('.mapModalDiv')
-      .classList.toggle('mapDivNarrow');
-    this.template
-      .querySelector('.recommendationsDiv')
-      .classList.toggle('recommendationsDivWide');
-    //this.template.querySelector('.innerRecModalDiv').classList.toggle('modalWidth100');
-    this.template
-      .querySelector('.recommendationsDiv')
-      .classList.toggle('recommendationsDivNarrow');
-    this.template.querySelector('.filterDiv').classList.toggle('slds-hide');
-  }
 
   handleCloseFilters() {
     window.console.log('close filters');
@@ -130,8 +124,6 @@ export default class ServiceRecommendations extends LightningElement {
   }
 
   removeFilter() {}
-
-  removeFilters() {}
 
   handleSortMenu(event) {
     window.console.log('show sort menu');

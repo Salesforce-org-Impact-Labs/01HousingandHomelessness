@@ -33,7 +33,17 @@ public class ServiceRecommendation {
   public String MailingCity { get; set; }
 
   @AuraEnabled
-  public String Website { get; set; }
+  public String Website {
+        get {
+            if(Website.startsWith('https://')){
+                Website = Website;
+            }else{
+                
+                Website = 'https://'+ Website;
+            }
+        return Website;}
+        set;
+    }
 
   @AuraEnabled
   public Decimal Rating { get; set; }
