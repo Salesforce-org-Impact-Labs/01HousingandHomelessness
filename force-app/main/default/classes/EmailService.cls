@@ -79,7 +79,6 @@ public with sharing class EmailService {
         for (ContactMessage contMsg : contactMessages) {
             Messaging.SingleEmailMessage email = contMsg.messageToSend;
             referralResponseIds.add(email.getWhatId());
- System.debug('+++ add ref resp id '+email.getWhatId());           
         }
         List<Referral_Response__c> referralResponses = [
             SELECT 
@@ -88,7 +87,6 @@ public with sharing class EmailService {
             FROM Referral_Response__c
             WHERE Id IN :referralResponseIds
         ];
-     System.debug('+++ ref responses '+referralResponses);   
         Map<Id, Id> referralResponseIdToReferralIdMap = new Map<Id, Id>();
         for (Referral_Response__c refResp : referralResponses) {
             referralResponseIdToReferralIdMap.put(refResp.Id, refResp.Referral__c);
@@ -115,14 +113,11 @@ public with sharing class EmailService {
                 // if their preferred channel is email, this becomes easier
                 // get the referral id from the email message, via the referral response
                 Id referralResponseId = messageToSend.getWhatId();
-    System.debug('+++ ref resp id '+referralResponseId);            
                 Id referralId = referralResponseIdToReferralIdMap.get(referralResponseId);
-    System.debug('+++ ref id '+referralId);            
                 // get the referral from the map
                 Referral__c theReferral = referralMap.get(referralId);
                 
                 // determine their preferred channel of contact
-        System.debug('+++ the ref '+theReferral);        
                 if ('Email'.equalsIgnoreCase(theReferral.Preferred_Channel__c)) {
                     Messaging.SingleEmailMessage emailToSend = 
                         createEmailForContact (messageToSend, clientContact.Email);

@@ -5,11 +5,7 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-  <html>
-    <body>
-      <div>
-        <p>
-            Thank you for letting us know. We want to make sure you’re getting the help you need.
+           Thank you for letting us know. We want to make sure you’re getting the help you need.
             What’s getting in the way of connecting with the service? Please respond using one of the following numbers.
 
             1 - I haven’t had time
@@ -17,8 +13,4 @@
             3 - I tried to contact the service but the contact information was wrong
             4 - Other
             ref#{!referralResponse.Id}
-        </p>
-      </div>
-    </body>
-  </html>
 </apex:component>

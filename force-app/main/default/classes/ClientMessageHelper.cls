@@ -6,6 +6,10 @@ public with sharing class ClientMessageHelper {
     public static final String CLIENT_HELP_RESPONSE_TEMPLATE = 'Client_Help_Response';
     public static final String CLIENT_CANT_CONNECT_TEMPLATE = 'Client_Cant_Connect';
     public static final String RATE_SERVICE_SAVED_TEMPLATE = 'Rate_Service_Saved_Response';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_1 = 'Cant_Connect_Guidance';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_2 = 'Cant_Connect_Guidance_2';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_3 = 'Cant_Connect_Guidance_3';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_4 = 'Cant_Connect_Guidance_4';
 
     public static final String INITIAL_CLIENT_REFERRAL_QUESTION = 'Heres your referral information';
     public static final String CLIENT_REFERRAL_FOLLOWUP_QUESTION = 'Have you met with your referral';
@@ -13,6 +17,10 @@ public with sharing class ClientMessageHelper {
     public static final String CLIENT_HELP_RESPONSE_QUESTION = 'Thank you for letting us know you need help';
     public static final String CLIENT_CANT_CONNECT_QUESTION = 'What’s getting in the way of connecting with the service';
     public static final String RATE_SERVICE_SAVED_QUESTION = 'Your feedback helps us know which services to recommend to others.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_1 = 'We know life gets busy.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_2 = 'We are sorry to hear they didn’t respond.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_3 = 'We are sorry to hear the information was wrong.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_4 = 'Can you tell me what happened';
 
     public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap) {
 
@@ -98,6 +106,62 @@ public with sharing class ClientMessageHelper {
         return messages;
     }
 
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance1Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_1);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance2Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_2);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance3Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_3);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+   
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance4Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_4);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
     public static Referral_Response__c saveReferralQuestion(String referralId, String templateName) {
         String question = '';
         //  determine the question that was asked, based on the email template
@@ -113,6 +177,14 @@ public with sharing class ClientMessageHelper {
             question = CLIENT_CANT_CONNECT_QUESTION;
         } else if (RATE_SERVICE_SAVED_TEMPLATE.equals(templateName)) {
             question = RATE_SERVICE_SAVED_QUESTION;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_1.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_1;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_2.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_2;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_3.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_3;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_4.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_4;
         }
 
         Referral_Response__c refRec = ReferralResponseHelper.createQuestionRecord(referralId, question);

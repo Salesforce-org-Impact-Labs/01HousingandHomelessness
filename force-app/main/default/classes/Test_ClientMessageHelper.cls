@@ -121,6 +121,58 @@ public class Test_ClientMessageHelper {
         System.assertEquals('Rate Service Saved Response',messages[0].getTemplateName());               
     }
 
+    static testMethod void testCreateCantConnectGuidance1Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance1Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance2Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance2Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance 2',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance3Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance3Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance 3',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance4Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance4Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance 4',messages[0].getTemplateName());               
+    }
+
     static testMethod void testSaveReferralQuestion() {
         Referral__c ref = getReferral();
 
