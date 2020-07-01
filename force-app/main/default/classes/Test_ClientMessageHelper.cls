@@ -92,7 +92,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createClientHelpResponseEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals('Client Help Response',messages[0].getTemplateName());       
+        System.assertEquals('Client_Help_Response',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateClientCantConnectEmails() {
@@ -143,8 +143,18 @@ public class Test_ClientMessageHelper {
         Test.startTest();
         Map<Id,Messaging.SingleEmailMessage> emailMap = ClientMessageHelper.getContactEmailMap(messages);
         Test.stopTest();
+
+        List<Referral_Response__c> refResponses = [
+            SELECT 
+                Id,
+                Referral__c,
+                Question__c,
+                Response__c
+            FROM Referral_Response__c
+            WHERE Referral__c = :ref.Id
+        ]; 
         
-        System.assertEquals(ref.Id,emailMap.get(ref.Contact__c).getWhatId());
+        System.assertEquals(refResponses[0].Id,emailMap.get(ref.Contact__c).getWhatId());
     }
 
     static testMethod void testGetReferralRecords() {

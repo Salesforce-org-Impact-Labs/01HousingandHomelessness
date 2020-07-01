@@ -34,6 +34,13 @@ public with sharing class Test_EmailService {
             Service__c = svc.Id
         );
         insert ref;
+
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'how are you',
+            Response__c = 'i am fine'
+        );
+        insert refResp;
     }
 
     static testMethod void testSendInitialReferralMessages() {
@@ -329,10 +336,16 @@ public with sharing class Test_EmailService {
             FROM Referral__c
             WHERE Contact__r.LastName = 'Tester'
         ];
+        List<Referral_Response__c> referralResponses = [
+            SELECT 
+                Id
+            FROM Referral_Response__c
+            WHERE Referral__c = :referrals[0].Id
+        ];
  
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         email.setPlainTextBody('foo message');
-        email.setWhatId(referrals[0].Id);
+        email.setWhatId(referralResponses[0].Id);
         return email;
     }
 
