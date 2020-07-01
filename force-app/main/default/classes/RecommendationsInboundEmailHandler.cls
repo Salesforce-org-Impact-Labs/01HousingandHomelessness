@@ -21,7 +21,7 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
             if (referralResponseId != null) {
                 // get the referral response record from the database
                 Referral_Response__c refResponse = getReferralResponse(referralResponseId);
-                String referralId = refResponse.Response__c;
+                String referralId = refResponse.Referral__c;
 
                 // we need to parse out their response, which would be in the first portion of the response
                 String truncatedResponse = email.plainTextBody.left(RESPONSE_TRUNCATION_LEN);

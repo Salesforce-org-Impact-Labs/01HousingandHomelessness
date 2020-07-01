@@ -22,7 +22,8 @@ global class ReferralEmailTemplateController {
                         Referral__r.Service__r.City__c,
                         Referral__r.Service__r.Zip_Code__c,
                         Referral__r.Service__r.Phone__c,
-                        Referral__r.Service__r.Website__c
+                        Referral__r.Service__r.Website__c,
+                        Referral__r.Score__c
                         FROM Referral_Response__c
                         WHERE Id = :referralResponseId
                     ]

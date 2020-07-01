@@ -97,6 +97,8 @@ public class Test_RecommendationsInboundEmailHandler {
 
         Referral_Response__c refResponseCheck = getReferralResponse();
         System.assertEquals('3',refResponseCheck.Response__c);
+        Referral__c referral = getReferral();
+        System.assertEquals(3,referral.Score__c);
     }
 
     static testMethod void testGetReferralResponse() {
@@ -120,5 +122,16 @@ public class Test_RecommendationsInboundEmailHandler {
             WHERE Referral__r.Contact__r.LastName = 'Tester'
         ];    
         return responses[0];    
+    }
+
+    static Referral__c getReferral() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id,
+                Score__c
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+        return referrals[0];
     }
 }
