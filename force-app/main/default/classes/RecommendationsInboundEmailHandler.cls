@@ -65,6 +65,26 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendRateServiceSavedMessage(referralId);
+            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_1.equals(refResponse.Question__c)) {
+                // they didn't have time for the appt
+                ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
+                // send response email to client
+                EmailService.sendCantConnectGuidance1Message(referralId);
+            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_2.equals(refResponse.Question__c)) {
+                // they didn't have time for the appt
+                ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
+                // send response email to client
+                EmailService.sendCantConnectGuidance2Message(referralId);
+            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_3.equals(refResponse.Question__c)) {
+                // they didn't have time for the appt
+                ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
+                // send response email to client
+                EmailService.sendCantConnectGuidance3Message(referralId);
+            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_4.equals(refResponse.Question__c)) {
+                // they didn't have time for the appt
+                ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
+                // send response email to client
+                EmailService.sendCantConnectGuidance4Message(referralId);
             }
         }
 

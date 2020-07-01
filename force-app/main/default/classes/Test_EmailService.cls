@@ -145,7 +145,7 @@ public with sharing class Test_EmailService {
        System.assertEquals(false,exceptionCaught);
     }
 
-    static testMethod void testSendRateServiceSavedMessage() {
+    static testMethod void testCantConnectGuidance1Message() {
         List<Referral__c> referrals = [
             SELECT
                 Id
@@ -156,7 +156,67 @@ public with sharing class Test_EmailService {
        Test.startTest();
        Boolean exceptionCaught = false;
        try {
-            EmailService.sendRateServiceSavedMessage(referrals[0].Id);
+            EmailService.sendCantConnectGuidance1Message(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);       
+    }
+
+    static testMethod void testCantConnectGuidance2Message() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendCantConnectGuidance2Message(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);       
+    }
+
+    static testMethod void testCantConnectGuidance3Message() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendCantConnectGuidance3Message(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);       
+    }
+
+    static testMethod void testCantConnectGuidance4Message() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendCantConnectGuidance4Message(referrals[0].Id);
        } catch (Exception ex) {
             exceptionCaught = true;
        }

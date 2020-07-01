@@ -54,6 +54,42 @@ public with sharing class EmailService {
         prepareAndSendEmails(emails, referralMap);
     }
 
+    public static void sendCantConnectGuidance1Message(Id referralId) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referralId});
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createCantConnectGuidance1Emails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails, referralMap);
+    }
+
+    public static void sendCantConnectGuidance2Message(Id referralId) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referralId});
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createCantConnectGuidance2Emails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails, referralMap);
+    }
+
+    public static void sendCantConnectGuidance3Message(Id referralId) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referralId});
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createCantConnectGuidance3Emails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails, referralMap);
+    }
+
+    public static void sendCantConnectGuidance4Message(Id referralId) {
+        // get the referral records
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(new List<Id>{referralId});
+        // create the emails
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createCantConnectGuidance4Emails(referralMap);
+        // prep and send the emails
+        prepareAndSendEmails(emails, referralMap);
+    }
+
     public static void prepareAndSendEmails(List<Messaging.SingleEmailMessage> emails, Map<Id, Referral__c> referralMap) {
         Map<Id,Messaging.SingleEmailMessage> contactIdEmailMap = ClientMessageHelper.getContactEmailMap(emails);
         
