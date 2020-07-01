@@ -33,16 +33,35 @@ public class Test_RecommendationsInboundEmailHandler {
             Service__c = svc.Id
         );
         insert ref;
+
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'How are you',
+            Response__c = 'I am fine'
+        );
+        insert refResp;
     }
 
-    static Referral__c getReferral() {
-        List<Referral__c> referrals = [
+    static testMethod void testGetReferralResponse() {
+        Referral_Response__c refResp = getReferralResponse();
+
+        Test.startTest();
+        Referral_Response__c refRespCheck = RecommendationsInboundEmailHandler.getReferralResponse(refResp.Id);
+        Test.stopTest();
+
+        System.assertEquals('How are you',refRespCheck.Question__c);
+    }
+
+    static Referral_Response__c getReferralResponse() {
+        List<Referral_Response__c> responses = [
             SELECT
                 Id,
-                Score__c
-            FROM Referral__c
-            WHERE Contact__r.LastName = 'Tester'
+                Referral__c,
+                Question__c,
+                Response__c
+            FROM Referral_Response__c
+            WHERE Referral__r.Contact__r.LastName = 'Tester'
         ];    
-        return referrals[0];    
+        return responses[0];    
     }
 }
