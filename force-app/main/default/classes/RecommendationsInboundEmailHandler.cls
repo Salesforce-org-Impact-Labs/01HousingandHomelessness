@@ -57,12 +57,15 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                     firstChar.equals('3') ||
                     firstChar.equals('4') || 
                     firstChar.equals('5') ) {
-            // save the score to the referral record, etc
-            Integer score = Integer.valueOf(firstChar);
-            ReferralResponseHelper.saveReferralScore(referralId, score);
-            ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
-            // send response email to client
-            EmailService.sendRateServiceSavedMessage(referralId);
+            // determine the question that was asked so we can handle the response correctly
+            if (ClientMessageHelper.CLIENT_RATE_SERVICE_QUESTION.equals(refResponse.Question__c)) {
+                // save the score to the referral record, etc
+                Integer score = Integer.valueOf(firstChar);
+                ReferralResponseHelper.saveReferralScore(referralId, score);
+                ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
+                // send response email to client
+                EmailService.sendRateServiceSavedMessage(referralId);
+            }
         }
 
       }

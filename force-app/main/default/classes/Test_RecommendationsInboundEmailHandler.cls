@@ -87,6 +87,8 @@ public class Test_RecommendationsInboundEmailHandler {
         String truncatedResponse = '3';
         String firstChar = truncatedResponse.substring(0,1);
         Referral_Response__c refResponse = getReferralResponse();
+        // we need to ask the right question
+        refResponse.Question__c = ClientMessageHelper.CLIENT_RATE_SERVICE_QUESTION;
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
