@@ -4,7 +4,7 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import mapModal from '@salesforce/resourceUrl/mapModal';
 import { subscribe, unsubscribe } from 'lightning/empApi';
 
-import getRecs from '@salesforce/apex/getRecommendations.getRecommendations';
+import getRecommendations from '@salesforce/apex/getRecommendations.getRecommendations';
 
 const eventChannel = '/event/Client_Profile_Update_Notification__e';
 
@@ -54,7 +54,7 @@ export default class ServiceRecommendations extends LightningElement {
   handleRequestRecommendations() {
     console.log('getting recommendations');
     console.log('recorid Id' + this.recordId);
-    getRecs({ contactId: '003J000001uUczOIAS' })
+    getRecommendations({ contactId: this.recordId })
       .then((result) => {
         window.console.log('success');
         if (this.showRecommendations === false) {
@@ -64,7 +64,8 @@ export default class ServiceRecommendations extends LightningElement {
         this.returnRecommendations = result;
       })
       .catch((error) => {
-        window.console.log('error:' + error);
+        // window.console.log('error:' + error);
+        console.log(JSON.parse(JSON.stringify(error)));
       });
   }
 
@@ -149,10 +150,12 @@ export default class ServiceRecommendations extends LightningElement {
   }
 
   handleSubscribe() {
-    const messageCallback = (response) => {
-      console.log(response);
-      if (response.data.payload.ContactId === this.recordId) {
-        this.handleRequestRecommendations();
+    const context = this;
+    const messageCallback = function (response) {
+      console.log(JSON.stringify(response));
+      console.log(context.recordId);
+      if (response.data.payload.ContactId__c === context.recordId) {
+        context.handleRequestRecommendations();
       }
     };
     subscribe(eventChannel, -1, messageCallback).then((response) => {
@@ -167,6 +170,7 @@ export default class ServiceRecommendations extends LightningElement {
 
   renderedCallback() {
     this.handleSubscribe();
+    console.log('version 9');
   }
 
   disconnectedCallback() {
