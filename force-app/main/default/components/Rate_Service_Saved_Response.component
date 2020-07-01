@@ -1,14 +1,14 @@
 <apex:component controller="ReferralEmailTemplateController" access="global">
     <apex:attribute 
-    name="refId" 
+    name="refRespId" 
     type="String" 
-    description="This is the ID of the referral" 
-    assignTo="{!referralId}" 
+    description="This is the ID of the referral response" 
+    assignTo="{!referralResponseId}" 
     access="global"
     />
         Thanks for sharing. Your feedback helps us know which services to recommend to others.
         <apex:outputText 
-        rendered="{!IF((referral.Preferred_Channel__c = "Email"),true,false)}"
-        value=" Remember, if you ever need assistance, reply Help and your case manager, {!referral.Owner.Name} will be alerted.
-              ref#{!referral.Id}"/>
+        rendered="{!IF((referralResponse.Referral__r.Preferred_Channel__c = "Email"),true,false)}"
+        value=" Remember, if you ever need assistance, reply Help and your case manager, {!referralResponse.Referral__r.Owner.Name} will be alerted.
+              ref#{!referralResponse.Id}"/>
 </apex:component>

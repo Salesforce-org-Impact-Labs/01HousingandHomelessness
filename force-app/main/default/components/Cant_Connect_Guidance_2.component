@@ -1,0 +1,14 @@
+<apex:component controller="ReferralEmailTemplateController" access="global">
+  <apex:attribute name="refRespId" 
+    type="String" 
+    description="This is the ID of the referral response" 
+    assignTo="{!referralResponseId}" 
+    access="global"
+    />
+
+        We're sorry to hear they didn't respond. 
+        We'll send you a new referral listing for {!referralResponse.Referral__r.Service__r.Type__c}.
+        If you need assistance, reply Help, and your case manager will be in touch.
+            ref#{!referralResponse.Id}
+                 
+</apex:component>

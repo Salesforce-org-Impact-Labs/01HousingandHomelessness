@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <label>Client Profile Update Notification</label>
+    <pluralLabel>Client Profile Update Notifications</pluralLabel>
+    <description>added from sfdx plugin</description>
+    <eventType>StandardVolume</eventType>
+</CustomObject>

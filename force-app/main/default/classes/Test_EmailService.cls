@@ -34,6 +34,13 @@ public with sharing class Test_EmailService {
             Service__c = svc.Id
         );
         insert ref;
+
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'how are you',
+            Response__c = 'i am fine'
+        );
+        insert refResp;
     }
 
     static testMethod void testSendInitialReferralMessages() {
@@ -138,7 +145,7 @@ public with sharing class Test_EmailService {
        System.assertEquals(false,exceptionCaught);
     }
 
-    static testMethod void testSendRateServiceSavedMessage() {
+    static testMethod void testCantConnectGuidance1Message() {
         List<Referral__c> referrals = [
             SELECT
                 Id
@@ -149,7 +156,67 @@ public with sharing class Test_EmailService {
        Test.startTest();
        Boolean exceptionCaught = false;
        try {
-            EmailService.sendRateServiceSavedMessage(referrals[0].Id);
+            EmailService.sendCantConnectGuidance1Message(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);       
+    }
+
+    static testMethod void testCantConnectGuidance2Message() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendCantConnectGuidance2Message(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);       
+    }
+
+    static testMethod void testCantConnectGuidance3Message() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendCantConnectGuidance3Message(referrals[0].Id);
+       } catch (Exception ex) {
+            exceptionCaught = true;
+       }
+       Test.stopTest();
+
+       System.assertEquals(false,exceptionCaught);       
+    }
+
+    static testMethod void testCantConnectGuidance4Message() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+
+       Test.startTest();
+       Boolean exceptionCaught = false;
+       try {
+            EmailService.sendCantConnectGuidance4Message(referrals[0].Id);
        } catch (Exception ex) {
             exceptionCaught = true;
        }
@@ -329,10 +396,16 @@ public with sharing class Test_EmailService {
             FROM Referral__c
             WHERE Contact__r.LastName = 'Tester'
         ];
+        List<Referral_Response__c> referralResponses = [
+            SELECT 
+                Id
+            FROM Referral_Response__c
+            WHERE Referral__c = :referrals[0].Id
+        ];
  
         Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
         email.setPlainTextBody('foo message');
-        email.setWhatId(referrals[0].Id);
+        email.setWhatId(referralResponses[0].Id);
         return email;
     }
 
