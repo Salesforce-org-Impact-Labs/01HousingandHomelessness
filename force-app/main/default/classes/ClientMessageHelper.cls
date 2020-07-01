@@ -2,15 +2,25 @@ public with sharing class ClientMessageHelper {
     // email template names
     public static final String INITIAL_CLIENT_REFERRAL_TEMPLATE = 'Initial_Client_Referral';
     public static final String CLIENT_REFERRAL_FOLLOWUP_TEMPLATE = 'Client_Referral_Followup';
-    public static final String CLIENT_REFERRAL_FOLLOWUP_TEMPLATE_NAME = 'Client Referral Followup';
     public static final String CLIENT_RATE_SERVICE_TEMPLATE = 'Client_Rate_Service_Experience';
-    public static final String CLIENT_RATE_SERVICE_TEMPLATE_NAME = 'Client Rate Service Experience';
     public static final String CLIENT_HELP_RESPONSE_TEMPLATE = 'Client_Help_Response';
     public static final String CLIENT_CANT_CONNECT_TEMPLATE = 'Client_Cant_Connect';
     public static final String RATE_SERVICE_SAVED_TEMPLATE = 'Rate_Service_Saved_Response';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_1 = 'Cant_Connect_Guidance';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_2 = 'Cant_Connect_Guidance_2';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_3 = 'Cant_Connect_Guidance_3';
+    public static final String CANT_CONNECT_GUIDANCE_TEMPLATE_4 = 'Cant_Connect_Guidance_4';
 
-    public static final String CLIENT_FOLLOWUP_QUESTION = 'Have you met with your referral';
+    public static final String INITIAL_CLIENT_REFERRAL_QUESTION = 'Heres your referral information';
+    public static final String CLIENT_REFERRAL_FOLLOWUP_QUESTION = 'Have you met with your referral';
     public static final String CLIENT_RATE_SERVICE_QUESTION = 'Rate your experience on a scale of 1-5';
+    public static final String CLIENT_HELP_RESPONSE_QUESTION = 'Thank you for letting us know you need help';
+    public static final String CLIENT_CANT_CONNECT_QUESTION = 'What’s getting in the way of connecting with the service';
+    public static final String RATE_SERVICE_SAVED_QUESTION = 'Your feedback helps us know which services to recommend to others.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_1 = 'We know life gets busy.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_2 = 'We are sorry to hear they didn’t respond.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_3 = 'We are sorry to hear the information was wrong.';
+    public static final String CANT_CONNECT_GUIDANCE_QUESTION_4 = 'Can you tell me what happened';
 
     public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap) {
 
@@ -96,15 +106,85 @@ public with sharing class ClientMessageHelper {
         return messages;
     }
 
-    public static Referral_Response__c saveReferralQuestion(Messaging.SingleEmailMessage email) {
-        // the referral id will be in the what id of the email message
-        String referralId = email.getWhatId();
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance1Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_1);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance2Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_2);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance3Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_3);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+   
+    public static List<Messaging.SingleEmailMessage> createCantConnectGuidance4Emails(Map<Id, Referral__c> referralMap) {
+ 
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CANT_CONNECT_GUIDANCE_TEMPLATE_4);
+
+        // get the org wide email for the reply-to
+        OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
+
+        // create email messages containing this information
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+
+        return messages;
+    }
+
+    public static Referral_Response__c saveReferralQuestion(String referralId, String templateName) {
         String question = '';
         //  determine the question that was asked, based on the email template
-        if (CLIENT_REFERRAL_FOLLOWUP_TEMPLATE_NAME.equals(email.getTemplateName())) {
-            question = CLIENT_FOLLOWUP_QUESTION;
-        } else if (CLIENT_RATE_SERVICE_TEMPLATE_NAME.equals(email.getTemplateName())) {
-            question = CLIENT_RATE_SERVICE_QUESTION;        
+        if (INITIAL_CLIENT_REFERRAL_TEMPLATE.equals(templateName)) {
+            question = INITIAL_CLIENT_REFERRAL_QUESTION;
+        } else if (CLIENT_REFERRAL_FOLLOWUP_TEMPLATE.equals(templateName)) {
+            question = CLIENT_REFERRAL_FOLLOWUP_QUESTION;
+        } else if (CLIENT_RATE_SERVICE_TEMPLATE.equals(templateName)) {
+            question = CLIENT_RATE_SERVICE_QUESTION;   
+        } else if (CLIENT_HELP_RESPONSE_TEMPLATE.equals(templateName)) {
+            question = CLIENT_HELP_RESPONSE_QUESTION;
+        } else if (CLIENT_CANT_CONNECT_TEMPLATE.equals(templateName)) {
+            question = CLIENT_CANT_CONNECT_QUESTION;
+        } else if (RATE_SERVICE_SAVED_TEMPLATE.equals(templateName)) {
+            question = RATE_SERVICE_SAVED_QUESTION;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_1.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_1;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_2.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_2;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_3.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_3;
+        } else if (CANT_CONNECT_GUIDANCE_TEMPLATE_4.equals(templateName)) {
+            question = CANT_CONNECT_GUIDANCE_QUESTION_4;
         }
 
         Referral_Response__c refRec = ReferralResponseHelper.createQuestionRecord(referralId, question);
@@ -127,15 +207,20 @@ public with sharing class ClientMessageHelper {
             createEmailMessages(Map<Id, Referral__c> referralMap, OrgWideEmailAddress orgWideEmail, EmailTemplate template) {
 
         List<Messaging.SingleEmailMessage> messages = new List<Messaging.SingleEmailMessage>();
+        List<Referral_Response__c> responses = new List<Referral_Response__c>();
 
         for (Id referralId : referralMap.keySet()) {
+            // save the referral response record
+            Referral_Response__c refResp = saveReferralQuestion(referralId, template.DeveloperName);
+
+            // create the email message
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
             if (orgWideEmail != null) {
                 message.setOrgWideEmailAddressId(orgWideEmail.Id);
             }
             message.setTemplateId(template.Id);
             message.setTargetObjectId(referralMap.get(referralId).Contact__c);
-            message.setWhatId(referralId);
+            message.setWhatId(refResp.Id);
             message.setUseSignature(false);
             messages.add(message);
         }

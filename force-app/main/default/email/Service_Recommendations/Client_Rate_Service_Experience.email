@@ -1,5 +1,5 @@
-<messaging:emailTemplate subject="Please rate {!relatedTo.Service__r.Name}" recipientType="Contact" relatedToType="Referral__c">
+<messaging:emailTemplate subject="Please rate {!relatedTo.Referral__r.Service__r.Name}" recipientType="Contact" relatedToType="Referral_Response__c">
     <messaging:htmlEmailBody >
-        <c:Client_Rate_Service_Experience refId="{!relatedTo.Id}"/>
+        <c:Client_Rate_Service_Experience refRespId="{!relatedTo.Id}"/>
     </messaging:htmlEmailBody>
 </messaging:emailTemplate>

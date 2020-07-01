@@ -47,7 +47,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());
+        System.assertEquals('Initial Client Referral',messages[0].getTemplateName());
     }
 
     static testMethod void testCreateReferralFollowupEmails() {
@@ -60,7 +60,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createReferralFollowupEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());
+        System.assertEquals('Client Referral Followup',messages[0].getTemplateName());
     }
 
     static testMethod void testCreateReferralRateServiceEmails() {
@@ -73,7 +73,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createReferralRateServiceEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());       
+        System.assertEquals('Client Rate Service Experience',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateClientHelpResponseEmails() {
@@ -92,7 +92,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createClientHelpResponseEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());       
+        System.assertEquals('Client_Help_Response',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateClientCantConnectEmails() {
@@ -105,7 +105,7 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createClientCantConnectEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());       
+        System.assertEquals('Client Cant Connect',messages[0].getTemplateName());       
     }
 
     static testMethod void testCreateRateServiceSavedEmails() {
@@ -118,26 +118,70 @@ public class Test_ClientMessageHelper {
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createRateServiceSavedEmails(referralMap);
         Test.stopTest();
         
-        System.assertEquals(ref.Id,messages[0].getWhatId());               
+        System.assertEquals('Rate Service Saved Response',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance1Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance1Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance2Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance2Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance 2',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance3Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance3Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance 3',messages[0].getTemplateName());               
+    }
+
+    static testMethod void testCreateCantConnectGuidance4Emails() {
+        Referral__c ref = getReferral();
+
+        Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
+        referralMap.put(ref.Id,ref);
+
+        Test.startTest();
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createCantConnectGuidance4Emails(referralMap);
+        Test.stopTest();
+        
+        System.assertEquals('Cant Connect Guidance 4',messages[0].getTemplateName());               
     }
 
     static testMethod void testSaveReferralQuestion() {
         Referral__c ref = getReferral();
-        //OrgWideEmailAddress orgWideEmail =  ClientMessageHelper.getReferralOrgWideEmailAddress();
-        EmailTemplate template = ClientMessageHelper.getEmailTemplateByName(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
-       
-        Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-        //email.setOrgWideEmailAddressId(orgWideEmail.Id);
-        email.setTemplateId(template.Id);
-        email.setTargetObjectId(ref.Contact__c);
-        email.setWhatId(ref.Id);
-        email.setUseSignature(false);
 
         Test.startTest();
-        Referral_Response__c response = ClientMessageHelper.saveReferralQuestion(email);
+        Referral_Response__c response = 
+            ClientMessageHelper.saveReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
         Test.stopTest();
 
-        System.assertEquals(ClientMessageHelper.CLIENT_FOLLOWUP_QUESTION, response.Question__c);
+        System.assertEquals(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_QUESTION, response.Question__c);
     }
 
     static testMethod void testGetContactEmailMap() {
@@ -151,8 +195,18 @@ public class Test_ClientMessageHelper {
         Test.startTest();
         Map<Id,Messaging.SingleEmailMessage> emailMap = ClientMessageHelper.getContactEmailMap(messages);
         Test.stopTest();
+
+        List<Referral_Response__c> refResponses = [
+            SELECT 
+                Id,
+                Referral__c,
+                Question__c,
+                Response__c
+            FROM Referral_Response__c
+            WHERE Referral__c = :ref.Id
+        ]; 
         
-        System.assertEquals(ref.Id,emailMap.get(ref.Contact__c).getWhatId());
+        System.assertEquals(refResponses[0].Id,emailMap.get(ref.Contact__c).getWhatId());
     }
 
     static testMethod void testGetReferralRecords() {
