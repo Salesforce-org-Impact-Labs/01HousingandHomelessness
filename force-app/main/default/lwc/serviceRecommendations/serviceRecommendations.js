@@ -60,7 +60,7 @@ export default class ServiceRecommendations extends LightningElement {
         if (this.showRecommendations === false) {
           this.showRecommendations = !this.showRecommendations;
         }
-        window.console.log('result' + JSON.stringify(result));
+        console.log('result', JSON.parse(JSON.stringify(result)));
         this.returnRecommendations = result;
       })
       .catch((error) => {
