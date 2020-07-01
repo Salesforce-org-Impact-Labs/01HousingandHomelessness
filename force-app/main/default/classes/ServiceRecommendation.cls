@@ -1,5 +1,8 @@
 public class ServiceRecommendation {
   @AuraEnabled
+  public Service__c Service { get; set; }
+
+  @AuraEnabled
   public Decimal Relevance { get; set; }
 
   @AuraEnabled
@@ -46,6 +49,9 @@ public class ServiceRecommendation {
   public Decimal Rating { get; set; }
 
   @AuraEnabled
+  public Decimal Distance { get; set; }
+
+  @AuraEnabled
   public List<Comment> Comments { get; set; }
 
   @AuraEnabled
@@ -55,7 +61,27 @@ public class ServiceRecommendation {
   public Integer totalRatings { get; set; }
 
   @AuraEnabled
+  public Integer Preferred { get; set; }
+
+  @AuraEnabled
   public List<Indicator> Indicators { get; set; }
+
+  @AuraEnabled
+  public List<String> Matches { get; set; }
+
+  // dynamic getter for supporting returning certain properties
+  public Decimal getValue(string property) {
+    if (property == 'Distance') {
+      return this.Distance;
+    }
+    if (property == 'Rating') {
+      return this.Rating;
+    }
+    if (property == 'Preferred') {
+      return this.Preferred;
+    }
+    return null;
+  }
 
   public class Indicator {
     @AuraEnabled
@@ -66,6 +92,19 @@ public class ServiceRecommendation {
 
     @AuraEnabled
     public Decimal IndicatorPercentile { get; set; }
+  }
+
+  public ServiceRecommendation addIndicator(
+    string typ,
+    string value,
+    decimal pct
+  ) {
+    Indicator i = new Indicator();
+    i.IndicatorPercentile = pct;
+    i.IndicatorType = typ;
+    i.IndicatorValue = value;
+    this.Indicators.add(i);
+    return this;
   }
 
   public class Comment {

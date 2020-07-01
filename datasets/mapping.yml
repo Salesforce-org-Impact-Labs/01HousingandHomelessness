@@ -32,6 +32,11 @@ Insert Client_Profile__c:
     Postal_Code__c: Postal_Code__c
     Location__Latitude__s: Location__Latitude__s
     Location__Longitude__s: Location__Longitude__s
+    Homeless__c: Homeless__c
+    Runaway__c: Runaway__c
+    Home_Owner__c: Home_Owner__c
+    Home_Renter__c: Home_Renter__c
+    Near_Homeless__c: Near_Homeless__c
   lookups:
     Contact__c:
       table: Contact
@@ -54,6 +59,11 @@ Insert Service__c:
     Preferred__c: Preferred__c
     Location__Latitude__s: Location__Latitude__s
     Location__Longitude__s: Location__Longitude__s
+    Homeless__c: Homeless__c
+    Runaway__c: Runaway__c
+    Home_Owner__c: Home_Owner__c
+    Home_Renter__c: Home_Renter__c
+    Near_Homeless__c: Near_Homeless__c
   lookups:
     Account__c:
       table: Account

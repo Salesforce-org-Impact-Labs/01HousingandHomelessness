@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Home Owner</label>
+    <type>Checkbox</type>
+    <fullName>Home_Owner__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description></description>
+    <inlineHelpText></inlineHelpText>
+    <trackHistory>false</trackHistory>
+</CustomField>

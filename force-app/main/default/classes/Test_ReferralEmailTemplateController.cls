@@ -43,6 +43,12 @@ public  class Test_ReferralEmailTemplateController {
         );
         insert ref;
         
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'How are you',
+            Response__c = 'I am fine'
+        );
+        insert refResp;
     }
 
     static testMethod void testGetData() {
@@ -60,15 +66,25 @@ public  class Test_ReferralEmailTemplateController {
             WHERE Contact__c = :contacts[0].Id
         ];
 
+        List<Referral_Response__c> referralResponses = [
+            SELECT 
+                Id,
+                Referral__c,
+                Question__c,
+                Response__c
+            FROM Referral_Response__c
+            WHERE Referral__c = :referrals[0].Id
+        ];
+
         Test.startTest();
         ReferralEmailTemplateController controller = new ReferralEmailTemplateController();
-        controller.referralId = referrals[0].Id;
+        controller.referralResponseId = referralResponses[0].Id;
         Test.stopTest();
 
-        Referral__c referral = controller.referral;
-        System.assertEquals('Care',referral.Service__r.Type__c);
-        System.assertEquals('Test Service',referral.Service__r.Name);
-        System.assertEquals('Tester',referral.Contact__r.LastName);
+        Referral_Response__c referralResponse = controller.referralResponse;
+        System.assertEquals('Care',referralResponse.Referral__r.Service__r.Type__c);
+        System.assertEquals('Test Service',referralResponse.Referral__r.Service__r.Name);
+        System.assertEquals('Tester',referralResponse.Referral__r.Contact__r.LastName);
 
         System.assertEquals('Monday: 9:00 AM - 5:00 PM', controller.openHoursString);
     }
