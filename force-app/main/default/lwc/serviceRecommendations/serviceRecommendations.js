@@ -53,7 +53,7 @@ export default class ServiceRecommendations extends LightningElement {
 
   handleRequestRecommendations() {
     console.log('getting recommendations');
-    console.log('recorid Id' + this.recordId);
+    console.log('record Id' + this.recordId);
     getRecommendations({ contactId: this.recordId })
       .then((result) => {
         window.console.log('success');
@@ -152,25 +152,24 @@ export default class ServiceRecommendations extends LightningElement {
   handleSubscribe() {
     const context = this;
     const messageCallback = function (response) {
-      console.log(JSON.stringify(response));
-      console.log(context.recordId);
+      // console.log(JSON.stringify(response));
+      // console.log(context.recordId);
       if (response.data.payload.ContactId__c === context.recordId) {
         context.handleRequestRecommendations();
       }
     };
     subscribe(eventChannel, -1, messageCallback).then((response) => {
       // Response contains the subscription information on subscribe call
-      console.log(
-        'Subscription request sent to: ',
-        JSON.stringify(response.channel)
-      );
+      // console.log(
+      //   'Subscription request sent to: ',
+      //   JSON.stringify(response.channel)
+      // );
       this.subscription = response;
     });
   }
 
   renderedCallback() {
     this.handleSubscribe();
-    console.log('version 9');
   }
 
   disconnectedCallback() {
