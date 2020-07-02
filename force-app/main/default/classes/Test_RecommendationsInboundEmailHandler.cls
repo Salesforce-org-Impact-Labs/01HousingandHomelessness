@@ -42,13 +42,12 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseYes() {
-        String truncatedResponse = RecommendationsInboundEmailHandler.EMAIL_REPLY_YES;
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = RecommendationsInboundEmailHandler.EMAIL_REPLY_YES;
         Referral_Response__c refResponse = getReferralResponse();
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -56,13 +55,12 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseNo() {
-        String truncatedResponse = RecommendationsInboundEmailHandler.EMAIL_REPLY_NO;
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = RecommendationsInboundEmailHandler.EMAIL_REPLY_NO;
         Referral_Response__c refResponse = getReferralResponse();
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -70,13 +68,12 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseHelp() {
-        String truncatedResponse = RecommendationsInboundEmailHandler.EMAIL_REPLY_HELP;
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = RecommendationsInboundEmailHandler.EMAIL_REPLY_HELP;
         Referral_Response__c refResponse = getReferralResponse();
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -84,15 +81,14 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseScore() {
-        String truncatedResponse = '3';
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = '3';
         Referral_Response__c refResponse = getReferralResponse();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_RATE_SERVICE_QUESTION;
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -102,15 +98,14 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseGuidance1() {
-        String truncatedResponse = '1';
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = '1';
         Referral_Response__c refResponse = getReferralResponse();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION;
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -118,15 +113,14 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseGuidance2() {
-        String truncatedResponse = '2';
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = '2';
         Referral_Response__c refResponse = getReferralResponse();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION;
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -134,15 +128,14 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseGuidance3() {
-        String truncatedResponse = '3';
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = '3';
         Referral_Response__c refResponse = getReferralResponse();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION;
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
@@ -150,19 +143,33 @@ public class Test_RecommendationsInboundEmailHandler {
     }
 
     static testMethod void testHandleClientResponseGuidance4() {
-        String truncatedResponse = '4';
-        String firstChar = truncatedResponse.substring(0,1);
+        String response = '4';
         Referral_Response__c refResponse = getReferralResponse();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION;
         String referralId = refResponse.Referral__c;
 
         Test.startTest();
-        RecommendationsInboundEmailHandler.handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
         Referral_Response__c refResponseCheck = getReferralResponse();
         System.assertEquals('4',refResponseCheck.Response__c);
+    }
+
+    static testMethod void testHandleClientResponseOther() {
+        String response = 'Something Happened';
+        Referral_Response__c refResponse = getReferralResponse();
+        // we need to ask the right question
+        refResponse.Question__c = ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_4;
+        String referralId = refResponse.Referral__c;
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
+        Test.stopTest();
+
+        Referral_Response__c refResponseCheck = getReferralResponse();
+        System.assertEquals('Something Happened',refResponseCheck.Response__c);
     }
 
     static testMethod void testGetReferralResponse() {

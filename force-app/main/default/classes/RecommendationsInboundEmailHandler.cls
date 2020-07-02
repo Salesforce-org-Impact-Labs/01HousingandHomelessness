@@ -23,12 +23,8 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 Referral_Response__c refResponse = getReferralResponse(referralResponseId);
                 String referralId = refResponse.Referral__c;
 
-                // we need to parse out their response, which would be in the first portion of the response
-                String truncatedResponse = email.plainTextBody.left(RESPONSE_TRUNCATION_LEN);
-                String firstChar = truncatedResponse.substring(0,1);
-
                 // if we can parse out the referral response Id, we need to see what they replied with
-                handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+                handleClientResponse(email.plainTextBody, refResponse, referralId);
             }
 
         }
@@ -37,8 +33,11 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
     }
 
     @TestVisible
-    private static void handleClientResponse(String truncatedResponse, String firstChar, Referral_Response__c refResponse, String referralId) {
+    private static void handleClientResponse(String emailPlainTextBody, Referral_Response__c refResponse, String referralId) {
         String referralResponseId = refResponse.Id;
+        // we need to parse out their response, which would be in the first portion of the response
+        String truncatedResponse = emailPlainTextBody.left(RESPONSE_TRUNCATION_LEN);
+        String firstChar = truncatedResponse.substring(0,1);
 
         if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_YES)) {
             // they met with the referral
@@ -86,6 +85,10 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 // send response email to client
                 EmailService.sendCantConnectGuidance4Message(referralId);
             }
+        } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_4.equals(refResponse.Question__c)) {
+            // they couldn't connect, answered '4' to indicate something 'Other' got in the way, and this is their response
+            String truncatedBody = emailPlainTextBody.left(254);
+            ReferralResponseHelper.updateRecordWithResponse(referralResponseId, truncatedBody);
         }
 
       }
