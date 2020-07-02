@@ -65,23 +65,23 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendRateServiceSavedMessage(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_1.equals(refResponse.Question__c)) {
+            } else if (firstChar.equals('1') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
                 // they didn't have time for the appt
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance1Message(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_2.equals(refResponse.Question__c)) {
-                // they didn't have time for the appt
+            } else if (firstChar.equals('2') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
+                // the service didn't respond
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance2Message(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_3.equals(refResponse.Question__c)) {
-                // they didn't have time for the appt
+            } else if (firstChar.equals('3') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
+                // the referral information was wrong
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance3Message(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_4.equals(refResponse.Question__c)) {
-                // they didn't have time for the appt
+            } else if (firstChar.equals('4') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
+                // something else happened
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance4Message(referralId);
