@@ -1,4 +1,4 @@
-<messaging:emailTemplate subject="More Information on Missed Connection Please" recipientType="Contact" relatedToType="Referral_Response__c">
+<messaging:emailTemplate subject="Sorry the information was wrong" recipientType="Contact" relatedToType="Referral_Response__c">
     <messaging:htmlEmailBody >
         <c:Cant_Connect_Guidance_3 refRespId="{!relatedTo.Id}"/>
     </messaging:htmlEmailBody>
