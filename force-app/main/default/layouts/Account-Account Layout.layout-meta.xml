@@ -202,6 +202,16 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>Street__c</fields>
+        <fields>City__c</fields>
+        <fields>Zip_Code__c</fields>
+        <fields>Phone__c</fields>
+        <fields>Website__c</fields>
+        <fields>External_ID__c</fields>
+        <relatedList>Service__c.Account__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>FULL_NAME</fields>
         <fields>CONTACT.TITLE</fields>
         <fields>CONTACT.EMAIL</fields>

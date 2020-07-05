@@ -108,6 +108,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Aunt_Bertha_Auth_Setting__mdt.API_Key__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Aunt_Bertha_Auth_Setting__mdt.Password__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Aunt_Bertha_Auth_Setting__mdt.Username__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Carrier_Setting__mdt.Carrier_Name__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -232,7 +247,7 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
-        <layout>Account-Account %28Sales%29 Layout</layout>
+        <layout>Aunt_Bertha_Auth_Setting__mdt-Aunt Bertha Auth Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Carrier_Setting__mdt-Carrier Setting Layout</layout>
@@ -251,6 +266,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Service_Exclusion__c-Service Exclusion Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Service_Provider_Auth_Setting__mdt-Service Provider Auth Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Service__c-Service Layout</layout>

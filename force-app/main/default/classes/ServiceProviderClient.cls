@@ -7,16 +7,24 @@ public with sharing class ServiceProviderClient {
         ServiceProvider spAuntBertha = spFactory.getServiceProvider('AuntBertha');
         System.debug(LoggingLevel.DEBUG, '---> service provider one degree : ' + spOneDegree.getServiceProviderName());
         System.debug(LoggingLevel.DEBUG, '---> service provider aunt bertha : ' + spAuntBertha.getServiceProviderName());
-        String api_key = '1dda1811987577b44bbcbcde186a9c14';
-        String username = 'aguterman@salesforce.com';
-        String pwd = '1mpactL@bs2020';
+
+        Aunt_Bertha_Auth_Setting__mdt abSetting = [SELECT MasterLabel, DeveloperName, 
+                                                        API_Key__c ,Username__c, Password__c 
+                                                    FROM Aunt_Bertha_Auth_Setting__mdt];
+        System.debug(LoggingLevel.DEBUG, '---> AB API Key : ' + abSetting.API_Key__c);
+        System.debug(LoggingLevel.DEBUG, '---> AB Username : ' + abSetting.Username__c);
+        System.debug(LoggingLevel.DEBUG, '---> AB Password : ' + abSetting.Password__c);
+
+        String api_key = abSetting.API_Key__c;
+        String username = abSetting.Username__c;
+        String pwd = abSetting.Password__c;
         String url = 'https://api.auntberthaqa.com/v3/authenticate';
         String method = 'POST';
 
         AuthParams ap = new AuthParams();
-        ap.username = 'aguterman@salesforce.com';
-        ap.password = '1mpactL@bs2020';
-        ap.api_key = '1dda1811987577b44bbcbcde186a9c14';
+        ap.username = username;
+        ap.password = pwd;
+        ap.api_key = api_key;
         string authString = JSON.serializePretty(ap);        
         string authHeader = null;
 
@@ -28,7 +36,7 @@ public with sharing class ServiceProviderClient {
         auntBerthaResults.setServiceParams(api_key, username, pwd, url, method, authString, authHeader);
         String abResult = auntBerthaResults.getResults('testing ab degree');        
         System.debug(LoggingLevel.DEBUG, '---> ab  ' + abResult);
-        Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(abResult);
+        //Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(abResult);
             //System.debug(LoggingLevel.DEBUG, '----> token :' + a[0].get('token'));
         JSONParser parser = JSON.createParser(abResult);
         string token;
@@ -41,7 +49,7 @@ public with sharing class ServiceProviderClient {
             }
 
         }
-        System.debug(LoggingLevel.DEBUG, '----> status :' + m.get('success'));        
+        //System.debug(LoggingLevel.DEBUG, '----> status :' + m.get('success'));        
         // aunt bertha call
         //1. Search by a program id
 
@@ -361,6 +369,7 @@ public with sharing class ServiceProviderClient {
         String[] strTimeSplitStartAM;
         String[] strTimeSplitEnd;
         String[] strTimeSplitEndPM; 
+        System.debug(LoggingLevel.DEBUG, '---> hours size() : ' + String.valueOf(hours));
         System.debug(LoggingLevel.DEBUG, '---> off Id : ' + off_id);
         System.debug(LoggingLevel.DEBUG, '---> timezone : ' + hours.timezone_name);
         Service__c  serviceReference = new Service__c(External_ID__c = String.valueOf(off_id));        
