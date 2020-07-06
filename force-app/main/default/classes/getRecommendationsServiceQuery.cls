@@ -29,7 +29,7 @@ public with sharing class getRecommendationsServiceQuery {
         Home_Owner__c,
         Home_Renter__c,
         Retired__c,
-        Umemployed__c,
+        Unemployed__c,
         Employed_full_time__c,
         Employed_part_time__c,
         DISTANCE(
