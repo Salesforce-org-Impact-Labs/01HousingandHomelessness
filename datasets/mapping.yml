@@ -37,6 +37,7 @@ Insert Client_Profile__c:
     Home_Owner__c: Home_Owner__c
     Home_Renter__c: Home_Renter__c
     Near_Homeless__c: Near_Homeless__c
+    Employment__c: Employment__c
   lookups:
     Contact__c:
       table: Contact
@@ -64,6 +65,10 @@ Insert Service__c:
     Home_Owner__c: Home_Owner__c
     Home_Renter__c: Home_Renter__c
     Near_Homeless__c: Near_Homeless__c
+    Unemployed__c: Unemployed__c
+    Retired__c: Retired__c
+    Employed_part_time__c: Employed_part_time__c
+    Employed_full_time__c: Employed_full_time__c
   lookups:
     Account__c:
       table: Account

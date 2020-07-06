@@ -28,6 +28,10 @@ public with sharing class getRecommendationsServiceQuery {
         Runaway__c,
         Home_Owner__c,
         Home_Renter__c,
+        Retired__c,
+        Unemployed__c,
+        Employed_full_time__c,
+        Employed_part_time__c,
         DISTANCE(
           Location__c,
           GEOLOCATION(:client.Location__Latitude__s,

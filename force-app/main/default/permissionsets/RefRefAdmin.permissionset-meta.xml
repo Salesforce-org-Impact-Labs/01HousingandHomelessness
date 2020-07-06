@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <hasActivationRequired>false</hasActivationRequired>
-    <label>RefRecAdmin</label>
+    <label>RefRefAdmin</label>
     <applicationVisibilities>
         <application>standard__LightningSales</application>
         <visible>true</visible>
@@ -12,78 +12,9 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>Client_Profile__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>Service__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Contact__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Date_of_Birth__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Employment__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.First_Name__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Home_Owner__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Home_Renter__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Homeless__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Last_Name__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Location__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Near_Homeless__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Postal_Code__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile__c.Runaway__c</field>
-    </fieldPermissions>
     <fieldPermissions>
         <readable>true</readable>
         <editable>true</editable>
