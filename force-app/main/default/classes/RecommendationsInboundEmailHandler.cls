@@ -23,12 +23,8 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 Referral_Response__c refResponse = getReferralResponse(referralResponseId);
                 String referralId = refResponse.Referral__c;
 
-                // we need to parse out their response, which would be in the first portion of the response
-                String truncatedResponse = email.plainTextBody.left(RESPONSE_TRUNCATION_LEN);
-                String firstChar = truncatedResponse.substring(0,1);
-
                 // if we can parse out the referral response Id, we need to see what they replied with
-                handleClientResponse(truncatedResponse, firstChar, refResponse, referralId);
+                handleClientResponse(email.plainTextBody, refResponse, referralId);
             }
 
         }
@@ -37,8 +33,11 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
     }
 
     @TestVisible
-    private static void handleClientResponse(String truncatedResponse, String firstChar, Referral_Response__c refResponse, String referralId) {
+    private static void handleClientResponse(String emailPlainTextBody, Referral_Response__c refResponse, String referralId) {
         String referralResponseId = refResponse.Id;
+        // we need to parse out their response, which would be in the first portion of the response
+        String truncatedResponse = emailPlainTextBody.left(RESPONSE_TRUNCATION_LEN);
+        String firstChar = truncatedResponse.substring(0,1);
 
         if (truncatedResponse.containsIgnoreCase(EMAIL_REPLY_YES)) {
             // they met with the referral
@@ -65,27 +64,31 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendRateServiceSavedMessage(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_1.equals(refResponse.Question__c)) {
+            } else if (firstChar.equals('1') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
                 // they didn't have time for the appt
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance1Message(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_2.equals(refResponse.Question__c)) {
-                // they didn't have time for the appt
+            } else if (firstChar.equals('2') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
+                // the service didn't respond
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance2Message(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_3.equals(refResponse.Question__c)) {
-                // they didn't have time for the appt
+            } else if (firstChar.equals('3') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
+                // the referral information was wrong
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance3Message(referralId);
-            } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_4.equals(refResponse.Question__c)) {
-                // they didn't have time for the appt
+            } else if (firstChar.equals('4') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
+                // something else happened
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance4Message(referralId);
             }
+        } else if (ClientMessageHelper.CANT_CONNECT_GUIDANCE_QUESTION_4.equals(refResponse.Question__c)) {
+            // they couldn't connect, answered '4' to indicate something 'Other' got in the way, and this is their response
+            String truncatedBody = emailPlainTextBody.left(254);
+            ReferralResponseHelper.updateRecordWithResponse(referralResponseId, truncatedBody);
         }
 
       }
