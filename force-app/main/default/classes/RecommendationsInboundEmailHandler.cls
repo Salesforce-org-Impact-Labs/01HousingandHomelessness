@@ -51,6 +51,8 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
             // they need help
             ReferralResponseHelper.updateRecordWithResponse(referralResponseId, EMAIL_REPLY_HELP);
             EmailService.sendClientHelpResponseMessage(referralId);
+            // also alert the case manager
+            ClientMessageHelper.sendHelpMailToCaseManager(referralResponseId);
         } else if (firstChar.equals('1') ||
                     firstChar.equals('2') ||
                     firstChar.equals('3') ||
