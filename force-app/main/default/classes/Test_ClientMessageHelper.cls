@@ -35,13 +35,6 @@ public class Test_ClientMessageHelper {
         );
         insert ref;
 
-        Referral_Response__c refResp = new Referral_Response__c (
-            Referral__c = ref.Id,
-            Question__c = 'how are you',
-            Response__c = 'i am fine'
-        );
-        insert refResp;
-
     }
 
     static testMethod void testCreateInitialClientReferralEmails() {
@@ -198,7 +191,7 @@ public class Test_ClientMessageHelper {
         referralMap.put(ref.Id,ref);
 
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
-        
+
         Test.startTest();
         Map<Id,Messaging.SingleEmailMessage> emailMap = ClientMessageHelper.getContactEmailMap(messages);
         Test.stopTest();
@@ -230,11 +223,14 @@ public class Test_ClientMessageHelper {
     }
 
     static testMethod void testSendHelpMailToCaseManager() {
-        Referral_Response__c refResp = [
-            SELECT
-                Id
-            FROM Referral_Response__c
-        ][0];
+        Referral__c ref = getReferral();
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'how are you',
+            Response__c = 'i am fine'
+        );
+        insert refResp;
+
 
         Test.startTest();
         ClientMessageHelper.sendHelpMailToCaseManager(refResp.Id);
@@ -251,6 +247,7 @@ public class Test_ClientMessageHelper {
                 Contact__c,
                 Preferred_Channel__c
             FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
         ][0];
         return ref;
     }
