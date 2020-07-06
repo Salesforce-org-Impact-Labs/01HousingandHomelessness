@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Your Client Asked for Help" recipientType="User" relatedToType="Referral_Response__c">
+    <messaging:htmlEmailBody >
+        <c:Case_Manager_Client_Asked_For_Help refRespId="{!relatedTo.Id}"/>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

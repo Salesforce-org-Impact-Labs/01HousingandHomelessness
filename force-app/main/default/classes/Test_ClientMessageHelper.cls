@@ -34,7 +34,14 @@ public class Test_ClientMessageHelper {
             Service__c = svc.Id
         );
         insert ref;
-        
+
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'how are you',
+            Response__c = 'i am fine'
+        );
+        insert refResp;
+
     }
 
     static testMethod void testCreateInitialClientReferralEmails() {
@@ -220,6 +227,21 @@ public class Test_ClientMessageHelper {
         Test.stopTest();
 
         System.assertEquals(ref.Contact__c,referralMap.get(ref.Id).Contact__c);
+    }
+
+    static testMethod void testSendHelpMailToCaseManager() {
+        Referral_Response__c refResp = [
+            SELECT
+                Id
+            FROM Referral_Response__c
+        ][0];
+
+        Test.startTest();
+        ClientMessageHelper.sendHelpMailToCaseManager(refResp.Id);
+        Integer invocations = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        System.assertEquals(1,invocations);
     }
 
     private static Referral__c getReferral() {
