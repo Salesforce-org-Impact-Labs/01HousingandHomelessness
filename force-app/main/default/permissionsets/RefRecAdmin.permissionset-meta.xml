@@ -232,6 +232,11 @@
         <editable>true</editable>
         <field>Client_Profile_Update_Notification__e.ContactId__c</field>
     </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Client_Profile__c.Employment__c</field>
+    </fieldPermissions>
     <tabSettings>
         <tab>Service__c</tab>
         <visibility>Visible</visibility>

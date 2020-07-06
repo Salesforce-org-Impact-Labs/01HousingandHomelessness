@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Employment</label>
+    <type>Picklist</type>
+    <fullName>Employment__c</fullName>
+    <valueSet>
+        <valueSetDefinition>
+            <value>
+                <fullName>Employed full-time</fullName>
+                <label>Employed full-time</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Employed part-time</fullName>
+                <label>Employed part-time</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Retired</fullName>
+                <label>Retired</label>
+                <default>false</default>
+            </value>
+            <value>
+                <fullName>Unemployed</fullName>
+                <label>Unemployed</label>
+                <default>false</default>
+            </value>
+            <sorted>true</sorted>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

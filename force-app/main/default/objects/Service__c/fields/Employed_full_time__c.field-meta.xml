@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Employed full-time</label>
+    <type>Checkbox</type>
+    <fullName>Employed_full_time__c</fullName>
+    <defaultValue>false</defaultValue>
+</CustomField>
