@@ -6,7 +6,7 @@
 }
 
 .innerRecDiv {
-    margin:5px;
+    margin-top:0.5em;
     border: 1px solid grey;
     border-radius:5px;
 }
@@ -69,7 +69,6 @@
 .mapDiv {
     border: 1px solid grey;
     border-radius: 5px;
-    margin:5px;
 }
 
 .mapModalDiv {

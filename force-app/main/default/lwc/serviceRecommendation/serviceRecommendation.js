@@ -65,7 +65,7 @@ export default class ServiceRecommendation extends LightningElement {
             contactId: this.contactid,  
             serviceId: this.servicerecommendation.ServiceId
         };
-        
+        window.console.log(eventParams);
         const flowLaunchEvent = new CustomEvent('flowLaunch', {
             detail: {
                 eventParams
