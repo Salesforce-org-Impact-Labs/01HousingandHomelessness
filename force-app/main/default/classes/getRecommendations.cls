@@ -108,6 +108,25 @@ public with sharing class getRecommendations {
       if (rec.Service.Home_Renter__c && CP.Home_Renter__c) {
         rec.Matches.add('Renter');
       }
+      // employment field is checkboxes on service and picklist on profile
+      if (rec.Service.Unemployed__c && CP.Employment__c == 'Unemployed') {
+        rec.Matches.add('Unemployed');
+      }
+      if (rec.Service.Retired__c && CP.Employment__c == 'Retired') {
+        rec.Matches.add('Retired');
+      }
+      if (
+        rec.Service.Employed_full_time__c &&
+        CP.Employment__c == 'Employed full-time'
+      ) {
+        rec.Matches.add('Employed full-time');
+      }
+      if (
+        rec.Service.Employed_part_time__c &&
+        CP.Employment__c == 'Employed part-time'
+      ) {
+        rec.Matches.add('Employed part-time');
+      }
     }
     return recs;
   }
