@@ -215,7 +215,8 @@ public with sharing class getRecommendations {
         Homeless__c,
         Runaway__c,
         Home_Owner__c,
-        Home_Renter__c
+        Home_Renter__c,
+        Employment__c
       FROM Client_Profile__c
       WHERE Contact__c = :contactId
     ];
