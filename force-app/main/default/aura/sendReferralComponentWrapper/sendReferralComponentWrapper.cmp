@@ -2,14 +2,15 @@
   implements="flexipage:availableForAllPageTypes, force:hasRecordId"
   access="global"
 >
+<!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->
   <aura:attribute name="showModal" type="Boolean" default="false" />
   <div class="">
     <c:serviceRecommendations
       aura:id="childCmp"
       recordId="{!v.recordId}"
-      onflowLaunch="{!c.handleFlowLaunch}"
+      onauraflowlaunch="{!c.handleFlowLaunch}"
     />
 
-    <lightning:flow aura:id="flow" onstatuschange="{!c.statusChange}" />
+    <lightning:flow class="flowWrapper" aura:id="flow" onstatuschange="{!c.handleStatusChange}" />
   </div>
 </aura:component>

@@ -57,7 +57,7 @@
         </div>
         <div if:true={returnRecommendations} class="innerRecDiv">
             <template for:each={returnRecommendations} for:item='recommendation'>
-                <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                <c-service-recommendation key={recommendation.ServiceId} onflowlaunch={handleShare} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
                 
             </template>
         </div>

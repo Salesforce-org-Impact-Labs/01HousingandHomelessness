@@ -47,6 +47,9 @@
         <connector>
             <targetReference>Create_Task_on_Referral</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>fault_screen</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Contact__c</field>
             <value>
@@ -76,6 +79,9 @@
         <connector>
             <targetReference>Create_Survey_Task_Reminder</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>fault_screen</targetReference>
+        </faultConnector>
         <inputAssignments>
             <field>Subject</field>
             <value>
@@ -103,6 +109,9 @@
         <locationX>999</locationX>
         <locationY>186</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <faultConnector>
+            <targetReference>fault_screen</targetReference>
+        </faultConnector>
         <filters>
             <field>Subject</field>
             <operator>EqualTo</operator>
@@ -142,6 +151,22 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
+        <name>fault_screen</name>
+        <label>fault screen</label>
+        <locationX>799</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>faultmesg</name>
+            <fieldText>&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Create_Referral}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Screen_1_Referral_Confirmation</name>
         <label>Screen 1 Referral Confirmation</label>
         <locationX>538</locationX>
@@ -154,7 +179,7 @@
         </connector>
         <fields>
             <name>Confirm</name>
-            <fieldText>&lt;p&gt;Confirm Contact Information:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Confirm Contact Information:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
