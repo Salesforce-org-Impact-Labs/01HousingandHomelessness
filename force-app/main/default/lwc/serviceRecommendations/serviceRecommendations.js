@@ -21,6 +21,20 @@ export default class ServiceRecommendations extends LightningElement {
   @api recordId;
   @api typefilters;
   @track serviceId;
+  mapMarkers = [];
+  // mapMarkers = [
+  //   {
+  //     location: {
+  //       Street: '415 Mission St',
+  //       City: 'San Francisco',
+  //       State: 'CA'
+  //     },
+
+  //     title: 'Salesforce Tower',
+  //     description: 'lorem ipsum'
+
+  //   }
+  // ];
 
   @track returnHiddenRecommendationsCount = 0;
 
@@ -53,6 +67,8 @@ export default class ServiceRecommendations extends LightningElement {
         ])
     }
 
+    
+
     handleRequestRecommendations(){
         getRecommendations({contactId: this.recordId })
             .then((result) => {
@@ -60,10 +76,25 @@ export default class ServiceRecommendations extends LightningElement {
                 let hiddenResult = [];
                 let i;
                 for(i = 0; i < result.length; i++) {
+                  let marker = {
+                    location:{
+                      Street: '',
+                      City: '',
+                      State: 'CA'
+                    },
+              
+                    title: '',
+                    description: ''
+                  };
                   if(result[i].Hidden === true){
                     hiddenResult.push(result[i]);
                   }else{
                     showResult.push(result[i]);
+                    marker.location.Street = result[i].Service.Street__c;
+                    marker.location.City = result[i].Service.City__c;
+                    marker.title = result[i].Service.Name;
+                    marker.description = result[i].Service.Description__c;
+                    this.mapMarkers.push(marker);
                   }
 
                 }
@@ -71,14 +102,20 @@ export default class ServiceRecommendations extends LightningElement {
                 if(this.showRecommendations === false ){
                     this.showRecommendations = !this.showRecommendations;
                 }
+
                 this.unfilteredRecommendations = showResult;
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
                 this.returnHiddenRecommendationsCount = hiddenResult.length;
+                
             })
             .catch((error) => {
                 window.console.log('error:' + error);
             });
+    }
+
+    handleGenerateMapMarkers(){
+      
     }
 
     handleExpand(){
@@ -96,19 +133,7 @@ export default class ServiceRecommendations extends LightningElement {
         this.template.querySelector('.filterDiv').classList.toggle('slds-hide');
   }
 
-  mapMarkers = [
-    {
-      location: {
-        Street: '415 Mission St',
-        City: 'San Francisco',
-        State: 'CA'
-      },
-
-      title: 'Salesforce Tower',
-      description: 'lorem ipsum'
-
-    }
-  ];
+  
 
   handleCloseFilters() {
     window.console.log('close filters');
@@ -215,5 +240,18 @@ export default class ServiceRecommendations extends LightningElement {
     });
     this.returnRecommendations = filteredRecs;
         
+  }
+
+  handleShare(event){
+    window.console.log('event detail' + event.detail);
+    let details = event.detail.eventParams;
+      const flowLaunchEvent = new CustomEvent('auraflowlaunch', {
+        detail: {
+          details
+        },
+    });
+    // Fire the custom event
+    
+    this.dispatchEvent(flowLaunchEvent);
   }
 }
