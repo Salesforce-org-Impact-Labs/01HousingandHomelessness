@@ -22,6 +22,8 @@ public with sharing class ClientMessageHelper {
     public static final String CANT_CONNECT_GUIDANCE_QUESTION_3 = 'We are sorry to hear the information was wrong.';
     public static final String CANT_CONNECT_GUIDANCE_QUESTION_4 = 'Can you tell me what happened';
 
+    public static final String CASE_MANAGER_HELP_TEMPLATE = 'Case_Manager_Client_Asked_For_Help';
+
     public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap) {
 
         // get the email template for this kind of message
@@ -244,7 +246,8 @@ public with sharing class ClientMessageHelper {
                 Id,
                 Contact__c,
                 Preferred_Channel__c,
-                Owner.Name
+                Owner.Name,
+                Owner.Email
             FROM Referral__c
             WHERE Id IN :referralIds
         ];
@@ -284,4 +287,33 @@ public with sharing class ClientMessageHelper {
         return emailAddress;
     }
 
+    public static void sendHelpMailToCaseManager(Id referralResponseId) {
+        OrgWideEmailAddress orgWideEmail = getReferralOrgWideEmailAddress();
+        // get the email template for this kind of message
+        EmailTemplate template = getEmailTemplateByName(CASE_MANAGER_HELP_TEMPLATE);
+
+        List<Referral_Response__c> referralResponses = [
+            SELECT
+                Id,
+                Referral__r.OwnerId,
+                Referral__r.Owner.Email
+            FROM Referral_Response__c
+            WHERE Id = :referralResponseId
+        ];
+
+        // create the email message
+        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+        if (orgWideEmail != null) {
+            message.setOrgWideEmailAddressId(orgWideEmail.Id);
+        }
+        message.setTemplateId(template.Id);
+        message.setTargetObjectId(referralResponses[0].Referral__r.OwnerId);
+        message.setWhatId(referralResponseId);
+        message.setUseSignature(false);
+        message.setSaveAsActivity(false);
+        
+        // send the email
+        Messaging.sendEmail( new List<Messaging.SingleEmailMessage>{ message } );
+
+    }
 }

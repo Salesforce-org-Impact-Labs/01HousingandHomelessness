@@ -50,6 +50,9 @@ public with sharing class Test_getRecommendations {
     System.assertEquals(1, recs[goodServiceIndex].Preferred);
 
     System.assert(recs[goodServiceIndex].Matches.contains('Homeless'));
+    System.assert(
+      recs[goodServiceIndex].Matches.contains('Employed full-time')
+    );
     System.assertEquals(1, recs[goodServiceIndex].Comments.size());
     System.assertEquals(
       'It is great',
@@ -69,6 +72,9 @@ public with sharing class Test_getRecommendations {
         system.assertEquals('1', indicator.IndicatorValue);
       }
       if (indicator.IndicatorType == 'Homeless') {
+        system.assertEquals('1', indicator.IndicatorValue);
+      }
+      if (indicator.IndicatorType == 'Employed full-time') {
         system.assertEquals('1', indicator.IndicatorValue);
       }
     }
@@ -175,6 +181,7 @@ public with sharing class Test_getRecommendations {
     profile.Location__Latitude__s = lat;
     profile.Location__Longitude__s = lon;
     profile.Homeless__c = true;
+    profile.Employment__c = 'Employed full-time';
     insert Profile;
 
     // create 2 services
@@ -187,6 +194,8 @@ public with sharing class Test_getRecommendations {
     GoodService.Location__Latitude__s = lat;
     GoodService.Location__Longitude__s = lon;
     GoodService.Homeless__c = true;
+    GoodService.Employed_full_time__c = true;
+    GoodService.Employed_part_time__c = true;
     Services.add(GoodService);
 
     Service__c TeenService = new Service__c();

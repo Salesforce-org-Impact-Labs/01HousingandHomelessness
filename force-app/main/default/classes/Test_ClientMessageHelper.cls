@@ -34,7 +34,7 @@ public class Test_ClientMessageHelper {
             Service__c = svc.Id
         );
         insert ref;
-        
+
     }
 
     static testMethod void testCreateInitialClientReferralEmails() {
@@ -191,7 +191,7 @@ public class Test_ClientMessageHelper {
         referralMap.put(ref.Id,ref);
 
         List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
-        
+
         Test.startTest();
         Map<Id,Messaging.SingleEmailMessage> emailMap = ClientMessageHelper.getContactEmailMap(messages);
         Test.stopTest();
@@ -222,6 +222,24 @@ public class Test_ClientMessageHelper {
         System.assertEquals(ref.Contact__c,referralMap.get(ref.Id).Contact__c);
     }
 
+    static testMethod void testSendHelpMailToCaseManager() {
+        Referral__c ref = getReferral();
+        Referral_Response__c refResp = new Referral_Response__c (
+            Referral__c = ref.Id,
+            Question__c = 'how are you',
+            Response__c = 'i am fine'
+        );
+        insert refResp;
+
+
+        Test.startTest();
+        ClientMessageHelper.sendHelpMailToCaseManager(refResp.Id);
+        Integer invocations = Limits.getEmailInvocations();
+        Test.stopTest();
+
+        System.assertEquals(1,invocations);
+    }
+
     private static Referral__c getReferral() {
         Referral__c ref = [
             SELECT
@@ -229,6 +247,7 @@ public class Test_ClientMessageHelper {
                 Contact__c,
                 Preferred_Channel__c
             FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
         ][0];
         return ref;
     }

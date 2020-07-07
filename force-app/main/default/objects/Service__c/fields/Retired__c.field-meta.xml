@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField>
+    <label>Retired</label>
+    <type>Checkbox</type>
+    <fullName>Retired__c</fullName>
+    <defaultValue>false</defaultValue>
+</CustomField>
