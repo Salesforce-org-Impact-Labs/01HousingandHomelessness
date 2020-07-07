@@ -1,6 +1,7 @@
 public with sharing class serviceHide {
   @AuraEnabled
   public static void hide(id serviceId, Id contactId) {
+    system.debug(serviceId);
     Service_Exclusion__c SE = new Service_Exclusion__c();
     SE.Service__c = serviceId;
     if (serviceId != null && contactId != null) {

@@ -11,6 +11,9 @@ export default class ServiceRecommendation extends LightningElement {
     @api contactid;
     @api serviceid;
 
+    @track commentCount = 0;
+    @track indicatorCount = 0;
+
     @track programTypeFood = false;
     @track programTypeEducation =  false;
     @track programTypeHousing = false;
@@ -57,6 +60,12 @@ export default class ServiceRecommendation extends LightningElement {
         else{
             
         }
+        if(rec.Comments.length > 0){
+            this.commentCount = rec.Comments.length;
+        }
+        if(rec.Indicators.length>0) {
+            this.indicatorCount = rec.Indicators.length;
+        }
     }
 
     handleSendReferral(){
@@ -65,7 +74,7 @@ export default class ServiceRecommendation extends LightningElement {
             contactId: this.contactid,  
             serviceId: this.servicerecommendation.ServiceId
         };
-        
+        window.console.log(eventParams);
         const flowLaunchEvent = new CustomEvent('flowLaunch', {
             detail: {
                 eventParams
@@ -90,7 +99,9 @@ export default class ServiceRecommendation extends LightningElement {
 
     handleHideForThisContact(){
         window.console.log('toggle hide for contact');
-        hideContacts({ serviceId: this.serviceId, contactId: this.contactId })
+        window.console.log(this.serviceid);
+        window.console.log(this.contactid);
+        hideContacts({ serviceId: this.serviceid, contactId: this.contactid })
             .then(() => {
                 window.console.log('success');
             })
@@ -103,7 +114,7 @@ export default class ServiceRecommendation extends LightningElement {
 
     handleHideForAllContacts(){
         window.console.log('toggle hide for all contacts');
-        hideContacts({ serviceId: this.serviceId, contactId: null })
+        hideContacts({ serviceId: this.serviceid, contactId: null })
             .then(() => {
                 window.console.log('success');
             })
@@ -114,7 +125,7 @@ export default class ServiceRecommendation extends LightningElement {
     }
 
     handleUnhideForThisContact(){
-        unhideContacts({ serviceId: this.serviceId, contactId: this.contactId })
+        unhideContacts({ serviceId: this.serviceid, contactId: this.contactid })
             .then(() => {
                 window.console.log('success');
             })
@@ -124,7 +135,7 @@ export default class ServiceRecommendation extends LightningElement {
     }
 
     handleUnhideForAllContacts(){
-        unhideContacts({ serviceId: this.serviceId, contactId: null })
+        unhideContacts({ serviceId: this.serviceid, contactId: null })
             .then(() => {
                 window.console.log('success');
             })
