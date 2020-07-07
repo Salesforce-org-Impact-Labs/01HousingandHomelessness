@@ -1,3 +1,8 @@
+.hiddenRecsDiv .parentCard .slds-card .slds-card_narrow{
+    border: 1px solid grey !important;
+    border-radius:5px !important;
+}
+
 .relevanceHeader {
     font-size:13px;
     color: #006dcc !important;
@@ -18,14 +23,20 @@
 
 .parentCard {
     min-width: 300px;
+    
 }
 
 .slds-popover__body {
     font-size:12px;
 }
 
+.boldText {
+    font-weight: bold;
+}
+
 .factorsDiv {
     overflow: auto;
+    padding-top:1em;
 }
 
 .factorsList li{
@@ -45,5 +56,3 @@
     color:rgb(91, 90, 90);
 }
 
-
-/* star rating CSS */

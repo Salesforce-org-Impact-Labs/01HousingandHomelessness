@@ -9,12 +9,14 @@
     margin-top:0.5em;
     border: 1px solid grey;
     border-radius:5px;
+    width: 100%;
 }
 
 .innerRecModalDiv {
-    margin:5px;
+    margin:0.5em;
     border: 1px solid grey;
     border-radius:5px;
+    width: 100%;
 }
 
 .iconNameDiv {
@@ -54,9 +56,6 @@
     width: 25%;
 }
 
-.innerRecModalDiv {
-    width: 100%;
-}
 
 .width25 {
     width:25%;
@@ -110,9 +109,11 @@
     
 }
 
-.hiddenRecsDiv h3 {
-    color: grey;
+.hiddenRecsDiv .slds-icon_container {
+    margin-top: 2em;
+    margin-bottom: 1em;
 }
+
 
 .pillFilterDiv {
     border: solid 1px grey;

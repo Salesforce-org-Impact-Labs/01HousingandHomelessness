@@ -35,7 +35,7 @@
 
             <!-- multi select picklist for filter of program types -->
             <div class="slds-float_left">
-                <c-multiselect-picklist></c-multiselect-picklist>
+                <c-multiselect-picklist selectoptiontext={typeFilterLabel}></c-multiselect-picklist>
             </div>
             <!-- show me filter -->
             <div class="slds-float_right slds-p-top_large">
@@ -64,11 +64,11 @@
 
         <!-- show hidden -->
         <div class="hiddenRecsDiv" if:true={returnHiddenRecommendations}>
-            <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevronright"> </lightning-icon>Hidden Recommendations (x)</a> 
-            <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations (x)</a> 
+            <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevronright"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
+            <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
             
             <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                <c-service-recommendation key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                <c-service-recommendation key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
             </template>
         </div>
         
@@ -121,15 +121,16 @@
                                 
                                 <div class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
                                         <div class="slds-float_left">
-                                            <c-multiselect-picklist onselectedfilters={handleUpdateTypeFilters}></c-multiselect-picklist>
+                                            
+                                            <c-multiselect-picklist selectoptiontext={typeFilterLabel}></c-multiselect-picklist>
                                         </div>
                                         <!-- show me filter -->
                                         <div class="slds-float_right slds-p-top_large">
                                             <lightning-button-group>
                                                 <lightning-button-menu alternative-text="Show More" variant="border-filled" icon-name="utility:sort">
-                                                    <lightning-menu-item checked value="rating" label="Matching Rating(high to low)" onselect={handleSortMenu}></lightning-menu-item>
-                                                    <lightning-menu-item value="distance" label="Distance to Contact Address" onselect={handleSortMenu}></lightning-menu-item>
-                                                    <lightning-menu-item value="popular" label="Most Popular" onselect={handleSortMenu}></lightning-menu-item>
+                                                    <lightning-menu-item checked value="rating" label="Matching Rating(high to low)" onclick={handleSortMenu}></lightning-menu-item>
+                                                    <lightning-menu-item value="distance" label="Distance to Contact Address" onclick={handleSortMenu}></lightning-menu-item>
+                                                    <lightning-menu-item value="popular" label="Most Popular" onclick={handleSortMenu}></lightning-menu-item>
                                                 </lightning-button-menu>
                                                 <lightning-button-icon icon-name="utility:filterList" variant="border-filled" title="Filter List" onclick={handleFilterList}></lightning-button-icon>
                                             </lightning-button-group>
@@ -146,11 +147,11 @@
 
                                 <!-- show hidden -->
                                 <div class="hiddenRecsDiv" if:true={returnHiddenRecommendations}>
-                                    <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevronright"> </lightning-icon>Hidden Recommendations (x)</a> 
-                                    <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations (x)</a> 
+                                        <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevronright"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
+                                        <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
                                     
                                     <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                                        <c-service-recommendation key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                                        <c-service-recommendation key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
                                     </template>
                                 </div>
                                 

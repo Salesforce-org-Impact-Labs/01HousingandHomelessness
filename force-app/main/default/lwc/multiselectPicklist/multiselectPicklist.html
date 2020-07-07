@@ -4,13 +4,13 @@
         <div class="slds-form-element__control">
             <div class={multiSelectListClass} id={apiName}>
                 <button class="slds-button slds-button--neutral slds-picklist__label relativePosition buttonWidth" onclick={openMultiSelectPicklist}>
-                    <span class="slds-truncate" title="Select options...">{selectOptionText}</span>
+                    <span class="slds-truncate" title="Select options...">{selectoptiontext}</span>
                     <lightning-icon icon-name="utility:down" size="small" class="slds-icon dropdownButtonIconContainer"></lightning-icon>
                 </button>
                 <div class="slds-dropdown slds-dropdown--left">
                     <ul class={_listCSSClass} role="menu">
                         <template for:each={picklistValues} for:item="picklistValue">
-                            <c-multi-select-list-item key={picklistValue} onselectmultiselectvalue={handleUpdateFilterList} api-name={apiName} value={picklistValue}></c-multi-select-list-item>
+                            <c-multi-select-list-item key={picklistValue}  api-name={apiName} value={picklistValue}></c-multi-select-list-item>
                         </template>
                     </ul>
                 </div>

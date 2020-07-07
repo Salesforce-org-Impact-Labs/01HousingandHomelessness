@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable guard-for-in */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-console */
 import { LightningElement, track, api } from 'lwc';
 import { loadStyle } from 'lightning/platformResourceLoader';
@@ -10,12 +13,16 @@ const eventChannel = '/event/Client_Profile_Update_Notification__e';
 
 export default class ServiceRecommendations extends LightningElement {
   subscription = {};
-
+  typeFilters = [];
+  @track typeFilterLabel = "View All";
+  @track unfilteredRecommendations;
   @track returnRecommendations;
   @track returnHiddenRecommendations;
   @api recordId;
   @api typefilters;
   @track serviceId;
+
+  @track returnHiddenRecommendationsCount = 0;
 
   @track showRecommendations = false;
   @track showRelevancePopover = false;
@@ -26,6 +33,11 @@ export default class ServiceRecommendations extends LightningElement {
 
   @track showHoursFilterChangePopover = false;
   @track showLocationFilterChangePopover = false;
+
+  constructor() {
+    super();
+    this.addEventListener('selectvalue', this.handleUpdateTypeFilters.bind(this));
+  }
 
   get locationFilterOperatorOptions() {
     return [
@@ -42,16 +54,27 @@ export default class ServiceRecommendations extends LightningElement {
     }
 
     handleRequestRecommendations(){
-        console.log('getting recommendations');
-        console.log('recorid Id'+ this.recordId)
         getRecommendations({contactId: this.recordId })
             .then((result) => {
-                window.console.log('success');
-                if(this.showRecommendations === false){
+                let showResult = [];
+                let hiddenResult = [];
+                let i;
+                for(i = 0; i < result.length; i++) {
+                  if(result[i].Hidden === true){
+                    hiddenResult.push(result[i]);
+                  }else{
+                    showResult.push(result[i]);
+                  }
+
+                }
+
+                if(this.showRecommendations === false ){
                     this.showRecommendations = !this.showRecommendations;
                 }
-                window.console.log('result' + JSON.stringify(result));
-                this.returnRecommendations = result;
+                this.unfilteredRecommendations = showResult;
+                this.returnRecommendations = showResult;
+                this.returnHiddenRecommendations = hiddenResult;
+                this.returnHiddenRecommendationsCount = hiddenResult.length;
             })
             .catch((error) => {
                 window.console.log('error:' + error);
@@ -123,8 +146,6 @@ export default class ServiceRecommendations extends LightningElement {
     }
   }
 
-  removeFilter() {}
-
   handleSortMenu(event) {
     window.console.log('show sort menu');
     const menuItem = event.currentTarget;
@@ -135,10 +156,6 @@ export default class ServiceRecommendations extends LightningElement {
     }
     menuItem.checked = !menuItem.checked;
     //run sorting
-  }
-
-  handleUpdateTypeFilters(event) {
-    window.console.log('type filters' + event.typefilters);
   }
 
   handleSubscribe() {
@@ -169,5 +186,34 @@ export default class ServiceRecommendations extends LightningElement {
       console.log('unsubscribe() response: ', JSON.stringify(response));
       // Response is true for successful unsubscribe
     });
+  }
+
+  handleUpdateTypeFilters(event){
+    let filterList = this.typeFilters;
+    if(filterList.includes(event.detail.value)){
+        const index = filterList.indexOf(event.detail.value);
+        filterList.splice(index, 1);
+    }else{
+        filterList.push(event.detail.value);
+    }
+    this.typeFilters = filterList;
+
+    if(filterList.length === 0) {
+      this.typeFilterLabel = 'View All';
+    } else if(filterList.length > 0) {
+      this.typeFilterLabel = 'Filtering ' +filterList.length + ' Service Type';
+    } else{
+      this.typeFilterLabel = 'Filtering ' +filterList.length + ' Service Types';
+    }
+    const filteredRecs = this.unfilteredRecommendations.filter(rec => {      
+      for(let k in filterList){
+        if(rec.Service.Type__c.includes(filterList[k])){
+          return rec;
+        }
+      }
+      
+    });
+    this.returnRecommendations = filteredRecs;
+        
   }
 }

@@ -36,15 +36,27 @@
       <div if:true={showRelevancePopover} class="relevanceDiv">
         <header>
           <p>
-            Matched to Dean based on <br /><span class="slds-text-title_bold"
-              >10 qualifying factors:</span
+            Matched based on <br /><span class="slds-text-title_bold"
+              >{indicatorCount} qualifying factors:</span
             >
+            <br />
           </p>
         </header>
         <div
           class="slds-size_1-of-1 slds-grid slds-wrap slds-text-body_regular factorsDiv"
         >
-          Age, Location, Gender, Language Spoken
+          <ul>
+            <template for:each={servicerecommendation.Indicators} for:item='ind'>
+              <div key={ind.IndicatorType}>
+                <li>
+                  <span class='boldText'>{ind.IndicatorType}</span>
+                </li>
+                <li>
+                  {ind.IndicatorValue}
+                </li>
+              </div>
+            </template>
+          </ul>
         </div>
       </div>
       <ul class="slds-list_horizontal iconNameDiv">
@@ -132,7 +144,7 @@
           alternative-text="Print"
           onclick={handlePrintReferral}
         ></lightning-button-icon>
-        <lightning-button-menu alternative-text="Show More">
+        <lightning-button-menu if:false={servicerecommendation.Hidden} alternative-text="Show More">
           <lightning-menu-item
             value="Hide for this Contact"
             label="Hide for this Contact"
@@ -145,11 +157,11 @@
           ></lightning-menu-item>
         </lightning-button-menu>
         <!-- when to show hide/unhide? -->
-        <!-- <lightning-button-menu alternative-text="Show More">
-                            <lightning-menu-item value="unhide for this Contact" label="Unhide for this Contact" onclick={handleUnhideForThisContact}></lightning-menu-item>
-                            <lightning-menu-item value="unhide for all Contacts" label="Unhide for all Contacts" onclick={handleUnhideForAllContacts}></lightning-menu-item>
+        <lightning-button-menu if:true={servicerecommendation.Hidden} alternative-text="Show More">
+          <lightning-menu-item value="unhide for this Contact" label="Unhide for this Contact" onclick={handleUnhideForThisContact}></lightning-menu-item>
+          <lightning-menu-item value="unhide for all Contacts" label="Unhide for all Contacts" onclick={handleUnhideForAllContacts}></lightning-menu-item>
 
-                        </lightning-button-menu> -->
+        </lightning-button-menu>
       </lightning-button-group>
     </div>
     <div class="slds-m-around_small">
@@ -161,7 +173,7 @@
         <template if:true={servicerecommendation.TodaysHours}>
           <li>
             <span class="slds-text-title_bold"
-              >Open until
+              >Open until  &nbsp;
               <lightning-formatted-date-time
                 hour="2-digit"
                 minute="2-digit"
@@ -176,7 +188,7 @@
         </template>
         <li>
           <span
-            ><a href="#">(222)222-2222</a> *
+            ><a href="#">{servicerecommendation.Service.Phone__c}</a> * &nbsp;
             <a href={servicerecommendation.Website}>Website</a></span
           >
         </li>
@@ -189,7 +201,7 @@
           <c-star-rating rating={servicerecommendation.Rating}></c-star-rating>
         </div>
         <div class="slds-float_right slds-p-top_x-small">
-          <a>X Comments</a> |
+          <a>{commentCount} Comments</a> |&nbsp;
           <a href="#" onclick={handleShowAddComment}>Add Comment</a>
         </div>
       </div>
