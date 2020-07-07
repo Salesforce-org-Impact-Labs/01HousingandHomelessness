@@ -184,7 +184,7 @@ export default class ServiceRecommendations extends LightningElement {
   disconnectedCallback() {
     unsubscribe(this.subscription, (response) => {
       console.log('unsubscribe() response: ', JSON.stringify(response));
-      // Response is true for successful unsubscribe
+      // Response is true for successful unsubscribe 
     });
   }
 
