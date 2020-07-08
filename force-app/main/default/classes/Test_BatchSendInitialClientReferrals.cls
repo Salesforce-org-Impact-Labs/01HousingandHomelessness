@@ -13,7 +13,7 @@ public class Test_BatchSendInitialClientReferrals {
         );
         insert cont;
 
-        Service__c svc = new Service__c (
+        Service__c svc1 = new Service__c (
             Name = 'Test Service',
             City__c = 'Boston',
             Description__c = 'Test Service for Testing',
@@ -25,49 +25,57 @@ public class Test_BatchSendInitialClientReferrals {
             Website__c = 'testing@testservice.org',
             Zip_Code__c = '12345'
         );
-        insert svc;
+        insert svc1;
 
-        Referral__c ref = new Referral__c (
+        Referral__c ref1 = new Referral__c (
             Contact__c = cont.Id,
             Preferred_Channel__c = 'SMS',
             Score__c = 5,
-            Service__c = svc.Id
+            Service__c = svc1.Id
         );
-        insert ref;        
+        insert ref1;        
+
+        Service__c svc2 = new Service__c (
+            Name = 'Test Another Service',
+            City__c = 'Dallas',
+            Description__c = 'Another Test Service for Testing',
+            Maximum_Age__c = 100,
+            Minimum_Age__c = 12,
+            Phone__c = '4155551212',
+            Street__c = '555 Main Street',
+            Type__c = 'Food',
+            Website__c = 'testing@testservice.org',
+            Zip_Code__c = '12345'
+        );
+        insert svc2;
+
+        Referral__c ref2 = new Referral__c (
+            Contact__c = cont.Id,
+            Preferred_Channel__c = 'Email',
+            Score__c = 2,
+            Service__c = svc2.Id
+        );
+        insert ref2;                
     }
 
     static testMethod void testSendMessages() {
-        Referral__c ref = getReferral();
 
         Test.startTest();
         Batch_SendInitialClientReferrals batch = new Batch_SendInitialClientReferrals();
         Database.executeBatch(batch);
         Test.stopTest();
 
-        Referral_Response__c refResp = getReferralResponse(ref.Id);
-        System.assertEquals(ref.Id, refResp.Referral__c);
+        List<Referral_Response__c> refResponses = getReferralResponses();
+        System.assertEquals(2, refResponses.size());
     }
 
-    private static Referral__c getReferral() {
-        Referral__c ref = [
-            SELECT
-                Id,
-                Contact__c,
-                Preferred_Channel__c
-            FROM Referral__c
-            WHERE Contact__r.LastName = 'Tester'
-        ][0];
-        return ref;
-    }
-
-    private static Referral_Response__c getReferralResponse(Id referralId) {
-        Referral_Response__c refResp = [
+    private static List<Referral_Response__c> getReferralResponses() {
+        List<Referral_Response__c> refResponses = [
             SELECT
                 Id,
                 Referral__c
             FROM Referral_Response__c
-            WHERE Referral__c = :referralId
-        ][0];
-        return refResp;
+         ];
+        return refResponses;
     }    
 }
