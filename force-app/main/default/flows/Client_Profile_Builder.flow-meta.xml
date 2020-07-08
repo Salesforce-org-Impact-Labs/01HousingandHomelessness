@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <assignments>
         <name>Assign_DOB</name>
         <label>Assign DOB</label>
-        <locationX>571</locationX>
-        <locationY>399</locationY>
+        <locationX>288</locationX>
+        <locationY>513</locationY>
         <assignmentItems>
             <assignToReference>Get_Profile.Date_of_Birth__c</assignToReference>
             <operator>Assign</operator>
@@ -16,13 +16,73 @@
             <targetReference>Update_DOB</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Assign_Employment</name>
+        <label>Assign Employment</label>
+        <locationX>537</locationX>
+        <locationY>649</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Profile.Employment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Employment</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Employment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Housing</name>
+        <label>Assign Housing</label>
+        <locationX>824</locationX>
+        <locationY>788</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Profile.Runaway__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Runaway</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Profile.Home_Renter__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Home_Renter</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Profile.Home_Owner__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Home_Owner</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Profile.Homeless__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Homeless</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Profile.Near_Homeless__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Near_Homeless</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Housing</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>Has_DOB</name>
         <label>Has DOB</label>
-        <locationX>564</locationX>
-        <locationY>51</locationY>
+        <locationX>484</locationX>
+        <locationY>200</locationY>
         <defaultConnector>
-            <targetReference>Looks_Great</targetReference>
+            <targetReference>Has_Employment</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Yes DOB</defaultConnectorLabel>
         <rules>
@@ -42,10 +102,81 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Has_Employment</name>
+        <label>Has Employment</label>
+        <locationX>629</locationX>
+        <locationY>337</locationY>
+        <defaultConnector>
+            <targetReference>EmploymentScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Unknown</defaultConnectorLabel>
+        <rules>
+            <name>Employment_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Profile.Employment__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Has_Housing</targetReference>
+            </connector>
+            <label>Employment Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Housing</name>
+        <label>Has Housing</label>
+        <locationX>866</locationX>
+        <locationY>439</locationY>
+        <defaultConnector>
+            <targetReference>Housing</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Unknown</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Housing</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Profile.Home_Owner__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Profile.Homeless__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Profile.Near_Homeless__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Profile.Home_Renter__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Looks_Great</targetReference>
+            </connector>
+            <label>Yes Housing</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Record_Exists</name>
         <label>Record Exists</label>
-        <locationX>382</locationX>
-        <locationY>52</locationY>
+        <locationX>242</locationX>
+        <locationY>197</locationY>
         <defaultConnector>
             <targetReference>Has_DOB</targetReference>
         </defaultConnector>
@@ -66,6 +197,14 @@
             <label>Doesn&apos;t Exist</label>
         </rules>
     </decisions>
+    <dynamicChoiceSets>
+        <name>EmlpoymentChoices</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Employment__c</picklistField>
+        <picklistObject>Client_Profile__c</picklistObject>
+    </dynamicChoiceSets>
     <interviewLabel>Client Profile Builder {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Client Profile Builder</label>
     <processMetadataValues>
@@ -84,8 +223,8 @@
     <recordCreates>
         <name>Create_Client_Profile</name>
         <label>Create Client Profile</label>
-        <locationX>216</locationX>
-        <locationY>255</locationY>
+        <locationX>50</locationX>
+        <locationY>155</locationY>
         <connector>
             <targetReference>Get_Profile</targetReference>
         </connector>
@@ -116,11 +255,71 @@
         <object>Client_Profile__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
+    <recordCreates>
+        <name>Notify_LWC</name>
+        <label>Notify LWC</label>
+        <locationX>454</locationX>
+        <locationY>342</locationY>
+        <connector>
+            <targetReference>Has_Employment</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ClientProfileId__c</field>
+            <value>
+                <elementReference>Get_Profile.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId__c</field>
+        </inputAssignments>
+        <object>Client_Profile_Update_Notification__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Notify_LWC_0</name>
+        <label>Notify LWC</label>
+        <locationX>954</locationX>
+        <locationY>644</locationY>
+        <connector>
+            <targetReference>Looks_Great</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ClientProfileId__c</field>
+            <value>
+                <elementReference>Get_Profile.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId__c</field>
+        </inputAssignments>
+        <object>Client_Profile_Update_Notification__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Notify_LWC_0_0</name>
+        <label>Notify LWC</label>
+        <locationX>734</locationX>
+        <locationY>522</locationY>
+        <connector>
+            <targetReference>Has_Housing</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>ClientProfileId__c</field>
+            <value>
+                <elementReference>Get_Profile.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContactId__c</field>
+        </inputAssignments>
+        <object>Client_Profile_Update_Notification__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Get_Contact_Info</name>
         <label>Get Contact Info</label>
-        <locationX>397</locationX>
-        <locationY>255</locationY>
+        <locationX>142</locationX>
+        <locationY>50</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Client_Profile</targetReference>
@@ -139,8 +338,8 @@
     <recordLookups>
         <name>Get_Profile</name>
         <label>Get Profile</label>
-        <locationX>211</locationX>
-        <locationY>50</locationY>
+        <locationX>50</locationX>
+        <locationY>298</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Record_Exists</targetReference>
@@ -159,18 +358,38 @@
     <recordUpdates>
         <name>Update_DOB</name>
         <label>Update DOB</label>
-        <locationX>573</locationX>
-        <locationY>538</locationY>
+        <locationX>415</locationX>
+        <locationY>513</locationY>
         <connector>
-            <targetReference>Looks_Great</targetReference>
+            <targetReference>Notify_LWC</targetReference>
+        </connector>
+        <inputReference>Get_Profile</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Employment</name>
+        <label>Update Employment</label>
+        <locationX>734</locationX>
+        <locationY>649</locationY>
+        <connector>
+            <targetReference>Notify_LWC_0_0</targetReference>
+        </connector>
+        <inputReference>Get_Profile</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Housing</name>
+        <label>Update Housing</label>
+        <locationX>955</locationX>
+        <locationY>788</locationY>
+        <connector>
+            <targetReference>Notify_LWC_0</targetReference>
         </connector>
         <inputReference>Get_Profile</inputReference>
     </recordUpdates>
     <screens>
         <name>DOB</name>
         <label>DOB</label>
-        <locationX>571</locationX>
-        <locationY>254</locationY>
+        <locationX>369</locationX>
+        <locationY>349</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -193,10 +412,86 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>EmploymentScreen</name>
+        <label>Employment</label>
+        <locationX>636</locationX>
+        <locationY>511</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_Employment</targetReference>
+        </connector>
+        <fields>
+            <name>Employment</name>
+            <choiceReferences>EmlpoymentChoices</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Employment</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Housing</name>
+        <label>Housing</label>
+        <locationX>872</locationX>
+        <locationY>571</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Assign_Housing</targetReference>
+        </connector>
+        <fields>
+            <name>Housing_Text</name>
+            <fieldText>&lt;p&gt;Chek all that apply&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Home_Owner</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Home Owner</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Home_Renter</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Home Renter</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Homeless</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Homeless</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Near_Homeless</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Near Homeless</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Runaway</name>
+            <dataType>Boolean</dataType>
+            <fieldText>Runaway</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Looks_Great</name>
         <label>Looks Great</label>
-        <locationX>1421</locationX>
-        <locationY>55</locationY>
+        <locationX>1127</locationX>
+        <locationY>556</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -209,8 +504,8 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
-        <locationY>50</locationY>
+        <locationX>253</locationX>
+        <locationY>306</locationY>
         <connector>
             <targetReference>Get_Profile</targetReference>
         </connector>
