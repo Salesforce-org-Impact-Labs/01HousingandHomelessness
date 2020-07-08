@@ -252,6 +252,15 @@
                 <elementReference>Get_Contact_Info.LastName</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Location__Latitude__s</field>
+            <value>
+                <elementReference>Get_Contact_Info.OtherLatitude</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Location__Longitude__s</field>
+        </inputAssignments>
         <object>Client_Profile__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
