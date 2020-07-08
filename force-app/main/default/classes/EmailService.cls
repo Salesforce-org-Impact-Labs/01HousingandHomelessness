@@ -95,7 +95,8 @@ public with sharing class EmailService {
         
         Map<Id,Contact> clientContactMap = createClientContactMap(contactIdEmailMap.keySet());
         List<ContactMessage> contactMessages = new List<ContactMessage>();
-        for (Id contactId : contactIdEmailMap.keySet()) {
+        for (Messaging.SingleEmailMessage email : emails) {
+            Id contactId = email.getTargetObjectId();
             ContactMessage contMsg = new ContactMessage();
             contMsg.clientContact = clientContactMap.get(contactId);
             contMsg.messageToSend = contactIdEmailMap.get(contactId);
