@@ -15,7 +15,7 @@ public with sharing class getRecommendations {
     output = getComments(output);
     // do the Star Rating for each service
     output = addStars(output);
-
+    output = addReferralCount(output);
     output = addMatches(output, CP);
     // final Relevancy score + factors
     output = Scoring.scoreRecommendations(output);
@@ -53,6 +53,26 @@ public with sharing class getRecommendations {
     return output;
   }
 
+  public static List<ServiceRecommendation> addReferralCount(
+    List<ServiceRecommendation> recs
+  ) {
+    map<id, integer> referralCountsByService = new Map<id, integer>();
+    for (AggregateResult result : [
+      SELECT Service__c, Count(Id) referralCount
+      FROM Referral__c
+      WHERE Service__c IN :IDsFromRecommendations(recs)
+      GROUP BY Service__c
+    ]) {
+      referralCountsByService.put(
+        (id) result.get(UTIL_Namespace.StrTokenNSPrefix('Service__c')),
+        (integer) result.get('referralCount')
+      );
+    }
+    for (ServiceRecommendation rec : recs) {
+      rec.ReferralCount = referralCountsByService.get(rec.ServiceId);
+    }
+    return recs;
+  }
   // would rather spend one more query to use aggregates than an unknown number of query rows
   public static List<ServiceRecommendation> addStars(
     List<ServiceRecommendation> recs
