@@ -99,7 +99,7 @@ public with sharing class EmailService {
             Id contactId = email.getTargetObjectId();
             ContactMessage contMsg = new ContactMessage();
             contMsg.clientContact = clientContactMap.get(contactId);
-            contMsg.messageToSend = contactIdEmailMap.get(contactId);
+            contMsg.messageToSend = email;
             contactMessages.add(contMsg);
         }
 
