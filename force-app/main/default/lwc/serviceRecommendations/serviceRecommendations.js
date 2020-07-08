@@ -151,8 +151,6 @@ export default class ServiceRecommendations extends LightningElement {
     this.template.querySelector('.filterDiv').classList.toggle('slds-hide');
   }
 
-  handleSortList() {}
-
   handleShowHidden() {
     this.showHiddenRecsList = !this.showHiddenRecsList;
   }
@@ -180,7 +178,22 @@ export default class ServiceRecommendations extends LightningElement {
       sibling.checked = false;
     }
     menuItem.checked = !menuItem.checked;
-    //run sorting
+
+    let val = event.target.value;
+    window.console.log('vla' + val);
+    if(val === 'distance'){
+      this.returnRecommendations.sort((a,b)=>{
+        return (a.Distance > b.Distance) ? 1 : -1
+      })
+    }else if (val === 'rating'){
+      this.returnRecommendations.sort((a,b)=>{
+          return (a.Rating > b.Rating) ? 1 : -1
+        })
+    }else{
+      this.returnRecommendations.sort((a,b)=>{
+        return (a.ReviewCount > b.ReviewCount) ? 1 : -1
+      })
+    }
   }
 
   handleSubscribe() {
