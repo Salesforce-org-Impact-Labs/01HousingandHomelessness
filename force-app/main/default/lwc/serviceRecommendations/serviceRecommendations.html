@@ -325,7 +325,7 @@
             <div class="slds-float_right slds-p-top_large">
 
                 <lightning-button-menu alternative-text="Show More" variant="border-filled" icon-name="utility:sort">
-                    <lightning-menu-item checked value="rating" label="Client Rating" onclick={handleSortMenu}></lightning-menu-item>
+                    <lightning-menu-item value="rating" label="Client Rating" onclick={handleSortMenu}></lightning-menu-item>
                     <lightning-menu-item value="distance" label="Distance to Contact Address" onclick={handleSortMenu}></lightning-menu-item>
                     <lightning-menu-item value="popular" label="Relevance" onclick={handleSortMenu}></lightning-menu-item>
                 </lightning-button-menu>
@@ -340,7 +340,7 @@
         </div>
         <div if:true={returnRecommendations} class="innerRecDiv slds-scrollable_y">
             <template for:each={returnRecommendations} for:item='recommendation'>
-                <c-service-recommendation key={recommendation.ServiceId} onflowlaunch={handleShare} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                <c-service-recommendation key={recommendation.ServiceId} onreloadafterhide={handleRequestRecommendations} onflowlaunch={handleShare} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
                 
             </template>
         </div>
@@ -351,7 +351,7 @@
             <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
             
             <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                <c-service-recommendation key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                <c-service-recommendation  onreloadafterhide={handleRequestRecommendations} key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
             </template>
         </div>
         
@@ -411,7 +411,7 @@
                                         <div class="slds-float_right slds-p-top_large">
 
                                             <lightning-button-menu alternative-text="Show More" variant="border-filled" icon-name="utility:sort">
-                                                <lightning-menu-item checked value="rating" label="Client Rating" onclick={handleSortMenu}></lightning-menu-item>
+                                                <lightning-menu-item value="rating" label="Client Rating" onclick={handleSortMenu}></lightning-menu-item>
                                                 <lightning-menu-item value="distance" label="Distance to Contact Address" onclick={handleSortMenu}></lightning-menu-item>
                                                 <lightning-menu-item value="popular" label="Relevance" onclick={handleSortMenu}></lightning-menu-item>
                                             </lightning-button-menu>
@@ -422,7 +422,7 @@
                             
                                 <div if:true={returnRecommendations} class="innerRecModalDiv slds-scrollable_y">
                                     <template for:each={returnRecommendations} for:item='recommendation'>
-                                        <c-service-recommendation key={recommendation.ServiceId} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                                        <c-service-recommendation key={recommendation.ServiceId} onreloadafterhide={handleRequestRecommendations} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
                                         
                                     </template>
                                 </div>
@@ -433,7 +433,7 @@
                                         <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
                                     
                                     <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                                        <c-service-recommendation key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                                        <c-service-recommendation onreloadafterhide={handleRequestRecommendations} key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
                                     </template>
                                 </div>
                                 

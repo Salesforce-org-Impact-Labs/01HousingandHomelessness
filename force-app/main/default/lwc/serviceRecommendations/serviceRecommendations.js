@@ -89,10 +89,7 @@ export default class ServiceRecommendations extends LightningElement {
                 if(this.showRecommendations === false ){
                     this.showRecommendations = !this.showRecommendations;
                 }
-
-                showResult.sort((a,b)=>{
-                  return (a.Rating > b.Rating) ? 1 : -1
-                })
+                window.console.log('showResult' + JSON.stringify(showResult));
                 this.unfilteredRecommendations = showResult;
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
