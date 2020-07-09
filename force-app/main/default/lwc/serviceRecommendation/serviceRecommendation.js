@@ -6,7 +6,7 @@ import unhideContacts from '@salesforce/apex/serviceHide.unHide';
 import addComment from '@salesforce/apex/getRecommendations.addNewComment';
 import print from '@salesforce/apex/ServicePrint.PrintPage';
 
-import { icons } from './mapOfIcons';
+import { icons } from './serviceTypeMap';
 
 export default class ServiceRecommendation extends LightningElement {
   @api servicerecommendation;
