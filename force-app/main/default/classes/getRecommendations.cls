@@ -44,6 +44,7 @@ public with sharing class getRecommendations {
       SR.MailingCity = service.City__c;
       SR.Website = service.Website__c;
       SR.Hidden = false;
+      SR.HiddenAll = false;
       SR.totalRatings = 0;
       SR.Indicators = new List<ServiceRecommendation.Indicator>();
       SR.Comments = new List<ServiceRecommendation.Comment>();
@@ -184,6 +185,11 @@ public with sharing class getRecommendations {
       );
       if (exclusions != null && exclusions.size() > 0) {
         rec.Hidden = true;
+        for (Service_Exclusion__c exclusion : exclusions) {
+          if (exclusion.Contact__c == null) {
+            rec.HiddenAll = true;
+          }
+        }
       }
     }
     return recs;
