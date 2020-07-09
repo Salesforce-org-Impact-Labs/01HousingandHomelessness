@@ -185,10 +185,10 @@ public with sharing class getRecommendations {
       );
       if (exclusions != null && exclusions.size() > 0) {
         rec.Hidden = true;
-      }
-      for (Service_Exclusion__c exclusion : exclusions) {
-        if (exclusion.Contact__r == null) {
-          rec.HiddenAll = true;
+        for (Service_Exclusion__c exclusion : exclusions) {
+          if (exclusion.Contact__c == null) {
+            rec.HiddenAll = true;
+          }
         }
       }
     }
