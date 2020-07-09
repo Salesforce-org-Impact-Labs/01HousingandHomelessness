@@ -54,6 +54,8 @@ public with sharing class Test_getRecommendations {
       recs[goodServiceIndex].Matches.contains('Employed full-time')
     );
     System.assertEquals(1, recs[goodServiceIndex].Comments.size());
+    System.assert(recs[goodServiceIndex].ReferralCount > 0);
+
     System.assertEquals(
       'It is great',
       recs[goodServiceIndex].Comments[0].CommentText
