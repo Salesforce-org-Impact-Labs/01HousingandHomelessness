@@ -5,6 +5,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AuntBerthaServiceBatchClass</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AuntBerthaServiceProvider</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -69,6 +73,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Test_AuntBerthaMockService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Test_CarrierSettingsData</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -108,7 +116,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Aunt_Bertha_Attribute_Setting__mdt.Attribute_Tag__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Aunt_Bertha_Auth_Setting__mdt.API_Key__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Aunt_Bertha_Auth_Setting__mdt.Hostname__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -193,6 +211,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Service_Provider_ZipCode_Search__mdt.Zipcode__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Service__c.Account__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -247,6 +270,9 @@
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
+        <layout>Aunt_Bertha_Attribute_Setting__mdt-Aunt Bertha Attribute Setting Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Aunt_Bertha_Auth_Setting__mdt-Aunt Bertha Auth Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -269,6 +295,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Service_Provider_Auth_Setting__mdt-Service Provider Auth Setting Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Service_Provider_ZipCode_Search__mdt-Service Provider ZipCode Search Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Service__c-Service Layout</layout>

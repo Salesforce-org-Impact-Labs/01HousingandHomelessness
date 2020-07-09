@@ -5,11 +5,19 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>AuntBerthaServiceBatchClass</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>AuntBerthaServiceProvider</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>AuntBerthaServiceProviderResults</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AuntBerthaServiceQueueable</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -69,6 +77,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Test_AuntBerthaMockService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Test_CarrierSettingsData</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -108,7 +120,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Aunt_Bertha_Attribute_Setting__mdt.Attribute_Tag__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Aunt_Bertha_Auth_Setting__mdt.API_Key__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Aunt_Bertha_Auth_Setting__mdt.Hostname_Program__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Aunt_Bertha_Auth_Setting__mdt.Hostname__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -192,6 +219,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Service_Provider_ZipCode_Search__mdt.Zipcode__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Service__c.Account__c</field>
         <readable>true</readable>
@@ -250,6 +282,9 @@
         <layout>Account-Account Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Aunt_Bertha_Attribute_Setting__mdt-Aunt Bertha Attribute Setting Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Aunt_Bertha_Auth_Setting__mdt-Aunt Bertha Auth Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -272,6 +307,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Service_Provider_Auth_Setting__mdt-Service Provider Auth Setting Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Service_Provider_ZipCode_Search__mdt-Service Provider ZipCode Search Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Service__c-Service Layout</layout>

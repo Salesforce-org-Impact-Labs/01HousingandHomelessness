@@ -1,4 +1,151 @@
 public with sharing class ServiceProviderClient {
+
+
+    private static void authBerthaServiceController(Map<String, String> authParams, String[] queryParams) {
+        ServiceProviderAbstractFactory spFactory = ServiceProviderFactoryCreator.getFactory('ServiceProvider');  
+        ServiceProviderAbstractFactory spFactoryResults = ServiceProviderFactoryCreator.getFactory('ServiceProviderResults');          
+        ServiceProvider spAuntBertha = spFactory.getServiceProvider('AuntBertha');  
+        
+        String api_key = authParams.get('API_Key__c');
+        String username = authParams.get('Username__c');
+        String pwd = authParams.get('Password__c');
+        String url =  authParams.get('Hostname__c');        
+        String method = authParams.get('MethodType');
+
+        AuthParams ap = new AuthParams();
+        ap.username = username;
+        ap.password = pwd;
+        ap.api_key = api_key;
+        string authString = JSON.serializePretty(ap);        
+        string authHeader = null;  
+        
+        ServiceResults auntBerthaResults = spFactoryResults.getServiceProviderResults('AuntBerthaResults');
+        auntBerthaResults.setServiceParams(api_key, username, pwd, url, method, authString, authHeader);
+        String abResult = auntBerthaResults.getResults('testing ab degree');        
+        System.debug(LoggingLevel.DEBUG, '---> ab  ' + abResult);
+        //Map<String, Object> m = (Map<String, Object>) JSON.deserializeUntyped(abResult);
+            //System.debug(LoggingLevel.DEBUG, '----> token :' + a[0].get('token'));
+        JSONParser parser = JSON.createParser(abResult);
+        string token;
+        while (parser.nextToken() != null) {
+            if ((parser.getCurrentToken() == JSONToken.FIELD_NAME) &&
+                (parser.getText() == 'token')) {
+                parser.nextToken();
+                token =  parser.getText();
+                System.debug(LoggingLevel.DEBUG, '----> token :' + token);
+            }
+
+        }    
+
+        List<Account> acctRecords = new List<Account>();
+        List<Service__c> serviceRecords = new List<Service__c>();
+        List<Open_Hours__c> openhourRecords = new List<Open_Hours__c>();  
+        //this will be used for update
+        Map<Id, Service__c> updateServiceRecords = new Map<Id, Service__c>();        
+        // this will verify existing service duplicate records in the call
+        Map<String, String> dedupSvcRecords = new Map<String, String>();        
+        // loop for all zip codes and all attribute tags
+        for(String s : queryParams) {
+            System.debug(LoggingLevel.DEBUG, authParams.get('Hostname_Program__c') + s);
+            method = 'GET';
+            url = authParams.get('Hostname_Program__c') + s;
+            authString = null;
+            authHeader = token;
+            auntBerthaResults.setServiceParams(api_key, username, pwd, url, method, authString, authHeader);
+            string abQueryResult = auntBerthaResults.getResults('testing ab degree'); 
+            // System.debug(LoggingLevel.DEBUG, '---> result ' + abQueryResult);
+            
+            try{
+                AuntBerthaDataWrapper abDataWrapper = AuntBerthaDataWrapper.parse(abQueryResult);
+                AuntBerthaDataWrapper.Programs[] programs = abDataWrapper.programs;
+                for(AuntBerthaDataWrapper.Programs prog : programs) {
+                    // account name
+                    Account acctReference = new Account(External_ID__c = String.valueOf(prog.provider_numeric_id));            
+                    System.debug(LoggingLevel.DEBUG, '---> provider name ' + prog.provider_name);
+                    System.debug(LoggingLevel.DEBUG, '---> provider desc ' + prog.coverage_description);
+                    List<AuntBerthaDataWrapper.Offices> offices = prog.offices;
+                    for(AuntBerthaDataWrapper.Offices off : offices) {
+                        // service details
+                        System.debug(LoggingLevel.DEBUG, '---> service name ' + off.name);
+                        System.debug(LoggingLevel.DEBUG, '---> service notes ' + prog.description);
+                        System.debug(LoggingLevel.DEBUG, '---> addr ' + off.address1 + ',' + off.city + ',' + 
+                                                                off.postal + ', phone - ' + off.phone_number + 
+                                                                ', website - ' + prog.website_url) ;
+        
+
+
+
+                        Service__c  serviceReference = new Service__c(External_ID__c = String.valueOf(off.office_numeric_id));
+                        Service__c newService = new Service__c(Name = off.name, 
+                                                                Street__c = off.address1, 
+                                                                City__c = off.city,
+                                                                Phone__c = off.phone_number,
+                                                                Zip_Code__c = off.postal,
+                                                                External_ID__c = String.valueOf(prog.provider_numeric_id + '-' + off.office_numeric_id),
+                                                                Description__c = prog.description,
+                                                                Website__c = prog.website_url);
+                        //create account reference using account number                                                        
+                        newService.Account__r = acctReference;                
+                        List<Service__c> newServiceRecord = new List<Service__c>();
+
+                        if( ! dedupServiceRecordsFromService(String.valueOf(prog.provider_numeric_id + '-' + off.office_numeric_id), dedupSvcRecords)) {
+                            newServiceRecord.add(newService);
+                            dedupSvcRecords.put(String.valueOf(prog.provider_numeric_id + '-' + off.office_numeric_id), off.name);                            
+                        }else {
+                            continue;
+                        }
+        
+                        // open hours records
+                        AuntBerthaDataWrapper.Hours hours = off.hours;
+                        openhourRecords.addAll( auntBerthaGetOpenHours(hours, prog.provider_numeric_id + '-' + off.office_numeric_id));                
+                        Map<Id, Service__c> updServiceRecords = dedupServiceRecords(newServiceRecord);
+                        if(updServiceRecords.size() < 1){
+                            serviceRecords.add(newService);
+                        }else {
+                            updateServiceRecords.putAll(updServiceRecords);
+                        }
+        
+                        
+                    }
+                    //create the account record.
+                    // account records dedup will be matched in external id field
+                    Account newAcct = new Account(name = prog.provider_name, 
+                                            External_ID__c = String.valueOf(prog.provider_numeric_id),
+                                            description = prog.coverage_description);
+                    acctRecords.add(newAcct);
+                }
+                System.debug(LoggingLevel.DEBUG, '---> open hours list size : ' + openhourRecords.size());
+                System.debug(LoggingLevel.DEBUG, '---> updated updateServiceRecords size : ' + updateServiceRecords.size());
+
+            }catch(Exception ex) {
+                System.debug(LoggingLevel.DEBUG, '---> exception ' + ex.getMessage());
+            }
+        }  
+        
+                // update strategy
+                if(updateServiceRecords.size() > 0) {
+                    // delete all open hours child records and reinsert them
+                    deleteOpenHourRecords(updateServiceRecords);
+                    // update service records
+                    updateServiceProviderRecords(updateServiceRecords);
+                }
+                List<SObject> sobjList = new List<SObject>();
+                sobjList.addAll(acctRecords);
+                sobjList.addAll(serviceRecords);
+                sobjList.addAll(openhourRecords);
+                // insert service records
+                insertSObjectRecords(sobjList); 
+    }
+
+    public static void processAuthBerthaServiceFromBatch(Map<String, String> authParams, String[] queryParams) {
+        authBerthaServiceController(authParams, queryParams);
+    }
+
+    @future(callout=true)
+    public static void processAuthBerthaService(Map<String, String> authParams, String[] queryParams) {
+        authBerthaServiceController(authParams, queryParams);
+    }
+
     public ServiceProviderClient() {
 
         ServiceProviderAbstractFactory spFactory = ServiceProviderFactoryCreator.getFactory('ServiceProvider');  
@@ -74,6 +221,9 @@ public with sharing class ServiceProviderClient {
         List<Open_Hours__c> openhourRecords = new List<Open_Hours__c>();  
         //this will be used for update
         Map<Id, Service__c> updateServiceRecords = new Map<Id, Service__c>();
+        // this will verify existing service duplicate records in the call
+        Map<String, String> dedupSvcRecords = new Map<String, String>();
+
 
         // //Insert data into service__c object after parsing
         AuntBerthaDataWrapper abDataWrapper = AuntBerthaDataWrapper.parse(abQueryResult);
@@ -105,11 +255,17 @@ public with sharing class ServiceProviderClient {
                 //create account reference using account number                                                        
                 newService.Account__r = acctReference;                
                 List<Service__c> newServiceRecord = new List<Service__c>();
-                newServiceRecord.add(newService);
+                // dedup from service call
+                dedupSvcRecords.put(String.valueOf(prog.provider_numeric_id + '-' + off.office_numeric_id), off.name);
+                if( ! dedupServiceRecordsFromService(String.valueOf(prog.provider_numeric_id + '-' + off.office_numeric_id), dedupSvcRecords)) {
+                    newServiceRecord.add(newService);
+                }
+                
 
                 // open hours records
                 AuntBerthaDataWrapper.Hours hours = off.hours;
                 openhourRecords.addAll( auntBerthaGetOpenHours(hours, prog.provider_numeric_id + '-' + off.office_numeric_id));                
+                // dedup from database
                 Map<Id, Service__c> updServiceRecords = dedupServiceRecords(newServiceRecord);
                 if(updServiceRecords.size() < 1){
                     serviceRecords.add(newService);
@@ -272,7 +428,8 @@ public with sharing class ServiceProviderClient {
 
 
     }
-    private void insertSObjectRecords(List<SObject> sobjList) {
+    
+    private static void insertSObjectRecords(List<SObject> sobjList) {
         System.debug(LoggingLevel.DEBUG, '---> Starting insert');
 
         try{
@@ -298,7 +455,7 @@ public with sharing class ServiceProviderClient {
         }
     }
 
-    private void updateServiceProviderRecords(Map<Id, Service__c> updateServiceRecords) {
+    private static void updateServiceProviderRecords(Map<Id, Service__c> updateServiceRecords) {
         List<Service__c> updatedSvcrecords = new List<Service__c>();
         for(Id svcId : updateServiceRecords.keySet()) {
             Service__c svc = updateServiceRecords.get(svcId);
@@ -329,7 +486,7 @@ public with sharing class ServiceProviderClient {
 
     }
 
-    private void deleteOpenHourRecords(Map<Id, Service__c> serviceRecords) {
+    private static void deleteOpenHourRecords(Map<Id, Service__c> serviceRecords) {
         Set<Id> serviceIds = new Set<Id>();
         for(Id svcId : serviceRecords.keySet()) {
             serviceIds.add(svcId);
@@ -340,7 +497,17 @@ public with sharing class ServiceProviderClient {
         }
     }
 
-    private Map<Id, Service__c> dedupServiceRecords(List<Service__c> serviceRecord) {
+    private static boolean dedupServiceRecordsFromService(String externalId, Map<String, String> serviceRecords) {
+        System.debug(LoggingLevel.DEBUG, '---> external Id ' +  externalId);
+        if(serviceRecords.size() > 0 && externalId.length() > 0 && serviceRecords.containsKey(externalId)){
+            System.debug(LoggingLevel.DEBUG, '---> found ' +  serviceRecords.containsKey(externalId));
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private static Map<Id, Service__c> dedupServiceRecords(List<Service__c> serviceRecord) {
         // dedup matching for service records - start
         Map<Id, Service__c> updateServiceRecords = new Map<Id, Service__c>();
         //get the ids of the service records.
@@ -363,7 +530,7 @@ public with sharing class ServiceProviderClient {
         return updateServiceRecords;
     }
 
-    private List<Open_Hours__c> auntBerthaGetOpenHours(AuntBerthaDataWrapper.Hours hours, string off_id) {
+    private static List<Open_Hours__c> auntBerthaGetOpenHours(AuntBerthaDataWrapper.Hours hours, string off_id) {
         List<Open_Hours__c> ohs = new List<Open_Hours__c>();
         String[] strTimeSplitStart;
         String[] strTimeSplitStartAM;
