@@ -35,6 +35,13 @@ public class Test_BatchSendInitialClientReferrals {
         );
         insert ref1;        
 
+        Task task1 = new Task(
+            Subject = 'Info to Client',
+            ActivityDate = System.today(),
+            WhatId = ref1.Id
+        );
+        insert task1;
+
         Service__c svc2 = new Service__c (
             Name = 'Test Another Service',
             City__c = 'Dallas',
@@ -55,7 +62,15 @@ public class Test_BatchSendInitialClientReferrals {
             Score__c = 2,
             Service__c = svc2.Id
         );
-        insert ref2;                
+        insert ref2; 
+
+        Task task2 = new Task(
+            Subject = 'Info to Client',
+            ActivityDate = System.today(),
+            WhatId = ref2.Id
+        );
+        insert task2;
+
     }
 
     static testMethod void testSendMessages() {

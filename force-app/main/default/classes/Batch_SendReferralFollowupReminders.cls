@@ -10,8 +10,7 @@ global class Batch_SendReferralFollowupReminders implements Database.Batchable<S
                 WhatId,
                 Status
             FROM Task
-            WHERE ActivityDate = TODAY
-            AND Subject = :REMINDER_TASK_SUBJECT
+            WHERE Subject = :REMINDER_TASK_SUBJECT
             AND Status != :TASK_STATUS_COMPLETED
         ]);
     }
@@ -21,10 +20,14 @@ global class Batch_SendReferralFollowupReminders implements Database.Batchable<S
             // get the referral ids from each task
             List<Id> referralIds = new List<Id>();
             for (Task reminderTask : reminderTasks) {
-                referralIds.add(reminderTask.WhatId);
+                if (!referralIds.contains(reminderTask.WhatId)) {
+                    referralIds.add(reminderTask.WhatId);
+                }
             }
-            // send the messages
-            EmailService.sendReferralFollowupMessages(referralIds);
+            if (!referralIds.isEmpty()) {
+                // send the messages
+                EmailService.sendReferralFollowupMessages(referralIds);
+            }
             // update the tasks to completed
             for (Task completedTask : reminderTasks) {
                 completedTask.Status = TASK_STATUS_COMPLETED;
