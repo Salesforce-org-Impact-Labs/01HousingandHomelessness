@@ -7,6 +7,43 @@ export default class MultiSelectListItem extends LightningElement{
     @track listClass = 'slds-dropdown__item';
     @track selected = false;
 
+    @track programTypeFood = false;
+    @track programTypeEducation =  false;
+    @track programTypeHousing = false;
+    @track programTypeGoods = false;
+    @track prgoramTypeTransit = false;
+    @track programTypeHealth = false;
+    @track programTypeMoney = false;
+    @track programTypeCare = false;
+    @track programTypeWork = false;
+    @track programTypeLegal = false;
+
+
+
+    connectedCallback(val = this.value){
+        if(val === 'Food'){
+            this.programTypeFood = true
+        } else if(val === 'Education'){
+            this.programTypeEducation = true;
+        }else if(val === 'Housing'){
+            this.programTypeHousing = true;
+        }else if(val === 'Goods'){
+            this.programTypeGoods = true;
+        }else if(val === 'Transit'){
+            this.programTypeTransit = true;
+        }else if(val === 'Health'){
+            this.programTypeHealth = true;
+        }else if(val === 'Money'){
+            this.programTypeMoney = true;
+        }else if(val === 'Care'){
+            this.programTypeCare = true;
+        }else if(val === 'Work'){
+            this.programTypeWork = true;
+        }else{
+            this.programTypeLegal = true;
+        }
+    }
+
 
     handleItemSelection(){
         if(this.selected === false){

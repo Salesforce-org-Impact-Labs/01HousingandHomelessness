@@ -170,7 +170,7 @@
         <name>Screen_1_Referral_Confirmation</name>
         <label>Screen 1 Referral Confirmation</label>
         <locationX>538</locationX>
-        <locationY>172</locationY>
+        <locationY>173</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -191,7 +191,13 @@
             <fieldType>MultiSelectCheckboxes</fieldType>
             <isRequired>false</isRequired>
         </fields>
-        <showFooter>true</showFooter>
+        <fields>
+            <name>footer</name>
+            <extensionName>c:flowFooter</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <start>

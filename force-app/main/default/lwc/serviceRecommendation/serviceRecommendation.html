@@ -163,7 +163,7 @@
         <div class="slds-m-around_small">
             <ul class="bodyList">
               <li>
-                <p>Provided by: <a href="#" onclick={handleAccountRedirect}>Org Name</a></p>
+                <p>Provided by: <a href="#" onclick={handleAccountRedirect}>{servicerecommendation.Service.Account__r.Name}</a></p>
               </li>
               <li><p>{servicerecommendation.ProgramDescription}</p></li>
               <template if:true={servicerecommendation.TodaysHours}>
