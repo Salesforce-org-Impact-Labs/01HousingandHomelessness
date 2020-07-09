@@ -1,8 +1,68 @@
 <template>
     <li class={listClass} onclick={handleItemSelection} data-value={value} data-selected={selected}>
         <a role="menuitemcheckbox" aria-checked="true" tabindex="0">
-            <span class="slds-truncate">
+            <span class="slds-truncate itemSpan">
                 <lightning-icon icon-name="utility:check" size="x-small" class="slds-icon slds-icon--selected slds-icon--x-small slds-icon-text-default slds-m-right--x-small"></lightning-icon>
+                <lightning-icon
+                    if:true={programTypeFood}
+                    icon-name="custom:custom51"
+                    size="small"
+                    alternative-text="Food"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeEducation}
+                    icon-name="custom:custom33"
+                    size="small"
+                    alternative-text="Education"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeHousing}
+                    icon-name="custom:custom107"
+                    size="small"
+                    alternative-text="Housing"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeGoods}
+                    icon-name="custom:custom93"
+                    size="small"
+                    alternative-text="Goods"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeMoney}
+                    icon-name="custom:custom17"
+                    size="small"
+                    alternative-text="Money"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeTransit}
+                    icon-name="custom:custom36"
+                    size="small"
+                    alternative-text="Transit"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeHealth}
+                    icon-name="custom:custom86"
+                    size="small"
+                    alternative-text="Health"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeCare}
+                    icon-name="custom:custom94"
+                    size="small"
+                    alternative-text="Care"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeWork}
+                    icon-name="custom:custom24"
+                    size="small"
+                    alternative-text="Work"
+                  ></lightning-icon>
+                  <lightning-icon
+                    if:true={programTypeLegal}
+                    icon-name="custom:custom16"
+                    size="small"
+                    alternative-text="Legal"
+                  ></lightning-icon>
                 {value}
             </span>
         </a>

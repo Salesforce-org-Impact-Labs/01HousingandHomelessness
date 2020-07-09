@@ -61,6 +61,9 @@ public class ServiceRecommendation {
   public Boolean Hidden { get; set; }
 
   @AuraEnabled
+  public Boolean HiddenAll { get; set; }
+
+  @AuraEnabled
   public Integer totalRatings { get; set; }
 
   @AuraEnabled
