@@ -1,229 +1,163 @@
 /* eslint-disable no-empty */
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
+
 import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
 import addComment from '@salesforce/apex/getRecommendations.addNewComment';
 import print from '@salesforce/apex/ServicePrint.PrintPage';
 
+
+import { icons } from './serviceTypeMap';
+
 export default class ServiceRecommendation extends LightningElement {
-    @api servicerecommendation;
+  @api servicerecommendation;
 
-    @api contactid;
-    @api serviceid;
 
-    @track commentCount = 0;
-    @track indicatorCount = 0;
+  @api contactid;
+  @api serviceid;
 
-    @track programTypeFood = false;
-    @track programTypeEducation =  false;
-    @track programTypeHousing = false;
-    @track programTypeGoods = false;
-    @track prgoramTypeTransit = false;
-    @track programTypeHealth = false;
-    @track programTypeMoney = false;
-    @track programTypeCare = false;
-    @track programTypeWork = false;
-    @track programTypeLegal = false;
+  commentCount = 0;
+  indicatorCount = 0;
+  rating = 4.5;
 
-    @track rating = 4.5;
+  showRelevancePopover = false;
+  showDropdown = false;
+  showAddComment = false;
 
-    @track showRelevancePopover = false;
-    @track showDropdown = false;
-    @track showAddComment = false;
+  newComment;
 
-    @track newComment;
+  connectedCallback(rec = this.servicerecommendation) {
+    window.console.log(rec.Website);
 
-    connectedCallback(rec = this.servicerecommendation){
-        window.console.log(rec.Website);
-        if(rec.ProgramType === 'Food'){
-            this.programTypeFood = true
-        } else if(rec.ProgramType === 'Education'){
-            this.programTypeEducation = true;
-        }else if(rec.ProgramType === 'Housing'){
-            this.programTypeHousing = true;
-        }else if(rec.ProgramType === 'Goods'){
-            this.programTypeGoods = true;
-        }else if(rec.ProgramType === 'Transit'){
-            this.programTypeTransit = true;
-        }else if(rec.ProgramType === 'Health'){
-            this.programTypeHealth = true;
-        }else if(rec.ProgramType === 'Money'){
-            this.programTypeMoney = true;
-        }else if(rec.ProgramType === 'Care'){
-            this.programTypeCare = true;
-        }else if(rec.ProgramType === 'Work'){
-            this.programTypeWork = true;
-        }else if(rec.ProgramType === 'Legal'){
-            this.programTypeLegal = true;
-        }
-        
-        else{
-            
-        }
-        if(rec.Comments.length > 0){
-            this.commentCount = rec.Comments.length;
-        }
-        if(rec.Indicators.length>0) {
-            this.indicatorCount = rec.Indicators.length;
-        }
+    if (rec.Comments.length > 0) {
+      this.commentCount = rec.Comments.length;
     }
-
-    handleSendReferral(){
-
-        let eventParams = {
-            showFlow: true,
-            contactId: this.contactid,  
-            serviceId: this.servicerecommendation.ServiceId
-        };
-        window.console.log(eventParams);
-        const flowLaunchEvent = new CustomEvent('flowlaunch', {
-            detail: {
-                eventParams
-            },
-        });
-        // Fire the custom event
-        
-        this.dispatchEvent(flowLaunchEvent);
-        
+    if (rec.Indicators.length > 0) {
+      this.indicatorCount = rec.Indicators.length;
     }
+  }
 
-    handleRelevancePopover(event){
-        window.console.log('handle popover');
-        event.preventDefault();
-        this.showRelevancePopover = !this.showRelevancePopover;
-    }
+  handleSendReferral() {
+    let eventParams = {
+      showFlow: true,
+      contactId: this.contactid,
+      serviceId: this.servicerecommendation.ServiceId
+    };
+    window.console.log(eventParams);
+    const flowLaunchEvent = new CustomEvent('flowlaunch', {
+      detail: {
+        eventParams
+      }
+    });
+    // Fire the custom event
 
-    handleShowMoreDropdown(){
-        window.console.log('toggle drop down');
-        this.showDropdown = !this.showDropdown;
-    }
+    this.dispatchEvent(flowLaunchEvent);
+  }
 
-    handleHideForThisContact(){
-        window.console.log('toggle hide for contact');
-        window.console.log(this.serviceid);
-        window.console.log(this.contactid);
-        hideContacts({ serviceId: this.serviceid, contactId: this.contactid })
-            .then(() => {
-                window.console.log('success');
-                let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
-                    detail: {
-                        eventParams
-                    },
-                });
-                // Fire the custom event
-                
-                this.dispatchEvent(flowLaunchEvent);
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
+  handleRelevancePopover(event) {
+    window.console.log('handle popover');
+    event.preventDefault();
+    this.showRelevancePopover = !this.showRelevancePopover;
+  }
 
+  handleShowMoreDropdown() {
+    window.console.log('toggle drop down');
+    this.showDropdown = !this.showDropdown;
+  }
 
-    }
+  handleHideForThisContact() {
+    window.console.log('toggle hide for contact');
+    window.console.log(this.serviceid);
+    window.console.log(this.contactid);
+    hideContacts({ serviceId: this.serviceid, contactId: this.contactid })
+      .then(() => {
+        window.console.log('success');
+      })
+      .catch((error) => {
+        window.console.log('error:' + error);
+      });
+  }
 
-    handleHideForAllContacts(){
-        window.console.log('toggle hide for all contacts');
-        hideContacts({ serviceId: this.serviceid, contactId: null })
-            .then(() => {
-                window.console.log('success');
-                let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
-                    detail: {
-                        eventParams
-                    },
-                });
-                // Fire the custom event
-                
-                this.dispatchEvent(flowLaunchEvent);
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
+  handleHideForAllContacts() {
+    window.console.log('toggle hide for all contacts');
+    hideContacts({ serviceId: this.serviceid, contactId: null })
+      .then(() => {
+        window.console.log('success');
+      })
+      .catch((error) => {
+        window.console.log('error:' + error);
+      });
+  }
 
-    }
+  handleUnhideForThisContact() {
+    unhideContacts({ serviceId: this.serviceid, contactId: this.contactid })
+      .then(() => {
+        window.console.log('success');
+      })
+      .catch((error) => {
+        window.console.log('error:' + error);
+      });
+  }
 
-    handleUnhideForThisContact(){
-        unhideContacts({ serviceId: this.serviceid, contactId: this.contactid })
-            .then(() => {
-                window.console.log('success');
-                let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
-                    detail: {
-                        eventParams
-                    },
-                });
-                // Fire the custom event
-                
-                this.dispatchEvent(flowLaunchEvent);
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
-    }
+  handleUnhideForAllContacts() {
+    unhideContacts({ serviceId: this.serviceid, contactId: null })
+      .then(() => {
+        window.console.log('success');
+      })
+      .catch((error) => {
+        window.console.log('error:' + error);
+      });
+  }
 
-    handleUnhideForAllContacts(){
-        unhideContacts({ serviceId: this.serviceid, contactId: null })
-            .then(() => {
-                window.console.log('success');
-                let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
-                    detail: {
-                        eventParams
-                    },
-                });
-                // Fire the custom event
-                
-                this.dispatchEvent(flowLaunchEvent);
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
-    }
+  handleAccountRedirect() {
+    let url = '/' + this.servicerecommendation.AccountId;
+    window.open(url);
+  }
 
-    handleAccountRedirect(){
-        let url = '/'+this.servicerecommendation.AccountId;
-        window.open(url);
-    }
+  handleShowAddComment() {
+    window.console.log('add comment');
 
-    handleShowAddComment(){
-        window.console.log('add comment');
+    this.showAddComment = !this.showAddComment;
+  }
 
-        this.showAddComment = !this.showAddComment;
-    }
+  handleCommentChange(evt) {
+    this.newComment = evt.target.value;
+  }
 
-    handleCommentChange(evt){
-        this.newComment = evt.target.value;
-    }
+  handleAddComment() {
+    window.console.log(this.servicerecommendation.ServiceId);
+    addComment({
+      serviceId: this.servicerecommendation.ServiceId,
+      newComment: this.newComment
+    })
+      .then(() => {
+        window.console.log('success');
+      })
+      .catch((error) => {
+        window.console.log('error:' + error);
+      });
+  }
 
-    handleAddComment(){
-        window.console.log(this.servicerecommendation.ServiceId);
-        addComment({serviceId : this.servicerecommendation.ServiceId, newComment : this.newComment})
-            .then(() => {
-                window.console.log('success');
-            })
-            .catch((error) => {
-                window.console.log('error:' + error);
-            });
+  handlePrintReferral() {
+    window.console.log('printing...');
+    window.console.log(this.serviceid);
+    print({ serviceId: this.serviceid })
+      .then((result) => {
+        let downloadLink = document.createElement('a');
+        downloadLink.href = result;
+        window.console.log(downloadLink.href);
+        downloadLink.download = 'referral.pdf';
 
-    }
+        downloadLink.click();
+      })
+      .catch((error) => {
+        window.console.log('error:' + JSON.stringify(error));
+      });
+  }
 
-    handlePrintReferral() {
-        window.console.log('printing...');
-        window.console.log(this.serviceid);
-        print({serviceId : this.serviceid})
-            .then((result)=>{
-    
-                let downloadLink = document.createElement("a");                 
-                downloadLink.href = result; 
-                window.console.log(downloadLink.href);
-                downloadLink.download = "referral.pdf"; 
-
-                
-                downloadLink.click();
-            })
-            .catch((error) => {
-                window.console.log('error:' + JSON.stringify(error));
-            });
-    }
+  get iconName() {
+    return this.servicerecommendation && this.servicerecommendation.ProgramType
+      ? `custom:custom${icons.get(this.servicerecommendation.ProgramType)}`
+      : undefined;
+  }
 }
