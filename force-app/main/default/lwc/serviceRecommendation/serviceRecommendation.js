@@ -145,6 +145,11 @@ export default class ServiceRecommendation extends LightningElement {
             });
     }
 
+    handleAccountRedirect(){
+        let url = '/'+this.servicerecommendation.AccountId;
+        window.open(url);
+    }
+
     handleShowAddComment(){
         window.console.log('add comment');
 

@@ -3,7 +3,7 @@
     align-items: center;
     flex: 0 0 auto;
     justify-content: center;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
     transition: all 0.3s ease;
     flex-wrap: wrap;
   }

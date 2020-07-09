@@ -22,19 +22,6 @@ export default class ServiceRecommendations extends LightningElement {
   @api typefilters;
   @track serviceId;
   mapMarkers = [];
-  // mapMarkers = [
-  //   {
-  //     location: {
-  //       Street: '415 Mission St',
-  //       City: 'San Francisco',
-  //       State: 'CA'
-  //     },
-
-  //     title: 'Salesforce Tower',
-  //     description: 'lorem ipsum'
-
-  //   }
-  // ];
 
   @track returnHiddenRecommendationsCount = 0;
 
@@ -67,13 +54,13 @@ export default class ServiceRecommendations extends LightningElement {
         ])
     }
 
-    
-
     handleRequestRecommendations(){
         getRecommendations({contactId: this.recordId })
             .then((result) => {
                 let showResult = [];
                 let hiddenResult = [];
+
+
                 let i;
                 for(i = 0; i < result.length; i++) {
                   let marker = {
@@ -103,6 +90,9 @@ export default class ServiceRecommendations extends LightningElement {
                     this.showRecommendations = !this.showRecommendations;
                 }
 
+                showResult.sort((a,b)=>{
+                  return (a.Rating > b.Rating) ? 1 : -1
+                })
                 this.unfilteredRecommendations = showResult;
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
@@ -114,59 +104,12 @@ export default class ServiceRecommendations extends LightningElement {
             });
     }
 
-    handleGenerateMapMarkers(){
-      
-    }
-
     handleExpand(){
         this.showExpandedMap = !this.showExpandedMap;
     }
 
-    handleFilterList(){
-        window.console.log('show filter window'+ this.template.querySelector('.mapModalDiv').classList);
-        
-        this.template.querySelector('.mapModalDiv').classList.toggle('width67');
-        this.template.querySelector('.mapModalDiv').classList.toggle('mapDivNarrow');
-        this.template.querySelector('.recommendationsDiv').classList.toggle('recommendationsDivWide');
-        //this.template.querySelector('.innerRecModalDiv').classList.toggle('modalWidth100');
-        this.template.querySelector('.recommendationsDiv').classList.toggle('recommendationsDivNarrow');
-        this.template.querySelector('.filterDiv').classList.toggle('slds-hide');
-  }
-
-  
-
-  handleCloseFilters() {
-    window.console.log('close filters');
-    this.template.querySelector('.mapModalDiv').classList.toggle('width67');
-    this.template
-      .querySelector('.mapModalDiv')
-      .classList.toggle('mapDivNarrow');
-    //this.template.querySelector('.innerRecModalDiv').classList.toggle('modalWidth100');
-    this.template
-      .querySelector('.recommendationsDiv')
-      .classList.toggle('recommendationsDivWide');
-    this.template
-      .querySelector('.recommendationsDiv')
-      .classList.toggle('recommendationsDivNarrow');
-    this.template.querySelector('.filterDiv').classList.toggle('slds-hide');
-  }
-
   handleShowHidden() {
     this.showHiddenRecsList = !this.showHiddenRecsList;
-  }
-
-  changeFilter(event) {
-    window.console.log(event);
-    let tgt = event.currentTarget;
-    let filterAttribute = tgt.getAttribute('data-filter');
-    window.console.log(filterAttribute);
-    if (filterAttribute === 'openhours') {
-      this.showHoursFilterChangePopover = !this.showHoursFilterChangePopover;
-    }
-    if (filterAttribute === 'location') {
-      this.showLocationFilterChangePopover = !this
-        .showLocationFilterChangePopover;
-    }
   }
 
   handleSortMenu(event) {
@@ -191,7 +134,7 @@ export default class ServiceRecommendations extends LightningElement {
         })
     }else{
       this.returnRecommendations.sort((a,b)=>{
-        return (a.ReviewCount > b.ReviewCount) ? 1 : -1
+        return (a.Relevance > b.Relevance) ? 1 : -1
       })
     }
   }
@@ -251,7 +194,13 @@ export default class ServiceRecommendations extends LightningElement {
       }
       
     });
-    this.returnRecommendations = filteredRecs;
+
+    if(filteredRecs.length === 0 ){
+      this.returnRecommendations = this.unfilteredRecommendations;
+    }else{
+      this.returnRecommendations = filteredRecs;
+    }
+    
         
   }
 

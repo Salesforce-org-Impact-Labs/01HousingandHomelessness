@@ -1,10 +1,22 @@
-.hiddenRecsDiv .parentCard .slds-card .slds-card_narrow{
-    border: 1px solid grey !important;
+.parentCard {
+    margin-top:0.5em !important;
+    margin-bottom:0.5em !important;
+    border:1px solid grey !important;
     border-radius:5px !important;
+    width: 100%;
+}
+
+.headerdv {
+    display: flex;
+}
+
+
+.headerText label {
+    font-size:10px;
 }
 
 .relevanceHeader {
-    font-size:13px;
+    font-size:14px;
     color: #006dcc !important;
 }
 
@@ -50,9 +62,15 @@
 
 .relevanceDiv {
     padding: 5px;
-    margin-right: 20px;
-    margin-top: 25px;
     border-radius: 5px;
     color:rgb(91, 90, 90);
+}
+
+footer {
+    padding: 1em;
+}
+
+.bodyList li {
+    padding-top: 0.5em;
 }
 
