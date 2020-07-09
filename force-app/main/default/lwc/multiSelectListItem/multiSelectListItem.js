@@ -21,7 +21,6 @@ export default class MultiSelectListItem extends LightningElement{
 
 
     connectedCallback(val = this.value){
-        window.console.log('val' + val);
         if(val === 'Food'){
             this.programTypeFood = true
         } else if(val === 'Education'){

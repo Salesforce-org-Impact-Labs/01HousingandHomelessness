@@ -105,6 +105,15 @@ export default class ServiceRecommendation extends LightningElement {
         hideContacts({ serviceId: this.serviceid, contactId: this.contactid })
             .then(() => {
                 window.console.log('success');
+                let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+                
+                this.dispatchEvent(flowLaunchEvent);
             })
             .catch((error) => {
                 window.console.log('error:' + error);
@@ -118,6 +127,15 @@ export default class ServiceRecommendation extends LightningElement {
         hideContacts({ serviceId: this.serviceid, contactId: null })
             .then(() => {
                 window.console.log('success');
+                let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+                
+                this.dispatchEvent(flowLaunchEvent);
             })
             .catch((error) => {
                 window.console.log('error:' + error);
@@ -129,6 +147,15 @@ export default class ServiceRecommendation extends LightningElement {
         unhideContacts({ serviceId: this.serviceid, contactId: this.contactid })
             .then(() => {
                 window.console.log('success');
+                let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+                
+                this.dispatchEvent(flowLaunchEvent);
             })
             .catch((error) => {
                 window.console.log('error:' + error);
@@ -139,6 +166,15 @@ export default class ServiceRecommendation extends LightningElement {
         unhideContacts({ serviceId: this.serviceid, contactId: null })
             .then(() => {
                 window.console.log('success');
+                let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+                
+                this.dispatchEvent(flowLaunchEvent);
             })
             .catch((error) => {
                 window.console.log('error:' + error);
