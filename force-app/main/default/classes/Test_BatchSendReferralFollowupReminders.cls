@@ -1,5 +1,5 @@
 @IsTest
-public class Test_BatchSendInitialClientReferrals {
+public class Test_BatchSendReferralFollowupReminders {
 
     @TestSetup
     static void makeData(){
@@ -33,7 +33,14 @@ public class Test_BatchSendInitialClientReferrals {
             Score__c = 5,
             Service__c = svc1.Id
         );
-        insert ref1;        
+        insert ref1;    
+        
+        Task task1 = new Task(
+            Subject = 'Reminder',
+            ActivityDate = System.today(),
+            WhatId = ref1.Id
+        );
+        insert task1;
 
         Service__c svc2 = new Service__c (
             Name = 'Test Another Service',
@@ -55,16 +62,24 @@ public class Test_BatchSendInitialClientReferrals {
             Score__c = 2,
             Service__c = svc2.Id
         );
-        insert ref2;                
+        insert ref2; 
+
+        Task task2 = new Task(
+            Subject = 'Reminder',
+            ActivityDate = System.today(),
+            WhatId = ref2.Id
+        );
+        insert task2;
+       
     }
 
-    static testMethod void testSendMessages() {
-
+    static testMethod void testSendFollowups(){
+        
         Test.startTest();
-        Batch_SendInitialClientReferrals batch = new Batch_SendInitialClientReferrals();
+        Batch_SendReferralFollowupReminders batch = new Batch_SendReferralFollowupReminders();
         Database.executeBatch(batch);
         Test.stopTest();
-
+        
         List<Referral_Response__c> refResponses = getReferralResponses();
         System.assertEquals(2, refResponses.size());
     }
