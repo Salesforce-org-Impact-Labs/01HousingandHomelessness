@@ -49,7 +49,7 @@ public class ServiceRecommendation {
   public Decimal Rating { get; set; }
 
   @AuraEnabled
-  public Integer ReferralCount { get; set; }
+  public Integer ReferralsCount { get; set; }
 
   @AuraEnabled
   public Decimal Distance { get; set; }

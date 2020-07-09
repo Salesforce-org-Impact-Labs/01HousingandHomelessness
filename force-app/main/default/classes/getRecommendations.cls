@@ -3,7 +3,7 @@ public with sharing class getRecommendations {
   public static list<ServiceRecommendation> getRecommendations(id contactId) {
     Client_Profile__c CP = getProfile(contactId);
     List<Service__c> services = getRecommendationsServiceQuery.primaryQuery(CP);
-
+    System.debug('services' + services);
     // convert to ServiceRecommendation
     list<ServiceRecommendation> output = servicesToRecommendations(services);
 
