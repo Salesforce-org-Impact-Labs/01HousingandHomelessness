@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Task_Id__c</fullName>
+    <description>The 18 character Id of the task that caused this question to be sent</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The 18 character Id of the task that caused this question to be sent</inlineHelpText>
+    <label>Task Id</label>
+    <length>18</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

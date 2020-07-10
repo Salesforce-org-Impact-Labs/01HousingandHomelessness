@@ -42,6 +42,14 @@ public class Test_ReferralResponseHelper {
             Service__c = svc.Id
         );
         insert ref;
+
+        Task refTask = new Task (
+            Subject = 'Info to Client',
+            Status = 'Not Started',
+            WhoId = cont.Id,
+            WhatId = ref.Id
+        );
+        insert refTask;
     }    
 
     static testMethod void testSaveReferralScore() {
@@ -57,18 +65,23 @@ public class Test_ReferralResponseHelper {
 
     static testMethod void testCreateQuestionRecord() {
         Referral__c referral =  getReferral();
+        Task refTask = getTaskForReferral(referral.Id);
 
         Test.startTest();
-        ReferralResponseHelper.createQuestionRecord(referral.Id, 'How are you doing?');
+        Referral_Response__c refResp = ReferralResponseHelper.createQuestionRecord(referral.Id, 'How are you doing?', refTask.Id);
+        ReferralResponseHelper.saveQuestionRecords(new List<Referral_Response__c> {refResp});
         Test.stopTest();
 
         List<Referral_Response__c> responses =  getReferralResponsesForReferrals(referral.Id);
         System.assertEquals('How are you doing?',responses[0].Question__c);
+        System.assertEquals(refTask.Id, responses[0].Task_Id__c);
     }
 
     static testMethod void testUpdateRecordWithResponse() {
         Referral__c referral =  getReferral();
-        ReferralResponseHelper.createQuestionRecord(referral.Id, 'How are you doing?');
+        Task refTask = getTaskForReferral(referral.Id);
+        Referral_Response__c refResp = ReferralResponseHelper.createQuestionRecord(referral.Id, 'How are you doing?', refTask.Id);
+        ReferralResponseHelper.saveQuestionRecords(new List<Referral_Response__c> {refResp});
         List<Referral_Response__c> responses =  getReferralResponsesForReferrals(referral.Id);
 
         Test.startTest();
@@ -96,10 +109,21 @@ public class Test_ReferralResponseHelper {
                 Id,
                 Referral__c,
                 Question__c,
-                Response__c
+                Response__c,
+                Task_Id__c
             FROM Referral_Response__c
             WHERE Referral__c = :referralId
         ];
         return responses;
+    }
+
+    static Task getTaskForReferral(Id referralId) {
+        Task refTask = [
+            SELECT
+                Id
+            FROM Task
+            WHERE WhatId = :referralId
+        ][0];
+        return refTask;
     }
 }
