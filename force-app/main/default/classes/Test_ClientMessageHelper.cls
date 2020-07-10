@@ -35,16 +35,27 @@ public class Test_ClientMessageHelper {
         );
         insert ref;
 
+        Task refTask = new Task (
+            Subject = 'Info to Client',
+            Status = 'Not Started',
+            WhoId = cont.Id,
+            WhatId = ref.Id
+        );
+        insert refTask;
+
     }
 
     static testMethod void testCreateInitialClientReferralEmails() {
         Referral__c ref = getReferral();
+        Task refTask = getTaskForReferral(ref.Id);
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
+        Map<Id,Id> taskRefMap = new Map<Id,Id>();
+        taskRefMap.put(refTask.Id,ref.Id);
 
         Test.startTest();
-        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap,taskRefMap);
         Test.stopTest();
         
         System.assertEquals('Initial Client Referral',messages[0].getTemplateName());
@@ -52,12 +63,15 @@ public class Test_ClientMessageHelper {
 
     static testMethod void testCreateReferralFollowupEmails() {
         Referral__c ref = getReferral();
+        Task refTask = getTaskForReferral(ref.Id);
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
+        Map<Id,Id> taskRefMap = new Map<Id,Id>();
+        taskRefMap.put(refTask.Id,ref.Id);
 
         Test.startTest();
-        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createReferralFollowupEmails(referralMap);
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createReferralFollowupEmails(referralMap,taskRefMap);
         Test.stopTest();
         
         System.assertEquals('Client Referral Followup',messages[0].getTemplateName());
@@ -175,10 +189,11 @@ public class Test_ClientMessageHelper {
 
     static testMethod void testSaveReferralQuestion() {
         Referral__c ref = getReferral();
+        Task refTask = getTaskForReferral(ref.Id);
 
         Test.startTest();
         Referral_Response__c response = 
-            ClientMessageHelper.saveReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
+            ClientMessageHelper.createReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE,refTask.Id);
         Test.stopTest();
 
         System.assertEquals(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_QUESTION, response.Question__c);
@@ -186,11 +201,14 @@ public class Test_ClientMessageHelper {
 
     static testMethod void testGetContactEmailMap() {
         Referral__c ref = getReferral();
+        Task refTask = getTaskForReferral(ref.Id);
+        Map<Id,Id> taskRefMap = new Map<Id,Id>();
+        taskRefMap.put(refTask.Id,ref.Id);
 
         Map<Id,Referral__c> referralMap = new Map<Id,Referral__c>();
         referralMap.put(ref.Id,ref);
 
-        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
+        List<Messaging.SingleEmailMessage> messages = ClientMessageHelper.createInitialClientReferralEmails(referralMap,taskRefMap);
 
         Test.startTest();
         Map<Id,Messaging.SingleEmailMessage> emailMap = ClientMessageHelper.getContactEmailMap(messages);
@@ -252,4 +270,13 @@ public class Test_ClientMessageHelper {
         return ref;
     }
 
+    static Task getTaskForReferral(Id referralId) {
+        Task refTask = [
+            SELECT
+                Id
+            FROM Task
+            WHERE WhatId = :referralId
+        ][0];
+        return refTask;
+    }
 }

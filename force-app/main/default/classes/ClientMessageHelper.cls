@@ -24,7 +24,7 @@ public with sharing class ClientMessageHelper {
 
     public static final String CASE_MANAGER_HELP_TEMPLATE = 'Case_Manager_Client_Asked_For_Help';
 
-    public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap) {
+    public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap, Map<Id,Id> taskToReferralMap) {
 
         // get the email template for this kind of message
         EmailTemplate template = getEmailTemplateByName(INITIAL_CLIENT_REFERRAL_TEMPLATE);
@@ -33,12 +33,12 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
 
-    public static List<Messaging.SingleEmailMessage> createReferralFollowupEmails(Map<Id, Referral__c> referralMap) {
+    public static List<Messaging.SingleEmailMessage> createReferralFollowupEmails(Map<Id, Referral__c> referralMap, Map<Id,Id> taskToReferralMap) {
 
         // get the email template for this kind of message
         EmailTemplate template = getEmailTemplateByName(CLIENT_REFERRAL_FOLLOWUP_TEMPLATE);
@@ -47,7 +47,7 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
        return messages;
     }
@@ -61,7 +61,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -75,7 +76,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -89,7 +91,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -103,7 +106,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -117,7 +121,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -131,7 +136,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -145,7 +151,8 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
@@ -159,12 +166,13 @@ public with sharing class ClientMessageHelper {
         OrgWideEmailAddress emailAddress = getReferralOrgWideEmailAddress();
 
         // create email messages containing this information
-        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template);
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
+        List<Messaging.SingleEmailMessage> messages = createEmailMessages(referralMap, emailAddress, template, taskToReferralMap);
 
         return messages;
     }
 
-    public static Referral_Response__c saveReferralQuestion(String referralId, String templateName) {
+    public static Referral_Response__c createReferralQuestion(String referralId, String templateName, Id taskId) {
         String question = '';
         //  determine the question that was asked, based on the email template
         if (INITIAL_CLIENT_REFERRAL_TEMPLATE.equals(templateName)) {
@@ -189,7 +197,7 @@ public with sharing class ClientMessageHelper {
             question = CANT_CONNECT_GUIDANCE_QUESTION_4;
         }
 
-        Referral_Response__c refRec = ReferralResponseHelper.createQuestionRecord(referralId, question);
+        Referral_Response__c refRec = ReferralResponseHelper.createQuestionRecord(referralId, question, taskId);
         return refRec;
     }
     
@@ -205,29 +213,57 @@ public with sharing class ClientMessageHelper {
         return template;
     }
 
-    private static List<Messaging.SingleEmailMessage> 
-            createEmailMessages(Map<Id, Referral__c> referralMap, OrgWideEmailAddress orgWideEmail, EmailTemplate template) {
+    private static List<Messaging.SingleEmailMessage> createEmailMessages(Map<Id, Referral__c> referralMap, 
+                                                                        OrgWideEmailAddress orgWideEmail, 
+                                                                        EmailTemplate template,
+                                                                        Map<Id,Id> taskToReferralMap) {
 
         List<Messaging.SingleEmailMessage> messages = new List<Messaging.SingleEmailMessage>();
-        List<Referral_Response__c> responses = new List<Referral_Response__c>();
-
-        for (Id referralId : referralMap.keySet()) {
-            // save the referral response record
-            Referral_Response__c refResp = saveReferralQuestion(referralId, template.DeveloperName);
-
-            // create the email message
-            Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            if (orgWideEmail != null) {
-                message.setOrgWideEmailAddressId(orgWideEmail.Id);
+        List<Referral_Response__c> referralResponses = new List<Referral_Response__c>();                                                                        
+        if (taskToReferralMap.isEmpty()) {
+            for (Id referralId : referralMap.keySet()) {
+                // create the referral response record
+                Id taskId = null;
+                Referral_Response__c refResp = createReferralQuestion(referralId, template.DeveloperName, taskId);
+                referralResponses.add(refResp);
             }
-            message.setTemplateId(template.Id);
-            message.setTargetObjectId(referralMap.get(referralId).Contact__c);
-            message.setWhatId(refResp.Id);
-            message.setUseSignature(false);
-            messages.add(message);
+        } else {
+            for (Id taskId : taskToReferralMap.keySet()) {
+                // create the referral response record, containing the task id
+                Id referralId = taskToReferralMap.get(taskId);
+                Referral_Response__c refResp = createReferralQuestion(referralId, template.DeveloperName, taskId);
+                referralResponses.add(refResp);
+            }
+        }
+
+        // save all the referral question records to the database
+        referralResponses = ReferralResponseHelper.saveQuestionRecords(referralResponses);
+
+        // create the email messages
+        for (Referral_Response__c refResp : referralResponses) {
+                Messaging.SingleEmailMessage message = createEmail(referralMap, orgWideEmail, template, refResp, refResp.Referral__c);
+                messages.add(message);
         }
 
         return messages;
+    }
+
+    private static Messaging.SingleEmailMessage createEmail(Map<Id, Referral__c> referralMap, 
+                                                            OrgWideEmailAddress orgWideEmail, 
+                                                            EmailTemplate template,
+                                                            Referral_Response__c refResp,
+                                                            Id referralId) {
+
+        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+        if (orgWideEmail != null) {
+            message.setOrgWideEmailAddressId(orgWideEmail.Id);
+        }
+        message.setTemplateId(template.Id);
+        message.setTargetObjectId(referralMap.get(referralId).Contact__c);
+        message.setWhatId(refResp.Id);
+        message.setUseSignature(false);
+        
+        return message;
     }
 
     public static Map<Id,Messaging.SingleEmailMessage> getContactEmailMap(List<Messaging.SingleEmailMessage> emails) {
