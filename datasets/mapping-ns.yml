@@ -1,0 +1,142 @@
+Insert Account:
+  sf_object: Account
+  table: Account
+  fields:
+    Id: sf_id
+    Name: Name
+Insert Contact:
+  sf_object: Contact
+  table: Contact
+  fields:
+    Id: sf_id
+    FirstName: FirstName
+    LastName: LastName
+    MobilePhone: MobilePhone
+    Email: Email
+    Birthdate: BirthDate
+    DoNotCall: DoNotCall
+    HasOptedOutOfEmail: HasOptedOutOfEmail
+    HasOptedOutOfFax: HasOptedOutOfFax
+  lookups:
+    ReportsToId:
+      table: Contact
+      after: Insert Contact
+      key_field: reports_to_id
+Insert RefRec__Client_Profile__c:
+  sf_object: RefRec__Client_Profile__c
+  table: Client_Profile__c
+  fields:
+    Id: sf_id
+    RefRec__Date_of_Birth__c: Date_of_Birth__c
+    RefRec__First_Name__c: First_Name__c
+    RefRec__Last_Name__c: Last_Name__c
+    RefRec__Postal_Code__c: Postal_Code__c
+    RefRec__Location__Latitude__s: Location__Latitude__s
+    RefRec__Location__Longitude__s: Location__Longitude__s
+    RefRec__Homeless__c: Homeless__c
+    RefRec__Runaway__c: Runaway__c
+    RefRec__Home_Owner__c: Home_Owner__c
+    RefRec__Home_Renter__c: Home_Renter__c
+    RefRec__Near_Homeless__c: Near_Homeless__c
+    RefRec__Employment__c: Employment__c
+  lookups:
+    RefRec__Contact__c:
+      key_field: contact__c
+      table: Contact
+Insert RefRec__Service__c:
+  sf_object: RefRec__Service__c
+  table: Service__c
+  fields:
+    Id: sf_id
+    Name: Name
+    RefRec__Maximum_Age__c: Maximum_Age__c
+    RefRec__Minimum_Age__c: Minimum_Age__c
+    RefRec__City__c: City__c
+    RefRec__Description__c: Description__c
+    RefRec__Phone__c: Phone__c
+    RefRec__Street__c: Street__c
+    RefRec__Type__c: Type__c
+    RefRec__Website__c: Website__c
+    RefRec__Zip_Code__c: Zip_Code__c
+    RefRec__External_ID__c: External_ID__c
+    RefRec__Preferred__c: Preferred__c
+    RefRec__Location__Latitude__s: Location__Latitude__s
+    RefRec__Location__Longitude__s: Location__Longitude__s
+    RefRec__Homeless__c: Homeless__c
+    RefRec__Runaway__c: Runaway__c
+    RefRec__Home_Owner__c: Home_Owner__c
+    RefRec__Home_Renter__c: Home_Renter__c
+    RefRec__Near_Homeless__c: Near_Homeless__c
+    RefRec__Unemployed__c: Unemployed__c
+    RefRec__Retired__c: Retired__c
+    RefRec__Employed_part_time__c: Employed_part_time__c
+    RefRec__Employed_full_time__c: Employed_full_time__c
+  lookups:
+    RefRec__Account__c:
+      table: Account
+      key_field: account__c
+Insert Open_Hours__c:
+  sf_object: RefRec__Open_Hours__c
+  table: Open_Hours__c
+  fields:
+    Id: sf_id
+    RefRec__End_Time__c: End_Time__c
+    RefRec__Start_Time__c: Start_Time__c
+    RefRec__Day__c: Day__c
+  lookups:
+    RefRec__Service__c:
+      table: Service__c
+      key_field: service__c
+Insert Referral__c:
+  sf_object: RefRec__Referral__c
+  table: Referral__c
+  fields:
+    Id: sf_id
+    RefRec__Preferred_Channel__c: Preferred_Channel__c
+    RefRec__Score__c: Score__c
+  lookups:
+    RefRec__Contact__c:
+      table: Contact
+      key_field: contact__c
+    RefRec__Service__c:
+      table: Service__c
+      key_field: service__c
+Insert Task:
+  sf_object: Task
+  table: Task
+  fields:
+    Id: sf_id
+    Subject: Subject
+    Description: Description
+    Status: Status
+    Priority: Priority
+  lookups:
+    WhoId:
+      table: Contact
+      key_field: who_id
+    WhatId:
+      table: Referral__c
+      key_field: what_id
+Insert Service_Exclusion__c:
+  sf_object: RefRec__Service_Exclusion__c
+  table: Service_Exclusion__c
+  fields:
+    Id: sf_id
+  lookups:
+    RefRec__Contact__c:
+      table: Contact
+      key_field: contact__c
+    RefRec__Service__c:
+      table: Service__c
+      key_field: service__c
+Insert FeedItem:
+  sf_object: FeedItem
+  table: FeedItem
+  fields:
+    Id: sf_id
+    Body: Body
+    Type: Type
+  lookups:
+    ParentId:
+      table: Service__c
+      key_field: parent_id

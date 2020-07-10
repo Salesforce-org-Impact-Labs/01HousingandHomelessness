@@ -88,5 +88,9 @@ flows:
         ignore_failure: True
       12:
         task: load_dataset
+        options:
+          mapping: datasets/mapping-ns.yml
       13:
         task: score_services
+        options:
+          apex: 'RefRec__Scoring.scoreAllServices();'
