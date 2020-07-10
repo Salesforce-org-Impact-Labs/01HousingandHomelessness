@@ -73,7 +73,7 @@ export default class ServiceRecommendations extends LightningElement {
                     title: '',
                     description: ''
                   };
-                  if(result[i].Hidden === true){
+                  if(result[i].Hidden === true || result[i].HiddenAll === true){
                     hiddenResult.push(result[i]);
                   }else{
                     showResult.push(result[i]);
