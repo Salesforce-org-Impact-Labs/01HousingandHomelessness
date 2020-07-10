@@ -13,7 +13,8 @@ public with sharing class ReferralResponseHelper {
     public static Referral_Response__c createQuestionRecord(String referralId, String question, Id taskId) {
         Referral_Response__c refRes = new Referral_Response__c (
             Referral__c = referralId,
-            Question__c = question
+            Question__c = question,
+            Task_Id__c = taskId
         );
 
         return refRes;

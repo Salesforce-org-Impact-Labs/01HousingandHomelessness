@@ -226,10 +226,6 @@ public with sharing class ClientMessageHelper {
                 Id taskId = null;
                 Referral_Response__c refResp = createReferralQuestion(referralId, template.DeveloperName, taskId);
                 referralResponses.add(refResp);
-
-                // create the email message
-                Messaging.SingleEmailMessage message = createEmail(referralMap, orgWideEmail, template, refResp, referralId);
-                messages.add(message);
             }
         } else {
             for (Id taskId : taskToReferralMap.keySet()) {
@@ -237,15 +233,17 @@ public with sharing class ClientMessageHelper {
                 Id referralId = taskToReferralMap.get(taskId);
                 Referral_Response__c refResp = createReferralQuestion(referralId, template.DeveloperName, taskId);
                 referralResponses.add(refResp);
-
-                // create the email message
-                Messaging.SingleEmailMessage message = createEmail(referralMap, orgWideEmail, template, refResp, referralId);
-                messages.add(message);
             }
         }
 
         // save all the referral question records to the database
-        ReferralResponseHelper.saveQuestionRecords(referralResponses);
+        referralResponses = ReferralResponseHelper.saveQuestionRecords(referralResponses);
+
+        // create the email messages
+        for (Referral_Response__c refResp : referralResponses) {
+                Messaging.SingleEmailMessage message = createEmail(referralMap, orgWideEmail, template, refResp, refResp.Referral__c);
+                messages.add(message);
+        }
 
         return messages;
     }
