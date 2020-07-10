@@ -1,19 +1,19 @@
 public with sharing class EmailService {
 
-    public static void sendInitialReferralMessages(List<Id> referralIds) {
+    public static void sendInitialReferralMessages(Map<Id,Id> taskToReferralMap) {
         // get the referral records
-        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(taskToReferralMap.values());
         // create the emails
-        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap, taskToReferralMap);
         // prep and send the emails
         prepareAndSendEmails(emails, referralMap);
     }
 
-    public static void sendReferralFollowupMessages(List<Id> referralIds) {
+    public static void sendReferralFollowupMessages(Map<Id,Id> taskToReferralMap) {
         // get the referral records
-        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(taskToReferralMap.values());
         // create the emails
-        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap);
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap, taskToReferralMap);
         // prep and send the emails
         prepareAndSendEmails(emails, referralMap);
     }
@@ -107,8 +107,12 @@ public with sharing class EmailService {
         sendMessageToContact(contactMessages, clientContactMap, referralMap);
     }
     
-    public static void sendMessageToContact (List<ContactMessage> contactMessages, Map<Id,Contact> clientContactMap, Map<Id, Referral__c> referralMap) {
+    public static void sendMessageToContact (List<ContactMessage> contactMessages, 
+                                            Map<Id,Contact> clientContactMap, 
+                                            Map<Id, Referral__c> referralMap) {
+
         List<Contact> contactsToUpdate = new List<Contact>();
+        List<Task> tasksToUpdate = new List<Task>();
 
         // we need to get the referral id from the referral response record
         //  the id to this record will be in the WhatId field on the email
@@ -120,13 +124,16 @@ public with sharing class EmailService {
         List<Referral_Response__c> referralResponses = [
             SELECT 
                 Id,
-                Referral__c
+                Referral__c,
+                Task_Id__c
             FROM Referral_Response__c
             WHERE Id IN :referralResponseIds
         ];
         Map<Id, Id> referralResponseIdToReferralIdMap = new Map<Id, Id>();
+        Map<Id, Id> referralResponseIdToTaskIdMap = new Map<Id, Id>();
         for (Referral_Response__c refResp : referralResponses) {
             referralResponseIdToReferralIdMap.put(refResp.Id, refResp.Referral__c);
+            referralResponseIdToTaskIdMap.put(refResp.Id, refResp.Task_Id__c);
         }
 
         for (ContactMessage contactMsg : contactMessages) {
@@ -147,21 +154,26 @@ public with sharing class EmailService {
             // check the contact
             if (clientContact != null) {
 
-                // if their preferred channel is email, this becomes easier
                 // get the referral id from the email message, via the referral response
                 Id referralResponseId = messageToSend.getWhatId();
                 Id referralId = referralResponseIdToReferralIdMap.get(referralResponseId);
                 // get the referral from the map
                 Referral__c theReferral = referralMap.get(referralId);
+                // get the task id (if any) from the map
+                Id taskId = referralResponseIdToTaskIdMap.get(referralResponseId);
                 
                 // determine their preferred channel of contact
                 if ('Email'.equalsIgnoreCase(theReferral.Preferred_Channel__c)) {
+                    // if their preferred channel is email, this becomes easier
                     Messaging.SingleEmailMessage emailToSend = 
                         createEmailForContact (messageToSend, clientContact.Email);
                     Boolean emailWasSent = sendEmail(emailToSend);
                     if (!emailWasSent) {
                         throw new EmailServiceException('Failed to successfully send outgoing email to contact');
-                    } 
+                    } else if (taskId != null) {
+                        Task completedTask = createTaskToComplete(taskId);
+                        tasksToUpdate.add(completedTask);
+                    }
 
                 } else if (clientContact.Phone != null) {
                     // if the preferred channel is SMS, we must use their phone number to create an email to the carrier
@@ -209,9 +221,15 @@ public with sharing class EmailService {
                             emailWasSent = sendEmail(emailToSend);
                             if (!emailWasSent) {
                                 throw new EmailServiceException('Failed to successfully send outgoing email to carrier on retry');
-                            } 
+                            }  else if (taskId != null) {
+                                Task completedTask = createTaskToComplete(taskId);
+                                tasksToUpdate.add(completedTask);
+                            }
                         }
-                    }
+                    } else if (taskId != null) {
+                        Task completedTask = createTaskToComplete(taskId);
+                        tasksToUpdate.add(completedTask);
+                   }
 
                     // if contacts need to be updated, then add it to the list for update
                     if (contactNeedsUpdate) {
@@ -234,6 +252,10 @@ public with sharing class EmailService {
         // update any contacts that have been changed (eg the mobile carrier has been changed)
         if (!contactsToUpdate.isEmpty()) {
             update contactsToUpdate;
+        }
+        // update any tasks that have been completed
+        if (!tasksToUpdate.isEmpty()) {
+            update tasksToUpdate;
         }
     }
 
@@ -342,6 +364,14 @@ public with sharing class EmailService {
         } else {
             return null;
         }
+    }
+
+    private static Task createTaskToComplete(Id taskId) {
+        Task completedTask = new Task(
+            Id = taskId,
+            Status = 'Completed'
+        );
+        return completedTask;
     }
 
     public without sharing class ContactMessage {
