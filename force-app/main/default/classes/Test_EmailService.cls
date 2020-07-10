@@ -35,48 +35,51 @@ public with sharing class Test_EmailService {
         );
         insert ref;
 
+        Task refTask = new Task (
+            Subject = 'Info to Client',
+            Status = 'Not Started',
+            WhoId = cont.Id,
+            WhatId = ref.Id
+        );
+        insert refTask;
+
         Referral_Response__c refResp = new Referral_Response__c (
             Referral__c = ref.Id,
             Question__c = 'how are you',
-            Response__c = 'i am fine'
+            Response__c = 'i am fine',
+            Task_Id__c = refTask.Id
         );
         insert refResp;
     }
 
     static testMethod void testSendInitialReferralMessages() {
-        List<Referral__c> referrals = [
-            SELECT
-                Id
-            FROM Referral__c
-            WHERE Contact__r.LastName = 'Tester'
-        ];
-       List<Id> referralIds = new List<Id>{referrals[0].Id};
+        Referral__c referral = getReferral();
+        Task refTask = getTaskForReferral(referral.Id);
+        Map<Id,Id> taskRefMap = new Map<Id,Id>();
+        taskRefMap.put(refTask.Id,referral.Id);
 
-       Test.startTest();
-       Boolean exceptionCaught = false;
-       try {
-            EmailService.sendInitialReferralMessages(referralIds);
-       } catch (Exception ex) {
+        Test.startTest();
+        Boolean exceptionCaught = false;
+        try {
+            EmailService.sendInitialReferralMessages(taskRefMap);
+        } catch (Exception ex) {
             exceptionCaught = true;
-       }
-       Test.stopTest();
+        }
+        Test.stopTest();
 
-       System.assertEquals(false,exceptionCaught);
+        System.assertEquals(false,exceptionCaught);
     }
 
     static testMethod void testSendReferralFollowupMessages() {
-        List<Referral__c> referrals = [
-            SELECT
-                Id
-            FROM Referral__c
-            WHERE Contact__r.LastName = 'Tester'
-        ];
-       List<Id> referralIds = new List<Id>{referrals[0].Id};
+        Referral__c referral = getReferral();
+        Task refTask = getTaskForReferral(referral.Id);
+        Map<Id,Id> taskRefMap = new Map<Id,Id>();
+        taskRefMap.put(refTask.Id,referral.Id);
 
        Test.startTest();
        Boolean exceptionCaught = false;
        try {
-            EmailService.sendReferralFollowupMessages(referralIds);
+            EmailService.sendReferralFollowupMessages(taskRefMap);
        } catch (Exception ex) {
             exceptionCaught = true;
        }
@@ -409,4 +412,23 @@ public with sharing class Test_EmailService {
         return email;
     }
 
+    static Referral__c getReferral() {
+        List<Referral__c> referrals = [
+            SELECT
+                Id
+            FROM Referral__c
+            WHERE Contact__r.LastName = 'Tester'
+        ];
+        return referrals[0];
+    }
+
+    static Task getTaskForReferral(Id referralId) {
+        Task refTask = [
+            SELECT
+                Id
+            FROM Task
+            WHERE WhatId = :referralId
+        ][0];
+        return refTask;
+    }
 }
