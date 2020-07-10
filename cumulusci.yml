@@ -93,4 +93,4 @@ flows:
       13:
         task: score_services
         options:
-          apex: 'RefRec__Scoring.scoreAllServices();'
+          apex: 'refrec.Scoring.scoreAllServices();'

@@ -4,6 +4,9 @@
 
   "edition": "Developer",
   "settings": {
+    "apexSettings": {
+      "enableNonCertifiedApexMdCrud": true
+    },
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
     },
