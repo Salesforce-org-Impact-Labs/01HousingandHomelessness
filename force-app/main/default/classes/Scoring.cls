@@ -1,4 +1,4 @@
-public with sharing class Scoring {
+global with sharing class Scoring {
   // Positive Weights
 
   // example metric: my referrals
@@ -112,7 +112,7 @@ public with sharing class Scoring {
   }
 
   // Scoring.scoreAllServices();
-  public static void scoreAllServices() {
+  global static void scoreAllServices() {
     // iterate all metrics
     for (Scoring_Metric__mdt metricIterator : [
       SELECT
