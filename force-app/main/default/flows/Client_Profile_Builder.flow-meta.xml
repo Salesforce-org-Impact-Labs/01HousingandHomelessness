@@ -137,31 +137,38 @@
         <defaultConnectorLabel>Unknown</defaultConnectorLabel>
         <rules>
             <name>Yes_Housing</name>
-            <conditionLogic>or</conditionLogic>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Profile.Home_Owner__c</leftValueReference>
-                <operator>IsNull</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>Get_Profile.Homeless__c</leftValueReference>
-                <operator>IsNull</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>Get_Profile.Near_Homeless__c</leftValueReference>
-                <operator>IsNull</operator>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>Get_Profile.Home_Renter__c</leftValueReference>
-                <operator>IsNull</operator>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Profile.Runaway__c</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
@@ -206,6 +213,7 @@
         <picklistObject>Client_Profile__c</picklistObject>
     </dynamicChoiceSets>
     <interviewLabel>Client Profile Builder {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
     <label>Client Profile Builder</label>
     <processMetadataValues>
         <name>BuilderType</name>
