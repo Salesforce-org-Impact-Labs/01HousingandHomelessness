@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.slds-dropdown__item span {
+    color:black !important;
+}
+
 .headerdv {
     display: flex;
 }
@@ -31,6 +35,11 @@
 .iconNameDiv {
     height: 40px;
     line-height: 40px;       
+}
+
+.hiddenMenu .slds-dropdown {
+    right:0;
+    left:auto;
 }
 
 .parentCard {
