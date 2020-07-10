@@ -6,7 +6,7 @@ export default class MultiSelectPicklist extends LightningElement{
     apiName = '';
     @api selectoptiontext = 'View All';
     picklistValues = ['Food', 'Education','Housing', 'Goods', 'Transit', 'Health','Money','Care', 'Work','Legal'];
-    multiSelectListClass = 'slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click';
+    multiSelectListClass = 'slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click slds-text-align_left';
 
 
     openMultiSelectPicklist(){

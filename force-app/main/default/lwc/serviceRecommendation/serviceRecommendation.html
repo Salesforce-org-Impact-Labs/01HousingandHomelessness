@@ -75,50 +75,44 @@
         </div>
       </div>
       <div class="slds-float_right" slot="actions">
-        <lightning-button-group>
-          <lightning-button
-            label="Share"
-            onclick={handleSendReferral}
-          ></lightning-button>
-          <lightning-button-icon
-            icon-name="utility:print"
-            variant="border-filled"
-            value={serviceid}
-            alternative-text="Print"
-            onclick={handlePrintReferral}
-          ></lightning-button-icon>
-          <lightning-button-menu
-            if:false={servicerecommendation.Hidden}
-            alternative-text="Show More"
-          >
-            <lightning-menu-item
-              value="Hide for this Contact"
-              label="Hide for this Contact"
-              onclick={handleHideForThisContact}
-            ></lightning-menu-item>
-            <lightning-menu-item
-              value="Hide for all Contacts"
-              label="Hide for all Contacts"
-              onclick={handleHideForAllContacts}
-            ></lightning-menu-item>
-          </lightning-button-menu>
-          <!-- when to show hide/unhide? -->
-          <lightning-button-menu
-            if:true={servicerecommendation.Hidden}
-            alternative-text="Show More"
-          >
-            <lightning-menu-item
-              value="unhide for this Contact"
-              label="Unhide for this Contact"
-              onclick={handleUnhideForThisContact}
-            ></lightning-menu-item>
-            <lightning-menu-item
-              value="unhide for all Contacts"
-              label="Unhide for all Contacts"
-              onclick={handleUnhideForAllContacts}
-            ></lightning-menu-item>
-          </lightning-button-menu>
-        </lightning-button-group>
+        <div class="slds-button-group" role="group">
+            <button class="slds-button slds-button_neutral"
+            onclick={handleSendReferral}>Share</button>
+            <button class="slds-button slds-button_icon slds-button_icon-border-filled" value={serviceid} onclick={handlePrintReferral}>
+              <lightning-icon icon-name="utility:print" alternative-text="Print" size="x-small" >
+                
+              </lightning-icon>
+            </button>
+            <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last">
+              <lightning-button-icon icon-name="utility:down" class="slds-button slds-button_icon slds-button_icon-border-filled" onclick={handleOpenMenu}></lightning-button-icon>
+              <div class="slds-dropdown slds-dropdown_right slds-dropdown_actions">
+                  <lightning-menu-item
+                    if:false={servicerecommendation.Hidden}
+                    value="Hide for this Contact"
+                    label="Hide for this Contact"
+                    onclick={handleHideForThisContact}
+                  ></lightning-menu-item>
+                  <lightning-menu-item
+                    if:true={servicerecommendation.Hidden}
+                    value="unhide for this Contact"
+                    label="Unhide for this Contact"
+                    onclick={handleUnhideForThisContact}
+                  ></lightning-menu-item>
+                  <lightning-menu-item
+                  if:false={servicerecommendation.HiddenAll}
+                    value="Hide for all Contacts"
+                    label="Hide for all Contacts"
+                    onclick={handleHideForAllContacts}
+                  ></lightning-menu-item>
+                  <lightning-menu-item
+                    if:true={servicerecommendation.HiddenAll}
+                    value="unhide for all Contacts"
+                    label="Unhide for all Contacts"
+                    onclick={handleUnhideForAllContacts}
+                  ></lightning-menu-item>
+                </div>
+            </div>
+          </div>
       </div>
     </div>
     <div class="slds-media__body">
@@ -127,7 +121,7 @@
           <li>
             <p>
               Provided by:
-              <a href="#" onclick={handleAccountRedirect}>Org Name</a>
+              <a href="#" onclick={handleAccountRedirect}> {servicerecommendation.Service.Account__r.Name}</a>
             </p>
           </li>
           <li><p>{servicerecommendation.ProgramDescription}</p></li>

@@ -12,12 +12,10 @@
                     
                 </ul>
                 <ul class="slds-float_right slds-list_horizontal">
-                    <li class="slds-p-right_x-small slds-p-top_xx-small">
+                    <lightning-button-group>
                         <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
-                    </li>
-                    <li class="slds-p-right_medium slds-p-top_xx-small">
-                        <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
-                    </li>
+                        <lightning-button-icon  variant="border-filled" icon-name="utility:expand_alt" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
+                    </lightning-button-group>
                 </ul>
             </div>
             <div if:false={showRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
@@ -382,12 +380,10 @@
                                             
                                         </ul>
                                         <ul class="slds-float_right slds-list_horizontal">
-                                            <li class="slds-p-right_x-small slds-p-top_xx-small">
+                                            <lightning-button-group>
                                                 <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
-                                            </li>
-                                            <li class="slds-p-right_medium slds-p-top_xx-small">
-                                                <lightning-button-icon  variant="border-filled" icon-name="utility:checkin" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
-                                            </li>
+                                                <lightning-button-icon  variant="border-filled" icon-name="utility:contract_alt" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
+                                            </lightning-button-group>
                                         </ul>
                                     </div>
                                     <div if:false={showRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
