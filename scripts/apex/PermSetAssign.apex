@@ -1,5 +1,5 @@
 PermissionSet PS = [SELECT id FROM PermissionSet WHERE label = 'RefRecAdmin'];
-PermissionSetAssignment Existing = [
+list<PermissionSetAssignment> Existing = [
   SELECT id
   FROM PermissionSetAssignment
   WHERE AssigneeId = :Userinfo.getUserId() AND PermissionSetId = :PS.Id
@@ -7,7 +7,7 @@ PermissionSetAssignment Existing = [
 
 system.debug(Existing);
 
-if (Existing == null) {
+if (Existing.isEmpty()) {
   PermissionSetAssignment PSA = new PermissionSetAssignment();
   PSA.AssigneeId = Userinfo.getUserId();
   PSA.PermissionSetId = PS.Id;
