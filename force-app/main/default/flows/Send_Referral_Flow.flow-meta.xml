@@ -137,7 +137,7 @@
         <locationY>172</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Screen_1_Referral_Confirmation</targetReference>
+            <targetReference>Get_Service</targetReference>
         </connector>
         <filters>
             <field>Id</field>
@@ -148,6 +148,26 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Service</name>
+        <label>Get Service</label>
+        <locationX>276</locationX>
+        <locationY>175</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Screen_1_Referral_Confirmation</targetReference>
+        </connector>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>serviceId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Service__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
@@ -179,7 +199,7 @@
         </connector>
         <fields>
             <name>Confirm</name>
-            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Confirm Contact Information:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Share This Service&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Send To:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -187,7 +207,7 @@
             <choiceReferences>Email</choiceReferences>
             <choiceReferences>SMS</choiceReferences>
             <dataType>String</dataType>
-            <fieldText>Preferred Method of Contact</fieldText>
+            <fieldText>Send to Client Via:</fieldText>
             <fieldType>MultiSelectCheckboxes</fieldType>
             <isRequired>false</isRequired>
         </fields>

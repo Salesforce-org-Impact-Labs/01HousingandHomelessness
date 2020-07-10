@@ -2,3 +2,7 @@
     width:90% !important;
     max-width: 90% !important;
 }
+
+.slds-dropdown__item span {
+    color:black !important;
+}

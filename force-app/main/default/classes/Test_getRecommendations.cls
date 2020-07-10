@@ -158,7 +158,8 @@ public with sharing class Test_getRecommendations {
       recs,
       badServiceName
     );
-    System.assertEquals(true, recs[badServiceIndex].Hidden);
+    System.assertEquals(true, recs[badServiceIndex].HiddenAll);
+    System.assertEquals(false, recs[badServiceIndex].Hidden);
   }
 
   @testSetup
