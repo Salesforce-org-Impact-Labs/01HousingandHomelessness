@@ -68,6 +68,9 @@ public with sharing class Test_EmailService {
         Test.stopTest();
 
         System.assertEquals(false,exceptionCaught);
+        Task refTaskTest = getTaskForReferral(referral.Id);
+        System.assertEquals('Completed',refTaskTest.Status);
+
     }
 
     static testMethod void testSendReferralFollowupMessages() {
@@ -86,7 +89,9 @@ public with sharing class Test_EmailService {
        Test.stopTest();
 
        System.assertEquals(false,exceptionCaught);
-    }
+       Task refTaskTest = getTaskForReferral(referral.Id);
+       System.assertEquals('Completed',refTaskTest.Status);
+   }
 
     static testMethod void testSendClientRateExperienceMessage() {
         List<Referral__c> referrals = [
@@ -425,7 +430,8 @@ public with sharing class Test_EmailService {
     static Task getTaskForReferral(Id referralId) {
         Task refTask = [
             SELECT
-                Id
+                Id,
+                Status
             FROM Task
             WHERE WhatId = :referralId
         ][0];

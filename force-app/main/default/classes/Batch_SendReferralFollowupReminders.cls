@@ -30,11 +30,6 @@ global class Batch_SendReferralFollowupReminders implements Database.Batchable<S
                 // send the messages
                 EmailService.sendReferralFollowupMessages(taskToReferralMap);
             }
-            // update the tasks to completed
-            for (Task completedTask : reminderTasks) {
-                completedTask.Status = TASK_STATUS_COMPLETED;
-            }
-            update reminderTasks;
         }
     }
 

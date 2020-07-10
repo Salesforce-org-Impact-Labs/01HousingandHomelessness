@@ -29,12 +29,7 @@ global class Batch_SendInitialClientReferrals implements Database.Batchable<SObj
         if (!referralIds.isEmpty()) {
             EmailService.sendInitialReferralMessages(taskToReferralMap);
         }
-        // update the tasks to completed
-        for (Task completedTask : referralTasks) {
-            completedTask.Status = TASK_STATUS_COMPLETED;
-        }
-        update referralTasks;
-    }
+   }
 
     global void finish(Database.BatchableContext context) {
         // nothing to do here
