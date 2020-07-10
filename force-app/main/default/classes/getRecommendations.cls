@@ -184,10 +184,12 @@ public with sharing class getRecommendations {
         rec.ServiceId
       );
       if (exclusions != null && exclusions.size() > 0) {
-        rec.Hidden = true;
+        
         for (Service_Exclusion__c exclusion : exclusions) {
           if (exclusion.Contact__c == null) {
             rec.HiddenAll = true;
+          }else{
+            rec.Hidden = true;
           }
         }
       }

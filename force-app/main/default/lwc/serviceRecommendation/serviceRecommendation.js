@@ -1,5 +1,6 @@
 /* eslint-disable no-empty */
 import { LightningElement, api } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
 
 import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
@@ -9,10 +10,10 @@ import print from '@salesforce/apex/ServicePrint.PrintPage';
 
 import { icons } from './serviceTypeMap';
 
-export default class ServiceRecommendation extends LightningElement {
+export default class ServiceRecommendation extends NavigationMixin(LightningElement) {
   @api servicerecommendation;
 
-
+  url;
   @api contactid;
   @api serviceid;
 
@@ -35,6 +36,9 @@ export default class ServiceRecommendation extends LightningElement {
     if (rec.Indicators.length > 0) {
       this.indicatorCount = rec.Indicators.length;
     }
+
+    
+
   }
 
   handleSendReferral() {
@@ -72,6 +76,15 @@ export default class ServiceRecommendation extends LightningElement {
     hideContacts({ serviceId: this.serviceid, contactId: this.contactid })
       .then(() => {
         window.console.log('success');
+        let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+
+                this.dispatchEvent(flowLaunchEvent);
       })
       .catch((error) => {
         window.console.log('error:' + error);
@@ -83,6 +96,15 @@ export default class ServiceRecommendation extends LightningElement {
     hideContacts({ serviceId: this.serviceid, contactId: null })
       .then(() => {
         window.console.log('success');
+        let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+
+                this.dispatchEvent(flowLaunchEvent);
       })
       .catch((error) => {
         window.console.log('error:' + error);
@@ -93,6 +115,15 @@ export default class ServiceRecommendation extends LightningElement {
     unhideContacts({ serviceId: this.serviceid, contactId: this.contactid })
       .then(() => {
         window.console.log('success');
+        let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+
+                this.dispatchEvent(flowLaunchEvent);
       })
       .catch((error) => {
         window.console.log('error:' + error);
@@ -103,6 +134,15 @@ export default class ServiceRecommendation extends LightningElement {
     unhideContacts({ serviceId: this.serviceid, contactId: null })
       .then(() => {
         window.console.log('success');
+        let eventParams = 'reloadAfterHide';
+                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                    detail: {
+                        eventParams
+                    },
+                });
+                // Fire the custom event
+
+                this.dispatchEvent(flowLaunchEvent);
       })
       .catch((error) => {
         window.console.log('error:' + error);
@@ -110,8 +150,21 @@ export default class ServiceRecommendation extends LightningElement {
   }
 
   handleAccountRedirect() {
-    let url = '/' + this.servicerecommendation.AccountId;
-    window.open(url);
+    this[NavigationMixin.Navigate] ({
+      type: 'standard__recordPage',
+      attributes: {
+          recordId: this.servicerecommendation.AccountId,
+          objectApiName: 'Account',
+          actionName: 'view'
+      }
+    });
+  }
+
+  handleOpenMenu(event){
+    window.console.log('opening');
+    window.console.log(event.currentTarget);
+    let parent = event.currentTarget.parentElement;
+    parent.classList.toggle('slds-is-open');
   }
 
   handleShowAddComment() {
