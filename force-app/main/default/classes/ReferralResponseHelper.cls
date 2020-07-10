@@ -10,14 +10,18 @@ public with sharing class ReferralResponseHelper {
         }
     }
 
-    public static Referral_Response__c createQuestionRecord(String referralId, String question) {
+    public static Referral_Response__c createQuestionRecord(String referralId, String question, Id taskId) {
         Referral_Response__c refRes = new Referral_Response__c (
             Referral__c = referralId,
             Question__c = question
         );
-        insert refRes;
 
         return refRes;
+    }
+
+    public static List<Referral_Response__c> saveQuestionRecords(List<Referral_Response__c> referralResponses) {
+        insert referralResponses;
+        return referralResponses;
     }
 
     public static Referral_Response__c updateRecordWithResponse(String referralResponseId, String response) {

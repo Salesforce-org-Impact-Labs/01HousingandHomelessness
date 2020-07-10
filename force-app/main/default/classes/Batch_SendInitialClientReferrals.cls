@@ -18,14 +18,16 @@ global class Batch_SendInitialClientReferrals implements Database.Batchable<SObj
     global void execute(Database.BatchableContext context, List<Task> referralTasks) {
         // get the referral ids from each task
         List<Id> referralIds = new List<Id>();
+        Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
         for (Task referralTask : referralTasks) {
             if (!referralIds.contains(referralTask.WhatId)) {
-                referralIds.add(referralTask.WhatId);
+                referralIds.add(referralTask.WhatId); // the whatId holds the id of the referral
             }
-    }
+            taskToReferralMap.put(referralTask.Id, referralTask.WhatId);
+        }
         // send the emails
         if (!referralIds.isEmpty()) {
-            EmailService.sendInitialReferralMessages(referralIds);
+            EmailService.sendInitialReferralMessages(taskToReferralMap);
         }
         // update the tasks to completed
         for (Task completedTask : referralTasks) {

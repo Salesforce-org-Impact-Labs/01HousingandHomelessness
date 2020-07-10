@@ -1,19 +1,19 @@
 public with sharing class EmailService {
 
-    public static void sendInitialReferralMessages(List<Id> referralIds) {
+    public static void sendInitialReferralMessages(Map<Id,Id> taskToReferralMap) {
         // get the referral records
-        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(taskToReferralMap.values());
         // create the emails
-        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap);
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createInitialClientReferralEmails(referralMap, taskToReferralMap);
         // prep and send the emails
         prepareAndSendEmails(emails, referralMap);
     }
 
-    public static void sendReferralFollowupMessages(List<Id> referralIds) {
+    public static void sendReferralFollowupMessages(Map<Id,Id> taskToReferralMap) {
         // get the referral records
-        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(referralIds);
+        Map<Id, Referral__c> referralMap = ClientMessageHelper.getReferralRecords(taskToReferralMap.values());
         // create the emails
-        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap);
+        List<Messaging.SingleEmailMessage> emails = ClientMessageHelper.createReferralFollowupEmails(referralMap, taskToReferralMap);
         // prep and send the emails
         prepareAndSendEmails(emails, referralMap);
     }

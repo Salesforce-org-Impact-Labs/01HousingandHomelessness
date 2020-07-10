@@ -19,14 +19,16 @@ global class Batch_SendReferralFollowupReminders implements Database.Batchable<S
         if (!reminderTasks.isEmpty()) {
             // get the referral ids from each task
             List<Id> referralIds = new List<Id>();
+            Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
             for (Task reminderTask : reminderTasks) {
-                if (!referralIds.contains(reminderTask.WhatId)) {
+                if (!referralIds.contains(reminderTask.WhatId)) { // the whatId holds the id of the referral
                     referralIds.add(reminderTask.WhatId);
                 }
+                taskToReferralMap.put(reminderTask.Id, reminderTask.WhatId);
             }
             if (!referralIds.isEmpty()) {
                 // send the messages
-                EmailService.sendReferralFollowupMessages(referralIds);
+                EmailService.sendReferralFollowupMessages(taskToReferralMap);
             }
             // update the tasks to completed
             for (Task completedTask : reminderTasks) {
