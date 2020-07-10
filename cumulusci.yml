@@ -1,15 +1,15 @@
-minimum_cumulusci_version: "3.12.2"
+minimum_cumulusci_version: '3.12.2'
 project:
   name: 01HousingandHomelessness
   package:
     name: ReferralRecommendations
     namespace: refrec
-    api_version: "48.0"
+    api_version: '48.0'
   # dependencies:
   # - github: 'https://github.com/SalesforceFoundation/PMM'
   source_format: sfdx
   test:
-    name_match: "Test_%"
+    name_match: 'Test_%'
 
 tasks:
   robot:
@@ -27,20 +27,20 @@ tasks:
     description: Assigns the package's Admin permset
     class_path: cumulusci.tasks.sfdx.SFDXOrgTask
     options:
-      command: "force:user:permset:assign -n RefRecAdmin"
+      command: 'force:user:permset:assign -n RefRecAdmin'
 
   assign_permset_apex:
     description: Assigns the package's Admin permset
     class_path: cumulusci.tasks.apex.anon.AnonymousApexTask
     options:
-      path: "scripts/apex/PermSetAssign.apex"
+      path: 'scripts/apex/PermSetAssign.apex'
 
   score_services:
     description: "Score the org's data and deploy the updated CMDT"
-    group: "ReferralRecommendations"
+    group: 'ReferralRecommendations'
     class_path: cumulusci.tasks.apex.anon.AnonymousApexTask
     options:
-      apex: "Scoring.scoreAllServices();"
+      apex: 'Scoring.scoreAllServices();'
 
   run_tests:
     options:
@@ -80,3 +80,17 @@ flows:
         ignore_failure: True
       3:
         task: score_services
+
+  install_beta:
+    steps:
+      11:
+        task: assign_permset_apex
+        ignore_failure: True
+      12:
+        task: load_dataset
+        options:
+          mapping: datasets/mapping-ns.yml
+      13:
+        task: score_services
+        options:
+          apex: 'RefRec__Scoring.scoreAllServices();'
