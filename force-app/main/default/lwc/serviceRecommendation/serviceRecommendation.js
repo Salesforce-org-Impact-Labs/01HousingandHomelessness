@@ -167,9 +167,8 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
     parent.classList.toggle('slds-is-open');
   }
 
-  handleShowAddComment() {
-    window.console.log('add comment');
-
+  handleShowAddComment(event) {
+    event.preventDefault();
     this.showAddComment = !this.showAddComment;
   }
 
