@@ -5,13 +5,10 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-  <div>
-    <p>
-      We know life gets busy. If you need assistance, reply <strong>Help</strong>, and your case manager will be in touch.
-    </p>
-    <p>
-      ref#{!referralResponse.Id}
-    </p>
-  </div>
-  
+
+We're sorry to hear the information was wrong.
+We'll send you a new referral listing for {!referralResponse.Referral__r.Service__r.Type__c}. 
+If you need assistance, reply Help, and your case manager will be in touch.
+ref#{!referralResponse.Id}
+                 
 </apex:component>

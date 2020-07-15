@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <available>true</available>
+    <description>Email sent to case manager when their client requests Help - text version</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Case Manager Client Asked For Help Text</name>
+    <style>none</style>
+    <subject>dfs</subject>
+    <type>visualforce</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
