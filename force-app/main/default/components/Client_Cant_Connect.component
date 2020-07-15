@@ -12,12 +12,13 @@
       <p>
         What’s getting in the way of connecting with the service? Please respond using one of the following numbers.
       </p>
-      <p>
-        <strong>1</strong> - I haven’t had time
-        <strong>2</strong> - I contacted the service but they didn’t get back to me
-        <strong>3</strong> - I tried to contact the service but the contact information was wrong
-        <strong>4</strong> - Other
-      </p>
+      <table>
+        <tr><td><strong>1</strong> - I haven’t had time</td></tr>
+        <tr><td><strong>2</strong> - I contacted the service but they didn’t get back to me</td></tr>
+        <tr><td><strong>3</strong> - I tried to contact the service but the contact information was wrong</td></tr>
+        <tr><td><strong>4</strong> - Other</td></tr>
+      </table>
+
       <p>
         ref#{!referralResponse.Id}
       </p>
