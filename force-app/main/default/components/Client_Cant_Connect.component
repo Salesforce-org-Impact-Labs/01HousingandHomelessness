@@ -5,12 +5,22 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-           Thank you for letting us know. We want to make sure you’re getting the help you need.
-            What’s getting in the way of connecting with the service? Please respond using one of the following numbers.
+    <div>
+      <p>
+        Thank you for letting us know. We want to make sure you’re getting the help you need.
+      </p>
+      <p>
+        What’s getting in the way of connecting with the service? Please respond using one of the following numbers.
+      </p>
+      <p>
+        <strong>1</strong> - I haven’t had time
+        <strong>2</strong> - I contacted the service but they didn’t get back to me
+        <strong>3</strong> - I tried to contact the service but the contact information was wrong
+        <strong>4</strong> - Other
+      </p>
+      <p>
+        ref#{!referralResponse.Id}
+      </p>
+    </div>
 
-            1 - I haven’t had time
-            2 - I contacted the service but they didn’t get back to me
-            3 - I tried to contact the service but the contact information was wrong
-            4 - Other
-            ref#{!referralResponse.Id}
 </apex:component>
