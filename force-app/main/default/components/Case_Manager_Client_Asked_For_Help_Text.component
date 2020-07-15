@@ -6,13 +6,8 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-  <div>
-    <p>
-      Hi {!referralResponse.Referral__r.Owner.Name}
-    </p>
-    <p>
-      Your client {!referralResponse.Referral__r.Contact__r.FirstName} {!referralResponse.Referral__r.Contact__r.LastName} asked for Help with their referral.
-    </p>
-  </div>
+
+Hi {!referralResponse.Referral__r.Owner.Name}
+Your client {!referralResponse.Referral__r.Contact__r.FirstName} {!referralResponse.Referral__r.Contact__r.LastName} asked for Help with their referral.
 
 </apex:component>

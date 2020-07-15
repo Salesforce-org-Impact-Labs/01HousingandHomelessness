@@ -1,8 +1,0 @@
-<apex:page controller="ServicePrint" renderAs="pdf">
-    <html>
-
-        <div>
-            <p>Here is your Service Referral</p>
-        </div>
-    </html>
-</apex:page>

@@ -6,15 +6,52 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-          Hi {!referralResponse.Referral__r.Contact__r.FirstName} {!referralResponse.Referral__r.Contact__r.LastName}! It's {!org.Name}. 
+      <div>
+        <p>  
+          Hi {!referralResponse.Referral__r.Contact__r.FirstName} {!referralResponse.Referral__r.Contact__r.LastName}! It's {!org.Name}.
+        </p>
+        <p>
           Here's your referral information for {!referralResponse.Referral__r.Service__r.Type__c}.
-        
-          Location: {!referralResponse.Referral__r.Service__r.Street__c} {!referralResponse.Referral__r.Service__r.City__c}, {!referralResponse.Referral__r.Service__r.Zip_Code__c}<br/>
-          Hours: {!openHoursString}
-          Phone: {!referralResponse.Referral__r.Service__r.Phone__c}
-          Website: {!referralResponse.Referral__r.Service__r.Website__c}
-          <apex:outputText 
-            rendered="{!IF((referralResponse.Referral__r.Preferred_Channel__c = "Email"),true,false)}"
-            value=" Questions? Reply *Help* and your case manager, {!referralResponse.Referral__r.Owner.Name}, will be alerted.
-                  ref#{!referralResponse.Id}"/>
+        </p>
+        <p>
+          Questions? Reply <strong>Help</strong> and your case manager, {!referralResponse.Referral__r.Owner.Name}, will be alerted.
+        </p>
+        <table>
+          <tr>
+            <td>
+            Location:
+            </td>
+            <td>
+              {!referralResponse.Referral__r.Service__r.Street__c} {!referralResponse.Referral__r.Service__r.City__c}, {!referralResponse.Referral__r.Service__r.Zip_Code__c}<br/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Hours:
+            </td>
+            <td>
+              {!openHoursString}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Phone:
+            </td>
+            <td>
+              {!referralResponse.Referral__r.Service__r.Phone__c}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Website:
+            </td>
+            <td>
+              {!referralResponse.Referral__r.Service__r.Website__c}
+            </td>
+          </tr>
+        </table>
+        <p>
+          ref#{!referralResponse.Id}
+        </p>
+      </div>
 </apex:component>
