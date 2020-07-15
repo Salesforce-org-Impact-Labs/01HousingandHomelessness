@@ -1,0 +1,6 @@
+<messaging:emailTemplate subject="test" recipientType="Contact" relatedToType="Referral_Response__c">
+<messaging:plainTextEmailBody >
+Congratulations!
+This is your new Visualforce Email Template.
+</messaging:plainTextEmailBody>
+</messaging:emailTemplate>

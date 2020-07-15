@@ -2,6 +2,21 @@
 
 Impact Lab - Housing & Homelessness
 
+## Installation and setup
+
+install package using <https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004kKwZ>
+
+Complete the following required setup steps
+
+1. [Permissions Setup](/docs/permissions-setup.md)
+2. [Data Setup](/docs/data-setup.md)
+3. [UI Setup](/docs/data-setup.md)
+4. [Messaging Setup](/docs/messaging-setup.md)
+
+### Optional steps
+
+1. [Adjust scoring metrics](/docs/scoring-metrics.md)
+
 ## Development
 
 To work on this project in a scratch org:
