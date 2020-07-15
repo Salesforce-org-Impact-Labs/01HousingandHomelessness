@@ -6,8 +6,19 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-                    That’s great to hear. 
-                    How was your experience with {!referralResponse.Referral__r.Service__r.Name}? 
-                    Rate your experience on a scale of 1-5 (1 being terrible, 5 being awesome). 
-                    ref#{!referralResponse.Id}
+    <div>
+        <p>
+            That’s great to hear.
+        </p>
+        <p>
+            How was your experience with {!referralResponse.Referral__r.Service__r.Name}?
+        </p>
+        <p>
+            Rate your experience on a scale of 1-5 (1 being terrible, 5 being awesome).
+        </p>
+        <p>
+            ref#{!referralResponse.Id}
+        </p>
+    </div>
+
 </apex:component>

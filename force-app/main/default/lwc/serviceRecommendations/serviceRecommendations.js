@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable consistent-return */
 /* eslint-disable guard-for-in */
 /* eslint-disable array-callback-return */
@@ -75,6 +76,7 @@ export default class ServiceRecommendations extends LightningElement {
                   };
                   if(result[i].Hidden === true || result[i].HiddenAll === true){
                     hiddenResult.push(result[i]);
+                    
                   }else{
                     showResult.push(result[i]);
                     marker.location.Street = result[i].Service.Street__c;
@@ -83,13 +85,16 @@ export default class ServiceRecommendations extends LightningElement {
                     marker.description = result[i].Service.Description__c;
                     this.mapMarkers.push(marker);
                   }
-
                 }
 
                 if(this.showRecommendations === false ){
                     this.showRecommendations = !this.showRecommendations;
                 }
-                window.console.log('showResult' + JSON.stringify(showResult));
+
+                showResult.sort((a,b)=>{
+
+                  return (a.Relevance < b.Relevance) ? 1 : -1
+                })
                 this.unfilteredRecommendations = showResult;
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
@@ -120,19 +125,22 @@ export default class ServiceRecommendations extends LightningElement {
     menuItem.checked = !menuItem.checked;
 
     let val = event.target.value;
-    window.console.log('vla' + val);
     if(val === 'distance'){
       this.returnRecommendations.sort((a,b)=>{
         return (a.Distance > b.Distance) ? 1 : -1
       })
     }else if (val === 'rating'){
       this.returnRecommendations.sort((a,b)=>{
-          return (a.Rating > b.Rating) ? 1 : -1
+
+          return (a.Rating < b.Rating) ? 1 : -1
         })
-    }else{
+    }else if (val === 'popular'){
       this.returnRecommendations.sort((a,b)=>{
-        return (a.Relevance > b.Relevance) ? 1 : -1
+
+        return (a.Relevance < b.Relevance) ? 1 : -1
       })
+    }else{
+      
     }
   }
 

@@ -5,8 +5,13 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-
-        Can you tell me what happened?
-        ref#{!referralResponse.Id}
+  <div>
+    <p>
+      Can you tell me what happened?
+    </p>
+    <p>
+      ref#{!referralResponse.Id}
+    </p>
+  </div>
                  
 </apex:component>
