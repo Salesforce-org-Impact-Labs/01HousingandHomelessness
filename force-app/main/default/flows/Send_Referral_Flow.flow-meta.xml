@@ -25,6 +25,7 @@
         </value>
     </choices>
     <interviewLabel>Send Referral Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
     <label>Send Referral Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -39,6 +40,20 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Info_To_Client_Task</name>
+        <label>Create Info To Client Task</label>
+        <locationX>1016</locationX>
+        <locationY>340</locationY>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Info to Client</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordCreates>
         <name>Create_Referral</name>
         <label>Create Referral</label>
@@ -85,7 +100,7 @@
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <stringValue>Referral Reminder</stringValue>
+                <stringValue>Referral</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -109,6 +124,9 @@
         <locationX>999</locationX>
         <locationY>186</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Info_To_Client_Task</targetReference>
+        </connector>
         <faultConnector>
             <targetReference>fault_screen</targetReference>
         </faultConnector>
@@ -116,7 +134,7 @@
             <field>Subject</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Survey Reminder</stringValue>
+                <stringValue>Survey</stringValue>
             </value>
         </filters>
         <filters>
@@ -199,7 +217,7 @@
         </connector>
         <fields>
             <name>Confirm</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Share This Service&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Send To:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;﻿Share This Service﻿&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Send To: {!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
