@@ -5,7 +5,7 @@ on:
     branches:
       - '**'
       - '!master'
-    paths-ignore:
+      paths-ignore:
       - 'docs/**'
       - 'README.md'
 
