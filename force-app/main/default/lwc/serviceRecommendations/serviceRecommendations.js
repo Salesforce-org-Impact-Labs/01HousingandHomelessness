@@ -85,16 +85,16 @@ export default class ServiceRecommendations extends LightningElement {
                     marker.description = result[i].Service.Description__c;
                     this.mapMarkers.push(marker);
                   }
-                  if(result[i].Rating === undefined){
-                    result[i].Rating = Math.floor(Math.random() * 6);
-                  }
-
                 }
 
                 if(this.showRecommendations === false ){
                     this.showRecommendations = !this.showRecommendations;
                 }
-                window.console.log('showResult' + JSON.stringify(showResult));
+
+                showResult.sort((a,b)=>{
+
+                  return (a.Relevance < b.Relevance) ? 1 : -1
+                })
                 this.unfilteredRecommendations = showResult;
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
