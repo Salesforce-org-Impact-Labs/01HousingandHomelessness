@@ -5,10 +5,9 @@ on:
     branches:
       - '**'
       - '!master'
-      paths-ignore:
-      - 'docs/**'
-      - 'README.md'
-    
+    # paths-ignore:
+    #   - 'docs/**'
+    #   - 'README.md'
 
 env:
   CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
