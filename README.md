@@ -15,6 +15,8 @@ Complete the following required setup steps
 
 ### Optional steps
 
+1. [Adjust scoring metrics](/docs/scoring-metrics.md)
+
 ## Development
 
 To work on this project in a scratch org:
