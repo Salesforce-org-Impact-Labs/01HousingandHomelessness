@@ -40,6 +40,20 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
+        <name>Create_Info_To_Client_Task</name>
+        <label>Create Info To Client Task</label>
+        <locationX>1016</locationX>
+        <locationY>340</locationY>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Info to Client</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>Create_Referral</name>
         <label>Create Referral</label>
         <locationX>752</locationX>
@@ -85,7 +99,7 @@
         <inputAssignments>
             <field>Subject</field>
             <value>
-                <stringValue>Referral Reminder</stringValue>
+                <stringValue>Referral</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -109,6 +123,9 @@
         <locationX>999</locationX>
         <locationY>186</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Info_To_Client_Task</targetReference>
+        </connector>
         <faultConnector>
             <targetReference>fault_screen</targetReference>
         </faultConnector>
@@ -116,7 +133,7 @@
             <field>Subject</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Survey Reminder</stringValue>
+                <stringValue>Survey</stringValue>
             </value>
         </filters>
         <filters>
