@@ -9,9 +9,9 @@ install package using <https://login.salesforce.com/packaging/installPackage.ape
 Complete the following required setup steps
 
 1. [Permissions Setup](/docs/permissions-setup.md)
-2. [Data Setup](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/blob/master/docs/data-setup.md)
-3. [UI Setup](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/blob/master/docs/data-setup.md)
-4. [Messaging Setup](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/blob/master/docs/messaging-setup.md)
+2. [Data Setup](/docs/data-setup.md)
+3. [UI Setup](/docs/data-setup.md)
+4. [Messaging Setup](/docs/messaging-setup.md)
 
 ### Optional steps
 
