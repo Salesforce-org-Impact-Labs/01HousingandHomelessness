@@ -177,7 +177,6 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   }
 
   handleAddComment() {
-    window.console.log(this.servicerecommendation.ServiceId);
     addComment({
       serviceId: this.servicerecommendation.ServiceId,
       newComment: this.newComment
@@ -191,8 +190,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   }
 
   handlePrintReferral() {
-    window.console.log('printing...');
-    window.console.log(this.serviceid);
+
     print({ serviceId: this.serviceid })
       .then((result) => {
         let downloadLink = document.createElement('a');

@@ -91,11 +91,29 @@ public class ServiceRecommendation {
 
   public class Indicator {
     @AuraEnabled
-    public String IndicatorType { get; set; }
+    public String IndicatorType { 
+      get {
+      IndicatorType = IndicatorType.replace('_',' ');
+      return IndicatorType;}
+        set;
+    }
 
     @AuraEnabled
-    public String IndicatorValue { get; set; }
-
+    public String IndicatorValue { 
+      get {
+          if(IndicatorValue.contains('.')){
+            Double value = Double.valueOf(IndicatorValue);
+              if(value != null){
+                Double scale = Math.pow(10, 2);
+                value = Math.round(value * scale)/scale;
+              }
+            return String.valueOf(value);
+          }else{
+            return IndicatorValue;
+          }
+        }
+        set;
+    }
     @AuraEnabled
     public Decimal IndicatorPercentile { get; set; }
   }
