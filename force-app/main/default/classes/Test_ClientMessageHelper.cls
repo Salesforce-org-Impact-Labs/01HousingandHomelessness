@@ -29,7 +29,7 @@ public class Test_ClientMessageHelper {
 
         Referral__c ref = new Referral__c (
             Contact__c = cont.Id,
-            Preferred_Channel__c = 'SMS',
+            Preferred_Channel__c = 'Email',
             Score__c = 5,
             Service__c = svc.Id
         );
@@ -187,13 +187,26 @@ public class Test_ClientMessageHelper {
         System.assertEquals('Cant Connect Guidance 4',messages[0].getTemplateName());               
     }
 
+    static testMethod void testGetTemplatesByType() {
+        
+        Test.startTest();
+        Map<String,EmailTemplate> templateMap = ClientMessageHelper.getTemplatesByType('INITIAL_CLIENT_REFERRAL');
+        Test.stopTest();
+        
+        System.assertEquals(ClientMessageHelper.INITIAL_CLIENT_REFERRAL_TEXT_TEMPLATE, 
+                                templateMap.get(ClientMessageHelper.TEXT_CHANNEL).DeveloperName);
+        System.assertEquals(ClientMessageHelper.INITIAL_CLIENT_REFERRAL_TEMPLATE, 
+                                templateMap.get(ClientMessageHelper.EMAIL_CHANNEL).DeveloperName);
+
+    }
+
     static testMethod void testSaveReferralQuestion() {
         Referral__c ref = getReferral();
         Task refTask = getTaskForReferral(ref.Id);
 
         Test.startTest();
         Referral_Response__c response = 
-            ClientMessageHelper.createReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_TEMPLATE,refTask.Id);
+            ClientMessageHelper.createReferralQuestion(ref.Id,ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP,refTask.Id);
         Test.stopTest();
 
         System.assertEquals(ClientMessageHelper.CLIENT_REFERRAL_FOLLOWUP_QUESTION, response.Question__c);

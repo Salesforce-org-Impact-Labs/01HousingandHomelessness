@@ -6,9 +6,16 @@
     assignTo="{!referralResponseId}" 
     access="global"
     />
-        Thanks for sharing. Your feedback helps us know which services to recommend to others.
-        <apex:outputText 
-        rendered="{!IF((referralResponse.Referral__r.Preferred_Channel__c = "Email"),true,false)}"
-        value=" Remember, if you ever need assistance, reply Help and your case manager, {!referralResponse.Referral__r.Owner.Name} will be alerted.
-              ref#{!referralResponse.Id}"/>
+    <div>
+        <p>
+            Thanks for sharing. Your feedback helps us know which services to recommend to others.
+        </p>
+        <p>
+            Remember, if you ever need assistance, reply <strong>Help</strong> and your case manager, {!referralResponse.Referral__r.Owner.Name} will be alerted.
+        </p>
+        <p>
+            ref#{!referralResponse.Id}
+        </p>
+    </div>
+
 </apex:component>
