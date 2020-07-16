@@ -10,12 +10,12 @@ Complete the following required setup steps
 
 1. [Permissions Setup](/docs/permissions-setup.md)
 2. [Data Setup](/docs/data-setup.md)
-3. [UI Setup](/docs/ui-setup.md)
-4. [Messaging Setup](/docs/messaging-setup.md)
+3. [Messaging Setup](/docs/messaging-setup.md)
 
 ### Optional steps
 
 1. [Adjust scoring metrics](/docs/scoring-metrics.md)
+2. [UI Setup](/docs/ui-setup.md)
 
 ## Development
 
