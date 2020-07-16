@@ -7,10 +7,26 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
     public static final String EMAIL_REPLY_HELP = 'HELP';
     public static final Integer RESPONSE_TRUNCATION_LEN = 10;
 
+    // key string to find the org-wide email verification link
+    public static final String CONFIRM_EMAIL_LINK_KEY = 'Click this link to confirm this Organization-Wide Email Address:';
 
     global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
         Messaging.InboundEmailResult result = new Messaging.InboundEmailresult();
-        System.debug('RecommendationsInboundEmailHandler received text of email '+email.plainTextBody);
+
+        // create a task for the org-wide email address verification link
+        if (email.plainTextBody.containsIgnoreCase(CONFIRM_EMAIL_LINK_KEY)) {
+            // get the running user
+            Id runningUserId = UserInfo.getUserId();
+
+            // create the task and assign it to the user
+            Task confirmTask = new Task();
+            confirmTask.Subject = 'Confirm Organization-Wide Email Address';
+            confirmTask.Status = 'Open';
+            confirmTask.OwnerId = runningUserId;
+            confirmTask.Description = email.plainTextBody;
+
+            insert confirmTask;
+        }
 
         if (email.plainTextBody.containsIgnoreCase(EMAIL_REFERRAL_RESPONSE_TOKEN)) {
             // get the referral response id from the body of the reply
