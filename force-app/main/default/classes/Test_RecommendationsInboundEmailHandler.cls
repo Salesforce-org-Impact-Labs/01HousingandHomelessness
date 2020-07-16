@@ -182,6 +182,22 @@ public class Test_RecommendationsInboundEmailHandler {
         System.assertEquals('How are you',refRespCheck.Question__c);
     }
 
+    static testMethod void testCreateEmailConfirmTask() {
+        Test.startTest();
+        RecommendationsInboundEmailHandler.createEmailConfirmTask('body of email');
+        Test.stopTest();
+
+        Task confirmTask = [
+            SELECT
+                Id,
+                Description
+            FROM Task
+            WHERE Subject = 'Confirm Organization-Wide Email Address'
+        ][0];
+
+        System.assertEquals('body of email', confirmTask.Description);
+    }
+
     static Referral_Response__c getReferralResponse() {
         List<Referral_Response__c> responses = [
             SELECT

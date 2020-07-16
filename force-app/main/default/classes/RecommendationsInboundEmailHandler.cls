@@ -15,17 +15,7 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
 
         // create a task for the org-wide email address verification link
         if (email.plainTextBody.containsIgnoreCase(CONFIRM_EMAIL_LINK_KEY)) {
-            // get the running user
-            Id runningUserId = UserInfo.getUserId();
-
-            // create the task and assign it to the user
-            Task confirmTask = new Task();
-            confirmTask.Subject = 'Confirm Organization-Wide Email Address';
-            confirmTask.Status = 'Open';
-            confirmTask.OwnerId = runningUserId;
-            confirmTask.Description = email.plainTextBody;
-
-            insert confirmTask;
+            createEmailConfirmTask(email.plainTextBody);
         }
 
         if (email.plainTextBody.containsIgnoreCase(EMAIL_REFERRAL_RESPONSE_TOKEN)) {
@@ -109,6 +99,21 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
             ReferralResponseHelper.updateRecordWithResponse(referralResponseId, truncatedBody);
         }
 
+      }
+
+      @TestVisible
+      private static void createEmailConfirmTask(String emailBody) {
+        // get the running user
+        Id runningUserId = UserInfo.getUserId();
+
+        // create the task and assign it to the user
+        Task confirmTask = new Task();
+        confirmTask.Subject = 'Confirm Organization-Wide Email Address';
+        confirmTask.Status = 'Not Started';
+        confirmTask.OwnerId = runningUserId;
+        confirmTask.Description = emailBody;
+
+        insert confirmTask;
       }
 
       @TestVisible
