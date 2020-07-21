@@ -10,7 +10,7 @@ This may feel like lot to do and it may force you to visit screens with which yo
 ## Create the Email Service
 
 Search setup for “Email Services”, then create a New Email Service
-<img alt="New Email Services" src="https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/docs/images/New_Email_Service.png">
+<img alt="New Email Services" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/f2b468ebdbab7af8014edfb96ab8c299f129a42e/docs/images/New_Email_Service.png">
 
 * The Service Name can be anything meaningful. Here, we’ve used “Client Referral Email Service”
 * The Apex Class must be **RecommendationsInboundEmailHandler**
