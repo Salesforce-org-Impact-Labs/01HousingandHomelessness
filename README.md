@@ -36,7 +36,7 @@ To work on this project in a scratch org:
 
 1. The packaging flow creates a new beta package when you merge your PR into master
 2. It's possible that you'll get a passing PR check (it deploys, all tests pass) but then there are packaging errors (namespace issues, overall code coverage < 75%, etc)
-3. `cci flow run release_production` will do a non-beta release
+3. `cci flow run release_production --org packaging` will do a non-beta release
 
 ## Troubleshooting
 
