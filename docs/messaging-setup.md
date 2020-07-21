@@ -55,9 +55,9 @@ When the Email Service handler code receives a request to validate the email add
 
 1. The Comments of the task will contain the text of the verification email. In the text will be a link to confirm the Organization-Wide Email Address. Click the link or copy and paste it into a browser to confirm the address.
 
-<img alt="Confirm Address Task" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/29e4326b8c7a0af7460c32b12c69065b1161b7e6/docs/images/My_Tasks.png">
+<img alt="Confirm Address Task" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/37a1434f10e3ace13d2b82e7e4c328f6d5c22ae4/docs/images/Confirm_Address_Task.png">
 When the link is clicked or entered into a browser, you should see a success message
-[Image: Screen Shot 2020-06-19 at 1.33.27 PM.png]
+<img alt="Success Message" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/37a1434f10e3ace13d2b82e7e4c328f6d5c22ae4/docs/images/Confirm_Address_Task.png">
 
 ## Configure the Email in the Custom Metadata Type Record
 
