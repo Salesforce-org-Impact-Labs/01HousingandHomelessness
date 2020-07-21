@@ -33,6 +33,7 @@ After the Email Address is created, we need to make it an Org-Wide Email so that
 Get the email address, create an org-wide email for that address. **Hint**: name it something to match your organization!
 
 Search Setup for “Organization-Wide Email Address”
+
 <img alt="Org Wide Email" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/0afb930a541025b8ed67dec8d827c510a355034c/docs/images/Create_Org_Wide_Email.png">
 
 1. Choose a meaningful Display Name - perhaps the name of your organization - this will appear as the Sender for messages that are sent by the system.
@@ -42,7 +43,9 @@ Search Setup for “Organization-Wide Email Address”
 ## Confirm the Organization-Wide Email Address
 
 In order for the Organization-Wide email be be activated, that email address must first be validated.
+
 <img alt="Validate Email Address" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/3038a4fad16030a64ade1afff849dbd93c0f26c8/docs/images/Validate_Email_Address.png">
+
 Because the “recipient” of this org-wide email is the system itself, we’ve tried to make it easy for you to validate the address.
 
 When the Email Service handler code receives a request to validate the email address, it will create a Task. This Task will be assigned to the Context User that you’ve specified above, when you created the Email Address.
@@ -56,14 +59,19 @@ When the Email Service handler code receives a request to validate the email add
 1. The Comments of the task will contain the text of the verification email. In the text will be a link to confirm the Organization-Wide Email Address. Click the link or copy and paste it into a browser to confirm the address.
 
 <img alt="Confirm Address Task" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/37a1434f10e3ace13d2b82e7e4c328f6d5c22ae4/docs/images/Confirm_Address_Task.png">
+
 When the link is clicked or entered into a browser, you should see a success message
+
 <img alt="Success Message" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/48bb79badf73359649ef86a1101fe5bd176e50d2/docs/images/Confirm_Message.png">
 
 ## Configure the Email in the Custom Metadata Type Record
 
 Use the Quick Find capability in setup to search for “Custom Metadata Types”. Once you’re on the “All Custom Metadata Types” page, click the “Manage Records” link for the Referral Recommendations Setting custom metadata type. 
+
 <img alt="Custom Metadata Type" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/282de7c81db1fde98e14fda74481067db3501d7f/docs/images/Custom_Metadata_Type.png">
-Edit the Organization Default record, then enter the email service’s email address into the “Recommendations Email Service Address” field..
+
+Edit the Organization Default record, then enter the email service’s email address into the “Recommendations Email Service Address” field.
+
 <img alt="Referral Recommendations Setting" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/282de7c81db1fde98e14fda74481067db3501d7f/docs/images/Referral_Recommendations_Setting.png">
 
 #Schedule the Batch Jobs
