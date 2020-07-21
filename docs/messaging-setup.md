@@ -57,14 +57,14 @@ When the Email Service handler code receives a request to validate the email add
 
 <img alt="Confirm Address Task" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/37a1434f10e3ace13d2b82e7e4c328f6d5c22ae4/docs/images/Confirm_Address_Task.png">
 When the link is clicked or entered into a browser, you should see a success message
-<img alt="Success Message" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/37a1434f10e3ace13d2b82e7e4c328f6d5c22ae4/docs/images/Confirm_Address_Task.png">
+<img alt="Success Message" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/48bb79badf73359649ef86a1101fe5bd176e50d2/docs/images/Confirm_Message.png">
 
 ## Configure the Email in the Custom Metadata Type Record
 
 Use the Quick Find capability in setup to search for “Custom Metadata Types”. Once you’re on the “All Custom Metadata Types” page, click the “Manage Records” link for the Referral Recommendations Setting custom metadata type. 
-[Image: Screen Shot 2020-07-16 at 2.10.01 PM.png]
+<img alt="Custom Metadata Type" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/48bb79badf73359649ef86a1101fe5bd176e50d2/docs/images/Confirm_Message.png">
 Edit the Organization Default record, then enter the email service’s email address into the “Recommendations Email Service Address” field..
-[Image: Screen Shot 2020-06-19 at 3.03.14 PM.png]
+<img alt="Referral Recommendations Setting" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/48bb79badf73359649ef86a1101fe5bd176e50d2/docs/images/Confirm_Message.png">
 
 #Schedule the Batch Jobs
 
