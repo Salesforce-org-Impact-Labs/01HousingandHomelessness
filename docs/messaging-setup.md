@@ -62,9 +62,9 @@ When the link is clicked or entered into a browser, you should see a success mes
 ## Configure the Email in the Custom Metadata Type Record
 
 Use the Quick Find capability in setup to search for “Custom Metadata Types”. Once you’re on the “All Custom Metadata Types” page, click the “Manage Records” link for the Referral Recommendations Setting custom metadata type. 
-<img alt="Custom Metadata Type" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/48bb79badf73359649ef86a1101fe5bd176e50d2/docs/images/Confirm_Message.png">
+<img alt="Custom Metadata Type" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/282de7c81db1fde98e14fda74481067db3501d7f/docs/images/Custom_Metadata_Type.png">
 Edit the Organization Default record, then enter the email service’s email address into the “Recommendations Email Service Address” field..
-<img alt="Referral Recommendations Setting" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/48bb79badf73359649ef86a1101fe5bd176e50d2/docs/images/Confirm_Message.png">
+<img alt="Referral Recommendations Setting" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/282de7c81db1fde98e14fda74481067db3501d7f/docs/images/Referral_Recommendations_Setting.png">
 
 #Schedule the Batch Jobs
 
