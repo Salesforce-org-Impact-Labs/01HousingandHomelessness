@@ -63,3 +63,11 @@ Use the Quick Find capability in setup to search for “Custom Metadata Types”
 Edit the Organization Default record, then enter the email service’s email address into the “Recommendations Email Service Address” field..
 [Image: Screen Shot 2020-06-19 at 3.03.14 PM.png]
 
+#Schedule the Batch Jobs
+
+There are two batch jobs that need to run to send referrals and referral followup messages to clients.
+
+* Batch_SendInitialClientReferrals
+* Batch_SendReferralFollowupReminders
+
+These batch classes should execute at least once per day. Please follow the instructions in the Help documentation to schedule the classes: https://help.salesforce.com/articleView?id=code_schedule_batch_apex.htm&type=5
