@@ -4,7 +4,7 @@ Impact Lab - Housing & Homelessness
 
 ## Installation and setup
 
-install package using <https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004m3RC>
+install package using the link from Releases above
 
 Complete the following required setup steps
 
