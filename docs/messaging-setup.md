@@ -74,7 +74,7 @@ Edit the Organization Default record, then enter the email service’s email add
 
 <img alt="Referral Recommendations Setting" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/282de7c81db1fde98e14fda74481067db3501d7f/docs/images/Referral_Recommendations_Setting.png">
 
-#Schedule the Batch Jobs
+# Schedule the Batch Jobs
 
 There are two batch jobs that need to run to send referrals and referral followup messages to clients.
 
