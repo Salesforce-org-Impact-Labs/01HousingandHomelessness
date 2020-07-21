@@ -29,7 +29,8 @@ Search setup for “Email Services”, then create a New Email Service
 ## Create the Org Wide Email Address
 
 After the Email Address is created, we need to make it an Org-Wide Email so that we can use this email address as the “Reply-To” email in our messages to the Client.
-[Image: Screen Shot 2020-06-19 at 1.19.47 PM.png]Get the email address, create an org-wide email for that address. **Hint**: name it something to match your organization!
+<img alt="Complete Email Service" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/549b88e7011090585790152d3efcf8c5b7296899/docs/images/Complete_Email_Service.png">
+Get the email address, create an org-wide email for that address. **Hint**: name it something to match your organization!
 
 Search Setup for “Organization-Wide Email Address”
 [Image: Screen Shot 2020-07-08 at 9.23.36 AM.png]
