@@ -33,7 +33,7 @@ After the Email Address is created, we need to make it an Org-Wide Email so that
 Get the email address, create an org-wide email for that address. **Hint**: name it something to match your organization!
 
 Search Setup for “Organization-Wide Email Address”
-[Image: Screen Shot 2020-07-08 at 9.23.36 AM.png]
+<img alt="Org Wide Email" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/0afb930a541025b8ed67dec8d827c510a355034c/docs/images/Create_Org_Wide_Email.png">
 
 1. Choose a meaningful Display Name - perhaps the name of your organization - this will appear as the Sender for messages that are sent by the system.
 2. Copy the Email Address created above, when you were setting up the Email Service - it will be a very long email address.
@@ -42,7 +42,8 @@ Search Setup for “Organization-Wide Email Address”
 ## Confirm the Organization-Wide Email Address
 
 In order for the Organization-Wide email be be activated, that email address must first be validated.
-[Image: Screen Shot 2020-06-19 at 1.29.02 PM.png]Because the “recipient” of this org-wide email is the system itself, we’ve tried to make it easy for you to validate the address.
+<img alt="Org Wide Email" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/0afb930a541025b8ed67dec8d827c510a355034c/docs/images/Create_Org_Wide_Email.png">
+Because the “recipient” of this org-wide email is the system itself, we’ve tried to make it easy for you to validate the address.
 
 When the Email Service handler code receives a request to validate the email address, it will create a Task. This Task will be assigned to the Context User that you’ve specified above, when you created the Email Address.
 
