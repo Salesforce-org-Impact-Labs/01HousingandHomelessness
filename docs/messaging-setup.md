@@ -18,7 +18,7 @@ Search setup for “Email Services”, then create a New Email Service
 
 ### Create a new Email Address
 
-<img alt="New Email Address" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/f2b468ebdbab7af8014edfb96ab8c299f129a42e/docs/images/New_Email_Address.png">
+<img alt="New Email Address" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/e26879b1ed4e5eac1ea75f8a7470171f25b3c998/docs/images/New_Email_Address.png">
 
 
 * Email Address Name and Email Address: We’ve kept the email name and address consistent with the name of the email service, but that isn’t necessary. You can give it any name that is meaningful to you.
