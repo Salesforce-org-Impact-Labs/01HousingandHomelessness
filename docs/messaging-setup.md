@@ -51,11 +51,11 @@ When the Email Service handler code receives a request to validate the email add
 1. Log in as the Context User and navigate to the Home tab, where you can view the Tasks that have been assigned to this user.
 2. Open the special Task by clicking on the Subject, “Confirm Organization-Wide Email Address”
 
-<img alt="Validate Email Address" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/3038a4fad16030a64ade1afff849dbd93c0f26c8/docs/images/Validate_Email_Address.png">
+<img alt="My Tasks" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/29e4326b8c7a0af7460c32b12c69065b1161b7e6/docs/images/My_Tasks.png">
 
 1. The Comments of the task will contain the text of the verification email. In the text will be a link to confirm the Organization-Wide Email Address. Click the link or copy and paste it into a browser to confirm the address.
 
-[Image: Screen Shot 2020-07-16 at 1.59.47 PM.png]
+<img alt="Confirm Address Task" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/29e4326b8c7a0af7460c32b12c69065b1161b7e6/docs/images/My_Tasks.png">
 When the link is clicked or entered into a browser, you should see a success message
 [Image: Screen Shot 2020-06-19 at 1.33.27 PM.png]
 
