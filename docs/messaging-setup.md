@@ -42,7 +42,7 @@ Search Setup for “Organization-Wide Email Address”
 ## Confirm the Organization-Wide Email Address
 
 In order for the Organization-Wide email be be activated, that email address must first be validated.
-<img alt="Org Wide Email" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/0afb930a541025b8ed67dec8d827c510a355034c/docs/images/Create_Org_Wide_Email.png">
+<img alt="Validate Email Address" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/3038a4fad16030a64ade1afff849dbd93c0f26c8/docs/images/Validate_Email_Address.png">
 Because the “recipient” of this org-wide email is the system itself, we’ve tried to make it easy for you to validate the address.
 
 When the Email Service handler code receives a request to validate the email address, it will create a Task. This Task will be assigned to the Context User that you’ve specified above, when you created the Email Address.
@@ -51,7 +51,7 @@ When the Email Service handler code receives a request to validate the email add
 1. Log in as the Context User and navigate to the Home tab, where you can view the Tasks that have been assigned to this user.
 2. Open the special Task by clicking on the Subject, “Confirm Organization-Wide Email Address”
 
-[Image: Screen Shot 2020-07-16 at 1.57.56 PM.png]
+<img alt="Validate Email Address" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/3038a4fad16030a64ade1afff849dbd93c0f26c8/docs/images/Validate_Email_Address.png">
 
 1. The Comments of the task will contain the text of the verification email. In the text will be a link to confirm the Organization-Wide Email Address. Click the link or copy and paste it into a browser to confirm the address.
 
