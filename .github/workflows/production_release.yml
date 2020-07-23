@@ -1,0 +1,40 @@
+name: Manual Production Package Release
+
+on:
+  workflow_dispatch:
+
+env:
+  CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
+  CUMULUSCI_SERVICE_github: ${{ secrets.CUMULUSCI_SERVICE_github }}
+  CUMULUSCI_ORG_packaging: ${{ secrets.CUMULUSCI_ORG_PACKAGING }}
+
+jobs:
+  release:
+    name: 'Deploy main branch to packaging org and releases a production package'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install sfdx
+        run: |
+          mkdir sfdx
+          wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJ -C sfdx --strip-components 1
+          ./sfdx/install
+          echo ${{ secrets.SFDX_AUTH_URL }} > sfdx_auth
+          sfdx force:auth:sfdxurl:store -f sfdx_auth -d
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+      - name: Install CumulusCI
+        run: |
+          python -m pip install -U pip
+          pip install cumulusci
+      - name: Deploy to Packaging Org
+        run: |
+          cci flow run ci_master --org packaging
+      - name: Build a production version of the package
+        run: |
+          cci flow run release_production --org packaging
+      - name: Deploy the new package to a scratch org
+        run: |
+          cci flow run ci_release --org beta --delete-org
