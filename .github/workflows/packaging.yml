@@ -1,4 +1,4 @@
-name: Package and Install
+name: Beta Package and Install
 
 on:
   push:
