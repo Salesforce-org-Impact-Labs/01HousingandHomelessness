@@ -2,6 +2,9 @@
 
 Impact Lab - Housing & Homelessness
 
+![Manual Production Package Release](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/workflows/Manual%20Production%20Package%20Release/badge.svg)
+![Beta Package and Install](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/workflows/Package%20and%20Install/badge.svg)
+
 ## Installation and setup
 
 install package using the link from Releases above
