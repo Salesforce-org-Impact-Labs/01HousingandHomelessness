@@ -134,5 +134,45 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
         return response;
       }
 
+      @TestVisible
+      private static Referral__c createNewReferralCopy(Referral__c originalReferral) {
+        Referral__c newReferral = new Referral__c (
+            Contact__c = originalReferral.Contact__c,
+            Preferred_Channel__c = originalReferral.Preferred_Channel__c
+        );
+
+        return newReferral;
+      }
+
+      @TestVisible
+      private static Task createReferralTask(Referral__c referral) {
+        // get the running user
+        Id runningUserId = UserInfo.getUserId();
+
+        // create the task and assign it to the user
+        Task referralTask = new Task();
+        referralTask.Subject = 'Info to Client';
+        referralTask.Status = 'Not Started';
+        referralTask.OwnerId = runningUserId;
+        referralTask.WhatId = referral.Id;
+
+        return referralTask;
+      }
+
+      @TestVisible
+      private static Service__c getNextServiceRecommendationForClient(Id contactId, String serviceType) {
+        List<ServiceRecommendation> recommendationsList = getRecommendations.getRecommendations(contactId);
+
+        Service__c nextService = null;
+        for (ServiceRecommendation recommendation : recommendationsList) {
+            // get the first recommendation with the specified type
+            if (recommendation.Service.Type__c != null && recommendation.Service.Type__c.equals(serviceType)) {
+                nextService = recommendation.Service;
+                break;
+            }
+        }
+
+        return nextService;
+      }
 
   }

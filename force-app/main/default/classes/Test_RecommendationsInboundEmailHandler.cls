@@ -39,6 +39,102 @@ public class Test_RecommendationsInboundEmailHandler {
             Question__c = 'How are you'
         );
         insert refResp;
+
+        // data for next recommendated service
+        Decimal lat = 37.7897;
+        Decimal lon = -122.397;
+        Integer startHour = 9;
+        Integer endHour = 17;
+           
+            //   Create an Account
+        Account Provider = new Account();
+        Provider.Name = 'GetRecommendations Test Provider';
+        insert Provider;
+
+        // create a contact with a profile
+        Contact c = new Contact();
+        c.FirstName = 'testContact';
+        c.LastName = 'Test_getRecommendations';
+        c.BirthDate = Date.newInstance(1979, 4, 20);
+        insert c;
+
+        Client_Profile__c profile = new Client_Profile__c();
+        profile.Contact__c = c.Id;
+        profile.Date_of_Birth__c = c.BirthDate;
+        profile.First_Name__c = c.Firstname;
+        profile.Last_Name__c = c.LastName;
+        profile.Location__Latitude__s = lat;
+        profile.Location__Longitude__s = lon;
+        profile.Homeless__c = true;
+        profile.Employment__c = 'Employed full-time';
+        insert Profile;
+
+        // create 2 services
+        List<Service__c> Services = new List<Service__c>();
+
+        Service__c GoodService = new Service__c();
+        GoodService.Account__c = Provider.Id;
+        GoodService.Name = 'The good service';
+        GoodService.Preferred__c = true;
+        GoodService.Location__Latitude__s = lat;
+        GoodService.Location__Longitude__s = lon;
+        GoodService.Homeless__c = true;
+        GoodService.Employed_full_time__c = true;
+        GoodService.Employed_part_time__c = true;
+        GoodService.Type__c = 'Food';
+        Services.add(GoodService);
+
+        Service__c TeenService = new Service__c();
+        TeenService.Account__c = Provider.Id;
+        TeenService.Name = 'The teen service';
+        TeenService.Type__c = 'Food';
+        TeenService.Maximum_Age__c = 18;
+        TeenService.Location__Latitude__s = lat;
+        TeenService.Location__Longitude__s = lon;
+        Services.add(TeenService);
+
+        Service__c TheServiceNobodyLikes = new Service__c();
+        TheServiceNobodyLikes.Account__c = Provider.Id;
+        TheServiceNobodyLikes.Name = 'The service nobody likes';
+        TheServiceNobodyLikes.Location__Latitude__s = lat;
+        TheServiceNobodyLikes.Location__Longitude__s = lon;
+        TheServiceNobodyLikes.Type__c = 'Transit';
+        Services.add(TheServiceNobodyLikes);
+
+        Service__c FarService = new Service__c();
+        FarService.Account__c = Provider.Id;
+        FarService.Name = 'FarService';
+        FarService.Location__Latitude__s = 0;
+        FarService.Location__Longitude__s = 0;
+        FarService.Type__c = 'Work';
+        Services.add(FarService);
+
+        insert Services;
+
+        // service plus hours
+        Open_Hours__c hours = new Open_Hours__c();
+        hours.Start_Time__c = Time.newInstance(startHour, 0, 0, 0);
+        hours.End_Time__c = Time.newInstance(endHour, 0, 0, 0);
+        hours.Service__c = GoodService.Id;
+        hours.Day__c = getRecommendations.whatDayIsIt();
+        insert hours;
+
+        // service with comment
+        FeedItem fi = new FeedItem();
+        fi.Body = 'It is great';
+        fi.Type = 'TextPost';
+        fi.ParentId = GoodService.Id;
+        insert fi;
+
+        // referrals with scores
+        Referral__c refer = new Referral__c();
+        refer.Contact__c = c.Id;
+        refer.Service__c = GoodService.Id;
+        refer.Score__c = 5;
+        refer.Preferred_Channel__c = 'Email';
+        insert refer;
+
+        Scoring.scoreAllServices();
     }
 
     static testMethod void testHandleClientResponseYes() {
@@ -198,6 +294,43 @@ public class Test_RecommendationsInboundEmailHandler {
         System.assertEquals('body of email', confirmTask.Description);
     }
 
+    static testMethod void testCreateNewReferralCopy() {
+        Referral__c referral = getReferral();
+
+        Test.startTest();
+        Referral__c  newRef = RecommendationsInboundEmailHandler.createNewReferralCopy(referral);
+        Test.stopTest();
+
+        System.assertEquals(referral.Contact__c, newRef.Contact__c);
+        System.assertEquals(referral.Preferred_Channel__c, newRef.Preferred_Channel__c);
+    }
+
+    static testMethod void testCreateReferralTask() {
+        Referral__c referral = getReferral();
+
+        Test.startTest();
+        Task newTask = RecommendationsInboundEmailHandler.createReferralTask(referral);
+        Test.stopTest();
+       
+        System.assertEquals(referral.Id,newTask.WhatId);
+    }
+
+    static testMethod void testGetNextServiceRecommendationForClient() {
+        Contact testContact = [
+            SELECT
+                Id
+            FROM Contact
+            WHERE LastName = 'Test_getRecommendations'
+        ][0];
+
+        Test.startTest();
+        Service__c nextService =  
+                RecommendationsInboundEmailHandler.getNextServiceRecommendationForClient(testContact.Id, 'Food');
+        Test.stopTest();
+
+        System.assertEquals('The good service', nextService.Name);
+    }
+
     static Referral_Response__c getReferralResponse() {
         List<Referral_Response__c> responses = [
             SELECT
@@ -215,6 +348,8 @@ public class Test_RecommendationsInboundEmailHandler {
         List<Referral__c> referrals = [
             SELECT
                 Id,
+                Contact__c,
+                Preferred_Channel__c,
                 Score__c
             FROM Referral__c
             WHERE Contact__r.LastName = 'Tester'
