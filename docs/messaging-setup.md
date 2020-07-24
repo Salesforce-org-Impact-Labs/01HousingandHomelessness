@@ -1,7 +1,5 @@
 # Messaging Setup
 
-Temporary docs in quip
-<https://salesforce.quip.com/DrwyASzKil86>
 
 # Configuring an Email Service for the Client Recommendations Inbound Email Handler
 
@@ -53,7 +51,9 @@ When the Email Service handler code receives a request to validate the email add
 
 
 1. Log in as the Context User and navigate to the Home tab, where you can view the Tasks that have been assigned to this user.
-2. Open the special Task by clicking on the Subject, “Confirm Organization-Wide Email Address”
+2. For Lightning users, ensure your Task List is set to show "My Tasks"
+<img alt="Task View" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/b736c43294d4bded9cb69dd4f347da3f04506a09/docs/images/Confirm_Address_Task.png">
+3. Open the special Task by clicking on the Subject, “Confirm Organization-Wide Email Address”
 
 <img alt="My Tasks" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/29e4326b8c7a0af7460c32b12c69065b1161b7e6/docs/images/My_Tasks.png">
 
