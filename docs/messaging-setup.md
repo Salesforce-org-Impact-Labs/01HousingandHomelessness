@@ -33,7 +33,7 @@ After the Email Address is created, we need to make it an Org-Wide Email so that
 <img alt="Complete Email Service" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/549b88e7011090585790152d3efcf8c5b7296899/docs/images/Complete_Email_Service.png">
 Get the email address, create an org-wide email for that address. **Hint**: name it something to match your organization!
 
-Search Setup for “Organization-Wide Email Address”
+Search Setup for “Organization-Wide Addresses”
 
 <img alt="Org Wide Email" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/0afb930a541025b8ed67dec8d827c510a355034c/docs/images/Create_Org_Wide_Email.png">
 
