@@ -28,8 +28,8 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   newComment;
 
   connectedCallback(rec = this.servicerecommendation) {
-    window.console.log(rec.Website);
-
+    window.console.log(JSON.stringify(rec));
+    window.console.log(rec.Service.Account__r.Name);
     if (rec.Comments.length > 0) {
       this.commentCount = rec.Comments.length;
     }
