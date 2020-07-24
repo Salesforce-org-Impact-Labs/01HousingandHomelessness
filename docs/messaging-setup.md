@@ -25,6 +25,7 @@ Search setup for “Email Services”, then create a New Email Service
 * Be sure to Activate the address
 * Context User: Choose a user that has System Administrator privileges. This user will be the owner of any record created by the inbound email handler.
     * We suggest that you create a special User for this purpose, one that would never become Inactive.
+* Accept Email from: delete the pre-populated value from this field
 
 ## Create the Org Wide Email Address
 
