@@ -150,13 +150,16 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
         // get the next recommended service of the same type
         Service__c recService = 
             getNextServiceRecommendationForClient(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Service__r.Type__c);
-        // create the new referral
-        Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
-        newReferral.Service__c = recService.Id;
-        insert newReferral;
-        // create a new task for the next batch job run
-        Task newTask = createReferralTask(refResponse.Referral__c);
-        insert newTask;
+            
+        if (recService != null) {
+            // create the new referral
+            Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
+            newReferral.Service__c = recService.Id;
+            insert newReferral;
+            // create a new task for the next batch job run
+            Task newTask = createReferralTask(newReferral.Id);
+            insert newTask;
+        }
       }
 
       @TestVisible
