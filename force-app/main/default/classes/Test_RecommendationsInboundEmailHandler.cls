@@ -21,7 +21,7 @@ public class Test_RecommendationsInboundEmailHandler {
             Minimum_Age__c = 12,
             Phone__c = '4155551212',
             Street__c = '123 Main Street',
-            Type__c = 'Care',
+            Type__c = 'Food',
             Website__c = 'testing@testservice.org',
             Zip_Code__c = '12345'
         );
@@ -56,6 +56,7 @@ public class Test_RecommendationsInboundEmailHandler {
         c.FirstName = 'testContact';
         c.LastName = 'Test_getRecommendations';
         c.BirthDate = Date.newInstance(1979, 4, 20);
+        c.Email = 'testReco@goodguy.org';
         insert c;
 
         Client_Profile__c profile = new Client_Profile__c();
@@ -134,6 +135,12 @@ public class Test_RecommendationsInboundEmailHandler {
         refer.Preferred_Channel__c = 'Email';
         insert refer;
 
+        Referral_Response__c refResp2 = new Referral_Response__c (
+            Referral__c = refer.Id,
+            Question__c = 'Have you visited'
+        );
+        insert refResp2;
+
         Scoring.scoreAllServices();
     }
 
@@ -210,7 +217,7 @@ public class Test_RecommendationsInboundEmailHandler {
 
     static testMethod void testHandleClientResponseGuidance2() {
         String response = '2';
-        Referral_Response__c refResponse = getReferralResponse();
+        Referral_Response__c refResponse = getRefResponseReco();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION;
         String referralId = refResponse.Referral__c;
@@ -219,13 +226,13 @@ public class Test_RecommendationsInboundEmailHandler {
         RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
-        Referral_Response__c refResponseCheck = getReferralResponse();
+        Referral_Response__c refResponseCheck = getRefResponseReco();
         System.assertEquals('2',refResponseCheck.Response__c);
     }
 
     static testMethod void testHandleClientResponseGuidance3() {
         String response = '3';
-        Referral_Response__c refResponse = getReferralResponse();
+        Referral_Response__c refResponse = getRefResponseReco();
         // we need to ask the right question
         refResponse.Question__c = ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION;
         String referralId = refResponse.Referral__c;
@@ -234,7 +241,7 @@ public class Test_RecommendationsInboundEmailHandler {
         RecommendationsInboundEmailHandler.handleClientResponse(response, refResponse, referralId);
         Test.stopTest();
 
-        Referral_Response__c refResponseCheck = getReferralResponse();
+        Referral_Response__c refResponseCheck = getRefResponseReco();
         System.assertEquals('3',refResponseCheck.Response__c);
     }
 
@@ -298,7 +305,8 @@ public class Test_RecommendationsInboundEmailHandler {
         Referral__c referral = getReferral();
 
         Test.startTest();
-        Referral__c  newRef = RecommendationsInboundEmailHandler.createNewReferralCopy(referral);
+        Referral__c  newRef = 
+            RecommendationsInboundEmailHandler.createNewReferralCopy(referral.Contact__c,referral.Preferred_Channel__c);
         Test.stopTest();
 
         System.assertEquals(referral.Contact__c, newRef.Contact__c);
@@ -309,7 +317,7 @@ public class Test_RecommendationsInboundEmailHandler {
         Referral__c referral = getReferral();
 
         Test.startTest();
-        Task newTask = RecommendationsInboundEmailHandler.createReferralTask(referral);
+        Task newTask = RecommendationsInboundEmailHandler.createReferralTask(referral.Id);
         Test.stopTest();
        
         System.assertEquals(referral.Id,newTask.WhatId);
@@ -331,17 +339,54 @@ public class Test_RecommendationsInboundEmailHandler {
         System.assertEquals('The good service', nextService.Name);
     }
 
+    static testMethod void testCreateNewReferralAndTask() {
+        Referral_Response__c refResponse = getRefResponseReco();
+
+        Test.startTest();
+        RecommendationsInboundEmailHandler.createNewReferralAndTask(refResponse);
+        Test.stopTest();
+
+        Referral__c newReferral = [
+            SELECT 
+                Id,
+                Service__r.Type__c
+            FROM Referral__c
+            ORDER BY CreatedDate DESC
+        ][0];
+
+        System.assertEquals('Food',newReferral.Service__r.Type__c);
+    }
+
     static Referral_Response__c getReferralResponse() {
         List<Referral_Response__c> responses = [
             SELECT
                 Id,
                 Referral__c,
+                Referral__r.Contact__c,
+                Referral__r.Preferred_Channel__c,
+                Referral__r.Service__r.Type__c,
                 Question__c,
                 Response__c
             FROM Referral_Response__c
             WHERE Referral__r.Contact__r.LastName = 'Tester'
         ];    
         return responses[0];    
+    }
+
+    static Referral_Response__c getRefResponseReco() {
+        Referral_Response__c refResponse = [
+            SELECT
+                Id,
+                Referral__c,
+                Referral__r.Contact__c,
+                Referral__r.Preferred_Channel__c,
+                Referral__r.Service__r.Type__c,
+                Question__c,
+                Response__c
+            FROM Referral_Response__c
+            WHERE Question__c = 'Have you visited'
+        ][0];
+        return refResponse;
     }
 
     static Referral__c getReferral() {
