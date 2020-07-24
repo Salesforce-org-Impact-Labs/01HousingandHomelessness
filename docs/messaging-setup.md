@@ -1,7 +1,5 @@
 # Messaging Setup
 
-Temporary docs in quip
-<https://salesforce.quip.com/DrwyASzKil86>
 
 # Configuring an Email Service for the Client Recommendations Inbound Email Handler
 
@@ -25,6 +23,7 @@ Search setup for “Email Services”, then create a New Email Service
 * Be sure to Activate the address
 * Context User: Choose a user that has System Administrator privileges. This user will be the owner of any record created by the inbound email handler.
     * We suggest that you create a special User for this purpose, one that would never become Inactive.
+* Accept Email from: delete the pre-populated value from this field
 
 ## Create the Org Wide Email Address
 
@@ -32,7 +31,7 @@ After the Email Address is created, we need to make it an Org-Wide Email so that
 <img alt="Complete Email Service" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/549b88e7011090585790152d3efcf8c5b7296899/docs/images/Complete_Email_Service.png">
 Get the email address, create an org-wide email for that address. **Hint**: name it something to match your organization!
 
-Search Setup for “Organization-Wide Email Address”
+Search Setup for “Organization-Wide Addresses”
 
 <img alt="Org Wide Email" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/0afb930a541025b8ed67dec8d827c510a355034c/docs/images/Create_Org_Wide_Email.png">
 
@@ -52,7 +51,9 @@ When the Email Service handler code receives a request to validate the email add
 
 
 1. Log in as the Context User and navigate to the Home tab, where you can view the Tasks that have been assigned to this user.
-2. Open the special Task by clicking on the Subject, “Confirm Organization-Wide Email Address”
+2. For Lightning users, ensure your Task List is set to show "My Tasks"
+<img alt="Task View" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/b736c43294d4bded9cb69dd4f347da3f04506a09/docs/images/Confirm_Address_Task.png">
+3. Open the special Task by clicking on the Subject, “Confirm Organization-Wide Email Address”
 
 <img alt="My Tasks" src="https://raw.githubusercontent.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/29e4326b8c7a0af7460c32b12c69065b1161b7e6/docs/images/My_Tasks.png">
 
@@ -82,3 +83,13 @@ There are two batch jobs that need to run to send referrals and referral followu
 * Batch_SendReferralFollowupReminders
 
 These batch classes should execute at least once per day. Please follow the instructions in the Help documentation to schedule the classes: https://help.salesforce.com/articleView?id=code_schedule_batch_apex.htm&type=5
+
+The batch classes may be run at any time by utilizing the Execute Anonymous function in Salesforce. Please review the instructions in the Help documentation for more information: https://help.salesforce.com/articleView?id=code_dev_console_execute_anonymous.htm&type=5
+
+To execute the initial referral batch job, execute the following code snippet:
+Batch_SendInitialClientReferrals batchable = new Batch_SendInitialClientReferrals();
+Database.executeBatch(batchable);
+
+To execute the referral followup batch job, execute the following code snippet:
+Batch_SendReferralFollowupReminders  batchable = new Batch_SendReferralFollowupReminders();
+Database.executeBatch(batchable);
