@@ -3,6 +3,8 @@ public class ServicePrint {
 
     @AuraEnabled
     public Service__c service {get;set;}
+
+    public String ProviderName {get;set;}
     public String Sunday {
         get {
             if(Sunday == null){
@@ -82,7 +84,7 @@ public class ServicePrint {
 
     public Service__c getServices(string serviceId) {
         Service__c newserv = [SELECT Id, Name, Account__r.Name, Type__c,Description__c, Website__c, Street__c, City__c, Zip_Code__c, Phone__c FROM Service__c WHERE Id = :serviceId];
-        system.debug('serv' + newserv);
+        ProviderName = newserv.Account__r.Name;
         return newserv;
     }
 
@@ -91,8 +93,6 @@ public class ServicePrint {
         List<Open_Hours__c> hrs = [SELECT Id,Day__c, End_Time__c, Start_Time__c, Service__c FROM Open_Hours__c WHERE Service__c = :serviceId];
         
         for(Open_Hours__c hour: hrs){
-            System.debug(hour.Day__c);
-            System.debug(String.valueOf(hour.Start_Time__c));
             switch on hour.Day__c {
                 when 'Sunday' {
                     Sunday = 'S: ' + Datetime.newInstance(Date.Today(), hour.Start_Time__c).format('hh:mm a') + ' - ' + Datetime.newInstance(Date.Today(), hour.End_Time__c).format('hh:mm a');
@@ -119,7 +119,6 @@ public class ServicePrint {
             }
         }
         service = getServices(serviceId);
-        system.debug(service);
         return hrs;
     
     }
@@ -129,7 +128,6 @@ public class ServicePrint {
         Attachment attach = new Attachment();
         attach.body = Blob.valueOf('');  
         Blob body = Blob.valueOf(''); 
-        System.debug('serviceId' + serviceId);
 
         try {
            	PageReference nr = new PageReference('/apex/ServicePrintPage?servId=' + serviceId);

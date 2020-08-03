@@ -3,7 +3,7 @@
     <body >
         <div>
             <p><span>Referral For:</span> {!service.Name} ({!service.Type__c})</p>
-            <p><span>Provided By:</span> {!service.Account__r.Name}</p>
+            <p><span>Provided By:</span> {!ProviderName}</p>
         </div>
 
         <div>
