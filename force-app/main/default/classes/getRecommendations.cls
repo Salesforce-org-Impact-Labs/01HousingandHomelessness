@@ -43,6 +43,7 @@ public with sharing class getRecommendations {
       SR.MailingStreet = service.Street__c;
       SR.MailingCity = service.City__c;
       SR.Website = service.Website__c;
+      SR.ServicePhone = service.Phone__c;
       SR.Hidden = false;
       SR.HiddenAll = false;
       SR.totalRatings = 0;
@@ -247,6 +248,10 @@ public with sharing class getRecommendations {
     );
     for (ServiceRecommendation SR : recs) {
       SR.TodaysHours = hours.get(SR.ServiceId);
+      System.debug(hours.get(SR.ServiceId));
+      if(hours.get(SR.ServiceId) != null){
+        SR.TodaysEndHours = hours.get(SR.serviceId).End_Time__c;
+      }
     }
     return recs;
   }
