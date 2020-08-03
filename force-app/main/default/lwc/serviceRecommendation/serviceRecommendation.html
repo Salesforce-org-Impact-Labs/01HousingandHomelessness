@@ -130,10 +130,10 @@
               <span class="slds-text-title_bold"
                 >Open until &nbsp;
                 <lightning-formatted-date-time
-                  hour="2-digit"
+                  hour="numeric"
                   minute="2-digit"
                   time-zone="UTC"
-                  value={servicerecommendation.TodaysHours.End_Time__c}
+                  value={servicerecommendation.TodaysEndHours}
                 ></lightning-formatted-date-time></span
               >&nbsp;&nbsp;&nbsp;<span class="slds-text-title_bold"
                 >{servicerecommendation.MailingStreet},
@@ -143,8 +143,8 @@
           </template>
           <li>
             <span
-              ><a href="#">{servicerecommendation.Service.Phone__c}</a> * &nbsp;
-              <a href={servicerecommendation.Website}>Website</a></span
+              ><a href="#">{servicerecommendation.ServicePhone}</a> * &nbsp;
+              <a href={servicerecommendation.Website}>{servicerecommendation.Website}</a></span
             >
           </li>
         </ul>
