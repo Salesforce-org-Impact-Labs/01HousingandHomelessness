@@ -27,6 +27,9 @@ public class ServiceRecommendation {
   public Open_Hours__c TodaysHours { get; set; }
 
   @AuraEnabled
+  public Time TodaysEndHours { get; set; }
+
+  @AuraEnabled
   public String MailingStreet { get; set; }
 
   @AuraEnabled
@@ -35,15 +38,19 @@ public class ServiceRecommendation {
   @AuraEnabled
   public String Website {
         get {
+          if(Website != null){
             if(Website.startsWith('https://')){
                 Website = Website;
             }else{
-                
                 Website = 'https://'+ Website;
             }
+          }
         return Website;}
         set;
     }
+
+  @AuraEnabled
+  public String ServicePhone { get; set; }
 
   @AuraEnabled
   public Decimal Rating { get; set; }
