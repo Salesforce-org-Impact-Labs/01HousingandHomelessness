@@ -4,19 +4,6 @@
     <label>Referral Client Profile</label>
     <pluralLabel>Referral Client Profiles</pluralLabel>
     <description>added from sfdx plugin</description>
-    <enableActivities>true</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>true</enableFeeds>
-    <enableHistory>true</enableHistory>
-    <enableLicensing>false</enableLicensing>
-    <enableReports>true</enableReports>
-    <enableSearch>true</enableSearch>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>Client Profile</label>
-    <pluralLabel>Client Profiles</pluralLabel>
-    <description>added from sfdx plugin</description>
     <nameField>
         <type>AutoNumber</type>
         <label>Name</label>

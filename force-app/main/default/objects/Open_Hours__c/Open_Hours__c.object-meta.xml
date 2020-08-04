@@ -4,19 +4,6 @@
     <label>Referral Open Hours</label>
     <pluralLabel>Referral Open Hours</pluralLabel>
     <description>added from sfdx plugin</description>
-    <enableActivities>false</enableActivities>
-    <enableBulkApi>true</enableBulkApi>
-    <enableFeeds>false</enableFeeds>
-    <enableHistory>true</enableHistory>
-    <enableLicensing>false</enableLicensing>
-    <enableReports>false</enableReports>
-    <enableSearch>false</enableSearch>
-    <enableSharing>true</enableSharing>
-    <enableStreamingApi>true</enableStreamingApi>
-    <externalSharingModel>Private</externalSharingModel>
-    <label>Open Hours</label>
-    <pluralLabel>Open Hours</pluralLabel>
-    <description>added from sfdx plugin</description>
     <nameField>
         <type>AutoNumber</type>
         <label>Name</label>
