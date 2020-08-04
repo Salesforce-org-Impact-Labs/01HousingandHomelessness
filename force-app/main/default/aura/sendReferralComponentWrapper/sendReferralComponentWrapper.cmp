@@ -1,5 +1,5 @@
 <aura:component
-  implements="flexipage:availableForAllPageTypes, force:hasRecordId"
+  implements="flexipage:availableForAllPageTypes,force:hasRecordId"
   access="global"
 >
 <!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->

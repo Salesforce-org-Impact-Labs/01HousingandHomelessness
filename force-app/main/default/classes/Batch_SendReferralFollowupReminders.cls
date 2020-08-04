@@ -41,4 +41,3 @@ global class Batch_SendReferralFollowupReminders implements Database.Batchable<S
         Database.executeBatch(new Batch_SendInitialClientReferrals());
     }
 }
-
