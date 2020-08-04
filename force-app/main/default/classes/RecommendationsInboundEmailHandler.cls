@@ -7,10 +7,16 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
     public static final String EMAIL_REPLY_HELP = 'HELP';
     public static final Integer RESPONSE_TRUNCATION_LEN = 10;
 
+    // key string to find the org-wide email verification link
+    public static final String CONFIRM_EMAIL_LINK_KEY = 'Click this link to confirm this Organization-Wide Email Address:';
 
     global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
         Messaging.InboundEmailResult result = new Messaging.InboundEmailresult();
-        System.debug('RecommendationsInboundEmailHandler received text of email '+email.plainTextBody);
+
+        // create a task for the org-wide email address verification link
+        if (email.plainTextBody.containsIgnoreCase(CONFIRM_EMAIL_LINK_KEY)) {
+            createEmailConfirmTask(email.plainTextBody);
+        }
 
         if (email.plainTextBody.containsIgnoreCase(EMAIL_REFERRAL_RESPONSE_TOKEN)) {
             // get the referral response id from the body of the reply
@@ -66,21 +72,29 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendRateServiceSavedMessage(referralId);
+
             } else if (firstChar.equals('1') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
                 // they didn't have time for the appt
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance1Message(referralId);
+
             } else if (firstChar.equals('2') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
                 // the service didn't respond
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance2Message(referralId);
+                // create a new referral
+                createNewReferralAndTask(refResponse);
+
             } else if (firstChar.equals('3') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
                 // the referral information was wrong
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
                 // send response email to client
                 EmailService.sendCantConnectGuidance3Message(referralId);
+                // create a new referral
+                createNewReferralAndTask(refResponse);
+
             } else if (firstChar.equals('4') && ClientMessageHelper.CLIENT_CANT_CONNECT_QUESTION.equals(refResponse.Question__c)) {
                 // something else happened
                 ReferralResponseHelper.updateRecordWithResponse(referralResponseId, firstChar);
@@ -96,12 +110,30 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
       }
 
       @TestVisible
+      private static void createEmailConfirmTask(String emailBody) {
+        // get the running user
+        Id runningUserId = UserInfo.getUserId();
+
+        // create the task and assign it to the user
+        Task confirmTask = new Task();
+        confirmTask.Subject = 'Confirm Organization-Wide Email Address';
+        confirmTask.Status = 'Not Started';
+        confirmTask.OwnerId = runningUserId;
+        confirmTask.Description = emailBody;
+
+        insert confirmTask;
+      }
+
+      @TestVisible
       private static Referral_Response__c getReferralResponse(String referralResponseId) {
         Referral_Response__c response = new Referral_Response__c();  
         List<Referral_Response__c> responses = [
             SELECT
                 Id,
                 Referral__c,
+                Referral__r.Service__r.Type__c,
+                Referral__r.Contact__c,
+                Referral__r.Preferred_Channel__c,
                 Question__c,
                 Response__c
             FROM Referral_Response__c
@@ -113,5 +145,62 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
         return response;
       }
 
+      @TestVisible
+      private static void createNewReferralAndTask(Referral_Response__c refResponse) {
+        // get the next recommended service of the same type
+        Service__c recService = 
+            getNextServiceRecommendationForClient(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Service__r.Type__c);
+            
+        if (recService != null) {
+            // create the new referral
+            Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
+            newReferral.Service__c = recService.Id;
+            insert newReferral;
+            // create a new task for the next batch job run
+            Task newTask = createReferralTask(newReferral.Id);
+            insert newTask;
+        }
+      }
+
+      @TestVisible
+      private static Referral__c createNewReferralCopy(Id contactId, String preferredChannel) {
+        Referral__c newReferral = new Referral__c (
+            Contact__c = contactId,
+            Preferred_Channel__c = preferredChannel
+        );
+
+        return newReferral;
+      }
+
+      @TestVisible
+      private static Task createReferralTask(Id referralId) {
+        // get the running user
+        Id runningUserId = UserInfo.getUserId();
+
+        // create the task and assign it to the user
+        Task referralTask = new Task();
+        referralTask.Subject = 'Info to Client';
+        referralTask.Status = 'Not Started';
+        referralTask.OwnerId = runningUserId;
+        referralTask.WhatId = referralId;
+
+        return referralTask;
+      }
+
+      @TestVisible
+      private static Service__c getNextServiceRecommendationForClient(Id contactId, String serviceType) {
+        List<ServiceRecommendation> recommendationsList = getRecommendations.getRecommendations(contactId);
+
+        Service__c nextService = null;
+        for (ServiceRecommendation recommendation : recommendationsList) {
+            // get the first recommendation with the specified type
+            if (recommendation.Service.Type__c != null && recommendation.Service.Type__c.equals(serviceType)) {
+                nextService = recommendation.Service;
+                break;
+            }
+        }
+
+        return nextService;
+      }
 
   }

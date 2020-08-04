@@ -143,6 +143,8 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <label>Referral Open Hours</label>
+    <pluralLabel>Referral Open Hours</pluralLabel>
     <description>added from sfdx plugin</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
