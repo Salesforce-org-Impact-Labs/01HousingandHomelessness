@@ -209,4 +209,5 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       ? `custom:custom${icons.get(this.servicerecommendation.ProgramType)}`
       : undefined;
   }
+  
 }
