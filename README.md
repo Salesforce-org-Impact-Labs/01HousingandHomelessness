@@ -2,20 +2,23 @@
 
 Impact Lab - Housing & Homelessness
 
+![Manual Production Package Release](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/workflows/Manual%20Production%20Package%20Release/badge.svg)
+![Beta Package and Install](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/workflows/Package%20and%20Install/badge.svg)
+
 ## Installation and setup
 
-install package using <https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3h000004kKwZ>
+install package using the link from Releases above
 
 Complete the following required setup steps
 
 1. [Permissions Setup](/docs/permissions-setup.md)
 2. [Data Setup](/docs/data-setup.md)
-3. [UI Setup](/docs/data-setup.md)
-4. [Messaging Setup](/docs/messaging-setup.md)
+3. [Messaging Setup](/docs/messaging-setup.md)
 
 ### Optional steps
 
 1. [Adjust scoring metrics](/docs/scoring-metrics.md)
+2. [UI Setup](/docs/ui-setup.md)
 
 ## Development
 
@@ -34,8 +37,9 @@ To work on this project in a scratch org:
 
 ## Packaging
 
-1. The packaging flow runs when you merge your PR into master
+1. The packaging flow creates a new beta package when you merge your PR into master
 2. It's possible that you'll get a passing PR check (it deploys, all tests pass) but then there are packaging errors (namespace issues, overall code coverage < 75%, etc)
+3. `cci flow run release_production --org packaging` will do a non-beta release
 
 ## Troubleshooting
 

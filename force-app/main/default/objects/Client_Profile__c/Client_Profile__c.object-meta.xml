@@ -143,6 +143,8 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
+    <label>Referral Client Profile</label>
+    <pluralLabel>Referral Client Profiles</pluralLabel>
     <description>added from sfdx plugin</description>
     <enableActivities>true</enableActivities>
     <enableBulkApi>true</enableBulkApi>
