@@ -44,8 +44,8 @@ tasks:
 
   install_managed:
     options:
-      retries: 30
-      retry_interval: 60
+      retries: 15
+      retry_interval: 90
 
   run_tests:
     options:
