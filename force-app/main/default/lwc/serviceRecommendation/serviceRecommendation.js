@@ -203,11 +203,9 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
         window.console.log('error:' + JSON.stringify(error));
       });
   }
-
   get iconName() {
     return this.servicerecommendation && this.servicerecommendation.ProgramType
       ? `custom:custom${icons.get(this.servicerecommendation.ProgramType)}`
       : undefined;
   }
-  
 }

@@ -1,5 +1,6 @@
 <apex:component controller="ReferralEmailTemplateController" access="global">
-  <apex:attribute name="refRespId" 
+  <apex:attribute 
+    name="refRespId" 
     type="String" 
     description="This is the ID of the referral response" 
     assignTo="{!referralResponseId}" 
