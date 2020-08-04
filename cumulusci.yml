@@ -42,6 +42,11 @@ tasks:
     options:
       apex: 'Scoring.scoreAllServices();'
 
+  install_managed:
+    options:
+      retries: 30
+      retry_interval: 60
+
   run_tests:
     options:
       required_org_code_coverage_percent: 75
