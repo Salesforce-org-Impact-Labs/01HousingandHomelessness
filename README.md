@@ -19,6 +19,7 @@ Complete the following required setup steps
 
 1. [Adjust scoring metrics](/docs/scoring-metrics.md)
 2. [UI Setup](/docs/ui-setup.md)
+3. [Client Profile Builder Flow](/docs/client-profile.md)
 
 ## Development
 
