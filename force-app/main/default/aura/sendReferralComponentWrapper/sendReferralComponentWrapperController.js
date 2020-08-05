@@ -5,6 +5,7 @@
 
     handleFlowLaunch: function(component, event, helper) {
         console.log('handling flow launch');
+        var flowName = component.get('v.FlowName');
         var eventData = event.getParam('details');
         console.log(JSON.stringify(eventData));
         component.set("v.showModal",eventData.showFlow);
@@ -19,7 +20,7 @@
                 { name : "serviceId", type : "String", value: eventData.serviceId }, 
             ];
             var flow = component.find("flow");
-            flow.startFlow("Send_Referral_Flow", inputVariables);
+            flow.startFlow(flowName, inputVariables);
             var childcomp = component.find('childCmp');
             $A.util.addClass(childcomp, 'slds-hide');
 
