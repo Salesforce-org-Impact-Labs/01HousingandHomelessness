@@ -4,7 +4,7 @@
 >
 <!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->
   <aura:attribute name="showModal" type="Boolean" default="false" />
-  <aura:attribute name="FlowName" type="String"/>
+  <aura:attribute name="FlowName" type="String" access="global"/>
   <div class="">
     <c:serviceRecommendations
       aura:id="childCmp"

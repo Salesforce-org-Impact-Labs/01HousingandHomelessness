@@ -195,7 +195,7 @@ export default class ServiceRecommendations extends LightningElement {
     }
     const filteredRecs = this.unfilteredRecommendations.filter(rec => {      
       for(let k in filterList){
-        if(rec.Service.Type__c.includes(filterList[k])){
+        if(rec.ProgramType.includes(filterList[k])){
           return rec;
         }
       }
