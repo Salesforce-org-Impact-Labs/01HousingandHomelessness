@@ -176,6 +176,7 @@ export default class ServiceRecommendations extends LightningElement {
   }
 
   handleUpdateTypeFilters(event){
+    window.console.log('updating type filters');
     let filterList = this.typeFilters;
     if(filterList.includes(event.detail.value)){
         const index = filterList.indexOf(event.detail.value);
@@ -187,26 +188,27 @@ export default class ServiceRecommendations extends LightningElement {
 
     if(filterList.length === 0) {
       this.typeFilterLabel = 'View All';
-    } else if(filterList.length > 0) {
+    } else if(filterList.length === 1) {
       this.typeFilterLabel = 'Filtering ' +filterList.length + ' Service Type';
     } else{
       this.typeFilterLabel = 'Filtering ' +filterList.length + ' Service Types';
     }
     const filteredRecs = this.unfilteredRecommendations.filter(rec => {      
       for(let k in filterList){
-        if(rec.Service.Type__c.includes(filterList[k])){
+        if(rec.ProgramType.includes(filterList[k])){
           return rec;
         }
       }
       
     });
-
-    if(filteredRecs.length === 0 ){
+    window.console.log('filtered recs' + JSON.stringify(filteredRecs));
+    window.console.log(filteredRecs.length);
+    if(filteredRecs.length === 0 && filterList.length === 0){
       this.returnRecommendations = this.unfilteredRecommendations;
     }else{
       this.returnRecommendations = filteredRecs;
     }
-    
+    window.console.log('returned filtered recommendations' + JSON.stringify(this.returnRecommendations));
         
   }
 
