@@ -68,7 +68,7 @@ export default class ServiceRecommendations extends LightningElement {
                     location:{
                       Street: '',
                       City: '',
-                      State: 'CA'
+                      State: ''
                     },
               
                     title: '',
@@ -79,10 +79,11 @@ export default class ServiceRecommendations extends LightningElement {
                     
                   }else{
                     showResult.push(result[i]);
-                    marker.location.Street = result[i].Service.Street__c;
-                    marker.location.City = result[i].Service.City__c;
-                    marker.title = result[i].Service.Name;
-                    marker.description = result[i].Service.Description__c;
+                    marker.location.Street = result[i].MailingStreet;
+                    marker.location.City = result[i].MailingCity;
+                    marker.location.State = 'CA';
+                    marker.title = result[i].ProgramName;
+                    marker.description = result[i].ProgramDescription;
                     this.mapMarkers.push(marker);
                   }
                 }
