@@ -71,7 +71,7 @@ global class ReferralEmailTemplateController {
                 Datetime endDt = Datetime.newInstance(Date.today(),hour.End_Time__c);
                 String endTime = endDt.format('h:mm a');
 
-                hoursString = hour.Day__c + ': '+startTime+' - '+endTime+'';
+                hoursString = hoursString + hour.Day__c + ': '+startTime+' - '+endTime+' ';
             }
             return hoursString;
         }
