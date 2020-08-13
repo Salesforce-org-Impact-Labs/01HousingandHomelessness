@@ -1,6 +1,7 @@
 /* eslint-disable no-empty */
 import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
@@ -76,7 +77,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       .then(() => {
         window.console.log('success');
         let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                let flowLaunchEvent = new CustomEvent('reloadafterhide', {
                     detail: {
                         eventParams
                     },
@@ -96,7 +97,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       .then(() => {
         window.console.log('success');
         let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                let flowLaunchEvent = new CustomEvent('reloadafterhide', {
                     detail: {
                         eventParams
                     },
@@ -115,7 +116,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       .then(() => {
         window.console.log('success');
         let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                let flowLaunchEvent = new CustomEvent('reloadafterhide', {
                     detail: {
                         eventParams
                     },
@@ -134,7 +135,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       .then(() => {
         window.console.log('success');
         let eventParams = 'reloadAfterHide';
-                const flowLaunchEvent = new CustomEvent('reloadafterhide', {
+                let flowLaunchEvent = new CustomEvent('reloadafterhide', {
                     detail: {
                         eventParams
                     },
@@ -181,11 +182,33 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       newComment: this.newComment
     })
       .then(() => {
-        window.console.log('success');
+        this.showAddComment = false;
+        this.commentCount = this.commentCount + 1;
+        this.handleReloadPage();
+        let evt = new ShowToastEvent({
+          title: 'Comment Added',
+          message: '',
+          variant: 'success',
+          });
+          this.dispatchEvent(evt);
+          window.console.log('after event?')
       })
       .catch((error) => {
         window.console.log('error:' + error);
       });
+  }
+
+  handleReloadPage() {
+    let eventParams = 'reloadAfterHide';
+        let flowLaunchEvent = new CustomEvent('reloadafterhide', {
+            detail: {
+                eventParams
+            },
+        });
+        // Fire the custom event
+
+        this.dispatchEvent(flowLaunchEvent);
+        window.console.log('here');
   }
 
   handlePrintReferral() {
