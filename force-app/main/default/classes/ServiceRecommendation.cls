@@ -36,10 +36,13 @@ public class ServiceRecommendation {
   public String MailingCity { get; set; }
 
   @AuraEnabled
+  public String MailingState { get; set; }
+
+  @AuraEnabled
   public String Website {
         get {
           if(Website != null){
-            if(Website.startsWith('https://')){
+            if(Website.startsWith('https://') || Website.startsWith('http://')){
                 Website = Website;
             }else{
                 Website = 'https://'+ Website;
