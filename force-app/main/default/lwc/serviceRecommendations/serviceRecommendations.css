@@ -7,7 +7,14 @@
 
 .innerRecDiv {
     margin-top:0.5em;    
-    height:50vh;
+}
+
+.viewHeightFive {
+    height: 5vh;
+}
+
+.viewHeightFifty {
+    height: 50vh;
 }
 
 .innerRecModalDiv {
