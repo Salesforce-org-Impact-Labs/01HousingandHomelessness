@@ -27,13 +27,23 @@ public  class Test_ReferralEmailTemplateController {
         );
         insert svc;
 
+        List<Open_Hours__c> openList = new List<Open_Hours__c>();
         Open_Hours__c open = new Open_Hours__c (
             Day__c = 'Monday',
             Start_Time__c = Time.newInstance(9, 0, 0, 0),
             End_Time__c = Time.newInstance(17, 0, 0, 0),
             Service__c = svc.Id
         );
-        insert open;
+        openList.add(open);
+        Open_Hours__c open2 = new Open_Hours__c (
+            Day__c = 'Friday',
+            Start_Time__c = Time.newInstance(9, 0, 0, 0),
+            End_Time__c = Time.newInstance(17, 0, 0, 0),
+            Service__c = svc.Id
+        );
+        openList.add(open2);
+
+        insert openList;
 
         Referral__c ref = new Referral__c (
             Contact__c = cont.Id,
@@ -86,7 +96,7 @@ public  class Test_ReferralEmailTemplateController {
         System.assertEquals('Test Service',referralResponse.Referral__r.Service__r.Name);
         System.assertEquals('Tester',referralResponse.Referral__r.Contact__r.LastName);
 
-        System.assertEquals('Monday: 9:00 AM - 5:00 PM', controller.openHoursString);
+        System.assertEquals(true, controller.openHoursString.contains('Monday'));
     }
 
 
