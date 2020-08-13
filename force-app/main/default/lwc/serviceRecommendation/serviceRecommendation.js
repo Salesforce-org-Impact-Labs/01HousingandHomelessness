@@ -183,6 +183,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
     })
       .then(() => {
         this.showAddComment = false;
+        this.commentCount = this.commentCount + 1;
         this.handleReloadPage();
         let evt = new ShowToastEvent({
           title: 'Comment Added',
