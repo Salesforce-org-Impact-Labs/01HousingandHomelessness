@@ -77,7 +77,7 @@ public with sharing class ServicePrint {
     }
 
     public ServicePrint() {
-        String servId = [SELECT Id FROM Service__c WHERE id = :ApexPages.currentPage().getParameters().get('servId')].Id;
+        String servId = [SELECT Id FROM Service__c WHERE id =:ApexPages.currentPage().getParameters().get('servId')].Id;
         System.debug('serviceId' + servId);
         List<Open_Hours__c> allHours = getOpenHours(servId);
     }
