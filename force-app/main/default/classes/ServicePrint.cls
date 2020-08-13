@@ -1,4 +1,4 @@
-public class ServicePrint {
+public with sharing class ServicePrint {
 
 
     @AuraEnabled
@@ -77,7 +77,7 @@ public class ServicePrint {
     }
 
     public ServicePrint() {
-        String servId = ApexPages.currentPage().getParameters().get('servId');
+        String servId = [SELECT Id FROM Service__c WHERE id = ApexPages.currentPage().getParameters().get('servId')].Id;
         System.debug('serviceId' + servId);
         List<Open_Hours__c> allHours = getOpenHours(servId);
     }
@@ -130,7 +130,7 @@ public class ServicePrint {
         Blob body = Blob.valueOf(''); 
 
         try {
-           	PageReference nr = new PageReference('/apex/ServicePrintPage?servId=' + serviceId);
+           	PageReference nr = new PageReference('/apex/refrec__ServicePrintPage?servId=' + serviceId);
             //nr.getParameters().put('service', service);
             body = nr.getContentAsPDF();
             
