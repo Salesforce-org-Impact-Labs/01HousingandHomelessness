@@ -349,7 +349,7 @@
             <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
             
             <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                <c-service-recommendation  onreloadafterhide={handleRequestRecommendations} key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
+                <c-service-recommendation  onreloadafterhide={handleRequestRecommendations} key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} onflowlaunch={handleShare} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
             </template>
         </div>
         
