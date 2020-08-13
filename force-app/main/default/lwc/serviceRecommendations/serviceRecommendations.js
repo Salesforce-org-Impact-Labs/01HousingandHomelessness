@@ -32,6 +32,9 @@ export default class ServiceRecommendations extends LightningElement {
   @track showAddComment = false;
   @track showExpandedMap = false;
   @track showHiddenRecsList = false;
+  @track noRecsMessage;
+  @track showRecs = false;
+  @track searchedRecommendations = false;
 
   @track showHoursFilterChangePopover = false;
   @track showLocationFilterChangePopover = false;
@@ -58,39 +61,49 @@ export default class ServiceRecommendations extends LightningElement {
     handleRequestRecommendations(){
         getRecommendations({contactId: this.recordId })
             .then((result) => {
+              this.searchedRecommendations = true;
                 let showResult = [];
                 let hiddenResult = [];
 
-
                 let i;
-                for(i = 0; i < result.length; i++) {
-                  let marker = {
-                    location:{
-                      Street: '',
-                      City: '',
-                      State: ''
-                    },
-              
-                    title: '',
-                    description: ''
-                  };
-                  if(result[i].Hidden === true || result[i].HiddenAll === true){
-                    hiddenResult.push(result[i]);
-                    
-                  }else{
-                    showResult.push(result[i]);
-                    marker.location.Street = result[i].MailingStreet;
-                    marker.location.City = result[i].MailingCity;
-                    marker.location.State = 'CA';
-                    marker.title = result[i].ProgramName;
-                    marker.description = result[i].ProgramDescription;
-                    this.mapMarkers.push(marker);
+                if(result.length > 0){
+                  
+                  for(i = 0; i < result.length; i++) {
+                    let marker = {
+                      location:{
+                        Street: '',
+                        City: '',
+                        State: ''
+                      },
+                
+                      title: '',
+                      description: ''
+                    };
+                    if(result[i].Hidden === true || result[i].HiddenAll === true){
+                      hiddenResult.push(result[i]);
+                      
+                    }else{
+                      showResult.push(result[i]);
+
+                      marker.location.Street = result[i].MailingStreet;
+                      marker.location.City = result[i].MailingCity;
+                      marker.location.State = 'CA';
+                      marker.title = result[i].ProgramName;
+                      marker.description = result[i].ProgramDescription;
+                      this.mapMarkers.push(marker);
+                    }
                   }
                 }
-
-                if(this.showRecommendations === false ){
-                    this.showRecommendations = !this.showRecommendations;
+                
+                if(showResult.length === 0){
+                  this.noRecsMessage = true;
+                  this.showRecommendations = false;
+                }else{
+                  this.showRecommendations = true;
+                  this.noRecsMessage = false;
                 }
+
+                
 
                 showResult.sort((a,b)=>{
 
@@ -100,6 +113,11 @@ export default class ServiceRecommendations extends LightningElement {
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
                 this.returnHiddenRecommendationsCount = hiddenResult.length;
+                // if(this.showRecommendations === true ){
+                //   window.console.log('in here');
+                //   this.template.querySelector('.innerRecDiv').classList.remove('viewHeightFive');
+                //   this.template.querySelector('.innerRecDiv').classList.add('viewHeightFifty');
+                // }
                 
             })
             .catch((error) => {
