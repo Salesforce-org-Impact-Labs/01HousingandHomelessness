@@ -41,6 +41,7 @@ public with sharing class ReferralEmailTemplateController {
                     Id,
                     Name
                 FROM Organization
+                LIMIT 1
             ];
             return orgs[0];
         }

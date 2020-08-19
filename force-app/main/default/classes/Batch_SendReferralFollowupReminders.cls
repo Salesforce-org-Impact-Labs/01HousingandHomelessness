@@ -1,4 +1,4 @@
-public class Batch_SendReferralFollowupReminders implements Database.Batchable<SObject>, Schedulable {
+public with sharing class Batch_SendReferralFollowupReminders implements Database.Batchable<SObject>, Schedulable {
     private static final String REMINDER_TASK_SUBJECT = 'Reminder';
     private static final String TASK_STATUS_COMPLETED = 'Completed';
 
