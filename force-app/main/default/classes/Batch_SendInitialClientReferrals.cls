@@ -20,10 +20,11 @@ public class Batch_SendInitialClientReferrals implements Database.Batchable<SObj
         List<Id> referralIds = new List<Id>();
         Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
         for (Task referralTask : referralTasks) {
-            if (!referralIds.contains(referralTask.WhatId)) {
-                referralIds.add(referralTask.WhatId); // the whatId holds the id of the referral
+            String escapedWhatId = String.escapeSingleQuotes(referralTask.WhatId);
+            if (!referralIds.contains(escapedWhatId)) {
+                referralIds.add(escapedWhatId); // the whatId holds the id of the referral
             }
-            taskToReferralMap.put(referralTask.Id, referralTask.WhatId);
+            taskToReferralMap.put(referralTask.Id, escapedWhatId);
         }
         // send the emails
         if (!referralIds.isEmpty()) {

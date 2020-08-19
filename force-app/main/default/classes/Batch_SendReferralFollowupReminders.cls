@@ -21,10 +21,11 @@ public class Batch_SendReferralFollowupReminders implements Database.Batchable<S
             List<Id> referralIds = new List<Id>();
             Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
             for (Task reminderTask : reminderTasks) {
-                if (!referralIds.contains(reminderTask.WhatId)) { // the whatId holds the id of the referral
-                    referralIds.add(reminderTask.WhatId);
+                String escapedWhatId = String.escapeSingleQuotes(reminderTask.WhatId);
+                if (!referralIds.contains(escapedWhatId)) { // the whatId holds the id of the referral
+                    referralIds.add(escapedWhatId);
                 }
-                taskToReferralMap.put(reminderTask.Id, reminderTask.WhatId);
+                taskToReferralMap.put(reminderTask.Id, escapedWhatId);
             }
             if (!referralIds.isEmpty()) {
                 // send the messages
