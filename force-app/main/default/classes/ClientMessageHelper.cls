@@ -51,6 +51,8 @@ public with sharing class ClientMessageHelper {
 
     public static final String CASE_MANAGER_HELP_TEMPLATE = 'Case_Manager_Client_Asked_For_Help';
 
+    public static final String REF_REC_SETTINGS_RECORD_DEVELOPER_NAME = 'Organization_Default';
+
     public static List<Messaging.SingleEmailMessage> createInitialClientReferralEmails(Map<Id, Referral__c> referralMap, Map<Id,Id> taskToReferralMap) {
 
         // get the org wide email for the reply-to
@@ -352,11 +354,11 @@ public with sharing class ClientMessageHelper {
                 Id,
                 Recommendations_Email_Service_Address__c
             FROM RefRecSettings__mdt
-            WHERE DeveloperName = 'Organization_Default'
+            WHERE DeveloperName = :REF_REC_SETTINGS_RECORD_DEVELOPER_NAME
         ];
 
         if (settings.size() > 0) {
-            String recommendationsAddress = settings[0].Recommendations_Email_Service_Address__c;
+            String recommendationsAddress = String.escapeSingleQuotes(settings[0].Recommendations_Email_Service_Address__c);
             List<OrgWideEmailAddress> emailAddresses = [
                 SELECT  
                     Id,

@@ -1,8 +1,8 @@
-global class Batch_SendInitialClientReferrals implements Database.Batchable<SObject>, Schedulable {
+public with sharing class Batch_SendInitialClientReferrals implements Database.Batchable<SObject>, Schedulable {
     private static final String REMINDER_TASK_SUBJECT = 'Info to Client';
     private static final String TASK_STATUS_COMPLETED = 'Completed';
 
-    global Database.QueryLocator start(Database.BatchableContext context) {
+    public Database.QueryLocator start(Database.BatchableContext context) {
         // select referrals for which we have sent no messages
         return Database.getQueryLocator([
             SELECT
@@ -15,15 +15,16 @@ global class Batch_SendInitialClientReferrals implements Database.Batchable<SObj
         ]);
     }
 
-    global void execute(Database.BatchableContext context, List<Task> referralTasks) {
+    public void execute(Database.BatchableContext context, List<Task> referralTasks) {
         // get the referral ids from each task
         List<Id> referralIds = new List<Id>();
         Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
         for (Task referralTask : referralTasks) {
-            if (!referralIds.contains(referralTask.WhatId)) {
-                referralIds.add(referralTask.WhatId); // the whatId holds the id of the referral
+            String escapedWhatId = String.escapeSingleQuotes(referralTask.WhatId);
+            if (!referralIds.contains(escapedWhatId)) {
+                referralIds.add(escapedWhatId); // the whatId holds the id of the referral
             }
-            taskToReferralMap.put(referralTask.Id, referralTask.WhatId);
+            taskToReferralMap.put(referralTask.Id, escapedWhatId);
         }
         // send the emails
         if (!referralIds.isEmpty()) {
@@ -31,11 +32,11 @@ global class Batch_SendInitialClientReferrals implements Database.Batchable<SObj
         }
    }
 
-    global void finish(Database.BatchableContext context) {
+    public void finish(Database.BatchableContext context) {
         // nothing to do here
     }
 
-    global void execute(SchedulableContext context) {
+    public void execute(SchedulableContext context) {
         Database.executeBatch(new Batch_SendInitialClientReferrals());
     }
 }

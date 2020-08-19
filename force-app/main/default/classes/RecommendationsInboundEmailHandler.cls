@@ -1,4 +1,4 @@
-global class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
+public with sharing class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
     // the referral response id should follow this token in the subject line
     public static final String EMAIL_REFERRAL_RESPONSE_TOKEN = 'ref#';
     public static final Integer REFERRAL_RESPONSE_ID_LENGTH = 18;
@@ -10,7 +10,7 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
     // key string to find the org-wide email verification link
     public static final String CONFIRM_EMAIL_LINK_KEY = 'Click this link to confirm this Organization-Wide Email Address:';
 
-    global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
+    public Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
         Messaging.InboundEmailResult result = new Messaging.InboundEmailresult();
 
         // create a task for the org-wide email address verification link
@@ -116,10 +116,18 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
 
         // create the task and assign it to the user
         Task confirmTask = new Task();
-        confirmTask.Subject = 'Confirm Organization-Wide Email Address';
-        confirmTask.Status = 'Not Started';
-        confirmTask.OwnerId = runningUserId;
-        confirmTask.Description = emailBody;
+        if (Schema.SObjectType.Task.fields.Subject.isCreateable()) {
+            confirmTask.Subject = 'Confirm Organization-Wide Email Address';
+        }
+        if (Schema.SObjectType.Task.fields.Status.isCreateable()) {
+            confirmTask.Status = 'Not Started';
+        }
+        if (Schema.SObjectType.Task.fields.OwnerId.isCreateable()) {
+            confirmTask.OwnerId = runningUserId;
+        }
+        if (Schema.SObjectType.Task.fields.Description.isCreateable()) {
+            confirmTask.Description = emailBody;
+        }
 
         insert confirmTask;
       }
@@ -154,7 +162,9 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
         if (recService != null) {
             // create the new referral
             Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
-            newReferral.Service__c = recService.Id;
+            if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
+                newReferral.Service__c = recService.Id;
+            }
             insert newReferral;
             // create a new task for the next batch job run
             Task newTask = createReferralTask(newReferral.Id);
@@ -164,10 +174,13 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
 
       @TestVisible
       private static Referral__c createNewReferralCopy(Id contactId, String preferredChannel) {
-        Referral__c newReferral = new Referral__c (
-            Contact__c = contactId,
-            Preferred_Channel__c = preferredChannel
-        );
+        Referral__c newReferral = new Referral__c ();
+        if (Schema.SObjectType.Referral__c.fields.Contact__c.isCreateable()) {
+            newReferral.Contact__c = contactId;
+        }
+        if (Schema.SObjectType.Referral__c.fields.Preferred_Channel__c.isCreateable()) {
+            newReferral.Preferred_Channel__c = preferredChannel;
+        }
 
         return newReferral;
       }
@@ -179,10 +192,18 @@ global class RecommendationsInboundEmailHandler implements Messaging.InboundEmai
 
         // create the task and assign it to the user
         Task referralTask = new Task();
-        referralTask.Subject = 'Info to Client';
-        referralTask.Status = 'Not Started';
-        referralTask.OwnerId = runningUserId;
-        referralTask.WhatId = referralId;
+        if (Schema.SObjectType.Task.fields.Subject.isCreateable()) {
+            referralTask.Subject = 'Info to Client';
+        }
+        if (Schema.SObjectType.Task.fields.Status.isCreateable()) {
+            referralTask.Status = 'Not Started';
+        }
+        if (Schema.SObjectType.Task.fields.OwnerId.isCreateable()) {
+            referralTask.OwnerId = runningUserId;
+        }
+        if (Schema.SObjectType.Task.fields.WhatId.isCreateable()) {
+            referralTask.WhatId = referralId;
+        }
 
         return referralTask;
       }
