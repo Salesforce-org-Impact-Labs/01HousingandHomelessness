@@ -39,18 +39,25 @@ public class ServiceRecommendation {
   public String MailingState { get; set; }
 
   @AuraEnabled
+  public String ServiceTags { get; set; }
+
+  @AuraEnabled
+  public String SituationTags { get; set; }
+
+  @AuraEnabled
   public String Website {
-        get {
-          if(Website != null){
-            if(Website.startsWith('https://') || Website.startsWith('http://')){
-                Website = Website;
-            }else{
-                Website = 'https://'+ Website;
-            }
-          }
-        return Website;}
-        set;
+    get {
+      if (Website != null) {
+        if (Website.startsWith('https://') || Website.startsWith('http://')) {
+          Website = Website;
+        } else {
+          Website = 'https://' + Website;
+        }
+      }
+      return Website;
     }
+    set;
+  }
 
   @AuraEnabled
   public String ServicePhone { get; set; }
@@ -101,28 +108,29 @@ public class ServiceRecommendation {
 
   public class Indicator {
     @AuraEnabled
-    public String IndicatorType { 
+    public String IndicatorType {
       get {
-      IndicatorType = IndicatorType.replace('_',' ');
-      return IndicatorType;}
-        set;
+        IndicatorType = IndicatorType.replace('_', ' ');
+        return IndicatorType;
+      }
+      set;
     }
 
     @AuraEnabled
-    public String IndicatorValue { 
+    public String IndicatorValue {
       get {
-          if(IndicatorValue.contains('.')){
-            Double value = Double.valueOf(IndicatorValue);
-              if(value != null){
-                Double scale = Math.pow(10, 2);
-                value = Math.round(value * scale)/scale;
-              }
-            return String.valueOf(value);
-          }else{
-            return IndicatorValue;
+        if (IndicatorValue.contains('.')) {
+          Double value = Double.valueOf(IndicatorValue);
+          if (value != null) {
+            Double scale = Math.pow(10, 2);
+            value = Math.round(value * scale) / scale;
           }
+          return String.valueOf(value);
+        } else {
+          return IndicatorValue;
         }
-        set;
+      }
+      set;
     }
     @AuraEnabled
     public Decimal IndicatorPercentile { get; set; }

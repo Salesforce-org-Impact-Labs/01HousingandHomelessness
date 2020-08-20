@@ -44,6 +44,8 @@ public with sharing class getRecommendations {
       SR.MailingCity = service.City__c;
       SR.Website = service.Website__c;
       SR.ServicePhone = service.Phone__c;
+      SR.ServiceTags = service.Service_Tags__c;
+      SR.SituationTags = service.Situation_Tags__c;
       SR.Hidden = false;
       SR.HiddenAll = false;
       SR.totalRatings = 0;
@@ -185,11 +187,10 @@ public with sharing class getRecommendations {
         rec.ServiceId
       );
       if (exclusions != null && exclusions.size() > 0) {
-        
         for (Service_Exclusion__c exclusion : exclusions) {
           if (exclusion.Contact__c == null) {
             rec.HiddenAll = true;
-          }else{
+          } else {
             rec.Hidden = true;
           }
         }
@@ -249,7 +250,7 @@ public with sharing class getRecommendations {
     for (ServiceRecommendation SR : recs) {
       SR.TodaysHours = hours.get(SR.ServiceId);
       System.debug(hours.get(SR.ServiceId));
-      if(hours.get(SR.ServiceId) != null){
+      if (hours.get(SR.ServiceId) != null) {
         SR.TodaysEndHours = hours.get(SR.serviceId).End_Time__c;
       }
     }
