@@ -32,6 +32,8 @@ public with sharing class getRecommendationsServiceQuery {
         Unemployed__c,
         Employed_full_time__c,
         Employed_part_time__c,
+        Service_Tags__c,
+        Situation_Tags__c,
         DISTANCE(
           Location__c,
           GEOLOCATION(:client.Location__Latitude__s,
