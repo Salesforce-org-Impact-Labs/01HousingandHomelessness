@@ -2,6 +2,7 @@
 <CustomField>
     <label>Type</label>
     <type>MultiselectPicklist</type>
+    <visibleLines>3</visibleLines>
     <fullName>Type__c</fullName>
     <valueSet>
         <valueSetDefinition>
