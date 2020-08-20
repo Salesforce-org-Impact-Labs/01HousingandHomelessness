@@ -4,6 +4,10 @@
         <application>Referral_Recomendations</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <applicationVisibilities>
+        <application>standard__LightningSales</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <fieldPermissions>
         <editable>true</editable>
         <field>Client_Profile__c.Contact__c</field>
@@ -228,6 +232,16 @@
         <editable>true</editable>
         <field>Service__c.Zip_Code__c</field>
         <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Situation_Tags__c</field>
+    </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.Service_Tags__c</field>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>RefRecAdmin</label>
