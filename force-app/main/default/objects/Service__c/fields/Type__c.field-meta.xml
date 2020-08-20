@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField>
     <label>Type</label>
-    <type>Picklist</type>
+    <type>MultiselectPicklist</type>
     <fullName>Type__c</fullName>
     <valueSet>
         <valueSetDefinition>
