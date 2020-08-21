@@ -1,4 +1,4 @@
-public with sharing class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
+global with sharing class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
     // the referral response id should follow this token in the subject line
     public static final String EMAIL_REFERRAL_RESPONSE_TOKEN = 'ref#';
     public static final Integer REFERRAL_RESPONSE_ID_LENGTH = 18;
