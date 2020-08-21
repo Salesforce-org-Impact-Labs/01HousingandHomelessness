@@ -1,4 +1,4 @@
-public with sharing class Batch_SendInitialClientReferrals implements Database.Batchable<SObject>, Schedulable {
+global with sharing class Batch_SendInitialClientReferrals implements Database.Batchable<SObject>, Schedulable {
     private static final String REMINDER_TASK_SUBJECT = 'Info to Client';
     private static final String TASK_STATUS_COMPLETED = 'Completed';
 

@@ -1,4 +1,4 @@
-public with sharing class ReferralEmailTemplateController {
+global with sharing class ReferralEmailTemplateController {
     public String referralResponseId {get;set;}
 
     public Referral_Response__c referralResponse {
