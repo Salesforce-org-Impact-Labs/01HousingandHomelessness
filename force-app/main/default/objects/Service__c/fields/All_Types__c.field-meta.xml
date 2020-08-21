@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField>
-    <label>Type</label>
-    <type>Picklist</type>
-    <fullName>Type__c</fullName>
+    <label>All Types</label>
+    <type>MultiselectPicklist</type>
+    <visibleLines>3</visibleLines>
+    <fullName>All_Types__c</fullName>
     <valueSet>
         <valueSetDefinition>
             <value>

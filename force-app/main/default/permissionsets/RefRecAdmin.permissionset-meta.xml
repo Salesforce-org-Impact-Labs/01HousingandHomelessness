@@ -243,6 +243,11 @@
         <editable>true</editable>
         <field>Service__c.Service_Tags__c</field>
     </fieldPermissions>
+    <fieldPermissions>
+        <readable>true</readable>
+        <editable>true</editable>
+        <field>Service__c.All_Types__c</field>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>RefRecAdmin</label>
     <objectPermissions>

@@ -45,6 +45,9 @@ public class ServiceRecommendation {
   public String SituationTags { get; set; }
 
   @AuraEnabled
+  public String[] AllTypes { get; set; }
+
+  @AuraEnabled
   public String Website {
     get {
       if (Website != null) {
