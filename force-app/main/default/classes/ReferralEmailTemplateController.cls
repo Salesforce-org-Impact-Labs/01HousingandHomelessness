@@ -1,7 +1,7 @@
 global with sharing class ReferralEmailTemplateController {
-    public String referralResponseId {get;set;}
+    global String referralResponseId {get;set;}
 
-    public Referral_Response__c referralResponse {
+    global Referral_Response__c referralResponse {
         get {
             List<Referral_Response__c> referralResponses =
                 referralResponseId != null ? [
@@ -34,7 +34,7 @@ global with sharing class ReferralEmailTemplateController {
         set;
     }
 
-    public Organization org {
+    global Organization org {
         get {
             List<Organization> orgs = [
                 SELECT 
@@ -48,7 +48,7 @@ global with sharing class ReferralEmailTemplateController {
         set;
     }
 
-    public List<Open_Hours__c> openHours {
+    global List<Open_Hours__c> openHours {
         get {
             List<Open_Hours__c> hours = [
                 SELECT
@@ -63,7 +63,7 @@ global with sharing class ReferralEmailTemplateController {
         set;
     }
 
-    public String openHoursString {
+    global String openHoursString {
         get {
             String hoursString = '';
             for (Open_Hours__c hour : openHours) {
