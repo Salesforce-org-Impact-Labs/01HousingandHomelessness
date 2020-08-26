@@ -1,6 +1,13 @@
 ({
     doInit : function(component, event, helper) {
-
+        var objName = component.get('v.sObjectName');
+        if(objName === 'Case'){
+            helper.doGetCaseContactId(component,event,helper);
+        }else if (objName === 'Contact'){
+            component.set('v.contact', component.get('v.recordId'));
+        }else{
+            
+        }
     },
 
     handleFlowLaunch: function(component, event, helper) {

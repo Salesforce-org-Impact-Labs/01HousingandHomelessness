@@ -1,14 +1,16 @@
 <aura:component
-  implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+  implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSobjectName"
   access="global"
+  controller="ComponentWrapperController"
 >
 <!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->
   <aura:attribute name="showModal" type="Boolean" default="false" />
   <aura:attribute name="FlowName" type="String" access="global"/>
+  <aura:attribute name="contactId" type="String" />
   <div class="">
     <c:serviceRecommendations
       aura:id="childCmp"
-      recordId="{!v.recordId}"
+      recordId="{!v.contactId}"
       onauraflowlaunch="{!c.handleFlowLaunch}"
     />
 
