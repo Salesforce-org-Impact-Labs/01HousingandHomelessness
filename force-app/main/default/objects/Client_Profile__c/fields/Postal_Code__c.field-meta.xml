@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField>
-    <label>Postal Code</label>
+    <label>Zip/Postal Code</label>
     <type>Text</type>
     <fullName>Postal_Code__c</fullName>
     <length>10</length>
