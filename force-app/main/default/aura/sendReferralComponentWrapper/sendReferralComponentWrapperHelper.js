@@ -1,6 +1,5 @@
 ({
     doGetCaseContactId : function(component,event,helper) {
-        console.log('here');
         var action = component.get('c.getCaseContactId');
         action.setParams({
             caseId : component.get("v.recordId")
