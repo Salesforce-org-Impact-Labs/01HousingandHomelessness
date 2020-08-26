@@ -1,12 +1,14 @@
 ({
     doInit : function(component, event, helper) {
         var objName = component.get('v.sObjectName');
+        console.log(objName);
         if(objName === 'Case'){
+            console.log('here1')
             helper.doGetCaseContactId(component,event,helper);
         }else if (objName === 'Contact'){
-            component.set('v.contact', component.get('v.recordId'));
+            component.set('v.contactId', component.get('v.recordId'));
         }else{
-            
+
         }
     },
 
