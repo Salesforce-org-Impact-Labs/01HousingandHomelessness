@@ -285,4 +285,20 @@
         <apexPage>ServicePrintPage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <classAccesses>
+        <apexClass>getRecommendations</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>serviceHide</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ServicePrint</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ServiceRecommendation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
 </PermissionSet>
