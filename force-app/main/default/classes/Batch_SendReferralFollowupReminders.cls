@@ -42,4 +42,3 @@ global with sharing class Batch_SendReferralFollowupReminders implements Databas
         Database.executeBatch(new Batch_SendInitialClientReferrals());
     }
 }
-
