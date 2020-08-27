@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField>
-    <label>Weightning</label>
-    <type>Number</type>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Weighting__c</fullName>
-    <scale>0</scale>
-    <precision>18</precision>
     <defaultValue>5</defaultValue>
-
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Weightning</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
 </CustomField>
