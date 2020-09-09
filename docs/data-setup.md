@@ -16,9 +16,7 @@ Create one or more accounts that will represent a provider
 
 ## Services
 
-In the Service\_\_c object, add one or more Services that the Provider provides and fill out all the information.
-Be sure to populate its location fields (lat/long) with values close to where you sample contact is located
-On the related tab, also add its operating hours.
+In the refrec__Service__c object, add one or more Services that the Provider provides and fill out all the information. Be sure to populate its location fields (lat/long) with values close to where you sample contact is located On the related tab, also add its operating hours.
 
 ## Contact
 
