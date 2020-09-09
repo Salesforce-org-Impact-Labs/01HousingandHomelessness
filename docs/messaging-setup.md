@@ -85,6 +85,10 @@ There are two batch jobs that need to run to send referrals and referral followu
 
 These batch classes should execute at least once per day. Please follow the instructions in the Help documentation to schedule the classes: https://help.salesforce.com/articleView?id=code_schedule_batch_apex.htm&type=5
 
+Suggested names for the jobs are:
+  * InitialReferral
+  * Referral Followup
+
 If you wish, you may also execute the batch jobs outside of a schedule. 
 
 The batch classes may be run at any time by utilizing the Execute Anonymous function in Salesforce. Please review the instructions in the Help documentation for more information: https://help.salesforce.com/articleView?id=code_dev_console_execute_anonymous.htm&type=5
