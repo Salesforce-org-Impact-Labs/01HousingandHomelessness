@@ -8,6 +8,8 @@ In setup, under custom metadata, go to the **RefRecSettings** and **Manage Recor
 
 Set your default latitude/longitude (unless your office is in the Salesforce Tower in San Francisco), max distance, and email address
 
+If you need to use a tool to find lat & long coordinates for your default address, this website is useful: https://www.latlong.net/
+
 ## Account
 
 Create one or more accounts that will represent a provider
