@@ -50,6 +50,7 @@ global with sharing class Scoring {
         AND Org_Level__c = true
         AND Org_Minimum__c != null
         AND Org_Maximum__c != null
+      WITH SECURITY_ENFORCED
     ];
 
     for (Scoring_Metric__mdt metricIterator : metrics) {
@@ -124,6 +125,7 @@ global with sharing class Scoring {
         DeveloperName
       FROM Scoring_Metric__mdt
       WHERE Weighting__c != 0
+      WITH SECURITY_ENFORCED
     ]) {
       if (metricIterator.Org_SOQL_Query__c != null) {
         list<AggregateResult> results = database.query(

@@ -24,6 +24,114 @@
             <stringValue>Text</stringValue>
         </value>
     </choices>
+    <decisions>
+        <name>Has_Email</name>
+        <label>Has Email</label>
+        <locationX>566</locationX>
+        <locationY>207</locationY>
+        <defaultConnector>
+            <targetReference>Has_Phone</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Does_Contact_Not_Have_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Preferred_Method_of_Contact</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Email</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_Screen_Email</targetReference>
+            </connector>
+            <label>Does Contact Not Have Email</label>
+        </rules>
+        <rules>
+            <name>Does_Have_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact.Email</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Preferred_Method_of_Contact</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Email</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Has_Phone</targetReference>
+            </connector>
+            <label>Does Have Email</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Has_Phone</name>
+        <label>Has Phone</label>
+        <locationX>686</locationX>
+        <locationY>42</locationY>
+        <defaultConnector>
+            <targetReference>Create_Referral</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Does_Not_Have_Phone</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact.MobilePhone</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Preferred_Method_of_Contact</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>SMS</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_Screen_Phone</targetReference>
+            </connector>
+            <label>Does Not Have Phone</label>
+        </rules>
+        <rules>
+            <name>Does_Have_Phone</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Contact.MobilePhone</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Preferred_Method_of_Contact</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>SMS</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Referral</targetReference>
+            </connector>
+            <label>Does Have Phone</label>
+        </rules>
+    </decisions>
     <interviewLabel>Send Referral Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <isTemplate>true</isTemplate>
     <label>Send Referral Flow</label>
@@ -44,7 +152,7 @@
         <name>Create_Info_To_Client_Task</name>
         <label>Create Info To Client Task</label>
         <locationX>1016</locationX>
-        <locationY>340</locationY>
+        <locationY>494</locationY>
         <inputAssignments>
             <field>Subject</field>
             <value>
@@ -57,8 +165,8 @@
     <recordCreates>
         <name>Create_Referral</name>
         <label>Create Referral</label>
-        <locationX>752</locationX>
-        <locationY>171</locationY>
+        <locationX>820</locationX>
+        <locationY>169</locationY>
         <connector>
             <targetReference>Create_Task_on_Referral</targetReference>
         </connector>
@@ -90,7 +198,7 @@
         <name>Create_Task_on_Referral</name>
         <label>Create Task on Referral</label>
         <locationX>888</locationX>
-        <locationY>173</locationY>
+        <locationY>327</locationY>
         <connector>
             <targetReference>Create_Survey_Task_Reminder</targetReference>
         </connector>
@@ -122,7 +230,7 @@
         <name>Create_Survey_Task_Reminder</name>
         <label>Create Survey Task Reminder</label>
         <locationX>999</locationX>
-        <locationY>186</locationY>
+        <locationY>340</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Info_To_Client_Task</targetReference>
@@ -152,7 +260,7 @@
         <name>Get_Contact</name>
         <label>Get Contact</label>
         <locationX>96</locationX>
-        <locationY>172</locationY>
+        <locationY>326</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Service</targetReference>
@@ -172,7 +280,7 @@
         <name>Get_Service</name>
         <label>Get Service</label>
         <locationX>276</locationX>
-        <locationY>175</locationY>
+        <locationY>329</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Screen_1_Referral_Confirmation</targetReference>
@@ -189,10 +297,56 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
+        <name>Error_Screen_Email</name>
+        <label>Error Screen Email</label>
+        <locationX>574</locationX>
+        <locationY>707</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>false</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Display_Error</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!InvalidEmail}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>flowFooter4</name>
+            <extensionName>c:flowFooter</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Error_Screen_Phone</name>
+        <label>Error Screen Phone</label>
+        <locationX>820</locationX>
+        <locationY>727</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>false</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Display_Error_Phone</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;{!InvalidSMS}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>flowfooter2</name>
+            <extensionName>c:flowFooter</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>fault_screen</name>
         <label>fault screen</label>
         <locationX>799</locationX>
-        <locationY>350</locationY>
+        <locationY>504</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -207,13 +361,13 @@
     <screens>
         <name>Screen_1_Referral_Confirmation</name>
         <label>Screen 1 Referral Confirmation</label>
-        <locationX>538</locationX>
-        <locationY>173</locationY>
+        <locationX>424</locationX>
+        <locationY>467</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_Referral</targetReference>
+            <targetReference>Has_Email</targetReference>
         </connector>
         <fields>
             <name>Confirm</name>
@@ -240,7 +394,7 @@
     </screens>
     <start>
         <locationX>50</locationX>
-        <locationY>50</locationY>
+        <locationY>204</locationY>
         <connector>
             <targetReference>Get_Contact</targetReference>
         </connector>
@@ -252,6 +406,26 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>InvalidEmail</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>This contact does not have a valid email, please add an email or select SMS instead.</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>InvalidSMS</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>This contact does not have a valid phone number, please add a phone number or select Email instead.</stringValue>
+        </value>
     </variables>
     <variables>
         <name>serviceId</name>
