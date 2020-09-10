@@ -207,6 +207,7 @@ public with sharing class getRecommendations {
       SELECT id, ParentId, Body
       FROM FeedItem
       WHERE ParentId IN :IDsFromRecommendations(recs) AND Type = 'TextPost'
+      WITH SECURITY_ENFORCED
       ORDER BY ParentId
     ];
     map<id, list<string>> feedItemsByService = new Map<id, list<string>>();
@@ -234,12 +235,18 @@ public with sharing class getRecommendations {
 
   @AuraEnabled
   public static String addNewComment(id serviceId, String newComment) {
+    list<FeedItem> feeditems = new List<FeedItem>();
     FeedItem newFeedItem = new FeedItem();
     newFeedItem.ParentId = serviceId;
     newFeedItem.Body = newComment;
     newFeedItem.Type = 'TextPost';
-    insert newFeedItem;
-    return newFeedItem.Id;
+    feeditems.add(newFeedItem);
+    SObjectAccessDecision securityDecision = Security.stripInaccessible(
+      AccessType.CREATABLE,
+      feeditems
+    );
+    insert securityDecision.getRecords();
+    return securityDecision.getRecords()[0].id;
   }
 
   public static List<ServiceRecommendation> addHours(
@@ -273,6 +280,7 @@ public with sharing class getRecommendations {
         Employment__c
       FROM Client_Profile__c
       WHERE Contact__c = :contactId
+      WITH SECURITY_ENFORCED
     ];
     if (output.Location__Latitude__s == null) {
       output.Location__Latitude__s = [

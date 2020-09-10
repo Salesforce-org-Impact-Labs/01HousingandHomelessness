@@ -11,7 +11,7 @@
       <!-- If Previous is available, display to the left -->
       <div class="slds-float_left">
          <aura:if isTrue="{!v.canBack}">
-            <lightning:button aura:id="BACK" label="Previous"
+            <lightning:button aura:id="BACK" label="Back"
                variant="neutral" onclick="{!c.onButtonPressed}" />
          </aura:if>
       </div>
@@ -22,7 +22,7 @@
                variant="neutral" onclick="{!c.onButtonPressed}" />
          </aura:if>
          <aura:if isTrue="{!v.canNext}">
-            <lightning:button aura:id="NEXT" label="Send" 
+            <lightning:button aura:id="NEXT" label="Next" 
                variant="brand" onclick="{!c.onButtonPressed}" />
          </aura:if>
          <aura:if isTrue="{!v.canFinish}">

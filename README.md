@@ -7,7 +7,7 @@ Impact Lab - Housing & Homelessness
 
 ## Installation and setup
 
-install package using the link from Releases above
+Install package using the link from Releases above. Reminder: If testing in sandbox, add "test" to package url when installing
 
 Complete the following required setup steps
 

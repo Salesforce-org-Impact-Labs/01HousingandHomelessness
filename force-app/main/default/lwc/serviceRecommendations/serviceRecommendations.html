@@ -1,658 +1,364 @@
 <template>
-    <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
-        <div class="slds-size_1-of-1 fullRecDiv">
-            <div class="slds-clearfix">
-                <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
-                    <li>
-                        <lightning-icon icon-name="custom:custom1" size="medium" alternative-text="Services" ></lightning-icon>
-                    </li>
-                    <li>
-                        <p class="slds-p-left_xx-small">Recommended Services</p>
-                    </li>
-                    
-                </ul>
-                <ul class="slds-float_right slds-list_horizontal">
-                    <lightning-button-group>
-                        <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
-                        <lightning-button-icon  variant="border-filled" icon-name="utility:expand_alt" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
-                    </lightning-button-group>
-                </ul>
-            </div>
-            <div if:false={searchedRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
-                <div class="slds-size_1-of-1 slds-illustration slds-illustration_small">
-                    <svg class="slds-illustration__svg" viewBox="0 0 466 297" aria-hidden="true" >
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-69.000000, -68.000000)">
-                                <g>
-                                    <g
-                                        transform="translate(455.000000, 172.000000) scale(-1, 1) translate(-455.000000, -172.000000) translate(377.000000, 153.000000)">
-                                        <polyline vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                                            points="26 36 72.5 0 105.5 27"></polyline>
-                                        <polyline vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                                            points="96 17 105.5 9 138 36"></polyline>
-                                        <path vector-effect="non-scaling-stroke" d="M0,36.5 L156,36.5"
-                                            class="slds-illustration__stroke-secondary" stroke-width="3" stroke-linecap="round"></path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M34.202166,22.8278095 L37.207834,33.1133915 L30.8916038,28.4131636 L32.2719085,22.8668 C32.4052855,22.3308624 32.9478721,22.0045226 33.4838096,22.1378996 C33.8288998,22.223781 34.102419,22.486469 34.202166,22.8278095 Z"
-                                            class="slds-illustration__fill-secondary"
-                                            transform="translate(34.049719, 27.610728) scale(-1, 1) translate(-34.049719, -27.610728) ">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M28.9755366,18.8278095 L34.0379951,36.1518555 L29.5001232,33.2627202 L24.2782891,29.9851658 L27.0452792,18.8668 C27.1786561,18.3308624 27.7212427,18.0045226 28.2571802,18.1378996 C28.6022704,18.223781 28.8757896,18.486469 28.9755366,18.8278095 Z"
-                                            class="slds-illustration__fill-secondary"
-                                            transform="translate(29.158142, 27.129960) scale(-1, 1) translate(-29.158142, -27.129960) ">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M134.935531,21.7547479 L139.204202,37 L130.811328,29.6057303 L133.009603,21.7547479 C133.158515,21.2229175 133.710367,20.9125013 134.242197,21.0614138 C134.57853,21.1555869 134.841358,21.4184152 134.935531,21.7547479 Z"
-                                            class="slds-illustration__fill-secondary"></path>
-                                    </g>
-                                    <g transform="translate(71.000000, 128.000000)">
-                                        <g>
-                                            <path vector-effect="non-scaling-stroke" d="M237,61.5 L249,61.5"
-                                                class="slds-illustration__stroke-secondary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke" d="M0,61.5 L230,61.5"
-                                                class="slds-illustration__stroke-secondary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M34.9102011,32.0436939 L38.3925781,48.4296875 L26.453125,58.6445313 L32.9606296,32.0141932 C33.0917307,31.4776944 33.6329274,31.1490548 34.1694262,31.2801559 C34.5424771,31.3713162 34.8303699,31.6680556 34.9102011,32.0436939 Z"
-                                                class="slds-illustration__fill-secondary"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M191.962964,27.4391572 L198,49 L186.770218,39.1063642 L190.037036,27.4391572 C190.185948,26.9073269 190.7378,26.5969106 191.26963,26.7458231 C191.605963,26.8399963 191.868791,27.1028246 191.962964,27.4391572 Z"
-                                                class="slds-illustration__fill-secondary"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M39.9662349,37.3583594 L42.6016149,47.2410342 L40.7070312,48.7349783 L35,48.7349783 L38.0337651,37.3583594 C38.1760682,36.8247225 38.7240258,36.5074839 39.2576627,36.6497871 C39.6036917,36.7420615 39.8739605,37.0123303 39.9662349,37.3583594 Z"
-                                                class="slds-illustration__fill-secondary"></path>
-                                            <polyline vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                                                points="25 61 99.5 0 157.5 45"></polyline>
-                                            <polyline vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                                                points="140 30.9433962 157.5 16 212 60"></polyline>
-                                        </g>
-                                    </g>
-                                    <g transform="translate(145.000000, 69.000000)" class="slds-illustration__stroke-secondary"
-                                        stroke-linecap="round" stroke-width="3">
-                                        <g>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M83,20.5 C84.0558268,16.8461914 86.2227376,14.4572754 89.5007324,13.333252 C94.4177246,11.6472168 99.0800781,13.8925781 100.942383,16.1518555 C102.804687,18.4111328 103.39502,20.2260742 103.746582,22.1201172 C103.980957,23.3828125 104.06543,24.8427734 104,26.5 C108.141764,26.3313802 110.918945,27.1647135 112.331543,29 C114.040039,31.1936035 114.215332,33.817627 113.593018,35.75 C112.970703,37.682373 110.894531,40.5 107,40.5 L28,40.5">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke" d="M18,27.5 L83.0004985,27.5"></path>
-                                            <path vector-effect="non-scaling-stroke" d="M0,27.5 L8,27.5"></path>
-                                        </g>
-                                    </g>
-                                    <g transform="translate(297.000000, 109.000000)" class="slds-illustration__stroke-secondary"
-                                        stroke-linecap="round" stroke-width="3">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M83,20.5 C84.0558268,16.8461914 86.2227376,14.4572754 89.5007324,13.333252 C94.4177246,11.6472168 99.0800781,13.8925781 100.942383,16.1518555 C102.804687,18.4111328 103.39502,20.2260742 103.746582,22.1201172 C103.980957,23.3828125 104.06543,24.8427734 104,26.5 C108.141764,26.3313802 110.918945,27.1647135 112.331543,29 C114.040039,31.1936035 114.215332,33.817627 113.593018,35.75 C112.970703,37.682373 110.894531,40.5 107,40.5 L28,40.5">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke" d="M18,27.5 L83.0004985,27.5"></path>
-                                        <path vector-effect="non-scaling-stroke" d="M0,27.5 L8,27.5"></path>
-                                    </g>
-                                    <g transform="translate(113.000000, 75.000000)">
-                                        <g transform="translate(217.000000, 0.000000)">
-                                            <path vector-effect="non-scaling-stroke" d="M20.5,162.789062 L20.5,174.839062"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke" d="M20.5,150.789062 L20.5,153.839063"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke" d="M20.5,0.772022494 L20.5,111.841169"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <circle vector-effect="non-scaling-stroke" class="slds-illustration__stroke-primary"
-                                                stroke-width="3" cx="20.5" cy="181" r="6"></circle>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M20.5,188 C20.5,200 20.5,209.666667 20.5,217 C20.5,228 0.5,228 0.5,217 C0.5,209.666667 0.5,205.282924 0.5,203.848771 L7,211"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M20.5,128 C27.127417,128 32.5,125.627417 32.5,123 C32.5,116.372583 27.127417,111 20.5,111 C13.872583,111 8.5,116.372583 8.5,123 C8.5,126.627417 13.872583,128 20.5,128 Z"
-                                                class="slds-illustration__fill-primary"></path>
-                                        </g>
-                                        <g transform="translate(0.000000, 134.000000)" class="slds-illustration__stroke-secondary"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M66.5016961,5.72253485 C59.2581641,7.22907384 54.7616802,0 54.7616802,0 L54.7530053,0 C54.7530053,0 51.3235326,5.94519033 44.2795231,5.94519033 C37.5304598,5.94519033 33.8262823,0 33.8262823,0 L33.8147158,0 C33.8147158,0 30.3910264,5.94519033 23.3470169,5.94519033 C16.5950619,5.94519033 12.8937761,0 12.8937761,0 L12.8822096,0 C12.8822096,0 7.08738399,7.34763065 0,5.84109166">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M129.501696,5.72253485 C122.258164,7.22907384 117.76168,0 117.76168,0 L117.753005,0 C117.753005,0 114.323533,5.94519033 107.279523,5.94519033 C100.53046,5.94519033 96.8262823,0 96.8262823,0 L96.8147158,0 C96.8147158,0 93.3910264,5.94519033 86.3470169,5.94519033 C79.5950619,5.94519033 75.8937761,0 75.8937761,0 L75.8822096,0 C75.8822096,0 70.087384,7.34763065 63,5.84109166">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M192.501696,5.72253485 C185.258164,7.22907384 180.76168,0 180.76168,0 L180.753005,0 C180.753005,0 177.323533,5.94519033 170.279523,5.94519033 C163.53046,5.94519033 159.826282,0 159.826282,0 L159.814716,0 C159.814716,0 156.391026,5.94519033 149.347017,5.94519033 C142.595062,5.94519033 138.893776,0 138.893776,0 L138.88221,0 C138.88221,0 133.087384,7.34763065 126,5.84109166">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M259.501696,5.72253485 C252.258164,7.22907384 247.76168,0 247.76168,0 L247.753005,0 C247.753005,0 244.323533,5.94519033 237.279523,5.94519033 C230.53046,5.94519033 226.826282,0 226.826282,0 L226.814716,0 C226.814716,0 223.391026,5.94519033 216.347017,5.94519033 C209.595062,5.94519033 205.893776,0 205.893776,0 L205.88221,0 C205.88221,0 200.087384,7.34763065 193,5.84109166">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M322.501696,5.72253485 C315.258164,7.22907384 310.76168,0 310.76168,0 L310.753005,0 C310.753005,0 307.323533,5.94519033 300.279523,5.94519033 C293.53046,5.94519033 289.826282,0 289.826282,0 L289.814716,0 C289.814716,0 286.391026,5.94519033 279.347017,5.94519033 C272.595062,5.94519033 268.893776,0 268.893776,0 L268.88221,0 C268.88221,0 263.087384,7.34763065 256,5.84109166">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M209.501696,25.7225349 C202.258164,27.2290738 197.76168,20 197.76168,20 L197.753005,20 C197.753005,20 194.323533,25.9451903 187.279523,25.9451903 C180.53046,25.9451903 176.826282,20 176.826282,20 L176.814716,20 C176.814716,20 173.391026,25.9451903 166.347017,25.9451903 C159.595062,25.9451903 155.893776,20 155.893776,20 L155.88221,20 C155.88221,20 150.087384,27.3476307 143,25.8410917">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M405.501696,5.72253485 C398.258164,7.22907384 393.76168,0 393.76168,0 L393.753005,0 C393.753005,0 390.323533,5.94519033 383.279523,5.94519033 C376.53046,5.94519033 372.826282,0 372.826282,0 L372.814716,0 C372.814716,0 369.391026,5.94519033 362.347017,5.94519033 C355.595062,5.94519033 351.893776,0 351.893776,0 L351.88221,0 C351.88221,0 346.087384,7.34763065 339,5.84109166">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M335.501696,25.7225349 C328.258164,27.2290738 323.76168,20 323.76168,20 L323.753005,20 C323.753005,20 320.323533,25.9451903 313.279523,25.9451903 C306.53046,25.9451903 302.826282,20 302.826282,20 L302.814716,20 C302.814716,20 299.391026,25.9451903 292.347017,25.9451903 C285.595062,25.9451903 281.893776,20 281.893776,20 L281.88221,20 C281.88221,20 276.087384,27.3476307 269,25.8410917">
-                                            </path>
-                                        </g>
-                                    </g>
-                                    <g transform="translate(373.000000, 263.000000)">
-                                        <g transform="translate(1.000000, 46.000000)" fill="#FFFFFF">
-                                            <polygon vector-effect="non-scaling-stroke"
-                                                points="0.950683594 0.737792969 111.447754 0.737792969 118.248047 5 0.272460938 5 0.272460938 2.88110352">
-                                            </polygon>
-                                        </g>
-                                        <g>
-                                            <circle vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                                stroke-width="3" cx="9" cy="28" r="5"></circle>
-                                            <circle vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                                stroke-width="3" cx="30" cy="9" r="9"></circle>
-                                            <polygon vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
-                                                points="0.562988281 51 119.302246 51 123.863281 55 126.056641 62.4726562 114.675781 75.40625 22.7675781 75.40625 13.2597656 70.8320312 7.12890625 65.2988281">
-                                            </polygon>
-                                        </g>
-                                        <g transform="translate(0.000000, 25.000000)">
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M3.63585436,21.5 L109.778306,21.5 C114.1037,21.5 118.186223,23.4993351 120.838196,26.9163632 L127.5,35.5 L120.800658,45.365147 C118.194742,49.2025017 113.857343,51.5 109.218799,51.5 L31.3324501,51.5 C22.8638438,50.9724099 16.3582376,48.8029983 11.8156315,44.9917652 C7.80246311,41.6247288 4.13067554,35.1206458 0.800268738,25.479516 L0.800270003,25.4795155 C0.259297765,23.9134656 1.09028748,22.2053865 2.65633747,21.6644143 C2.97143994,21.5555661 3.30248145,21.5 3.63585436,21.5 Z"
-                                                class="slds-illustration__stroke-primary" stroke-width="3"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M142.258276,22.7729944 C138.748717,19.2634357 134.125785,17.4119596 128.242641,17.2426407 C128.41196,23.1257854 130.263436,27.7487171 133.772994,31.2582757 C137.282553,34.7678344 141.905485,36.6193105 147.788629,36.7886294 C147.619311,30.9054847 145.767834,26.282553 142.258276,22.7729944 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(138.015635, 27.015635) scale(-1, 1) translate(-138.015635, -27.015635) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M142.258276,40.7729944 C138.748717,37.2634357 134.125785,35.4119596 128.242641,35.2426407 C128.41196,41.1257854 130.263436,45.7487171 133.772994,49.2582757 C137.282553,52.7678344 141.905485,54.6193105 147.788629,54.7886294 C147.619311,48.9054847 145.767834,44.282553 142.258276,40.7729944 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(138.015635, 45.015635) scale(-1, -1) translate(-138.015635, -45.015635) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M81,-0.442349499 L81,21 C81,22.1045695 80.1045695,23 79,23 L61.5679702,23 C60.4634007,23 59.5679702,22.1045695 59.5679702,21 C59.5679702,20.49722 59.7573376,20.0128843 60.0983633,19.6434398 L79.2651966,-1.1206296 C79.6398003,-1.52645034 80.2724594,-1.5517567 80.6782801,-1.17715294 C80.8833623,-0.987846292 81,-0.721447545 81,-0.442349499 Z"
-                                                class="slds-illustration__fill-primary"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M50,49.3234743 L50,62 C50,63.1045695 49.1045695,64 48,64 L38.0175677,64 C36.9129982,64 36.0175677,63.1045695 36.0175677,62 C36.0175677,61.4777575 36.2218416,60.9762301 36.5867303,60.602608 L48.2845813,48.6247784 C48.6704604,48.2296635 49.3035811,48.2221765 49.698696,48.6080556 C49.8913701,48.796226 50,49.0541578 50,49.3234743 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(43.000000, 57.000000) scale(1, -1) translate(-43.000000, -57.000000) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M100,49.3234743 L100,62 C100,63.1045695 99.1045695,64 98,64 L88.0175677,64 C86.9129982,64 86.0175677,63.1045695 86.0175677,62 C86.0175677,61.4777575 86.2218416,60.9762301 86.5867303,60.602608 L98.2845813,48.6247784 C98.6704604,48.2296635 99.3035811,48.2221765 99.698696,48.6080556 C99.8913701,48.796226 100,49.0541578 100,49.3234743 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(93.000000, 57.000000) scale(1, -1) translate(-93.000000, -57.000000) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M35,21.1948242 C37.6666667,25.7316081 39,30.6666667 39,36 C39,41.3333333 37.6666667,46.6666667 35,52"
-                                                class="slds-illustration__stroke-primary" stroke-width="3"></path>
-                                            <path vector-effect="non-scaling-stroke" d="M39,35.5 L126,35.5"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <circle vector-effect="non-scaling-stroke" class="slds-illustration__fill-primary" cx="20"
-                                                cy="31" r="4"></circle>
-                                        </g>
-                                    </g>
-                                    <g
-                                        transform="translate(244.500000, 274.000000) scale(-1, 1) translate(-244.500000, -274.000000) translate(190.000000, 251.000000)">
-                                        <g transform="translate(0.000000, 14.000000)" fill="#FFFFFF">
-                                            <polygon vector-effect="non-scaling-stroke"
-                                                points="91.2460938 8.703125 83.0820312 0.9765625 0.1171875 0.9765625 3.26757813 11.6367188">
-                                            </polygon>
-                                        </g>
-                                        <g transform="translate(1.000000, 19.000000)" class="slds-illustration__fill-secondary">
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M91.2900009,4 C89.5899629,2.01216046 88.5351253,1.01216046 88.1254883,1 C87.7158512,0.98783954 58.7033187,0.98783954 1.08789063,1 L0.375825695,4 L5.47167969,13.8271484 L20.2802734,18.5742188 C45.4534802,18.6571158 64.3715303,18.8351757 77.0344238,19.1083984 L83.2062537,18.4651753 L88.984375,13.8271484 L91.2900009,4 Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M0.0988502724,15.5 L79.1988702,15.5 C83.8798149,15.5 88.2510535,17.8394159 90.8475744,21.7341973 L94.0247762,26.5 L90.8475744,31.2658027 C88.2510535,35.1605841 83.8798149,37.5 79.1988702,37.5 L20.4692206,37.5 C14.9277254,37.0242117 10.6576403,35.3888654 7.65896553,32.5939611 C4.66029072,29.7990569 2.14025231,24.1010698 0.0988502724,15.5 Z"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M104.678431,16.8215691 C102.1744,14.317538 98.8265543,13.0459654 94.527077,13.027077 C94.5459654,17.3265543 95.817538,20.6743997 98.3215691,23.1784309 C100.8256,25.682462 104.173446,26.9540346 108.472923,26.972923 C108.454035,22.6734457 107.182462,19.3256003 104.678431,16.8215691 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(101.500000, 20.000000) scale(-1, 1) translate(-101.500000, -20.000000) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M104.678431,29.8215691 C102.1744,27.317538 98.8265543,26.0459654 94.527077,26.027077 C94.5459654,30.3265543 95.817538,33.6743997 98.3215691,36.1784309 C100.8256,38.682462 104.173446,39.9540346 108.472923,39.972923 C108.454035,35.6734457 107.182462,32.3256003 104.678431,29.8215691 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(101.500000, 33.000000) scale(-1, -1) translate(-101.500000, -33.000000) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M59,0.234153768 L59,17 L41.0828917,17 L57.2668751,-0.445940303 C57.6424807,-0.850833981 58.2752004,-0.874576673 58.6800941,-0.498971089 C58.8840774,-0.309742913 59,-0.0440844709 59,0.234153768 Z"
-                                                class="slds-illustration__fill-primary"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M37,35.544829 L37,43.326584 C37,44.4311535 36.1045695,45.326584 35,45.326584 L29.7979244,45.326584 C28.6933549,45.326584 27.7979244,44.4311535 27.7979244,43.326584 C27.7979244,42.8043415 28.0021983,42.3028141 28.367087,41.929192 L35.2845813,34.846133 C35.6704604,34.4510182 36.3035811,34.4435312 36.698696,34.8294103 C36.8913701,35.0175807 37,35.2755125 37,35.544829 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(32.398962, 40.663292) scale(1, -1) translate(-32.398962, -40.663292) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M75,35.544829 L75,43.326584 C75,44.4311535 74.1045695,45.326584 73,45.326584 L67.7979244,45.326584 C66.6933549,45.326584 65.7979244,44.4311535 65.7979244,43.326584 C65.7979244,42.8043415 66.0021983,42.3028141 66.367087,41.929192 L73.2845813,34.846133 C73.6704604,34.4510182 74.3035811,34.4435312 74.698696,34.8294103 C74.8913701,35.0175807 75,35.2755125 75,35.544829 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(70.398962, 40.663292) scale(1, -1) translate(-70.398962, -40.663292) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M24,15 C26,18.8333333 27,22.6666667 27,26.5 C27,30.3333333 26,34.1666667 24,38"
-                                                class="slds-illustration__stroke-primary" stroke-width="3"></path>
-                                            <path vector-effect="non-scaling-stroke" d="M29,26.5 L92,26.5"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <circle vector-effect="non-scaling-stroke" class="slds-illustration__fill-primary" cx="15.5"
-                                                cy="22.5" r="2.5"></circle>
-                                        </g>
-                                    </g>
-                                    <g
-                                        transform="translate(174.500000, 341.000000) scale(-1, 1) translate(-174.500000, -341.000000) translate(120.000000, 318.000000)">
-                                        <g transform="translate(0.000000, 14.000000)" fill="#FFFFFF">
-                                            <polygon vector-effect="non-scaling-stroke"
-                                                points="91.2460938 8.703125 83.0820312 0.9765625 0.1171875 0.9765625 3.26757813 11.6367188">
-                                            </polygon>
-                                        </g>
-                                        <g transform="translate(1.000000, 19.000000)" class="slds-illustration__fill-secondary">
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M91.2900009,4 C89.5899629,2.01216046 88.5351253,1.01216046 88.1254883,1 C87.7158512,0.98783954 58.7033187,0.98783954 1.08789063,1 L0.375825695,4 L5.47167969,13.8271484 L20.2802734,18.5742188 C45.4534802,18.6571158 64.3715303,18.8351757 77.0344238,19.1083984 L83.2062537,18.4651753 L88.984375,13.8271484 L91.2900009,4 Z">
-                                            </path>
-                                        </g>
-                                        <g>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M0.0988502724,15.5 L79.1988702,15.5 C83.8798149,15.5 88.2510535,17.8394159 90.8475744,21.7341973 L94.0247762,26.5 L90.8475744,31.2658027 C88.2510535,35.1605841 83.8798149,37.5 79.1988702,37.5 L20.4692206,37.5 C14.9277254,37.0242117 10.6576403,35.3888654 7.65896553,32.5939611 C4.66029072,29.7990569 2.14025231,24.1010698 0.0988502724,15.5 Z"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round"
-                                                stroke-linejoin="round"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M104.678431,16.8215691 C102.1744,14.317538 98.8265543,13.0459654 94.527077,13.027077 C94.5459654,17.3265543 95.817538,20.6743997 98.3215691,23.1784309 C100.8256,25.682462 104.173446,26.9540346 108.472923,26.972923 C108.454035,22.6734457 107.182462,19.3256003 104.678431,16.8215691 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(101.500000, 20.000000) scale(-1, 1) translate(-101.500000, -20.000000) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M104.678431,29.8215691 C102.1744,27.317538 98.8265543,26.0459654 94.527077,26.027077 C94.5459654,30.3265543 95.817538,33.6743997 98.3215691,36.1784309 C100.8256,38.682462 104.173446,39.9540346 108.472923,39.972923 C108.454035,35.6734457 107.182462,32.3256003 104.678431,29.8215691 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(101.500000, 33.000000) scale(-1, -1) translate(-101.500000, -33.000000) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M59,0.234153768 L59,17 L41.0828917,17 L57.2668751,-0.445940303 C57.6424807,-0.850833981 58.2752004,-0.874576673 58.6800941,-0.498971089 C58.8840774,-0.309742913 59,-0.0440844709 59,0.234153768 Z"
-                                                class="slds-illustration__fill-primary"></path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M37,35.544829 L37,43.326584 C37,44.4311535 36.1045695,45.326584 35,45.326584 L29.7979244,45.326584 C28.6933549,45.326584 27.7979244,44.4311535 27.7979244,43.326584 C27.7979244,42.8043415 28.0021983,42.3028141 28.367087,41.929192 L35.2845813,34.846133 C35.6704604,34.4510182 36.3035811,34.4435312 36.698696,34.8294103 C36.8913701,35.0175807 37,35.2755125 37,35.544829 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(32.398962, 40.663292) scale(1, -1) translate(-32.398962, -40.663292) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M75,35.544829 L75,43.326584 C75,44.4311535 74.1045695,45.326584 73,45.326584 L67.7979244,45.326584 C66.6933549,45.326584 65.7979244,44.4311535 65.7979244,43.326584 C65.7979244,42.8043415 66.0021983,42.3028141 66.367087,41.929192 L73.2845813,34.846133 C73.6704604,34.4510182 74.3035811,34.4435312 74.698696,34.8294103 C74.8913701,35.0175807 75,35.2755125 75,35.544829 Z"
-                                                class="slds-illustration__fill-primary"
-                                                transform="translate(70.398962, 40.663292) scale(1, -1) translate(-70.398962, -40.663292) ">
-                                            </path>
-                                            <path vector-effect="non-scaling-stroke"
-                                                d="M24,15 C26,18.8333333 27,22.6666667 27,26.5 C27,30.3333333 26,34.1666667 24,38"
-                                                class="slds-illustration__stroke-primary" stroke-width="3"></path>
-                                            <path vector-effect="non-scaling-stroke" d="M29,26.5 L92,26.5"
-                                                class="slds-illustration__stroke-primary" stroke-width="3" stroke-linecap="round">
-                                            </path>
-                                            <circle vector-effect="non-scaling-stroke" class="slds-illustration__fill-primary" cx="15.5"
-                                                cy="22.5" r="2.5"></circle>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium">
-                    <h3>No Recommendations Yet</h3>
-                </div>
-                <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium">
-                    <lightning-button label="Get Recommended Services" variant="brand" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
-                </div>
-            </div>
-
-            
+  <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
+    <div class="slds-size_1-of-1 fullRecDiv">
+      <div class="slds-clearfix">
+        <ul
+          class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small"
+        >
+          <li>
+            <lightning-icon
+              icon-name="custom:custom1"
+              size="medium"
+              alternative-text="Services"
+            ></lightning-icon>
+          </li>
+          <li>
+            <p class="slds-p-left_xx-small">Recommended Services</p>
+          </li>
+        </ul>
+        <ul class="slds-float_right slds-list_horizontal">
+          <lightning-button-group>
+            <lightning-button-icon
+              variant="border-filled"
+              icon-name="utility:refresh"
+              alternative-text="Refresh"
+              onclick={handleRequestRecommendations}
+            ></lightning-button-icon>
+            <lightning-button-icon
+              variant="border-filled"
+              icon-name="utility:expand_alt"
+              alternative-text="Refresh"
+              onclick={handleExpand}
+            ></lightning-button-icon>
+          </lightning-button-group>
+        </ul>
+      </div>
+      <div
+        if:false={searchedRecommendations}
+        class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center"
+      >
+        <div class="slds-size_1-of-1 slds-illustration slds-illustration_small">
+          <c-illustration-fish></c-illustration-fish>
         </div>
-        <div if:true={showRecommendations} class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
-
-            <!-- multi select picklist for filter of program types -->
-            <div class="slds-float_left">
-                <c-multiselect-picklist selectoptiontext={typeFilterLabel}></c-multiselect-picklist>
-            </div>
-            <!-- show me filter -->
-            <div class="slds-float_right slds-p-top_large">
-
-                <lightning-button-menu alternative-text="Show More" variant="border-filled" icon-name="utility:sort">
-                    <lightning-menu-item value="rating" label="Client Rating" onclick={handleSortMenu}></lightning-menu-item>
-                    <lightning-menu-item value="distance" label="Distance to Contact Address" onclick={handleSortMenu}></lightning-menu-item>
-                    <lightning-menu-item value="popular" label="Relevance" onclick={handleSortMenu}></lightning-menu-item>
-                </lightning-button-menu>
-
-            </div>
+        <div
+          class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium"
+        >
+          <h3>No Recommendations Yet</h3>
         </div>
-            
-        <div if:true={showRecommendations} class="mapDiv slds-size_1-of-1">
-            <lightning-map list-view="hidden" map-markers={mapMarkers} zoom-level='10'>
-
-            </lightning-map>
+        <div
+          class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium"
+        >
+          <lightning-button
+            label="Get Recommended Services"
+            variant="brand"
+            title="Recommendations"
+            onclick={handleRequestRecommendations}
+          ></lightning-button>
         </div>
-
-        <div if:true={noRecsMessage} class="slds-align_absolute-center">
-            <div class="slds-size_1-of-1 slds-illustration slds-illustration_small">
-                <svg class="slds-illustration__svg" viewBox="0 0 396 245" aria-hidden="true">
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <g transform="translate(-114.000000, -78.000000)">
-                            <g>
-                                <g transform="translate(124.000000, 154.000000)" class="slds-illustration__stroke-secondary"
-                                    stroke-linecap="round" stroke-width="3">
-                                    <path vector-effect="non-scaling-stroke"
-                                        d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
-                                    </path>
-                                    <path vector-effect="non-scaling-stroke"
-                                        d="M83,20.5 C84.0558268,16.8461914 86.2227376,14.4572754 89.5007324,13.333252 C94.4177246,11.6472168 99.0800781,13.8925781 100.942383,16.1518555 C102.804687,18.4111328 103.39502,20.2260742 103.746582,22.1201172 C103.980957,23.3828125 104.06543,24.8427734 104,26.5 C108.141764,26.3313802 110.918945,27.1647135 112.331543,29 C114.040039,31.1936035 114.215332,33.817627 113.593018,35.75 C112.970703,37.682373 110.894531,40.5 107,40.5 L28,40.5">
-                                    </path>
-                                    <path vector-effect="non-scaling-stroke" d="M18,27.5 L83.0004985,27.5"></path>
-                                    <path vector-effect="non-scaling-stroke" d="M0,27.5 L8,27.5"></path>
-                                </g>
-                                <g transform="translate(339.000000, 107.000000)" class="slds-illustration__stroke-secondary"
-                                    stroke-linecap="round" stroke-width="3">
-                                    <path vector-effect="non-scaling-stroke"
-                                        d="M44,17.5 L63,17.5 C62.2789714,12.0723971 64.081543,7.53186978 68.4077148,3.87841797 C73.3754883,-0.195556641 79.2734375,0.717773438 82.440918,2.12353516 C85.6083984,3.52929687 87.9606934,5.46069336 89.5913086,9.10524041 C90.2822266,10.6397351 90.7517904,11.9379883 91,13">
-                                    </path>
-                                    <path vector-effect="non-scaling-stroke"
-                                        d="M83,20.5 C84.0558268,16.8461914 86.2227376,14.4572754 89.5007324,13.333252 C94.4177246,11.6472168 99.0800781,13.8925781 100.942383,16.1518555 C102.804687,18.4111328 103.39502,20.2260742 103.746582,22.1201172 C103.980957,23.3828125 104.06543,24.8427734 104,26.5 C108.141764,26.3313802 110.918945,27.1647135 112.331543,29 C114.040039,31.1936035 114.215332,33.817627 113.593018,35.75 C112.970703,37.682373 110.894531,40.5 107,40.5 L28,40.5">
-                                    </path>
-                                    <path vector-effect="non-scaling-stroke" d="M18,27.5 L83.0004985,27.5"></path>
-                                    <path vector-effect="non-scaling-stroke" d="M0,27.5 L8,27.5"></path>
-                                </g>
-                                <g transform="translate(151.000000, 296.500000)">
-                                    <g transform="translate(10.339768, 0.275260)"></g>
-                                    <path vector-effect="non-scaling-stroke"
-                                        d="M140.962142,26.4644491 C138.225735,20.0143094 131.944776,15.5029106 124.633892,15.5029106 C122.619663,15.5029106 120.683612,15.8453541 118.878328,16.4764392 C115.451481,11.1704266 109.567406,7.66985447 102.883789,7.66985447 C96.4912675,7.66985447 90.8301585,10.8721423 87.3508511,15.7935668 C85.9589956,14.968161 84.3423157,14.4956341 82.6177606,14.4956341 C81.1083143,14.4956341 79.6815102,14.8576334 78.4157672,15.5014039 C74.9975328,6.58722215 66.5098304,0.275259875 56.5804557,0.275259875 C47.4632836,0.275259875 39.5615782,5.59684366 35.6837305,13.3681823 C33.3912034,12.266973 30.8314865,11.6515593 28.1312741,11.6515593 C19.4373504,11.6515593 12.1998844,18.0312998 10.6476214,26.4644491 L140.962142,26.4644491 Z"
-                                        class="slds-illustration__fill-secondary"></path>
-                                    <path vector-effect="non-scaling-stroke" d="M0,25 L130,25"
-                                        class="slds-illustration__stroke-secondary" stroke-width="3" stroke-linecap="round"></path>
-                                </g>
-                                <g transform="translate(320.000000, 281.000000)">
-                                    <g transform="translate(0.293436, 0.054545)">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M165.428708,41.9454545 L0.0995432562,41.9454545 C0.0336614956,41.2089487 0,40.4630069 0,39.7090909 C0,26.2132599 10.7866531,15.2727273 24.0926641,15.2727273 C27.7492016,15.2727273 31.215485,16.0989227 34.3199502,17.5772977 C39.5712028,7.14424616 50.271428,0 62.6175975,0 C76.0636257,0 87.5573893,8.47383452 92.1862485,20.441159 C93.9002755,19.5768947 95.8324059,19.0909091 97.8764479,19.0909091 C100.211783,19.0909091 102.401037,19.7252784 104.285841,20.8333889 C108.997403,14.2263569 116.663488,9.92727273 125.320028,9.92727273 C138.043441,9.92727273 148.627152,19.2146805 150.834755,31.4671412 C151.487388,31.3631046 152.156394,31.3090909 152.837838,31.3090909 C159.117096,31.3090909 164.340238,35.8953699 165.428708,41.9454545 Z"
-                                            class="slds-illustration__fill-secondary"></path>
-                                        <path vector-effect="non-scaling-stroke" d="M32.7065637,40.4454545 L173.706564,40.4454545"
-                                            class="slds-illustration__stroke-secondary" stroke-width="3" stroke-linecap="round">
-                                        </path>
-                                    </g>
-                                </g>
-                                <g transform="translate(116.000000, 80.000000)">
-                                    <g transform="translate(106.000000, 4.000000)">
-                                        <g>
-                                            <use class="slds-illustration__fill-secondary" fill-rule="evenodd" xlink:href="#path-1">
-                                            </use>
-                                            <rect class="slds-illustration__stroke-primary" stroke-width="3" x="78.5" y="48.5"
-                                                width="17" height="25"></rect>
-                                        </g>
-                                        <rect class="slds-illustration__fill-secondary" x="72" y="30" width="30" height="22" rx="2">
-                                        </rect>
-                                        <circle vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary" cx="87"
-                                            cy="150" r="87"></circle>
-                                        <circle vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                            stroke-width="6" stroke-linecap="round" stroke-linejoin="round" cx="87.5" cy="23.5"
-                                            r="23.5"></circle>
-                                    </g>
-                                    <g transform="translate(112.000000, 35.000000)" fill="#FFFFFF">
-                                        <circle vector-effect="non-scaling-stroke" cx="81" cy="119" r="73"></circle>
-                                        <rect x="67" y="0" width="28" height="4"></rect>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M0.180175781,90.2270508 C0.778808594,89.5117187 11.3666992,64.2470703 30.4042969,52.2089844 C49.4418945,40.1708984 64.3725586,35.2084961 85.1640625,36.3398437 C105.955566,37.4711914 122.305176,44.8969727 133.487793,53.7832031 C144.67041,62.6694336 156.910645,77.7836914 163.28125,93.7817383 C167.52832,104.447103 164.678548,96.9777018 154.731934,71.3735352 L134.561523,50.390625 L106.423828,35.831543 L83.5615234,32.3847656 L61.4130859,34.121582 L40.7431641,41.5869141 L21.2519531,54.597168 L6.90820313,73.0634766 C2.02376302,84.9827474 -0.21891276,90.7039388 0.180175781,90.2270508 Z">
-                                        </path>
-                                    </g>
-                                    <g class="slds-illustration__stroke-primary" stroke-width="3">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M178.5,49.7801039 C170.984351,44.9862617 166,36.5752096 166,27 C166,12.0883118 178.088312,0 193,0 C207.911688,0 220,12.0883118 220,27 C220,36.5752096 215.015649,44.9862617 207.5,49.7801039 L207.5,55.5 C207.5,56.0522847 207.052285,56.5 206.5,56.5 L179.5,56.5 C178.947715,56.5 178.5,56.0522847 178.5,55.5 L178.5,49.7801039 Z">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M178.5,40.7750367 C175.091592,37.1883928 173,32.3384551 173,27 C173,15.954305 181.954305,7 193,7 C204.045695,7 213,15.954305 213,27 C213,32.3384551 210.908408,37.1883928 207.5,40.7750367 L207.5,35.5 C207.5,34.9477153 207.052285,34.5 206.5,34.5 L179.5,34.5 C178.947715,34.5 178.5,34.9477153 178.5,35.5 L178.5,40.7750367 Z">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M179.5,34.5 L206.5,34.5 C207.052285,34.5 207.5,34.9477153 207.5,35.5 L207.5,55.5 C207.5,56.0522847 207.052285,56.5 206.5,56.5 L179.5,56.5 C178.947715,56.5 178.5,56.0522847 178.5,55.5 L178.5,35.5 C178.5,34.9477153 178.947715,34.5 179.5,34.5 Z"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M184.5,56.5 L184.5,67.356737 C187.353249,67.1189178 190.206393,67 193.059326,67 C195.900065,67 198.713659,67.1179036 201.5,67.3537468 L201.5,56.5 L184.5,56.5 Z">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke" d="M27,241.5 L392,241.5" stroke-linecap="round">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke" d="M0,241.5 L20,241.5" stroke-linecap="round">
-                                        </path>
-                                        <circle vector-effect="non-scaling-stroke" cx="193" cy="154" r="87"></circle>
-                                        <circle vector-effect="non-scaling-stroke" cx="193" cy="154" r="73"></circle>
-                                    </g>
-                                </g>
-                                <g transform="translate(252.000000, 178.000000)">
-                                    <g transform="translate(2.000000, 1.000000)">
-                                        <circle vector-effect="non-scaling-stroke" class="slds-illustration__stroke-secondary"
-                                            stroke-width="6" cx="55" cy="55" r="41"></circle>
-                                        <polygon vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
-                                            points="55 0 62 16 48 16"></polygon>
-                                        <polygon vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
-                                            transform="translate(55.000000, 102.000000) scale(1, -1) translate(-55.000000, -102.000000) "
-                                            points="55 94 62 110 48 110"></polygon>
-                                        <polygon vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
-                                            transform="translate(102.000000, 55.000000) scale(1, -1) rotate(90.000000) translate(-102.000000, -55.000000) "
-                                            points="102 47 109 63 95 63"></polygon>
-                                        <polygon vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
-                                            transform="translate(8.000000, 55.000000) scale(-1, -1) rotate(90.000000) translate(-8.000000, -55.000000) "
-                                            points="8 47 15 63 1 63"></polygon>
-                                        <polygon vector-effect="non-scaling-stroke" class="slds-illustration__fill-secondary"
-                                            transform="translate(78.371087, 79.079086) scale(1, -1) rotate(45.000000) translate(-78.371087, -79.079086) "
-                                            points="78.3710872 47.4827561 96.4223693 110.675417 60.3198052 110.675417"></polygon>
-                                    </g>
-                                    <g class="slds-illustration__fill-primary">
-                                        <polygon vector-effect="non-scaling-stroke"
-                                            transform="translate(35.687128, 35.395128) scale(-1, 1) rotate(45.000000) translate(-35.687128, -35.395128) "
-                                            points="35.6871284 3.79879726 53.7384105 66.9914578 17.6358464 66.9914578"></polygon>
-                                        <ellipse cx="58" cy="58.0018766" rx="9" ry="9.00187656"></ellipse>
-                                    </g>
-                                    <g transform="translate(49.000000, 49.000000)" stroke="#FFFFFF" stroke-width="3">
-                                        <ellipse cx="9" cy="9.00187656" rx="9" ry="9.00187656"></ellipse>
-                                    </g>
-                                </g>
-                                <g transform="translate(436.500000, 259.500000)">
-                                    <g class="slds-illustration__fill-secondary">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M18.9209988,1.95433401 L33.259296,51.443436 C33.5666778,52.5043744 32.9557995,53.613617 31.8948612,53.9209988 C31.7139843,53.9734036 31.5266126,54 31.3382972,54 L2.6617028,54 C1.5571333,54 0.661702805,53.1045695 0.661702805,52 C0.661702805,51.8116846 0.688299176,51.6243129 0.74070397,51.443436 L15.0790012,1.95433401 C15.386383,0.893395645 16.4956256,0.282517358 17.556564,0.589899164 C18.2152102,0.780726338 18.7301717,1.29568777 18.9209988,1.95433401 Z">
-                                        </path>
-                                    </g>
-                                    <g class="slds-illustration__stroke-primary" stroke-linecap="round" stroke-width="3">
-                                        <polygon vector-effect="non-scaling-stroke" stroke-linejoin="round"
-                                            points="17 0.323943662 34 54 -1.81721305e-12 54"></polygon>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M17,4.6953125 C17,43.0456294 17,62.6471919 17,63.5 C17,62.6471919 17,43.0456294 17,4.6953125 Z">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M17,29.3239437 C22.3333333,35.7851611 25,39.1184944 25,39.3239437 C25,39.1184944 22.3333333,35.7851611 17,29.3239437 Z"
-                                            stroke-linejoin="round"
-                                            transform="translate(21.000000, 34.323944) scale(-1, 1) translate(-21.000000, -34.323944) ">
-                                        </path>
-                                    </g>
-                                </g>
-                                <g transform="translate(393.000000, 226.500000)">
-                                    <g transform="translate(1.000000, 0.000000)" class="slds-illustration__fill-secondary">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M25.6478873,0 L50.879042,84.4273253 C51.1953215,85.4856452 50.5937789,86.5999782 49.535459,86.9162577 C49.3496374,86.9717906 49.1567264,87 48.9627843,87 L2.33299037,87 C1.22842087,87 0.332990367,86.1045695 0.332990367,85 C0.332990367,84.8060578 0.361199757,84.6131469 0.416732643,84.4273253 L25.6478873,0 Z">
-                                        </path>
-                                    </g>
-                                    <g class="slds-illustration__stroke-primary" stroke-linecap="round" stroke-width="3">
-                                        <polygon vector-effect="non-scaling-stroke" stroke-linejoin="round"
-                                            points="26.5 0 52.5 87 0.5 87"></polygon>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M26.5,3.58642578 C26.5,64.0261034 26.5,94.9972948 26.5,96.5 C26.5,94.9972948 26.5,64.0261034 26.5,3.58642578 Z">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M15.6478873,42 C22.9812207,49.078692 26.6478873,52.7453587 26.6478873,53 C26.6478873,52.7453587 22.9812207,49.078692 15.6478873,42 Z"
-                                            stroke-linejoin="round"></path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M27.6478873,68 C36.9812207,57.078692 41.6478873,51.7453587 41.6478873,52 C41.6478873,51.7453587 36.9812207,57.078692 27.6478873,68 Z"
-                                            stroke-linejoin="round"></path>
-                                    </g>
-                                </g>
-                                <g transform="translate(182.500000, 259.500000)">
-                                    <g class="slds-illustration__fill-secondary">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M18.9209988,1.95433401 L33.259296,51.443436 C33.5666778,52.5043744 32.9557995,53.613617 31.8948612,53.9209988 C31.7139843,53.9734036 31.5266126,54 31.3382972,54 L2.6617028,54 C1.5571333,54 0.661702805,53.1045695 0.661702805,52 C0.661702805,51.8116846 0.688299176,51.6243129 0.74070397,51.443436 L15.0790012,1.95433401 C15.386383,0.893395645 16.4956256,0.282517358 17.556564,0.589899164 C18.2152102,0.780726338 18.7301717,1.29568777 18.9209988,1.95433401 Z">
-                                        </path>
-                                    </g>
-                                    <g class="slds-illustration__stroke-primary" stroke-width="3">
-                                        <polygon vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"
-                                            points="17 0.323943662 34 54 -1.81721305e-12 54"></polygon>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M17,4.32394366 C17,42.2551731 17,61.6471919 17,62.5 C17,61.6471919 17,42.2551731 17,4.32394366 Z">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M17,32.3239437 C23.6666667,39.4518278 27,43.1184944 27,43.3239437 C27,43.1184944 23.6666667,39.4518278 17,32.3239437 Z"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            transform="translate(22.000000, 37.823944) scale(-1, 1) translate(-22.000000, -37.823944) ">
-                                        </path>
-                                    </g>
-                                </g>
-                                <g transform="translate(129.000000, 209.000000)" class="slds-illustration__stroke-secondary"
-                                    stroke-linecap="round" stroke-width="3">
-                                    <g
-                                        transform="translate(27.848898, 30.021465) rotate(-15.000000) translate(-27.848898, -30.021465) translate(5.848898, 5.021465)">
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M1.73977935,3.49433365 C1.73977935,3.49433365 11.283937,0.730940796 13.3525511,10.749914"
-                                            transform="translate(7.546165, 6.947488) rotate(41.000000) translate(-7.546165, -6.947488) ">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M11.1319089,10.2387854 C11.1319089,10.2387854 20.6760665,7.47539254 22.7446806,17.4943658"
-                                            transform="translate(16.938295, 13.691939) scale(-1, 1) rotate(-41.000000) translate(-16.938295, -13.691939) ">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M19.7302848,42.5865514 C19.7302848,42.5865514 29.2744424,39.8231586 31.3430565,49.8421318">
-                                        </path>
-                                        <path vector-effect="non-scaling-stroke"
-                                            d="M31.7302848,42.5865514 C31.7302848,42.5865514 41.2744424,39.8231586 43.3430565,49.8421318"
-                                            transform="translate(37.536671, 46.039705) scale(-1, 1) translate(-37.536671, -46.039705) ">
-                                        </path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-                <div class="slds-text-longform">
-                    <h3 class="slds-text-heading_small">There are no recommendations at this time, please add a service or check your configuration settings</h3>
-                </div>
-            </div>
-        </div>
-        <div if:true={showRecommendations} class="innerRecDiv viewHeightFifty slds-scrollable_y">
-            <template for:each={returnRecommendations} for:item='recommendation'>
-                <c-service-recommendation key={recommendation.ServiceId} onreloadafterhide={handleRequestRecommendations} onflowlaunch={handleShare} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
-                
-            </template>
-        </div>
-
-        <!-- show hidden -->
-        <div if:true={returnHiddenRecommendations} class="hiddenRecsDiv slds-scrollable_y" >
-            <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevronright"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
-            <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
-            
-            <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                <c-service-recommendation  onreloadafterhide={handleRequestRecommendations} key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} onflowlaunch={handleShare} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
-            </template>
-        </div>
-        
+      </div>
+    </div>
+    <div
+      if:true={showRecommendations}
+      class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small"
+    >
+      <!-- multi select picklist for filter of program types -->
+      <div class="slds-float_left">
+        <c-multiselect-picklist
+          selectoptiontext={typeFilterLabel}
+        ></c-multiselect-picklist>
+      </div>
+      <!-- show me filter -->
+      <div class="slds-float_right slds-p-top_large">
+        <lightning-button-menu
+          alternative-text="Show More"
+          variant="border-filled"
+          icon-name="utility:sort"
+        >
+          <lightning-menu-item
+            value="rating"
+            label="Client Rating"
+            onclick={handleSortMenu}
+          ></lightning-menu-item>
+          <lightning-menu-item
+            value="distance"
+            label="Distance to Contact Address"
+            onclick={handleSortMenu}
+          ></lightning-menu-item>
+          <lightning-menu-item
+            value="popular"
+            label="Relevance"
+            onclick={handleSortMenu}
+          ></lightning-menu-item>
+        </lightning-button-menu>
+      </div>
     </div>
 
+    <div if:true={showRecommendations} class="mapDiv slds-size_1-of-1">
+      <lightning-map
+        list-view="hidden"
+        map-markers={mapMarkers}
+        zoom-level="10"
+      >
+      </lightning-map>
+    </div>
 
-    <!-- show map section -->
-    <template if:true={showExpandedMap} class="slds-scrollable_y">
-        <section role="dialog" tabindex="-1" aria-label="Expanded Map View" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-            <div class="slds-modal__container mapModal">
-                <header class="slds-modal__header slds-modal__header_empty">
-                    <lightning-button-icon class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" icon-name="utility:close" title="Close" onclick={handleExpand}>
-                    </lightning-button-icon>
-                </header>
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <div class="slds-size_1-of-1 slds-grid slds-wrap">
-                        <div class="slds-col recommendationsDiv recommendationsDivWide">
-                            <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
-                                <div class="slds-size_1-of-1 fullRecDiv">
-                                    <div class="slds-clearfix">
-                                        <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
-                                            <li>
-                                                <lightning-icon icon-name="custom:custom1" size="medium" alternative-text="Services" ></lightning-icon>
-                                            </li>
-                                            <li>
-                                                <p class="slds-p-left_xx-small">Recommended Services</p>
-                                            </li>
-                                            
-                                        </ul>
-                                        <ul class="slds-float_right slds-list_horizontal">
-                                            <lightning-button-group>
-                                                <lightning-button-icon  variant="border-filled" icon-name="utility:refresh" alternative-text="Refresh" onclick={handleRequestRecommendations}></lightning-button-icon>
-                                                <lightning-button-icon  variant="border-filled" icon-name="utility:contract_alt" alternative-text="Refresh" onclick={handleExpand}></lightning-button-icon>
-                                            </lightning-button-group>
-                                        </ul>
-                                    </div>
-                                    <div if:false={showRecommendations} class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
-                                        <div class="slds-size_1-of-1 slds-align_absolute-center">
-                                            <h3>No Recommendations Yet</h3>
-                                        </div>
-                                        <div class="slds-size_1-of-1 slds-align_absolute-center">
-                                            <lightning-button label="Get Recommended Services" title="Recommendations" onclick={handleRequestRecommendations}></lightning-button>
-                                        </div>
-                                    </div>
-                        
-                                    
-                                </div>
-                                
-                                <div class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
-                                        <div class="slds-float_left">
-                                            
-                                            <c-multiselect-picklist selectoptiontext={typeFilterLabel}></c-multiselect-picklist>
-                                        </div>
-                                        <!-- show me filter -->
-                                        <div class="slds-float_right slds-p-top_large">
+    <div if:true={noRecsMessage} class="slds-align_absolute-center">
+      <div class="slds-size_1-of-1 slds-illustration slds-illustration_small">
+        <c-illustration-compass></c-illustration-compass>
+        <div class="slds-text-longform">
+          <h3 class="slds-text-heading_small">
+            There are no recommendations at this time, please add a service or
+            check your configuration settings
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div
+      if:true={showRecommendations}
+      class="innerRecDiv viewHeightFifty slds-scrollable_y"
+    >
+      <template for:each={returnRecommendations} for:item="recommendation">
+        <c-service-recommendation
+          key={recommendation.ServiceId}
+          onreloadafterhide={handleRequestRecommendations}
+          onflowlaunch={handleShare}
+          servicerecommendation={recommendation}
+          serviceid={recommendation.ServiceId}
+          contactid={recordId}
+        ></c-service-recommendation>
+      </template>
+    </div>
 
-                                            <lightning-button-menu alternative-text="Show More" variant="border-filled" icon-name="utility:sort">
-                                                <lightning-menu-item value="rating" label="Client Rating" onclick={handleSortMenu}></lightning-menu-item>
-                                                <lightning-menu-item value="distance" label="Distance to Contact Address" onclick={handleSortMenu}></lightning-menu-item>
-                                                <lightning-menu-item value="popular" label="Relevance" onclick={handleSortMenu}></lightning-menu-item>
-                                            </lightning-button-menu>
+    <!-- show hidden -->
+    <div
+      if:true={returnHiddenRecommendations}
+      class="hiddenRecsDiv slds-scrollable_y"
+    >
+      <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}
+        ><lightning-icon
+          class="slds-current-color"
+          size="xx-small"
+          icon-name="utility:chevronright"
+        >
+        </lightning-icon
+        >Hidden Recommendations ({returnHiddenRecommendationsCount})</a
+      >
+      <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}
+        ><lightning-icon
+          class="slds-current-color"
+          size="xx-small"
+          icon-name="utility:chevrondown"
+        >
+        </lightning-icon
+        >Hidden Recommendations ({returnHiddenRecommendationsCount})</a
+      >
 
-                                        </div>
-                                    </div>
-                                
-                            
-                                <div if:true={returnRecommendations} class="innerRecModalDiv slds-scrollable_y">
-                                    <template for:each={returnRecommendations} for:item='recommendation'>
-                                        <c-service-recommendation key={recommendation.ServiceId} onreloadafterhide={handleRequestRecommendations} servicerecommendation={recommendation} serviceid={recommendation.ServiceId} contactid={recordId}></c-service-recommendation>
-                                        
-                                    </template>
-                                </div>
+      <template
+        if:true={showHiddenRecsList}
+        for:each={returnHiddenRecommendations}
+        for:item="hiddenrecommendation"
+      >
+        <c-service-recommendation
+          onreloadafterhide={handleRequestRecommendations}
+          key={hiddenrecommendation.ServiceId}
+          servicerecommendation={hiddenrecommendation}
+          onflowlaunch={handleShare}
+          serviceid={hiddenrecommendation.ServiceId}
+          contactid={recordId}
+        ></c-service-recommendation>
+      </template>
+    </div>
+  </div>
 
-                                <!-- show hidden -->
-                                <div if:true={returnHiddenRecommendations} class="hiddenRecsDiv slds-scrollable_y" >
-                                        <a href="#" if:false={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevronright"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
-                                        <a href="#" if:true={showHiddenRecsList} onclick={handleShowHidden}><lightning-icon class="slds-current-color" size="xx-small" icon-name="utility:chevrondown"> </lightning-icon>Hidden Recommendations ({returnHiddenRecommendationsCount})</a> 
-                                    
-                                    <template if:true={showHiddenRecsList} for:each={returnHiddenRecommendations} for:item='hiddenrecommendation'>
-                                        <c-service-recommendation onreloadafterhide={handleRequestRecommendations} key={hiddenrecommendation.ServiceId} servicerecommendation={hiddenrecommendation} serviceid={hiddenrecommendation.ServiceId} contactid={recordId}></c-service-recommendation>
-                                    </template>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div class="slds-col mapModalDiv width67">
-                            <lightning-map list-view="hidden" map-markers={mapMarkers} zoom-level='10'>
-                            </lightning-map>
-                        </div>
+  <!-- show map section -->
+  <template if:true={showExpandedMap} class="slds-scrollable_y">
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-label="Expanded Map View"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container mapModal">
+        <header class="slds-modal__header slds-modal__header_empty">
+          <lightning-button-icon
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            icon-name="utility:close"
+            title="Close"
+            onclick={handleExpand}
+          >
+          </lightning-button-icon>
+        </header>
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+          <div class="slds-size_1-of-1 slds-grid slds-wrap">
+            <div class="slds-col recommendationsDiv recommendationsDivWide">
+              <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
+                <div class="slds-size_1-of-1 fullRecDiv">
+                  <div class="slds-clearfix">
+                    <ul
+                      class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small"
+                    >
+                      <li>
+                        <lightning-icon
+                          icon-name="custom:custom1"
+                          size="medium"
+                          alternative-text="Services"
+                        ></lightning-icon>
+                      </li>
+                      <li>
+                        <p class="slds-p-left_xx-small">Recommended Services</p>
+                      </li>
+                    </ul>
+                    <ul class="slds-float_right slds-list_horizontal">
+                      <lightning-button-group>
+                        <lightning-button-icon
+                          variant="border-filled"
+                          icon-name="utility:refresh"
+                          alternative-text="Refresh"
+                          onclick={handleRequestRecommendations}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                          variant="border-filled"
+                          icon-name="utility:contract_alt"
+                          alternative-text="Refresh"
+                          onclick={handleExpand}
+                        ></lightning-button-icon>
+                      </lightning-button-group>
+                    </ul>
+                  </div>
+                  <div
+                    if:false={showRecommendations}
+                    class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center"
+                  >
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                      <h3>No Recommendations Yet</h3>
                     </div>
+                    <div class="slds-size_1-of-1 slds-align_absolute-center">
+                      <lightning-button
+                        label="Get Recommended Services"
+                        title="Recommendations"
+                        onclick={handleRequestRecommendations}
+                      ></lightning-button>
+                    </div>
+                  </div>
                 </div>
+
+                <div
+                  class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small"
+                >
+                  <div class="slds-float_left">
+                    <c-multiselect-picklist
+                      selectoptiontext={typeFilterLabel}
+                    ></c-multiselect-picklist>
+                  </div>
+                  <!-- show me filter -->
+                  <div class="slds-float_right slds-p-top_large">
+                    <lightning-button-menu
+                      alternative-text="Show More"
+                      variant="border-filled"
+                      icon-name="utility:sort"
+                    >
+                      <lightning-menu-item
+                        value="rating"
+                        label="Client Rating"
+                        onclick={handleSortMenu}
+                      ></lightning-menu-item>
+                      <lightning-menu-item
+                        value="distance"
+                        label="Distance to Contact Address"
+                        onclick={handleSortMenu}
+                      ></lightning-menu-item>
+                      <lightning-menu-item
+                        value="popular"
+                        label="Relevance"
+                        onclick={handleSortMenu}
+                      ></lightning-menu-item>
+                    </lightning-button-menu>
+                  </div>
+                </div>
+
+                <div
+                  if:true={returnRecommendations}
+                  class="innerRecModalDiv slds-scrollable_y"
+                >
+                  <template
+                    for:each={returnRecommendations}
+                    for:item="recommendation"
+                  >
+                    <c-service-recommendation
+                      key={recommendation.ServiceId}
+                      onreloadafterhide={handleRequestRecommendations}
+                      servicerecommendation={recommendation}
+                      serviceid={recommendation.ServiceId}
+                      contactid={recordId}
+                    ></c-service-recommendation>
+                  </template>
+                </div>
+
+                <!-- show hidden -->
+                <div
+                  if:true={returnHiddenRecommendations}
+                  class="hiddenRecsDiv slds-scrollable_y"
+                >
+                  <a
+                    href="#"
+                    if:false={showHiddenRecsList}
+                    onclick={handleShowHidden}
+                    ><lightning-icon
+                      class="slds-current-color"
+                      size="xx-small"
+                      icon-name="utility:chevronright"
+                    >
+                    </lightning-icon
+                    >Hidden Recommendations
+                    ({returnHiddenRecommendationsCount})</a
+                  >
+                  <a
+                    href="#"
+                    if:true={showHiddenRecsList}
+                    onclick={handleShowHidden}
+                    ><lightning-icon
+                      class="slds-current-color"
+                      size="xx-small"
+                      icon-name="utility:chevrondown"
+                    >
+                    </lightning-icon
+                    >Hidden Recommendations
+                    ({returnHiddenRecommendationsCount})</a
+                  >
+
+                  <template
+                    if:true={showHiddenRecsList}
+                    for:each={returnHiddenRecommendations}
+                    for:item="hiddenrecommendation"
+                  >
+                    <c-service-recommendation
+                      onreloadafterhide={handleRequestRecommendations}
+                      key={hiddenrecommendation.ServiceId}
+                      servicerecommendation={hiddenrecommendation}
+                      serviceid={hiddenrecommendation.ServiceId}
+                      contactid={recordId}
+                    ></c-service-recommendation>
+                  </template>
+                </div>
+              </div>
             </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
-                
-  
-    </template>
+            <div class="slds-col mapModalDiv width67">
+              <lightning-map
+                list-view="hidden"
+                map-markers={mapMarkers}
+                zoom-level="10"
+              >
+              </lightning-map>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
 </template>
