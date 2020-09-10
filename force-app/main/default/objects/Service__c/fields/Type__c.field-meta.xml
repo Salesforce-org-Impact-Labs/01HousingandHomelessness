@@ -4,7 +4,6 @@
     <externalId>false</externalId>
     <label>Type</label>
     <type>Picklist</type>
-    <fullName>Type__c</fullName>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
