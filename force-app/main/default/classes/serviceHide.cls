@@ -2,12 +2,16 @@ public with sharing class serviceHide {
   @AuraEnabled
   public static void hide(id serviceId, Id contactId) {
     system.debug(serviceId);
+    List<Service_Exclusion__c> toInsert = new List<Service_Exclusion__c>();
     Service_Exclusion__c SE = new Service_Exclusion__c();
     SE.Service__c = serviceId;
     if (serviceId != null && contactId != null) {
       SE.Contact__c = contactId;
     }
-    insert SE;
+    toInsert.add(SE);
+    insert Security.stripInaccessible(AccessType.CREATABLE, toInsert)
+      .getRecords();
+    // insert SE;
   }
 
   @AuraEnabled

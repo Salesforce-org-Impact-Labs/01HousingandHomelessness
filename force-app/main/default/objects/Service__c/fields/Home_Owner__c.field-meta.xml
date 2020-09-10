@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField>
-    <label>Home Owner</label>
-    <type>Checkbox</type>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Home_Owner__c</fullName>
     <defaultValue>false</defaultValue>
-    <description></description>
-    <inlineHelpText></inlineHelpText>
+    <externalId>false</externalId>
+    <label>Home Owner</label>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
 </CustomField>

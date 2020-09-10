@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField>
-    <label>External ID</label>
-    <type>Text</type>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>External_ID__c</fullName>
+    <description>ID from the aggregator that supplied this service</description>
+    <externalId>true</externalId>
+    <inlineHelpText>ID from the aggregator that supplied this service</inlineHelpText>
+    <label>External ID</label>
     <length>255</length>
     <required>false</required>
-    <unique>false</unique>
-    <externalId>true</externalId>
-    <description>ID from the aggregator that supplied this service</description>
-    <inlineHelpText>ID from the aggregator that supplied this service</inlineHelpText>
+    <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
