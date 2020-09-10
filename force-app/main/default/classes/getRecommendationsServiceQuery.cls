@@ -20,6 +20,7 @@ public with sharing class getRecommendationsServiceQuery {
         Phone__c,
         Street__c,
         Type__c,
+        All_Types__c,
         Website__c,
         Zip_Code__c,
         Preferred__c,

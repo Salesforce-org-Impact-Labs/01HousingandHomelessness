@@ -30,6 +30,9 @@ public with sharing class getRecommendations {
     for (Service__c service : services) {
       ServiceRecommendation SR = new ServiceRecommendation();
       SR.Service = service;
+      SR.AllTypes = service.All_Types__c == null
+        ? null
+        : service.All_Types__c.split(';');
       SR.Distance = (decimal) service.get('dist');
       SR.Relevance = 0;
       SR.Matches = new List<String>();
