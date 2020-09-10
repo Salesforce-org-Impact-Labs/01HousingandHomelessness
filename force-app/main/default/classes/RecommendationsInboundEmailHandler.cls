@@ -1,4 +1,4 @@
-public with sharing class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
+global with sharing class RecommendationsInboundEmailHandler implements Messaging.InboundEmailHandler {
     // the referral response id should follow this token in the subject line
     public static final String EMAIL_REFERRAL_RESPONSE_TOKEN = 'ref#';
     public static final Integer REFERRAL_RESPONSE_ID_LENGTH = 18;
@@ -10,7 +10,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
     // key string to find the org-wide email verification link
     public static final String CONFIRM_EMAIL_LINK_KEY = 'Click this link to confirm this Organization-Wide Email Address:';
 
-    public Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
+    global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) {
         Messaging.InboundEmailResult result = new Messaging.InboundEmailresult();
 
         // create a task for the org-wide email address verification link

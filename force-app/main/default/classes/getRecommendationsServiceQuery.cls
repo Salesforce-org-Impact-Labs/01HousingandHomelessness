@@ -55,6 +55,7 @@ public with sharing class getRecommendationsServiceQuery {
           ),
           'mi'
         ) < :defaultMaxDistance
+      WITH SECURITY_ENFORCED
     ];
   }
 

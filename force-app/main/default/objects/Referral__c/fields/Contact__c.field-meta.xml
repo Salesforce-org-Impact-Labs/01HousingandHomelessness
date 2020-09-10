@@ -5,7 +5,6 @@
     <externalId>false</externalId>
     <label>Contact</label>
     <referenceTo>Contact</referenceTo>
-    <relationshipLabel>Referrals</relationshipLabel>
     <relationshipName>Referrals</relationshipName>
     <required>true</required>
     <trackFeedHistory>false</trackFeedHistory>
