@@ -8,6 +8,22 @@
         <application>standard__LightningSales</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>ServicePrint</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ServiceRecommendation</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>getRecommendations</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>serviceHide</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Client_Profile__c.Contact__c</field>
@@ -210,6 +226,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Service__c.Service_Tags__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Service__c.Situation_Tags__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Service__c.State__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Service__c.Street__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -236,12 +267,7 @@
     <fieldPermissions>
         <readable>true</readable>
         <editable>true</editable>
-        <field>Service__c.Situation_Tags__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Service__c.Service_Tags__c</field>
+        <field>Service__c.All_Types__c</field>
     </fieldPermissions>
     <fieldPermissions>
         <readable>true</readable>

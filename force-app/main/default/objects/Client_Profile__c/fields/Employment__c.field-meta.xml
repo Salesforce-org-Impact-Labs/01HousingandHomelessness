@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField>
-    <label>Employment</label>
-    <type>Picklist</type>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Employment__c</fullName>
+    <externalId>false</externalId>
+    <label>Employment</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
+            <sorted>true</sorted>
             <value>
                 <fullName>Employed full-time</fullName>
-                <label>Employed full-time</label>
                 <default>false</default>
+                <label>Employed full-time</label>
             </value>
             <value>
                 <fullName>Employed part-time</fullName>
-                <label>Employed part-time</label>
                 <default>false</default>
+                <label>Employed part-time</label>
             </value>
             <value>
                 <fullName>Retired</fullName>
-                <label>Retired</label>
                 <default>false</default>
+                <label>Retired</label>
             </value>
             <value>
                 <fullName>Unemployed</fullName>
-                <label>Unemployed</label>
                 <default>false</default>
+                <label>Unemployed</label>
             </value>
-            <sorted>true</sorted>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
