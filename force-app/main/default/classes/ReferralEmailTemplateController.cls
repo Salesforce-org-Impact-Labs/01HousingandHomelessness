@@ -1,4 +1,4 @@
-global class ReferralEmailTemplateController {
+global with sharing class ReferralEmailTemplateController {
     global String referralResponseId {get;set;}
 
     global Referral_Response__c referralResponse {
@@ -41,6 +41,7 @@ global class ReferralEmailTemplateController {
                     Id,
                     Name
                 FROM Organization
+                LIMIT 1
             ];
             return orgs[0];
         }

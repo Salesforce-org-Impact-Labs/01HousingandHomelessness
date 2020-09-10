@@ -20,6 +20,7 @@ public with sharing class getRecommendationsServiceQuery {
         Phone__c,
         Street__c,
         Type__c,
+        All_Types__c,
         Website__c,
         Zip_Code__c,
         Preferred__c,
@@ -32,6 +33,8 @@ public with sharing class getRecommendationsServiceQuery {
         Unemployed__c,
         Employed_full_time__c,
         Employed_part_time__c,
+        Service_Tags__c,
+        Situation_Tags__c,
         DISTANCE(
           Location__c,
           GEOLOCATION(:client.Location__Latitude__s,
@@ -52,6 +55,7 @@ public with sharing class getRecommendationsServiceQuery {
           ),
           'mi'
         ) < :defaultMaxDistance
+      WITH SECURITY_ENFORCED
     ];
   }
 

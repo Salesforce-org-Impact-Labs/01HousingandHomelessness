@@ -180,7 +180,9 @@ public with sharing class EmailService {
                     
                     if (clientContact.Mobile_Phone_Carrier__c == null) {
                         // if no carrier, look it up, add it to contact record
-                        clientContact.Mobile_Phone_Carrier__c = lookupCarrierByPhone(clientContact.Phone);
+                        if (Schema.SObjectType.Contact.fields.Mobile_Phone_Carrier__c.isUpdateable()) {
+                            clientContact.Mobile_Phone_Carrier__c = lookupCarrierByPhone(clientContact.Phone);
+                        }
                         
                         if (clientContact.Mobile_Phone_Carrier__c == null) {
                             // if still no carrier
