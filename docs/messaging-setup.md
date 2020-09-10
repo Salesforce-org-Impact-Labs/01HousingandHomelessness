@@ -24,6 +24,7 @@ Search setup for “Email Services”, then create a New Email Service
 * Context User: Choose a user that has System Administrator privileges. This user will be the owner of any record created by the inbound email handler.
     * We suggest that you create a special User for this purpose, one that would never become Inactive.
 * Accept Email from: delete the pre-populated value from this field
+* Be sure to copy that email address onto your clipboard, you’ll need it again in a moment
 
 ## Create the Org Wide Email Address
 
@@ -83,6 +84,10 @@ There are two batch jobs that need to run to send referrals and referral followu
 * Batch_SendReferralFollowupReminders
 
 These batch classes should execute at least once per day. Please follow the instructions in the Help documentation to schedule the classes: https://help.salesforce.com/articleView?id=code_schedule_batch_apex.htm&type=5
+
+Suggested names for the jobs are:
+  * InitialReferral
+  * Referral Followup
 
 If you wish, you may also execute the batch jobs outside of a schedule. 
 

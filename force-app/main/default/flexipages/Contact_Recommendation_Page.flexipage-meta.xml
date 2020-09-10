@@ -7,6 +7,10 @@
                 <value>false</value>
             </componentInstanceProperties>
             <componentInstanceProperties>
+                <name>enableActionsConfiguration</name>
+                <value>false</value>
+            </componentInstanceProperties>
+            <componentInstanceProperties>
                 <name>hideChatterActions</name>
                 <value>false</value>
             </componentInstanceProperties>
@@ -28,6 +32,10 @@
     </flexiPageRegions>
     <flexiPageRegions>
         <componentInstances>
+            <componentInstanceProperties>
+                <name>FlowName</name>
+                <value>Send_Referral_Flow</value>
+            </componentInstanceProperties>
             <componentName>sendReferralComponentWrapper</componentName>
         </componentInstances>
         <componentInstances>
