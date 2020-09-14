@@ -92,7 +92,6 @@ public class ServiceRecommendation {
   @AuraEnabled
   public List<String> ProgramIcons { get; set; }
 
-
   @AuraEnabled
   public List<Indicator> Indicators { get; set; }
 

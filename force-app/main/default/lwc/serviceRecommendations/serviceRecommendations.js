@@ -10,6 +10,8 @@ import { subscribe, unsubscribe } from 'lightning/empApi';
 
 import getRecommendations from '@salesforce/apex/getRecommendations.getRecommendations';
 
+import { icons } from './serviceTypeMap';
+
 const eventChannel = '/event/Client_Profile_Update_Notification__e';
 
 export default class ServiceRecommendations extends LightningElement {
@@ -70,6 +72,13 @@ export default class ServiceRecommendations extends LightningElement {
                 if(result.length > 0){
                   
                   for(i = 0; i < result.length; i++) {
+                    let t;
+                    const types = result[i].AllTypes;
+                    let iconList = [];
+                    for(t=0; t < types.length;t++){
+                      iconList.push(`custom:custom${icons.get(types[t])}`)
+                    }
+                    result[i].ProgramIcons = iconList;
                     let marker = {
                       location:{
                         Street: '',
@@ -114,11 +123,6 @@ export default class ServiceRecommendations extends LightningElement {
                 this.returnRecommendations = showResult;
                 this.returnHiddenRecommendations = hiddenResult;
                 this.returnHiddenRecommendationsCount = hiddenResult.length;
-                // if(this.showRecommendations === true ){
-                //   window.console.log('in here');
-                //   this.template.querySelector('.innerRecDiv').classList.remove('viewHeightFive');
-                //   this.template.querySelector('.innerRecDiv').classList.add('viewHeightFifty');
-                // }
                 
             })
             .catch((error) => {
@@ -214,7 +218,7 @@ export default class ServiceRecommendations extends LightningElement {
     }
     const filteredRecs = this.unfilteredRecommendations.filter(rec => {      
       for(let k in filterList){
-        if(rec.ProgramType.includes(filterList[k])){
+        if(rec.AllTypes.includes(filterList[k])){
           return rec;
         }
       }
