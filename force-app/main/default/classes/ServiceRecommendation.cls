@@ -87,6 +87,10 @@ public class ServiceRecommendation {
   public Integer Preferred { get; set; }
 
   @AuraEnabled
+  public List<String> ProgramIcons { get; set; }
+
+
+  @AuraEnabled
   public List<Indicator> Indicators { get; set; }
 
   @AuraEnabled
