@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-empty */
 import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
@@ -7,9 +8,6 @@ import hideContacts from '@salesforce/apex/serviceHide.hide';
 import unhideContacts from '@salesforce/apex/serviceHide.unHide';
 import addComment from '@salesforce/apex/getRecommendations.addNewComment';
 import print from '@salesforce/apex/ServicePrint.PrintPage';
-
-
-import { icons } from './serviceTypeMap';
 
 export default class ServiceRecommendation extends NavigationMixin(LightningElement) {
   @api servicerecommendation;
@@ -36,6 +34,21 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
     if (rec.Indicators.length > 0) {
       this.indicatorCount = rec.Indicators.length;
     }
+    // console.log('showing program icons');
+    // console.log(JSON.stringify(rec.AllTypes));
+    // this.servicerecommendation.ProgramIcons = [];
+    // let iconList = [];
+    // let types = rec.AllTypes;
+    // let i;
+    // for(i=0;i < types.length; i++){
+    //   console.log(types);
+    //   console.log(`custom:custom${icons.get(types[i])}`);
+
+    //   iconList.push(`custom:custom${icons.get(types[i])}`)
+    // }
+    
+    // console.log(iconList);
+    // this.servicerecommendation.ProgramIcons.push(iconList);
 
     
 
@@ -225,10 +238,5 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       .catch((error) => {
         window.console.log('error:' + JSON.stringify(error));
       });
-  }
-  get iconName() {
-    return this.servicerecommendation && this.servicerecommendation.ProgramType
-      ? `custom:custom${icons.get(this.servicerecommendation.ProgramType)}`
-      : undefined;
   }
 }
