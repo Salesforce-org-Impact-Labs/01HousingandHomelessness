@@ -6,19 +6,23 @@ public with sharing class getRecommendations {
     System.debug('services' + services);
     // convert to ServiceRecommendation
     list<ServiceRecommendation> output = servicesToRecommendations(services);
-
+    System.debug(output);
     // do the hours for each service
     output = addHours(output);
     // figure out which services to hide
     output = addHides(output, contactId);
     // do the comments for each service
     output = getComments(output);
+    
     // do the Star Rating for each service
     output = addStars(output);
     output = addReferralCount(output);
     output = addMatches(output, CP);
     // final Relevancy score + factors
     output = Scoring.scoreRecommendations(output);
+
+    // do the program types for each service
+    //output = getProgramTypes(output);
 
     return output;
   }
@@ -323,6 +327,17 @@ public with sharing class getRecommendations {
     }
     return output;
   }
+
+  //  public static List<ServiceRecommendation> getProgramTypes(List<ServiceRecommendation> recs) {
+  //   for (ServiceRecommendation servicerec : recs) {
+  //     System.debug('program type' + servicerec.ProgramType);
+  //     String servicetypes = servicerec.ProgramType;
+  //     List<String> splitTypes = servicetypes.split(';');
+  //     ServiceRecommendation SR = new ServiceRecommendation();
+  //     servicerec.ProgramIcons = splitTypes;
+  //   }
+  //   return recs;
+  // }
 
   public static string whatDayIsIt() {
     list<string> days = new List<string>{
