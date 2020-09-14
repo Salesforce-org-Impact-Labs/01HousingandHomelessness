@@ -21,9 +21,6 @@ public with sharing class getRecommendations {
     // final Relevancy score + factors
     output = Scoring.scoreRecommendations(output);
 
-    // do the program types for each service
-    //output = getProgramTypes(output);
-
     return output;
   }
 
@@ -330,7 +327,7 @@ public with sharing class getRecommendations {
 
   //  public static List<ServiceRecommendation> getProgramTypes(List<ServiceRecommendation> recs) {
   //   for (ServiceRecommendation servicerec : recs) {
-  //     System.debug('program type' + servicerec.ProgramType);
+  //     System.debug('program type' + servicerec.All_Types__c);
   //     String servicetypes = servicerec.ProgramType;
   //     List<String> splitTypes = servicetypes.split(';');
   //     ServiceRecommendation SR = new ServiceRecommendation();
