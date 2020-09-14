@@ -59,19 +59,25 @@
             </ul>
           </div>
         </div>
-        <div class="headerdv">
-          <div class="headerIconDiv slds-p-top_xx-small">
-            <lightning-icon
-              if:true={iconName}
-              icon-name={iconName}
-              size="medium"
-              alternative-text={servicerecommendation.ProgramType}
-            ></lightning-icon>
-          </div>
-          <div class="headerText slds-p-left_medium">
+        <div class="slds-p-top_small">
+          <div class="headerText">
             <label>{servicerecommendation.ProgramType}</label>
             <p>{servicerecommendation.ProgramName}</p>
           </div>
+          <!-- loop through icons -->
+          <!-- <template
+                for:each={servicerecommendation.ProgramTypeIcons}
+                for:item="iconName"
+              >
+            <div key={iconName} class="headerIconDiv slds-p-top_x-small">
+              <lightning-icon
+                if:true={iconName}
+                icon-name={iconName}
+                size="small"
+                alternative-text={iconName}
+              ></lightning-icon>
+            </div>
+          </template> -->
         </div>
       </div>
       <div class="slds-float_right" slot="actions">
@@ -125,6 +131,8 @@
             </p>
           </li>
           <li><p>{servicerecommendation.ProgramDescription}</p></li>
+          <li><p>Service Tags: {servicerecommendation.ServiceTags}</p></li>
+          <li><p>Situation Tags : {servicerecommendation.SituationTags}</p></li>
           <template if:true={servicerecommendation.TodaysHours}>
             <li>
               <span class="slds-text-title_bold"

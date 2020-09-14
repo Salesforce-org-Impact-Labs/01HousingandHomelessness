@@ -149,7 +149,7 @@ public with sharing class ServicePrint {
         attach.ParentId = serviceId; //attach pdf to record
         insert attach;
 
-        String fullURL = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/ServicePrintPage?servId=' + serviceId;
+        String fullURL = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/refrec__ServicePrintPage?servId=' + serviceId;
         System.debug(fullURL);
         return fullURL;
 
