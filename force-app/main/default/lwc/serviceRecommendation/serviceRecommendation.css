@@ -10,11 +10,6 @@
     color:black !important;
 }
 
-.headerdv {
-    display: flex;
-}
-
-
 .headerText label {
     font-size:10px;
 }
