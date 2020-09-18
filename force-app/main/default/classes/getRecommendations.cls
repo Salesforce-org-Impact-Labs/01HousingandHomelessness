@@ -325,17 +325,6 @@ public with sharing class getRecommendations {
     return output;
   }
 
-  //  public static List<ServiceRecommendation> getProgramTypes(List<ServiceRecommendation> recs) {
-  //   for (ServiceRecommendation servicerec : recs) {
-  //     System.debug('program type' + servicerec.All_Types__c);
-  //     String servicetypes = servicerec.ProgramType;
-  //     List<String> splitTypes = servicetypes.split(';');
-  //     ServiceRecommendation SR = new ServiceRecommendation();
-  //     servicerec.ProgramIcons = splitTypes;
-  //   }
-  //   return recs;
-  // }
-
   public static string whatDayIsIt() {
     list<string> days = new List<string>{
       'Monday',
