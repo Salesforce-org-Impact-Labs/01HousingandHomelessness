@@ -6,6 +6,12 @@
             "c/adminPanel": [
                 "adminPanel/adminPanel.js"
             ],
+            "c/illustrationCompass": [
+                "illustrationCompass/illustrationCompass.js"
+            ],
+            "c/illustrationFish": [
+                "illustrationFish/illustrationFish.js"
+            ],
             "c/multiSelectListItem": [
                 "multiSelectListItem/multiSelectListItem.js"
             ],
