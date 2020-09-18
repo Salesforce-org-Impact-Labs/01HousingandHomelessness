@@ -9,11 +9,27 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>getRecommendations</apexClass>
+        <apexClass>ClientMessageHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>serviceHide</apexClass>
+        <apexClass>EmailService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RecommendationsInboundEmailHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ReferralEmailTemplateController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ReferralResponseHelper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Scoring</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -37,29 +53,25 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>RecommendationsInboundEmailHandler</apexClass>
+        <apexClass>getRecommendations</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ReferralEmailTemplateController</apexClass>
+        <apexClass>serviceHide</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>ReferralResponseHelper</apexClass>
+    <customMetadataTypeAccesses>
         <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>Scoring</apexClass>
+        <name>Carrier_Setting__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
         <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>EmailService</apexClass>
+        <name>RefRecSettings__mdt</name>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
         <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ClientMessageHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
+        <name>Scoring_Metric__mdt</name>
+    </customMetadataTypeAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Client_Profile__c.Contact__c</field>
@@ -182,6 +194,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Service__c.All_Types__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Service__c.City__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -300,98 +317,17 @@
         <field>Service__c.Zip_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Service__c.All_Types__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Carrier_Setting__mdt.Carrier_Name__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Carrier_Setting__mdt.Email_Domain__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile_Update_Notification__e.ClientProfileId__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Client_Profile_Update_Notification__e.ContactId__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>RefRecSettings__mdt.Default_Latitude__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>RefRecSettings__mdt.Default_Longitude__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>RefRecSettings__mdt.Default_Max_Distance__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Based_on_Service_Field__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Calculate_User_Level__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Description__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Org_Level__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Org_Maximum__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Org_Minimum__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Org_SOQL_Query__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Service_Level_SOQL_Query__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.User_ID__c</field>
-    </fieldPermissions>
-    <fieldPermissions>
-        <readable>true</readable>
-        <editable>true</editable>
-        <field>Scoring_Metric__mdt.Weighting__c</field>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>RefRecAdmin</label>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Client_Profile_Update_Notification__e</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -416,29 +352,6 @@
         <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
-        <object>Service_Exclusion__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>Service__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowRead>true</allowRead>
-        <object>Client_Profile_Update_Notification__e</object>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
         <object>Referral_Response__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
@@ -451,23 +364,28 @@
         <object>Referral__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Service_Exclusion__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Service__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
     <pageAccesses>
         <apexPage>ServicePrintPage</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-
-    <customMetadataTypeAccesses>
-        <enabled>true</enabled>
-        <name>Carrier_Setting__mdt</name>
-    </customMetadataTypeAccesses>
-    <customMetadataTypeAccesses>
-        <enabled>true</enabled>
-        <name>RefRecSettings__mdt</name>
-    </customMetadataTypeAccesses>
-    <customMetadataTypeAccesses>
-        <enabled>true</enabled>
-        <name>Scoring_Metric__mdt</name>
-    </customMetadataTypeAccesses>
     <tabSettings>
         <tab>Client_Profile__c</tab>
         <visibility>Visible</visibility>
