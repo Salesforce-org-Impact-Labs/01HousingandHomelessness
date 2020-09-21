@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CustomField>
-    <label>All Types</label>
-    <type>MultiselectPicklist</type>
-    <visibleLines>3</visibleLines>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_Types__c</fullName>
+    <externalId>false</externalId>
+    <label>All Types</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
     <valueSet>
         <valueSetDefinition>
-            <value>
-                <fullName>Food</fullName>
-                <label>Food</label>
-                <default>false</default>
-            </value>
-            <value>
-                <fullName>Housing</fullName>
-                <label>Housing</label>
-                <default>false</default>
-            </value>
-            <value>
-                <fullName>Goods</fullName>
-                <label>Goods</label>
-                <default>false</default>
-            </value>
-            <value>
-                <fullName>Transit</fullName>
-                <label>Transit</label>
-                <default>false</default>
-            </value>
-            <value>
-                <fullName>Health</fullName>
-                <label>Health</label>
-                <default>false</default>
-            </value>
-            <value>
-                <fullName>Money</fullName>
-                <label>Money</label>
-                <default>false</default>
-            </value>
+            <sorted>true</sorted>
             <value>
                 <fullName>Care</fullName>
-                <label>Care</label>
                 <default>false</default>
+                <label>Care</label>
             </value>
             <value>
                 <fullName>Education</fullName>
-                <label>Education</label>
                 <default>false</default>
+                <label>Education</label>
             </value>
             <value>
-                <fullName>Work</fullName>
-                <label>Work</label>
+                <fullName>Food</fullName>
                 <default>false</default>
+                <label>Food</label>
+            </value>
+            <value>
+                <fullName>Goods</fullName>
+                <default>false</default>
+                <label>Goods</label>
+            </value>
+            <value>
+                <fullName>Health</fullName>
+                <default>false</default>
+                <label>Health</label>
+            </value>
+            <value>
+                <fullName>Housing</fullName>
+                <default>false</default>
+                <label>Housing</label>
             </value>
             <value>
                 <fullName>Legal</fullName>
-                <label>Legal</label>
                 <default>false</default>
+                <label>Legal</label>
             </value>
-            <sorted>true</sorted>
+            <value>
+                <fullName>Money</fullName>
+                <default>false</default>
+                <label>Money</label>
+            </value>
+            <value>
+                <fullName>Transit</fullName>
+                <default>false</default>
+                <label>Transit</label>
+            </value>
+            <value>
+                <fullName>Work</fullName>
+                <default>false</default>
+                <label>Work</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
+    <visibleLines>3</visibleLines>
 </CustomField>
