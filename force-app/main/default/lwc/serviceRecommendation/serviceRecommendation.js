@@ -55,6 +55,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   }
 
   handleSendReferral() {
+
     let eventParams = {
       showFlow: true,
       contactId: this.contactid,
