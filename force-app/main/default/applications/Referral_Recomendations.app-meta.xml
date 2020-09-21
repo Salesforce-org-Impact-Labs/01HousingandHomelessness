@@ -20,13 +20,15 @@
     </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
+        <logo>Screen_Shot_20200918_at_30754_PM</logo>
+        <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
     <formFactors>Small</formFactors>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>Referral Recommendations</label>
+    <label>Service Match</label>
     <navType>Standard</navType>
     <tabs>standard-Contact</tabs>
     <tabs>Service__c</tabs>
