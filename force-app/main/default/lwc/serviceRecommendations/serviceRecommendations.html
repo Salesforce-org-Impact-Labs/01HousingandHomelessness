@@ -13,7 +13,7 @@
             ></lightning-icon>
           </li>
           <li>
-            <p class="slds-p-left_xx-small">Recommended Services</p>
+            <p class="slds-p-left_xx-small">Service Match</p>
           </li>
         </ul>
         <ul class="slds-float_right slds-list_horizontal">
@@ -210,7 +210,7 @@
                         ></lightning-icon>
                       </li>
                       <li>
-                        <p class="slds-p-left_xx-small">Recommended Services</p>
+                        <p class="slds-p-left_xx-small">Service Match</p>
                       </li>
                     </ul>
                     <ul class="slds-float_right slds-list_horizontal">
@@ -293,6 +293,7 @@
                       key={recommendation.ServiceId}
                       onreloadafterhide={handleRequestRecommendations}
                       servicerecommendation={recommendation}
+                      onflowlaunch={handleShare}
                       serviceid={recommendation.ServiceId}
                       contactid={recordId}
                     ></c-service-recommendation>
@@ -340,6 +341,7 @@
                       onreloadafterhide={handleRequestRecommendations}
                       key={hiddenrecommendation.ServiceId}
                       servicerecommendation={hiddenrecommendation}
+                      onflowlaunch={handleShare}
                       serviceid={hiddenrecommendation.ServiceId}
                       contactid={recordId}
                     ></c-service-recommendation>

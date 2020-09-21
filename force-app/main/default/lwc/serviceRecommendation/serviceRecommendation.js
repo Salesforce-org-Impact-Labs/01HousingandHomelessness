@@ -50,11 +50,10 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
     // console.log(iconList);
     // this.servicerecommendation.ProgramIcons.push(iconList);
 
-    
-
   }
 
   handleSendReferral() {
+
     let eventParams = {
       showFlow: true,
       contactId: this.contactid,
@@ -178,6 +177,19 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
     window.console.log(event.currentTarget);
     let parent = event.currentTarget.parentElement;
     parent.classList.toggle('slds-is-open');
+  }
+
+  handleCommentRedirect(event){
+    event.preventDefault();
+    console.log('here');
+    this[NavigationMixin.Navigate]({
+      type: 'standard__recordPage',
+      attributes: {
+          recordId: this.serviceid,
+          objectApiName: 'Service__c',
+          actionName: 'view'
+      },
+  });
   }
 
   handleShowAddComment(event) {
