@@ -6,6 +6,10 @@
     transition: all 0.3s ease;
     flex-wrap: wrap;
   }
+
+  svg {
+    cursor:default;
+  }
   
   .star-container + .star {
     margin-left: 0.5rem;

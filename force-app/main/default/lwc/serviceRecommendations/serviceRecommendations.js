@@ -69,6 +69,7 @@ export default class ServiceRecommendations extends LightningElement {
                 let hiddenResult = [];
 
                 let i;
+                console.log(result.length);
                 if(result.length > 0){
                   
                   for(i = 0; i < result.length; i++) {
