@@ -1,4 +1,4 @@
-global with sharing class Scoring {
+public with sharing class Scoring {
   // Positive Weights
 
   // example metric: my referrals
@@ -113,8 +113,9 @@ global with sharing class Scoring {
   }
 
   // Scoring.scoreAllServices();
-  global static void scoreAllServices() {
+  public static void scoreAllServices() {
     // iterate all metrics
+    //Add list method before for loop
     for (Scoring_Metric__mdt metricIterator : [
       SELECT
         Org_Minimum__c,
