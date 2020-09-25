@@ -181,7 +181,9 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
 
   handleCommentRedirect(event){
     event.preventDefault();
+
     console.log('here');
+    console.log(this.serviceid);
     this[NavigationMixin.Navigate]({
       type: 'standard__recordPage',
       attributes: {

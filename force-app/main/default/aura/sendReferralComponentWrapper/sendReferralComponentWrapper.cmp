@@ -1,20 +1,348 @@
-<aura:component
-  implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSobjectName"
-  access="global"
-  controller="ComponentWrapperController"
->
-<!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSobjectName" access="global"
+  controller="getRecommendations">
+  <!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->
   <aura:attribute name="showModal" type="Boolean" default="false" />
-  <aura:attribute name="FlowName" type="String" access="global"/>
+  <aura:attribute name="showRecommendations" type="Boolean" default="false"/>
+  <aura:attribute name="showRelevancePopover" type="Boolean" default="false"/>
+  <aura:attribute name="showDropdown" type="Boolean" default="false"/>
+  <aura:attribute name="showAddComment" type="Boolean" default="false"/>
+  <aura:attribute name="showExpandedMap" type="Boolean" default="false"/>
+  <aura:attribute name="showHiddenRecsList" type="Boolean" default="false"/>
+  <aura:attribute name="showRecs" type="Boolean" default="false"/>
+  <aura:attribute name="noRecsMessage" type="Boolean"/>
+  <aura:attribute name="searchedRecommendations" type="Boolean" default="false"/>
+  <aura:attribute name="showHoursFilterChangePopover" type="Boolean" default="false"/>
+  <aura:attribute name="showLocationFilterChangePopover" type="Boolean" default="false"/>
+  <aura:attribute name="returnHiddenRecommendationsCount" type="Integer" default="0"/>
+  <aura:attribute name="FlowName" type="String" access="global" />
   <aura:attribute name="contactId" type="String" />
+  <aura:attribute name="serviceId" type="String"/>
+  <aura:attribute name="mapMarkers" type="Object"/>
+  <aura:attribute name="unfilteredRecommendations" type="ServiceRecommendation[]" />
+  <aura:attribute name="returnRecommendations" type="ServiceRecommendation[]" />
+  <aura:attribute name="returnHiddenRecommendations" type="ServiceRecommendation[]" />
+  <aura:attribute name="typeFilters" type="Object"/>
+  <aura:attribute name="typeFilterLabel" type="String" default="View All"/>
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-  <div class="">
-    <c:serviceRecommendations
+
+  <!-- outer div -->
+  <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
+    <div class="slds-size_1-of-1 fullRecDiv">
+      <div class="slds-clearfix">
+        <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
+          <li>
+            <lightning:icon iconName="custom:custom1" size="medium" alternativeText="Services"></lightning:icon>
+          </li>
+          <li>
+            <p class="slds-p-left_xx-small">Service Match</p>
+          </li>
+        </ul>
+        <ul class="slds-float_right slds-list_horizontal">
+          <lightning:buttonGroup>
+            <lightning:buttonIcon variant="border-filled" iconName="utility:refresh" alternativeText="Refresh"
+              onclick="{!c.handleRequestRecommendations}"></lightning:buttonIcon>
+            <lightning:buttonIcon variant="border-filled" iconName="utility:expand_alt" alternativeText="Expand"
+              onclick="{!c.handleExpand}"></lightning:buttonIcon>
+          </lightning:buttonGroup>
+        </ul>
+      </div>
+      <aura:if isTrue="{!v.searchedRecommendations}">
+        <aura:set attribute="else">
+          <div class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center">
+            <div class="slds-size_1-of-1 slds-illustration slds-illustration_small">
+              <c:illustrationFish></c:illustrationFish>
+            </div>
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium">
+              <h3>No Recommendations Yet</h3>
+            </div>
+            <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_medium">
+              <lightning:button label="Get Recommended Services" variant="brand" title="Recommendations"
+                onclick="{!c.handleRequestRecommendations}"></lightning:button>
+            </div>
+          </div>
+        </aura:set>
+      </aura:if>
+      
+    </div>
+    <aura:if isTrue="{!v.showRecommendations}">
+      <div class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
+        <!-- multi select picklist for filter of program types -->
+        <div class="slds-float_left">
+          <c:multiselectPicklist selectoptiontext="{!v.typeFilterLabel}"></c:multiselectPicklist>
+        </div>
+        <!-- show me filter -->
+        <div class="slds-float_right slds-p-top_large">
+          <lightning:buttonMenu alternativeText="Show More" variant="border-filled" iconName="utility:sort" onselect="{!c.handleSortMenu}">
+            <lightning:menuItem value="rating" label="Client Rating" ></lightning:menuItem>
+            <lightning:menuItem value="distance" label="Distance to Contact Address" >
+            </lightning:menuItem>
+            <lightning:menuItem value="popular" label="Relevance" ></lightning:menuItem>
+          </lightning:buttonMenu>
+        </div>
+      </div>
+    </aura:if>
+    <aura:if isTrue="{!v.showRecommendations}">
+      <div class="mapDiv slds-size_1-of-1">
+          <lightning:map listView="hidden" mapMarkers="{!v.mapMarkers}" zoomLevel="10">
+        </lightning:map>
+      </div>
+    </aura:if>
+    <aura:if isTrue="{!v.noRecsMessage}">
+      <div class="slds-align_absolute-center">
+        <div class="slds-size_1-of-1 slds-illustration slds-illustration_small">
+          <c:illustrationCompass></c:illustrationCompass>
+          <div class="slds-text-longform">
+            <h3 class="slds-text-heading_small">
+              There are no recommendations at this time, please add a service or
+              check your configuration settings
+            </h3>
+          </div>
+        </div>
+      </div>
+    </aura:if>
+    <aura:if isTrue="{!v.showRecommendations}">
+      <div class="innerRecDiv viewHeightFifty slds-scrollable_y">
+        <aura:iteration items="{!v.returnRecommendations}" var="recommendation">
+            <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
+            onflowlaunch="{!c.handleShare}" servicerecommendation="{!recommendation}" serviceid="{!recommendation.ServiceId}"
+            contactid="{!v.recordId}"></c:serviceRecommendation>
+        </aura:iteration>
+      </div>
+    </aura:if>
+    
+    <!-- show hidden -->
+    <aura:if isTrue="{!v.searchedRecommendations}">
+      <div class="hiddenRecsDiv slds-scrollable_y">
+          <aura:if isTrue="{!v.showHiddenRecsList}">
+                  <a href="#"  onclick="{!c.handleShowHidden}">
+                    <lightning:icon class="slds-current-color" size="xx-small" iconName="utility:chevrondown">
+                    </lightning:icon>Hidden Recommendations ({!v.returnHiddenRecommendationsCount})
+                  </a>
+              <aura:set attribute="else">
+                  <a href="#"  onclick="{!c.handleShowHidden}">
+                    <lightning:icon class="slds-current-color" size="xx-small" iconName="utility:chevronright">
+                    </lightning:icon>Hidden Recommendations ({!v.returnHiddenRecommendationsCount})
+                  </a>
+              </aura:set>
+          </aura:if>
+          
+          
+          <aura:if isTrue="{!v.showHiddenRecsList}">
+            <aura:iteration items="{!v.returnHiddenRecommendations}" var="hiddenrecommendation">
+                <c:serviceRecommendation onreloadafterhide="{!c.handleRequestRecommendations}"
+                servicerecommendation="{!hiddenrecommendation}" onflowlaunch="{!c.handleShare}"
+                serviceid="{!hiddenrecommendation.ServiceId}" contactid="{!v.recordId}"></c:serviceRecommendation>
+            </aura:iteration>
+          </aura:if>
+        </div>
+    </aura:if>
+  </div>
+
+<!-- show map section -->
+  <aura:if isTrue="{!v.showExpandedMap}">
+    <div  class="slds-scrollable_y">
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-label="Expanded Map View"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <div class="slds-modal__container mapModal">
+          <header class="slds-modal__header slds-modal__header_empty">
+            <lightning:buttonIcon
+              class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+              iconName="utility:close"
+              title="Close"
+              onclick="{!c.handleExpand}"
+            >
+            </lightning:buttonIcon>
+          </header>
+          <div
+            class="slds-modal__content slds-p-around_medium"
+            id="modal-content-id-1"
+          >
+            <div class="slds-size_1-of-1 slds-grid slds-wrap">
+              <div class="slds-col recommendationsDiv recommendationsDivWide">
+                <div class="outerDiv slds-size_1-of-1 slds-grid slds-wrap">
+                  <div class="slds-size_1-of-1 fullRecDiv">
+                    <div class="slds-clearfix">
+                      <ul
+                        class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small"
+                      >
+                        <li>
+                          <lightning:icon
+                            iconName="custom:custom1"
+                            size="medium"
+                            alternativeText="Services"
+                          ></lightning:icon>
+                        </li>
+                        <li>
+                          <p class="slds-p-left_xx-small">Service Match</p>
+                        </li>
+                      </ul>
+                      <ul class="slds-float_right slds-list_horizontal">
+                        <lightning:buttonGroup>
+                          <lightning:buttonIcon
+                            variant="border-filled"
+                            iconName="utility:refresh"
+                            alternativeText="Refresh"
+                            onclick="{!c.handleRequestRecommendations}"
+                          ></lightning:buttonIcon>
+                          <lightning:buttonIcon
+                            variant="border-filled"
+                            iconName="utility:contract_alt"
+                            alternativeText="Refresh"
+                            onclick="{!c.handleExpand}"
+                          ></lightning:buttonIcon>
+                        </lightning:buttonGroup>
+                      </ul>
+                    </div>
+                    <aura:if isTrue="{!v.showRecommendations}">
+                      <aura:set attribute="else">
+                          <div
+                          class="slds-size_1-of-1 slds-grid slds-wrap slds-align_absolute-center"
+                        >
+                          <div class="slds-size_1-of-1 slds-align_absolute-center">
+                            <h3>No Recommendations Yet</h3>
+                          </div>
+                          <div class="slds-size_1-of-1 slds-align_absolute-center">
+                            <lightning:button
+                              label="Get Recommended Services"
+                              title="Recommendations"
+                              onclick="{!c.handleRequestRecommendations}"
+                            ></lightning:button>
+                          </div>
+                        </div>
+                      </aura:set>
+                    </aura:if>
+                    
+                  </div>
+
+                  <div
+                    class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small"
+                  >
+                    <div class="slds-float_left">
+                      <c:multiselectPicklist
+                        selectoptiontext="{!v.typeFilterLabel}"
+                      ></c:multiselectPicklist>
+                    </div>
+                    <!-- show me filter -->
+                    <div class="slds-float_right slds-p-top_large">
+                      <lightning:buttonMenu
+                        alternativeText="Show More"
+                        variant="border-filled"
+                        iconName="utility:sort"
+                        onselect="{!c.handleSortMenu}"
+                      >
+                        <lightning:menuItem
+                          value="rating"
+                          label="Client Rating"
+                        ></lightning:menuItem>
+                        <lightning:menuItem
+                          value="distance"
+                          label="Distance to Contact Address"
+                        ></lightning:menuItem>
+                        <lightning:menuItem
+                          value="popular"
+                          label="Relevance"
+                        ></lightning:menuItem>
+                      </lightning:buttonMenu>
+                    </div>
+                  </div>
+                  <aura:if isTrue="{!v.returnRecommendations}">
+
+                    <div
+                      class="innerRecModalDiv slds-scrollable_y"
+                      >
+                      <aura:iteration items="{!v.returnRecommendations}" var="recommendation">
+                       
+                        <c:serviceRecommendation
+                        onreloadafterhide="{!c.handleRequestRecommendations}"
+                        servicerecommendation="{!recommendation}"
+                        onflowlaunch="{!c.handleShare}"
+                        serviceid="{!recommendation.ServiceId}"
+                        contactid="{!v.recordId}"
+                        ></c:serviceRecommendation>
+                      </aura:iteration>
+
+                  </div>
+                </aura:if>
+
+                  <!-- show hidden -->
+                <aura:if isTrue="{!v.returnHiddenRecommendations}">     
+                  <div
+                    class="hiddenRecsDiv slds-scrollable_y"
+                  >
+                  <aura:if isTrue="{!v.showHiddenRecsList}">
+                    <a
+                      href="#"
+                      onclick="{!c.handleShowHidden}"
+                      ><lightning:icon
+                        class="slds-current-color"
+                        size="xx-small"
+                        iconName="utility:chevrondown"
+                      >
+                      </lightning:icon
+                      >Hidden Recommendations
+                      ({!v.returnHiddenRecommendationsCount})</a
+                    >
+                    <aura:set attribute="else">
+                      <a
+                        href="#"
+                        onclick="{!c.handleShowHidden}"
+                        ><lightning:icon
+                          class="slds-current-color"
+                          size="xx-small"
+                          iconName="utility:chevronright"
+                        >
+                        </lightning:icon
+                        >Hidden Recommendations
+                        ({!v.returnHiddenRecommendationsCount})</a
+                      >
+                    </aura:set>
+                  </aura:if>
+                    
+                    
+                    <aura:if isTrue="{!v.showHiddenRecsList}">
+                      <aura:iteration items="{!v.returnHiddenRecommendations}" var="hiddenrecommendation">
+                          <c:serviceRecommendation
+                          onreloadafterhide="{!c.handleRequestRecommendations}"
+                          servicerecommendation="{!hiddenrecommendation}"
+                          onflowlaunch="{!c.handleShare}"
+                          serviceid="{!hiddenrecommendation.ServiceId}"
+                          contactid="{!v.recordId}"
+                        ></c:serviceRecommendation>
+                      </aura:iteration>
+                    </aura:if>
+
+                      
+
+                  </div>
+                </aura:if>
+                </div>
+              </div>
+              <div class="slds-col mapModalDiv width67">
+                <lightning:map
+                listView="hidden" mapMarkers="{!v.mapMarkers}" zoomLevel="10">
+                </lightning:map>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+  </aura:if>
+
+
+  <!-- <c:serviceRecommendations
       aura:id="childCmp"
       recordId="{!v.contactId}"
       onauraflowlaunch="{!c.handleFlowLaunch}"
-    />
+    /> -->
 
     <lightning:flow class="flowWrapper" aura:id="flow" onstatuschange="{!c.handleStatusChange}" />
-  </div>
+  
 </aura:component>

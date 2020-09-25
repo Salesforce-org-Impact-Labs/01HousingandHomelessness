@@ -1,4 +1,139 @@
-.THIS .flowWrapper{
+.THIS {
     background-color: white;
+}
+
+
+.THIS.outerDiv {
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 5px;
+    padding:10px !important;
+}
+
+.THIS .innerRecDiv {
+    margin-top:0.5em;    
+}
+
+.THIS .viewHeightFive {
+    height: 5vh;
+}
+
+.THIS .viewHeightFifty {
+    height: 50vh;
+}
+
+.THIS .innerRecModalDiv {
+    height:50vh;
+}
+
+
+.THIS .iconNameDiv {
+    height: 40px;
+    line-height: 40px;       
+}
+
+.THIS .slds-popover__body {
+    font-size:12px;
+}
+
+.THIS .factorsList ul {
+    padding: 10px;
+}
+
+.THIS .factorsList li{
+    color: grey;
+}
+
+.THIS .commentInput {
+    text-align:left;
+}
+.THIS .fullRecDiv {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.THIS .mapExpansion {
+    display: inline-block;
+}
+
+.THIS .recommendationsDivWide {
+    width: 33%;
+}
+
+.THIS .recommendationsDivNarrow {
+    width: 25%;
+}
+
+
+.THIS .width25 {
+    width:25%;
+}
+
+.THIS .width33 {
+    width: 33%;
+}
+
+.THIS .mapDiv {
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+.THIS .mapModalDiv {
+    position:relative;
+    margin-top:-15px;
+    margin-bottom: -15px;
     height:100%;
+    
+}
+
+.THIS .width67 {
+    width: 67%;
+    height:100%;
+    padding-left:10px;
+}
+
+.THIS .mapDivNarrow {
+    width: 50%;
+    height:100%;
+    padding-left:10px;
+}
+
+.THIS .filterDiv {
+    width: 25%;
+}
+
+.THIS .filterDiv h2 {
+    font-size:16px;
+}
+
+.THIS .modalWidth100 {
+    width:100%;
+}
+
+.THIS .mapClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    
+}
+
+.THIS .hiddenRecsDiv .slds-icon_container {
+    margin-top: 2em;
+    margin-bottom: 1em;
+}
+
+
+.THIS .pillFilterDiv {
+    border: solid 1px grey;
+    border-radius: 4px;
+    margin: 10px;
+    padding:5px;
+}
+
+.THIS .pillFilterDiv .greyText {
+    color:grey;
+}
+
+.THIS .pillFilterDiv .blackText {
+    color:black;
 }
