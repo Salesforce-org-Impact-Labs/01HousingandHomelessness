@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>flsError</fullName>
+        <categories>Object FLS Error</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>flsError</shortDescription>
+        <value>You do not have permissions to modify {0}.</value>
+    </labels>
+    <labels>
+        <fullName>leadConvertOwner</fullName>
+        <categories>Lead Converter</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>leadConvertOwner</shortDescription>
+        <value>Record Owner</value>
+    </labels>
+    <labels>
+        <fullName>stgCreatedBy</fullName>
+        <categories>stgCreatedBy</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>stgCreatedBy</shortDescription>
+        <value>Created By</value>
+    </labels>
+    <labels>
+        <fullName>stgLastModifiedBy</fullName>
+        <categories>Settings</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>stgLastModifiedBy</shortDescription>
+        <value>Last Modified By</value>
+    </labels>
+</CustomLabels>
