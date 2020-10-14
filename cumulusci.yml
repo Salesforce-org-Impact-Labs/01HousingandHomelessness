@@ -66,14 +66,18 @@ tasks:
 flows:
   config_dev:
     steps:
+      2:
+        task: dx_push
       3:
         task: assign_permset
         ignore_failure: True
       4:
-        task: load_dataset
+        task: update_admin_profile
       5:
-        task: score_services
+        task: load_dataset
       6:
+        task: score_services
+      7:
         task: command
         options:
           command: cci org default dev
