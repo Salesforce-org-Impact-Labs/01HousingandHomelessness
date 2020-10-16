@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
-        <componentInstances>
+        <itemInstances>
+        <componentInstance>
             <componentInstanceProperties>
                 <name>collapsed</name>
                 <value>false</value>
@@ -19,26 +20,32 @@
                 <value>3</value>
             </componentInstanceProperties>
             <componentName>force:highlightsPanel</componentName>
-        </componentInstances>
+        </componentInstance>
+        </itemInstances>
         <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <componentInstances>
+        <itemInstances>
+        <componentInstance>
             <componentName>force:detailPanel</componentName>
-        </componentInstances>
+        </componentInstance>
+        </itemInstances>
         <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <componentInstances>
+        <itemInstances>
+        <componentInstance>
             <componentInstanceProperties>
                 <name>FlowName</name>
                 <value>Send_Referral_Flow</value>
             </componentInstanceProperties>
             <componentName>sendReferralComponentWrapper</componentName>
-        </componentInstances>
-        <componentInstances>
+        </componentInstance>
+        </itemInstances>
+        <itemInstances>
+        <componentInstance>
             <componentInstanceProperties>
                 <name>flowArguments</name>
                 <value>[{&quot;label&quot;:&quot;ContactId&quot;,&quot;dataType&quot;:&quot;String&quot;,&quot;supportsRecordId&quot;:true,&quot;value&quot;:&quot;{!Record.Id}&quot;}]</value>
@@ -52,7 +59,8 @@
                 <value>Client_Profile_Builder</value>
             </componentInstanceProperties>
             <componentName>flowruntime:interview</componentName>
-        </componentInstances>
+        </componentInstance>
+        </itemInstances>
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
