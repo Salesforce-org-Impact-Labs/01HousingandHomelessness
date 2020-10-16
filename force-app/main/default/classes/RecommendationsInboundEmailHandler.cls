@@ -136,7 +136,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
         }*/
              
          if (!Schema.sObjectType.Task.isCreateable()){
-        throw new emailServicenException(
+        throw new EmailServicenException(
                 System.Label.flsError);
            
          } else { 
@@ -151,7 +151,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
       private static Referral_Response__c getReferralResponse(String referralResponseId) {
         
         if (!Schema.sObjectType.Referral_Response__c.isAccessible()){
-            throw new emailServicenException(
+            throw new EmailServicenException(
                     System.Label.flsError);
                
              } else { 
@@ -181,7 +181,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
       private static void createNewReferralAndTask(Referral_Response__c refResponse) {
 
         if (!Schema.sObjectType.Referral__c.isCreateable()){
-            throw new emailServicenException(
+            throw new EmailServicenException(
                 System.Label.flsError);
                
              } else { 
