@@ -115,7 +115,13 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
         Id runningUserId = UserInfo.getUserId();
 
         // create the task and assign it to the user
-        Task confirmTask = new Task();
+        Task confirmTask = new Task(
+            Subject = 'Confirm Organization-Wide Email Address',
+            Status = 'Not Started',
+            OwnerId = runningUserId,
+            Description = emailBody
+        );
+        /* Task confirmTask = new Task();
         if (Schema.SObjectType.Task.fields.Subject.isCreateable()) {
             confirmTask.Subject = 'Confirm Organization-Wide Email Address';
         }
@@ -127,13 +133,29 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
         }
         if (Schema.SObjectType.Task.fields.Description.isCreateable()) {
             confirmTask.Description = emailBody;
+        }*/
+             
+         if (!Schema.sObjectType.Task.isCreateable()){
+        throw new EmailServicenException(
+                System.Label.flsError);
+           
+         } else { 
+             insert confirmTask;
         }
 
-        insert confirmTask;
+        
+        
       }
 
       @TestVisible
       private static Referral_Response__c getReferralResponse(String referralResponseId) {
+        
+        if (!Schema.sObjectType.Referral_Response__c.isAccessible()){
+            throw new EmailServicenException(
+                    System.Label.flsError);
+               
+             } else { 
+
         Referral_Response__c response = new Referral_Response__c();  
         List<Referral_Response__c> responses = [
             SELECT
@@ -151,10 +173,18 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             response = responses[0];
         }
         return response;
+
+                    }
       }
 
       @TestVisible
       private static void createNewReferralAndTask(Referral_Response__c refResponse) {
+
+        if (!Schema.sObjectType.Referral__c.isCreateable()){
+            throw new EmailServicenException(
+                System.Label.flsError);
+               
+             } else { 
         // get the next recommended service of the same type
         Service__c recService = 
             getNextServiceRecommendationForClient(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Service__r.Type__c);
@@ -162,7 +192,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
         if (recService != null) {
             // create the new referral
             Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
-            if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
+                   if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
                 newReferral.Service__c = recService.Id;
             }
             insert newReferral;
@@ -170,6 +200,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             Task newTask = createReferralTask(newReferral.Id);
             insert newTask;
         }
+                    }
       }
 
       @TestVisible
@@ -223,5 +254,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
 
         return nextService;
       }
-
+     
+    public class EmailServicenException extends Exception {
+    }
   }
