@@ -4,7 +4,7 @@ project:
   package:
     name: ReferralRecommendations
     namespace: refrec
-    api_version: '48.0'
+    api_version: '49.0'
   # dependencies:
   # - github: 'https://github.com/SalesforceFoundation/PMM'
   source_format: sfdx
