@@ -6,7 +6,9 @@ public with sharing class ReferralResponseHelper {
                 Id = referralId,
                 Score__c = score
             );
+        if (Schema.sObjectType.Referral__c.fields.Score__c.isUpdateable()){
             update refer;
+        }
         }
     }
 
@@ -30,7 +32,9 @@ public with sharing class ReferralResponseHelper {
             Id = referralresponseId,
             Response__c = response
         );
-        update refRes;
+        if (Schema.sObjectType.Referral_Response__c.fields.Response__c.isUpdateable()){
+            update refRes;
+        }
 
         return refRes;
     }
