@@ -1,6 +1,11 @@
 public with sharing class carrierSettingsData {
     
     public static String getEmailForCarrier (String carrierName) {
+        if (!Schema.sObjectType.Carrier_Setting__mdt.isAccessible()){
+            throw new CarrierServicenException(
+                System.Label.flsError);
+               
+             } else {  
         List<Carrier_Setting__mdt> settings = [
             SELECT 
                 Email_Domain__c
@@ -12,7 +17,9 @@ public with sharing class carrierSettingsData {
             return settings[0].Email_Domain__c;
         } else {
             return null;
+            }
         }
     }
-
+    public class CarrierServicenException extends Exception {
+    }
 }
