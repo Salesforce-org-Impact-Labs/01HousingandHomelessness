@@ -1,4 +1,4 @@
-public with sharing class Scoring {
+global with sharing class Scoring {
   // Positive Weights
 
   // example metric: my referrals
