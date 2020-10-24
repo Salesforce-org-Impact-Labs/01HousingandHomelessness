@@ -113,7 +113,7 @@ global with sharing class Scoring {
   }
 
   // Scoring.scoreAllServices();
-  public static void scoreAllServices() {
+  global static void scoreAllServices() {
     // iterate all metrics
     //Add list method before for loop
     for (Scoring_Metric__mdt metricIterator : [
