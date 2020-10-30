@@ -23,7 +23,10 @@ public with sharing class ReferralResponseHelper {
     }
 
     public static List<Referral_Response__c> saveQuestionRecords(List<Referral_Response__c> referralResponses) {
-        insert referralResponses;
+        if (Schema.sObjectType.Referral_Response__c.isCreateable()){
+
+            insert referralResponses;
+        }
         return referralResponses;
     }
 
