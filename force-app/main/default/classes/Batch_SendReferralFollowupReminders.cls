@@ -1,8 +1,8 @@
-public with sharing class Batch_SendReferralFollowupReminders implements Database.Batchable<SObject>, Schedulable {
+global with sharing class Batch_SendReferralFollowupReminders implements Database.Batchable<SObject>, Schedulable {
     private static final String REMINDER_TASK_SUBJECT = 'Reminder';
     private static final String TASK_STATUS_COMPLETED = 'Completed';
 
-    public Database.QueryLocator start(Database.BatchableContext context) {
+    global Database.QueryLocator start(Database.BatchableContext context) {
         // get 
         return Database.getQueryLocator([
             SELECT
@@ -15,7 +15,7 @@ public with sharing class Batch_SendReferralFollowupReminders implements Databas
         ]);
     }
 
-    public void execute(Database.BatchableContext context, List<Task> reminderTasks) {
+    global void execute(Database.BatchableContext context, List<Task> reminderTasks) {
         if (!reminderTasks.isEmpty()) {
             // get the referral ids from each task
             List<Id> referralIds = new List<Id>();
@@ -34,11 +34,11 @@ public with sharing class Batch_SendReferralFollowupReminders implements Databas
         }
     }
 
-    public void finish(Database.BatchableContext context) {
+    global void finish(Database.BatchableContext context) {
         // nothing to do here
     }
 
-    public void execute(SchedulableContext context) {
+    global void execute(SchedulableContext context) {
         Database.executeBatch(new Batch_SendInitialClientReferrals());
     }
 }

@@ -1,8 +1,8 @@
-public with sharing class Batch_SendInitialClientReferrals implements Database.Batchable<SObject>, Schedulable {
+global with sharing class Batch_SendInitialClientReferrals implements Database.Batchable<SObject>, Schedulable {
     private static final String REMINDER_TASK_SUBJECT = 'Info to Client';
     private static final String TASK_STATUS_COMPLETED = 'Completed';
 
-    public Database.QueryLocator start(Database.BatchableContext context) {
+    global Database.QueryLocator start(Database.BatchableContext context) {
         // select referrals for which we have sent no messages
         return Database.getQueryLocator([
             SELECT
@@ -15,7 +15,7 @@ public with sharing class Batch_SendInitialClientReferrals implements Database.B
         ]);
     }
 
-    public void execute(Database.BatchableContext context, List<Task> referralTasks) {
+    global void execute(Database.BatchableContext context, List<Task> referralTasks) {
         // get the referral ids from each task
         List<Id> referralIds = new List<Id>();
         Map<Id,Id> taskToReferralMap = new Map<Id,Id>();
@@ -32,11 +32,11 @@ public with sharing class Batch_SendInitialClientReferrals implements Database.B
         }
    }
 
-    public void finish(Database.BatchableContext context) {
+    global void finish(Database.BatchableContext context) {
         // nothing to do here
     }
 
-    public void execute(SchedulableContext context) {
+    global void execute(SchedulableContext context) {
         Database.executeBatch(new Batch_SendInitialClientReferrals());
     }
 }
