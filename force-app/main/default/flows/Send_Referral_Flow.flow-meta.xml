@@ -9,6 +9,14 @@
         </value>
     </choices>
     <choices>
+        <name>Print</name>
+        <choiceText>Print</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Print</stringValue>
+        </value>
+    </choices>
+    <choices>
         <name>SMS</name>
         <choiceText>SMS</choiceText>
         <dataType>String</dataType>
@@ -27,8 +35,8 @@
     <decisions>
         <name>Has_Email</name>
         <label>Has Email</label>
-        <locationX>566</locationX>
-        <locationY>207</locationY>
+        <locationX>434</locationX>
+        <locationY>136</locationY>
         <defaultConnector>
             <targetReference>Has_Phone</targetReference>
         </defaultConnector>
@@ -132,6 +140,28 @@
             <label>Does Have Phone</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Print_Selected</name>
+        <label>Print Selected?</label>
+        <locationX>1144</locationX>
+        <locationY>545</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Print_Selected_Outcome</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Preferred_Method_of_Contact</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <elementReference>Print</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>print_optiiion</targetReference>
+            </connector>
+            <label>Print Selected</label>
+        </rules>
+    </decisions>
     <interviewLabel>Send Referral Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <isTemplate>true</isTemplate>
     <label>Send Referral Flow</label>
@@ -159,6 +189,9 @@
         <label>Create Info To Client Task</label>
         <locationX>1016</locationX>
         <locationY>494</locationY>
+        <connector>
+            <targetReference>Print_Selected</targetReference>
+        </connector>
         <inputAssignments>
             <field>Subject</field>
             <value>
@@ -384,10 +417,26 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>print_optiiion</name>
+        <label>print optiiion</label>
+        <locationX>1067</locationX>
+        <locationY>691</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>printText</name>
+            <fieldText>&lt;p&gt;You&apos;ve selected to print this referral. &lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please return to the recommendation list and select the option to print the Referral information.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Screen_1_Referral_Confirmation</name>
         <label>Screen 1 Referral Confirmation</label>
-        <locationX>424</locationX>
-        <locationY>467</locationY>
+        <locationX>358</locationX>
+        <locationY>527</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -403,6 +452,7 @@
             <name>Preferred_Method_of_Contact</name>
             <choiceReferences>Email</choiceReferences>
             <choiceReferences>SMS</choiceReferences>
+            <choiceReferences>Print</choiceReferences>
             <dataType>String</dataType>
             <fieldText>Send to Client Via:</fieldText>
             <fieldType>MultiSelectCheckboxes</fieldType>
