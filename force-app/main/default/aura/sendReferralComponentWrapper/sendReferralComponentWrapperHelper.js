@@ -82,8 +82,10 @@
                     if(showResult.length === 0){
                         component.set('v.noRecsMessage',true);
                         component.set('v.showRecommendations',false);
+                        component.set('v.showRecommendationResults',false);
                     }else{
                         component.set('v.showRecommendations',true);
+                        component.set('v.showRecommendationResults',true);
                         component.set('v.noRecsMessage',false);
                     }
     

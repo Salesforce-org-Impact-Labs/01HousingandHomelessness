@@ -137,3 +137,14 @@
 .THIS .pillFilterDiv .blackText {
     color:black;
 }
+
+.THIS .flowContainer {
+    border:1px solid grey;
+    border-radius: 5px;
+    padding:15px;
+    margin-top:10px;
+}
+
+.THIS .flowContainer .backBtn{
+    margin-right:15px;
+}

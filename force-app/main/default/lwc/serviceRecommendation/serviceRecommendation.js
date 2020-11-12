@@ -54,12 +54,12 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
 
   handleSendReferral() {
 
-    let eventParams = {
+    const eventParams = {
       showFlow: true,
       contactId: this.contactid,
       serviceId: this.servicerecommendation.ServiceId
     };
-    window.console.log(eventParams);
+    window.console.log('handleSendReferral params::' + JSON.stringify(eventParams));
     const flowLaunchEvent = new CustomEvent('flowlaunch', {
       detail: {
         eventParams
@@ -67,6 +67,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
     });
     // Fire the custom event
 
+    console.log('flow launch ' +flowLaunchEvent);
     this.dispatchEvent(flowLaunchEvent);
   }
 

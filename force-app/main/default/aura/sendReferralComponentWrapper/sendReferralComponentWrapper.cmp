@@ -1,8 +1,10 @@
 <aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,force:hasSobjectName" access="global"
   controller="getRecommendations">
-  <!-- <aura:handler name="launchFlow" event="c:flowLaunch" action="{!c.handleFlowLaunch}"/> -->
+  <ltng:require styles="{!$Resource.mapModal }" />
   <aura:attribute name="showModal" type="Boolean" default="false" />
+  <aura:attribute name="showReferFlow" type="Boolean" default="false"/>
   <aura:attribute name="showRecommendations" type="Boolean" default="false"/>
+  <aura:attribute name="showRecommendationResults" type="Boolean" default="false"/>
   <aura:attribute name="showRelevancePopover" type="Boolean" default="false"/>
   <aura:attribute name="showDropdown" type="Boolean" default="false"/>
   <aura:attribute name="showAddComment" type="Boolean" default="false"/>
@@ -41,7 +43,7 @@
           <lightning:buttonGroup>
             <lightning:buttonIcon variant="border-filled" iconName="utility:refresh" alternativeText="Refresh"
               onclick="{!c.handleRequestRecommendations}"></lightning:buttonIcon>
-            <lightning:buttonIcon variant="border-filled" iconName="utility:expand_alt" alternativeText="Expand"
+            <lightning:buttonIcon variant="border-filled" iconName="utility:expand_alt" disabled="{!!v.searchedRecommendations}" alternativeText="Expand"
               onclick="{!c.handleExpand}"></lightning:buttonIcon>
           </lightning:buttonGroup>
         </ul>
@@ -64,6 +66,8 @@
       </aura:if>
       
     </div>
+
+   
     <aura:if isTrue="{!v.showRecommendations}">
       <div class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
         <!-- multi select picklist for filter of program types -->
@@ -100,7 +104,27 @@
         </div>
       </div>
     </aura:if>
-    <aura:if isTrue="{!v.showRecommendations}">
+    <aura:if isTrue="{!v.showReferFlow}">
+      <div class="flowContainer slds-size_1-of-1">
+          <div class="slds-clearfix">
+              <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
+                <li>
+                  <lightning:icon iconName="custom:custom1" size="medium" alternativeText="Services"></lightning:icon>
+                </li>
+                <li>
+                  <p class="slds-p-left_xx-small">Share This Service</p>
+                </li>
+              </ul>
+              <div class="slds-float_right">
+                  <lightning:button variant="brand" class="backBtn" onclick="{!c.returnToRecs}">Return to Recommendations</lightning:button>
+              </div>
+          </div>
+       
+        <lightning:flow class="flowWrapper" aura:id="flow" onstatuschange="{!c.handleStatusChange}" />
+        
+      </div>
+    </aura:if>
+    <aura:if isTrue="{!v.showRecommendationResults}">
       <div class="innerRecDiv viewHeightFifty slds-scrollable_y">
         <aura:iteration items="{!v.returnRecommendations}" var="recommendation">
             <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
@@ -336,13 +360,5 @@
     </div>
   </aura:if>
 
-
-  <!-- <c:serviceRecommendations
-      aura:id="childCmp"
-      recordId="{!v.contactId}"
-      onauraflowlaunch="{!c.handleFlowLaunch}"
-    /> -->
-
-    <lightning:flow class="flowWrapper" aura:id="flow" onstatuschange="{!c.handleStatusChange}" />
   
 </aura:component>

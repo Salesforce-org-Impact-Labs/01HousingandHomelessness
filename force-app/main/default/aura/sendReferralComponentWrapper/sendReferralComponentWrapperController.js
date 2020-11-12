@@ -15,30 +15,6 @@
         helper.requestRecommendations(component, event, helper);
     },
 
-    handleFlowLaunch: function(component, event, helper) {
-        console.log('handling flow launch');
-        var flowName = component.get('v.FlowName');
-        var eventData = event.getParam('details');
-        console.log(JSON.stringify(eventData));
-        component.set("v.showModal",eventData.showFlow);
-        
-
-        //will need to pass input variables
-        if(eventData.showFlow){
-            console.log(eventData.serviceId);
-            console.log(eventData.contactId);
-            var inputVariables = [
-                { name : "contactId", type : "String", value: eventData.contactId }, 
-                { name : "serviceId", type : "String", value: eventData.serviceId }, 
-            ];
-            var flow = component.find("flow");
-            flow.startFlow(flowName, inputVariables);
-            var childcomp = component.find('childCmp');
-            $A.util.addClass(childcomp, 'slds-hide');
-
-        }
-    },
-
     handleStatusChange : function (component, event) {
 
         if (event.getParam('status') === "FINISHED") {
@@ -141,14 +117,23 @@
     },
 
     handleShare: function(component, event, helper) {
+        component.set('v.showReferFlow', true);
+        component.set('v.showRecommendationResults',false);
+        var evt = event.getParam('eventParams');
+        
         var flow = component.find('flow')
         var flowname = component.get('v.FlowName');
         var inputVariables = [
 
-           { name : "contactId", type : "String", value: component.get('v.contactId') }, 
-           { name : "serviceId", type : "String", value: component.get('v.serviceId') },
+           { name : "contactId", type : "String", value: evt.contactId }, 
+           { name : "serviceId", type : "String", value: evt.serviceId },
 
          ];
         flow.startFlow(flowname, inputVariables);
+    },
+
+    returnToRecs : function(component, event, helper) {
+        component.set('v.showReferFlow', false);
+        component.set('v.showRecommendationResults', true);
     },
 })

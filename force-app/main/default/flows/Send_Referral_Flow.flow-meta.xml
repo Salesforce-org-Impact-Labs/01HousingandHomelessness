@@ -142,6 +142,12 @@
         </value>
     </processMetadataValues>
     <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
         <name>OriginBuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -157,6 +163,18 @@
             <field>Subject</field>
             <value>
                 <stringValue>Info to Client</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>TaskSubtype</field>
+            <value>
+                <stringValue>Task</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>Create_Referral</elementReference>
             </value>
         </inputAssignments>
         <object>Task</object>
@@ -250,6 +268,13 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Create_Referral</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>TaskSubtype</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Task</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -371,7 +396,7 @@
         </connector>
         <fields>
             <name>Confirm</name>
-            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;﻿Share This Service﻿&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Send To: {!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Send To: {!Get_Contact.FirstName} {!Get_Contact.LastName}&lt;/p&gt;&lt;p&gt;Phone: {!Get_Contact.MobilePhone}&lt;/p&gt;&lt;p&gt;Email: {!Get_Contact.Email}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
