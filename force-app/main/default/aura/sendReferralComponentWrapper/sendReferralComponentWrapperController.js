@@ -55,39 +55,6 @@
         component.set('v.showHiddenRecsList', !hiddenVal);
     },
 
-    handleSortMenu: function(component, event, helper) {
-        window.console.log('show sort menu');
-        var returnRecs = component.get('v.returnRecommendations');
-        const menuItem = event.target;
-        console.log(menuItem);
-        const parent = menuItem.parentElement;
-        console.log(parent);
-        window.console.log('children' + parent.children);
-        for (let sibling of parent.children) {
-        sibling.checked = false;
-        }
-        menuItem.checked = !menuItem.checked;
-
-        let val = event.target.value;
-        if(val === 'distance'){
-            returnRecs.sort((a,b)=>{
-            return (a.Distance > b.Distance) ? 1 : -1
-        })
-        }else if (val === 'rating'){
-            returnRecs.sort((a,b)=>{
-
-            return (a.Rating < b.Rating) ? 1 : -1
-            })
-        }else if (val === 'popular'){
-            returnRecs.sort((a,b)=>{
-
-            return (a.Relevance < b.Relevance) ? 1 : -1
-        })
-        }else{
-        
-        }
-    },
-
     handleShare: function(component, event, helper) {
         component.set('v.showReferFlow', true);
         component.set('v.showRecommendationResults',false);
@@ -164,13 +131,11 @@
     },
 
     openMultiSelectPicklist : function(component, event, helper) {
-        console.log('here');
         var div = component.find('viewAll');
         $A.util.toggleClass(div, 'slds-is-open');
     },
 
     handleTypeFilterUpdate : function(component, event, helper) {
-        window.console.log('updating type filters');
         let filterList = component.get('v.typeFilters');
         var evt = event.getParam('eventParams');
         if(filterList.includes(evt.value)){
@@ -180,8 +145,6 @@
             filterList.push(evt.value);
         }
         component.set('v.typeFilters' , filterList);
-        console.log(filterList.length);
-        console.log(filterList);
         if(filterList.length === 0) {
           component.set('v.typeFilterLabel', 'View All');
         } else if(filterList.length === 1) {
@@ -190,7 +153,6 @@
             component.set('v.typeFilterLabel','Filtering ' +filterList.length + ' Service Types');
         }
         var unfiltered = component.get('v.unfilteredRecommendations');
-        console.log('unfiltered' + unfiltered);
         const filteredRecs = unfiltered.filter(rec => {      
           for(let k in filterList){
             if(rec.AllTypes.includes(filterList[k])){
@@ -198,12 +160,9 @@
             }
           }
         });
-        window.console.log('filtered recs' + filteredRecs);
         if(filteredRecs.length === 0 && filterList.length === 0){
-            console.log('show unfiltered');
             component.set('v.returnRecommendations', unfiltered);
         }else{
-            console.log('show filtered');
             component.set('v.returnRecommendations', filteredRecs);
         }
     },

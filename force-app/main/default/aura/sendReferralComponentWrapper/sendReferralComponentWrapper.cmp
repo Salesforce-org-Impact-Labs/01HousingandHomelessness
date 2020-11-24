@@ -99,12 +99,7 @@
         </div>
         <!-- show me filter -->
         <div class="slds-float_right slds-p-top_large">
-          <lightning:buttonMenu alternativeText="Show More" variant="border-filled" iconName="utility:sort" onselect="{!c.handleSortMenu}">
-            <lightning:menuItem value="rating" label="Client Rating" ></lightning:menuItem>
-            <lightning:menuItem value="distance" label="Distance to Contact Address" >
-            </lightning:menuItem>
-            <lightning:menuItem value="popular" label="Relevance" ></lightning:menuItem>
-          </lightning:buttonMenu>
+          <c:sortingMenu sortedRecommendations="{!v.returnRecommendations}" unfilteredRecommendations="{!v.unfilteredRecommendations}"></c:sortingMenu>
         </div>
       </div>
     </aura:if>
