@@ -1,0 +1,3 @@
+<design:component >
+    <design:attribute name="FlowName" description="namespaced flow API name" default="refrec__Send_Referral_Flow"/>
+</design:component>

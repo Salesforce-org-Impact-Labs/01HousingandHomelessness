@@ -24,6 +24,9 @@
             "c/serviceRecommendations": [
                 "serviceRecommendations/serviceRecommendations.js"
             ],
+            "c/sortingMenu": [
+                "sortingMenu/sortingMenu.js"
+            ],
             "c/starRating": [
                 "starRating/starRating.js"
             ]
