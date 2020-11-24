@@ -95,7 +95,6 @@
                     </div>
                 </div>
             </div>
-          <!-- <c:multiselectPicklist selectoptiontext="{!v.typeFilterLabel}"></c:multiselectPicklist> -->
         </div>
         <!-- show me filter -->
         <div class="slds-float_right slds-p-top_large">
@@ -266,31 +265,29 @@
                     class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small"
                   >
                     <div class="slds-float_left">
-                      <c:multiselectPicklist
-                        selectoptiontext="{!v.typeFilterLabel}"
-                      ></c:multiselectPicklist>
+                      <div class="slds-form-element">
+                          <label class="slds-form-element__label " for="{!v.apiName}">{!v.typeFilterLabel}</label>
+                          <div class="slds-form-element__control">
+                              <div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click slds-text-align_left" aura:id="viewAll" id="{!v.apiName}">
+                                  <button class="slds-button slds-button--neutral slds-picklist__label relativePosition buttonWidth" onclick="{!c.openMultiSelectPicklist}">
+                                      <span class="slds-truncate " title="Select options...">{!v.typeFilterLabel}</span>
+                                      <lightning:icon iconName="utility:down" size="small" class="slds-icon dropdownButtonIconContainer"></lightning:icon>
+                                  </button>
+                                  <div class="slds-dropdown slds-dropdown--left">
+                                      <ul role="menu">
+                                        <aura:iteration items="{!v.picklistValues}" var="picklistValue">
+                                          
+                                          <c:multiSelectListItem onselectfiltervalue="{!c.handleTypeFilterUpdate}" key="{!picklistValue}"  api-name="{!v.apiName}" value="{!picklistValue}"></c:multiSelectListItem>
+                                        </aura:iteration>
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                     </div>
                     <!-- show me filter -->
                     <div class="slds-float_right slds-p-top_large">
-                      <lightning:buttonMenu
-                        alternativeText="Show More"
-                        variant="border-filled"
-                        iconName="utility:sort"
-                        onselect="{!c.handleSortMenu}"
-                      >
-                        <lightning:menuItem
-                          value="rating"
-                          label="Client Rating"
-                        ></lightning:menuItem>
-                        <lightning:menuItem
-                          value="distance"
-                          label="Distance to Contact Address"
-                        ></lightning:menuItem>
-                        <lightning:menuItem
-                          value="popular"
-                          label="Relevance"
-                        ></lightning:menuItem>
-                      </lightning:buttonMenu>
+                      <c:sortingMenu sortedRecommendations="{!v.returnRecommendations}" unfilteredRecommendations="{!v.unfilteredRecommendations}"></c:sortingMenu>
                     </div>
                   </div>
                   <aura:if isTrue="{!v.showMapReferFlow}">
