@@ -222,6 +222,12 @@
         </value>
     </processMetadataValues>
     <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
         <name>OriginBuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -405,14 +411,27 @@
     <screens>
         <name>DOB</name>
         <label>DOB</label>
-        <locationX>369</locationX>
-        <locationY>349</locationY>
+        <locationX>154</locationX>
+        <locationY>415</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
             <targetReference>Assign_DOB</targetReference>
         </connector>
+        <fields>
+            <name>client1</name>
+            <extensionName>c:HeaderIcon</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>headerText</name>
+                <value>
+                    <stringValue>Client Profile Builder</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
         <fields>
             <name>DOB_Text</name>
             <fieldText>&lt;p&gt;Providing the Client&apos;s Date of Birth helps identify services. that are appropriate for their age. &lt;/p&gt;</fieldText>
@@ -426,7 +445,7 @@
             <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>EmploymentScreen</name>
@@ -440,6 +459,19 @@
             <targetReference>Assign_Employment</targetReference>
         </connector>
         <fields>
+            <name>client2</name>
+            <extensionName>c:HeaderIcon</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>headerText</name>
+                <value>
+                    <stringValue>Client Profile Builder</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
             <name>Employment</name>
             <choiceReferences>EmlpoymentChoices</choiceReferences>
             <dataType>String</dataType>
@@ -448,7 +480,7 @@
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>Housing</name>
@@ -461,6 +493,19 @@
         <connector>
             <targetReference>Assign_Housing</targetReference>
         </connector>
+        <fields>
+            <name>client3</name>
+            <extensionName>c:HeaderIcon</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>headerText</name>
+                <value>
+                    <stringValue>Client Profile Builder</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
         <fields>
             <name>Housing_Text</name>
             <fieldText>&lt;p&gt;Check all that apply&lt;/p&gt;</fieldText>
@@ -502,7 +547,7 @@
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>Looks_Great</name>
@@ -513,12 +558,25 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <fields>
+            <name>client4</name>
+            <extensionName>c:HeaderIcon</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>headerText</name>
+                <value>
+                    <stringValue>Client Profile Builder</stringValue>
+                </value>
+            </inputParameters>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
             <name>Looks_Great_Text</name>
-            <fieldText>&lt;p&gt;Your Client Profile looks great!&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If you&apos;d like to make any changes to the client profile, please open the Client Profile record for this Client&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Your Client Profile looks great!&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If you&apos;d like to make any changes to the client profile, please open the Referral Client Profile record for this Client&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <start>
         <locationX>253</locationX>
