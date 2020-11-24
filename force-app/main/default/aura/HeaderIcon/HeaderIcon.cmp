@@ -1,0 +1,15 @@
+<aura:component implements="lightning:availableForFlowScreens">
+
+    <aura:attribute name="headerText" type="String"/>
+
+    <div class="slds-clearfix">
+        <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_small">
+          <li>
+            <lightning:icon iconName="custom:custom1" size="medium" alternativeText="Services"></lightning:icon>
+          </li>
+          <li>
+            <p class="slds-p-left_xx-small">{!v.headerText}</p>
+          </li>
+        </ul>
+    </div>
+</aura:component>
