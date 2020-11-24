@@ -1,4 +1,12 @@
 public with sharing class getRecommendations {
+
+  @AuraEnabled
+    public static string getCaseContactId(String caseId){
+        String contactId = [SELECT Id, ContactId FROM Case WHERE Id =:caseId].ContactId;
+
+        return contactId;
+    }
+
   @AuraEnabled
   public static list<ServiceRecommendation> getRecommendations(id contactId) {
     Client_Profile__c CP = getProfile(contactId);
