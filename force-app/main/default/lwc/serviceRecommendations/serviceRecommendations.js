@@ -236,16 +236,16 @@ export default class ServiceRecommendations extends LightningElement {
         
   }
 
-  handleShare(event){
-    window.console.log('event detail' + event.detail);
-    let details = event.detail.eventParams;
-      const flowLaunchEvent = new CustomEvent('auraflowlaunch', {
-        detail: {
-          details
-        },
-    });
-    // Fire the custom event
+  // handleShare(event){
+  //   window.console.log('event detail::' + event.detail);
+  //   let details = event.detail.eventParams;
+  //     const flowLaunchEvent = new CustomEvent('auraflowlaunch', {
+  //       detail: {
+  //         details
+  //       },
+  //   });
+  //   // Fire the custom event
     
-    this.dispatchEvent(flowLaunchEvent);
-  }
+  //   this.dispatchEvent(flowLaunchEvent);
+  // }
 }
