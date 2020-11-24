@@ -27,7 +27,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   newComment;
 
   connectedCallback(rec = this.servicerecommendation) {
-    window.console.log(JSON.stringify(rec));
+    window.console.log('connected callnback ' + JSON.stringify(rec));
     if (rec.Comments.length > 0) {
       this.commentCount = rec.Comments.length;
     }
@@ -59,15 +59,12 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
       contactId: this.contactid,
       serviceId: this.servicerecommendation.ServiceId
     };
-    window.console.log('handleSendReferral params::' + JSON.stringify(eventParams));
+    
     const flowLaunchEvent = new CustomEvent('flowlaunch', {
       detail: {
         eventParams
       }
     });
-    // Fire the custom event
-
-    console.log('flow launch ' +flowLaunchEvent);
     this.dispatchEvent(flowLaunchEvent);
   }
 
@@ -240,7 +237,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   }
 
   handlePrintReferral() {
-
+    console.log(this.serviceid);
     print({ serviceId: this.serviceid })
       .then((result) => {
         let downloadLink = document.createElement('a');

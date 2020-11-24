@@ -117,7 +117,7 @@
     
 }
 
-.THIS .hiddenRecsDiv .slds-icon_container {
+.THIS .hiddenRecsDiv {
     margin-top: 2em;
     margin-bottom: 1em;
 }
@@ -147,4 +147,23 @@
 
 .THIS .flowContainer .backBtn{
     margin-right:15px;
+}
+
+.THIS .relativePosition{
+    position: relative;
+}
+
+.THIS .buttonWidth{
+    width: 180px;
+}
+
+.THIS .dropdownButtonIconContainer{
+    position: absolute;
+    top: 0.9375rem;
+    left: 10rem;
+    z-index: 5;
+}
+
+.THIS .checkBox{
+    padding-top: 2.1rem;
 }

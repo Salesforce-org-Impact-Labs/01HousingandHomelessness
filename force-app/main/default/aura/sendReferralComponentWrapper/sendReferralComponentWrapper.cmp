@@ -3,6 +3,7 @@
   <ltng:require styles="{!$Resource.mapModal }" />
   <aura:attribute name="showModal" type="Boolean" default="false" />
   <aura:attribute name="showReferFlow" type="Boolean" default="false"/>
+  <aura:attribute name="showMapReferFlow" type="Boolean" default="false"/>
   <aura:attribute name="showRecommendations" type="Boolean" default="false"/>
   <aura:attribute name="showRecommendationResults" type="Boolean" default="false"/>
   <aura:attribute name="showRelevancePopover" type="Boolean" default="false"/>
@@ -23,8 +24,11 @@
   <aura:attribute name="unfilteredRecommendations" type="ServiceRecommendation[]" />
   <aura:attribute name="returnRecommendations" type="ServiceRecommendation[]" />
   <aura:attribute name="returnHiddenRecommendations" type="ServiceRecommendation[]" />
-  <aura:attribute name="typeFilters" type="Object"/>
   <aura:attribute name="typeFilterLabel" type="String" default="View All"/>
+  <aura:attribute name="apiName" type="String" default=" "/>
+  <aura:attribute name="picklistValues" type="String[]"/>
+  <aura:attribute name="typeFilters" type="String[]"/>
+  
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
   <!-- outer div -->
@@ -72,7 +76,26 @@
       <div class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
         <!-- multi select picklist for filter of program types -->
         <div class="slds-float_left">
-          <c:multiselectPicklist selectoptiontext="{!v.typeFilterLabel}"></c:multiselectPicklist>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label " for="{!v.apiName}">{!v.typeFilterLabel}</label>
+                <div class="slds-form-element__control">
+                    <div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click slds-text-align_left" aura:id="viewAll" id="{!v.apiName}">
+                        <button class="slds-button slds-button--neutral slds-picklist__label relativePosition buttonWidth" onclick="{!c.openMultiSelectPicklist}">
+                            <span class="slds-truncate " title="Select options...">{!v.typeFilterLabel}</span>
+                            <lightning:icon iconName="utility:down" size="small" class="slds-icon dropdownButtonIconContainer"></lightning:icon>
+                        </button>
+                        <div class="slds-dropdown slds-dropdown--left">
+                            <ul role="menu">
+                              <aura:iteration items="{!v.picklistValues}" var="picklistValue">
+                                
+                                <c:multiSelectListItem onselectfiltervalue="{!c.handleTypeFilterUpdate}" key="{!picklistValue}"  api-name="{!v.apiName}" value="{!picklistValue}"></c:multiSelectListItem>
+                              </aura:iteration>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <!-- <c:multiselectPicklist selectoptiontext="{!v.typeFilterLabel}"></c:multiselectPicklist> -->
         </div>
         <!-- show me filter -->
         <div class="slds-float_right slds-p-top_large">
@@ -125,7 +148,7 @@
       </div>
     </aura:if>
     <aura:if isTrue="{!v.showRecommendationResults}">
-      <div class="innerRecDiv viewHeightFifty slds-scrollable_y">
+      <div class="innerRecDiv   slds-size_1-of-1 viewHeightFifty slds-scrollable_y">
         <aura:iteration items="{!v.returnRecommendations}" var="recommendation">
             <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
             onflowlaunch="{!c.handleShare}" servicerecommendation="{!recommendation}" serviceid="{!recommendation.ServiceId}"
@@ -136,7 +159,7 @@
     
     <!-- show hidden -->
     <aura:if isTrue="{!v.searchedRecommendations}">
-      <div class="hiddenRecsDiv slds-scrollable_y">
+      <div class="hiddenRecsDiv slds-size_1-of-1 slds-scrollable_y">
           <aura:if isTrue="{!v.showHiddenRecsList}">
                   <a href="#"  onclick="{!c.handleShowHidden}">
                     <lightning:icon class="slds-current-color" size="xx-small" iconName="utility:chevrondown">
@@ -154,7 +177,7 @@
           <aura:if isTrue="{!v.showHiddenRecsList}">
             <aura:iteration items="{!v.returnHiddenRecommendations}" var="hiddenrecommendation">
                 <c:serviceRecommendation onreloadafterhide="{!c.handleRequestRecommendations}"
-                servicerecommendation="{!hiddenrecommendation}" onflowlaunch="{!c.handleShare}"
+                servicerecommendation="{!hiddenrecommendation}" onflowlaunch="{!c.handleShareHidden}"
                 serviceid="{!hiddenrecommendation.ServiceId}" contactid="{!v.recordId}"></c:serviceRecommendation>
             </aura:iteration>
           </aura:if>
@@ -275,7 +298,27 @@
                       </lightning:buttonMenu>
                     </div>
                   </div>
-                  <aura:if isTrue="{!v.returnRecommendations}">
+                  <aura:if isTrue="{!v.showMapReferFlow}">
+                    <div class="flowContainer slds-size_1-of-1">
+                        <div class="slds-clearfix">
+                            <ul class="slds-float_left slds-list_horizontal iconNameDiv slds-p-left_x-small">
+                              <li>
+                                <lightning:icon iconName="custom:custom1" size="medium" alternativeText="Services"></lightning:icon>
+                              </li>
+                              <li>
+                                <p class="slds-p-left_xx-small">Share This Service</p>
+                              </li>
+                            </ul>
+                            <div class="slds-float_right">
+                                <lightning:button variant="brand" class="backBtn" onclick="{!c.returnToRecsMap}">Return to Recommendations</lightning:button>
+                            </div>
+                        </div>
+                    
+                      <lightning:flow class="flowWrapper" aura:id="flowhidden" onstatuschange="{!c.handleStatusChange}" />
+                      
+                    </div>
+                  </aura:if>
+                  <aura:if isTrue="{!v.showRecommendationResults}">
 
                     <div
                       class="innerRecModalDiv slds-scrollable_y"
@@ -285,7 +328,7 @@
                         <c:serviceRecommendation
                         onreloadafterhide="{!c.handleRequestRecommendations}"
                         servicerecommendation="{!recommendation}"
-                        onflowlaunch="{!c.handleShare}"
+                        onflowlaunch="{!c.handleMapShare}"
                         serviceid="{!recommendation.ServiceId}"
                         contactid="{!v.recordId}"
                         ></c:serviceRecommendation>
@@ -334,7 +377,7 @@
                           <c:serviceRecommendation
                           onreloadafterhide="{!c.handleRequestRecommendations}"
                           servicerecommendation="{!hiddenrecommendation}"
-                          onflowlaunch="{!c.handleShare}"
+                          onflowlaunch="{!c.handleShareMapHidden}"
                           serviceid="{!hiddenrecommendation.ServiceId}"
                           contactid="{!v.recordId}"
                         ></c:serviceRecommendation>

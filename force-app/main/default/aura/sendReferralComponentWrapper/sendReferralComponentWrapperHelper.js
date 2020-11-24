@@ -79,7 +79,7 @@
                       }
                     }
                     
-                    if(showResult.length === 0){
+                    if(showResult.length === 0 && hiddenResult.length === 0){
                         component.set('v.noRecsMessage',true);
                         component.set('v.showRecommendations',false);
                         component.set('v.showRecommendationResults',false);

@@ -9,6 +9,10 @@
         }else{
 
         }
+
+        var picklists = component.get('v.picklistValues');
+        picklists = ['Food', 'Education','Housing', 'Goods', 'Transit', 'Health','Money','Care', 'Work','Legal'];
+        component.set('v.picklistValues', picklists);
     },
 
     handleRequestRecommendations: function(component, event, helper) {
@@ -45,14 +49,19 @@
     },
 
     handleShowHidden: function(component, event, helper) {
+        event.preventDefault();
         var hiddenVal = component.get('v.showHiddenRecsList');
+
         component.set('v.showHiddenRecsList', !hiddenVal);
     },
 
     handleSortMenu: function(component, event, helper) {
         window.console.log('show sort menu');
-        const menuItem = event.currentTarget;
+        var returnRecs = component.get('v.returnRecommendations');
+        const menuItem = event.target;
+        console.log(menuItem);
         const parent = menuItem.parentElement;
+        console.log(parent);
         window.console.log('children' + parent.children);
         for (let sibling of parent.children) {
         sibling.checked = false;
@@ -61,59 +70,22 @@
 
         let val = event.target.value;
         if(val === 'distance'){
-        this.returnRecommendations.sort((a,b)=>{
+            returnRecs.sort((a,b)=>{
             return (a.Distance > b.Distance) ? 1 : -1
         })
         }else if (val === 'rating'){
-        this.returnRecommendations.sort((a,b)=>{
+            returnRecs.sort((a,b)=>{
 
             return (a.Rating < b.Rating) ? 1 : -1
             })
         }else if (val === 'popular'){
-        this.returnRecommendations.sort((a,b)=>{
+            returnRecs.sort((a,b)=>{
 
             return (a.Relevance < b.Relevance) ? 1 : -1
         })
         }else{
         
         }
-    },
-
-    handleUpdateTypeFilters: function(component, event, helper) {
-        window.console.log('updating type filters');
-        let filterList = component.get('v.typeFilters');
-        if(filterList.includes(event.detail.value)){
-            const index = filterList.indexOf(event.detail.value);
-            filterList.splice(index, 1);
-        }else{
-            filterList.push(event.detail.value);
-        }
-        component.set('v.typeFilters',filterList);
-
-        if(filterList.length === 0) {
-        component.set('v.typeFilterLabel', 'View All');
-        } else if(filterList.length === 1) {
-            component.set('v.typeFilterLabel', 'Filtering ' +filterList.length + ' Service Type');
-        } else{
-            component.set('v.typeFilterLabel', 'Filtering ' +filterList.length + ' Service Types');
-        }
-        const filteredRecs = this.unfilteredRecommendations.filter(rec => {      
-        for(let k in filterList){
-            if(rec.AllTypes.includes(filterList[k])){
-            return rec;
-            }
-        }
-        
-        });
-
-        if(filteredRecs.length === 0 && filterList.length === 0){
-            component.set('v.returnRecommendations', component.get('v.unfilteredRecommendations'));
-
-        }else{
-            component.set('v.returnRecommendations', filteredRecs);
-
-        }
-        
     },
 
     handleShare: function(component, event, helper) {
@@ -132,8 +104,107 @@
         flow.startFlow(flowname, inputVariables);
     },
 
+    handleShareHidden: function(component, event, helper) {
+        component.set('v.showReferFlow', true);
+        component.set('v.showHiddenRecsList',false);
+        var evt = event.getParam('eventParams');
+        
+        var flow = component.find('flow')
+        var flowname = component.get('v.FlowName');
+        var inputVariables = [
+
+           { name : "contactId", type : "String", value: evt.contactId }, 
+           { name : "serviceId", type : "String", value: evt.serviceId },
+
+         ];
+        flow.startFlow(flowname, inputVariables);
+    },
+
+
+    handleMapShare: function(component, event, helper) {
+        component.set('v.showMapReferFlow', true);
+        component.set('v.showRecommendationResults',false);
+        var evt = event.getParam('eventParams');
+        var flow = component.find('flowhidden');
+        var flowname = component.get('v.FlowName');
+        var inputVariables = [
+
+           { name : "contactId", type : "String", value: evt.contactId }, 
+           { name : "serviceId", type : "String", value: evt.serviceId },
+
+         ];
+        flow.startFlow(flowname, inputVariables);
+    },
+
+    handleShareMapHidden: function(component, event, helper) {
+        component.set('v.showMapReferFlow', true);
+        component.set('v.showHiddenRecsList',false);
+        var evt = event.getParam('eventParams');
+        
+        var flow = component.find('flowhidden')
+        var flowname = component.get('v.FlowName');
+        var inputVariables = [
+
+           { name : "contactId", type : "String", value: evt.contactId }, 
+           { name : "serviceId", type : "String", value: evt.serviceId },
+
+         ];
+        flow.startFlow(flowname, inputVariables);
+    },
+
     returnToRecs : function(component, event, helper) {
         component.set('v.showReferFlow', false);
         component.set('v.showRecommendationResults', true);
+        component.set('v.showHiddenRecsList', true);
+    },
+    returnToRecsMap : function(component, event, helper) {
+        component.set('v.showMapReferFlow', false);
+        component.set('v.showRecommendationResults', true);
+        component.set('v.showHiddenRecsList', true);
+    },
+
+    openMultiSelectPicklist : function(component, event, helper) {
+        console.log('here');
+        var div = component.find('viewAll');
+        $A.util.toggleClass(div, 'slds-is-open');
+    },
+
+    handleTypeFilterUpdate : function(component, event, helper) {
+        window.console.log('updating type filters');
+        let filterList = component.get('v.typeFilters');
+        var evt = event.getParam('eventParams');
+        if(filterList.includes(evt.value)){
+            const index = filterList.indexOf(evt.value);
+            filterList.splice(index, 1);
+        }else{
+            filterList.push(evt.value);
+        }
+        component.set('v.typeFilters' , filterList);
+        console.log(filterList.length);
+        console.log(filterList);
+        if(filterList.length === 0) {
+          component.set('v.typeFilterLabel', 'View All');
+        } else if(filterList.length === 1) {
+            component.set('v.typeFilterLabel','Filtering ' +filterList.length + ' Service Type');
+        } else{
+            component.set('v.typeFilterLabel','Filtering ' +filterList.length + ' Service Types');
+        }
+        var unfiltered = component.get('v.unfilteredRecommendations');
+        console.log('unfiltered' + unfiltered);
+        const filteredRecs = unfiltered.filter(rec => {      
+          for(let k in filterList){
+            if(rec.AllTypes.includes(filterList[k])){
+              return rec;
+            }
+          }
+        });
+        window.console.log('filtered recs' + filteredRecs);
+        if(filteredRecs.length === 0 && filterList.length === 0){
+            console.log('show unfiltered');
+            component.set('v.returnRecommendations', unfiltered);
+        }else{
+            console.log('show filtered');
+            component.set('v.returnRecommendations', filteredRecs);
+        }
     },
 })

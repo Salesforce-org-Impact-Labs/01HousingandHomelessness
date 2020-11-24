@@ -572,7 +572,7 @@
         </fields>
         <fields>
             <name>Looks_Great_Text</name>
-            <fieldText>&lt;p&gt;Your Client Profile looks great!&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If you&apos;d like to make any changes to the client profile, please open the Client Profile record for this Client&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Your Client Profile looks great!&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;If you&apos;d like to make any changes to the client profile, please open the Referral Client Profile record for this Client&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
