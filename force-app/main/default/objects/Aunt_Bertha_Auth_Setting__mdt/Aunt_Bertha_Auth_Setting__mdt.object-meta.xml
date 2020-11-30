@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>This is the auth settings of Aunt Bertha service provider. It stores the username, password and api to make a successful connection to auth bertha service api get a token and make further calls. This is referenced in apex code.</description>
-    <label>Aunt Bertha Auth Setting</label>
-    <pluralLabel>Aunt Bertha Auth Settings</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>
