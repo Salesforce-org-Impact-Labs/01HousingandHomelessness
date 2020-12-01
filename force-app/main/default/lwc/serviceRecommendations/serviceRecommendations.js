@@ -63,7 +63,7 @@ export default class ServiceRecommendations extends LightningElement {
     handleRequestRecommendations(){
         getRecommendations({contactId: this.recordId })
             .then((result) => {
-              console.log(result);
+              console.log('result in lwc');
               this.searchedRecommendations = true;
                 let showResult = [];
                 let hiddenResult = [];
