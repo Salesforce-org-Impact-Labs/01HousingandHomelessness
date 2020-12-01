@@ -1,6 +1,15 @@
 ({
     doInit: function(component, event, helper) {
         console.log('init rec aura wrapper');
+
+        var objName = component.get('v.sObjectName');
+        if(objName === 'Case'){
+            helper.doGetCaseContactId(component,event,helper);
+        }else if (objName === 'Contact'){
+            component.set('v.contactId', component.get('v.recordId'));
+        }else{
+
+        }
     },
     
     handleFlowLaunch: function(component, event, helper) {
