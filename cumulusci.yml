@@ -61,6 +61,8 @@ tasks:
           - LogACall
           - NewTask
           - NewNote
+          - NewContact
+          - NewOpportunity
           # Unpackaged lightning record pages added by trial config
 
 flows:
