@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <choices>
-        <name>Email</name> 
+        <name>Email</name>
         <choiceText>Email</choiceText>
         <dataType>String</dataType>
         <value>
@@ -157,7 +157,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>print_optiiion</targetReference>
+                <targetReference>print_option</targetReference>
             </connector>
             <label>Print Selected</label>
         </rules>
@@ -417,8 +417,8 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>print_optiiion</name>
-        <label>print optiiion</label>
+        <name>print_option</name>
+        <label>print option</label>
         <locationX>1067</locationX>
         <locationY>691</locationY>
         <allowBack>true</allowBack>
