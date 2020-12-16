@@ -3,8 +3,8 @@
     <fullName>Weighting__c</fullName>
     <defaultValue>5</defaultValue>
     <externalId>false</externalId>
-    <fieldManageability>DeveloperControlled</fieldManageability>
-    <label>Weightning</label>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Weighting</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
