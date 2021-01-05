@@ -258,11 +258,11 @@ public with sharing class EmailService {
         }
         // update any contacts that have been changed (eg the mobile carrier has been changed)
         if (!contactsToUpdate.isEmpty()) {
-            update contactsToUpdate;
+            update Security.stripInaccessible(AccessType.UPDATABLE, contactsToUpdate).getRecords();      
         }
         // update any tasks that have been completed
         if (!tasksToUpdate.isEmpty()) {
-            update tasksToUpdate;
+            update Security.stripInaccessible(AccessType.UPDATABLE, tasksToUpdate).getRecords();     
         }
     }
 
@@ -363,7 +363,7 @@ public with sharing class EmailService {
                 Mobile_Phone_Carrier__c,
                 Phone
             FROM Contact
-            WHERE Id = :clientContactId
+            WHERE Id = :clientContactId WITH SECURITY_ENFORCED
         ];
 
         if (clientContacts.size() > 0) {

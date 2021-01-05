@@ -121,7 +121,6 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             OwnerId = runningUserId,
             Description = emailBody
         );
-         Task confirmTask = new Task();
         
         /**
          * SECREV FALSE POSTIVE : Standard Task fields like SUBJECT, STATUS, OWNERID & DESCRIPTION are 

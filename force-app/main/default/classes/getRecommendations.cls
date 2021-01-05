@@ -3,8 +3,8 @@ public with sharing class getRecommendations {
   @AuraEnabled
     public static string getCaseContactId(String caseId){
       String contactId ;
-       
-      if(Schema.Case.SObjectType == caseId.getSobjectType()){
+      
+      if(Schema.Case.SObjectType == Id.valueOf(caseId).getSobjectType()){
          contactId = [SELECT Id, ContactId FROM Case WHERE Id =:caseId].ContactId;
       }
         return contactId;

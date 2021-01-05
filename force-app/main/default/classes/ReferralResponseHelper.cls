@@ -15,18 +15,23 @@ public with sharing class ReferralResponseHelper {
 
     public static Referral_Response__c createQuestionRecord(String referralId, String question, Id taskId) {
         
+        List<Referral_Response__c> refResList = new List<Referral_Response__c>();
+       
         Referral_Response__c refRes = new Referral_Response__c (
             Referral__c = referralId,
             Question__c = question,
             Task_Id__c = taskId
         );  
 
+        refResList.add(refRes);
+
+        
         //Strip fields that are not creatable
         SObjectAccessDecision decision = Security.stripInaccessible(
             AccessType.CREATABLE,
-            refRes);
+            refResList);
 
-        return decision.getRecords()[0];
+        return (Referral_Response__c)decision.getRecords()[0];
     }
 
     public static List<Referral_Response__c> saveQuestionRecords(List<Referral_Response__c> referralResponses) {
