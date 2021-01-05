@@ -133,8 +133,7 @@ public with sharing class ServicePrint {
         Blob body = Blob.valueOf(''); 
 
         try {
-           	PageReference nr = new PageReference();
-            nr = Page.ServicePrintPage;
+           	PageReference nr = Page.ServicePrintPage;
             nr.getParameters().put('servId', serviceId);
             body = nr.getContentAsPDF();
             
