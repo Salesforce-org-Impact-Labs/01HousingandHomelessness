@@ -1,12 +1,13 @@
 # Client Profile Builder flow
 
-There is a flow/flow template called **Client Profile**. It makes some basic assumptions
+The Client Profile Builder flow template  makes three assumptions.
 
-1. You are capturing client information on Contat
-2. You are using the Other Address to store their physical address
-3. You are not saving the employment/housing information in your org
+1. You capture client information on Contact.
+2. You use the Other Address field to store the physical address.
+3. You don’t save employment/housing information in your Salesforce org.
 
-This is implemented as a flow so that you can easily customize it. For example, you can modify the flow to
+You can easily customize the flow to do the following. 
 
-1. Save the housing/employment information into a field in your org
-2. Grab address and DOB information from something besides the standard contact fields, or from other objects
+1. Save the housing/employment information into a field in Salesforce.
+2. Get address and date of birth information from locations other than the standard contact fields, or from other objects.
+
