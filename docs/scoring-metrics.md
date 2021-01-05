@@ -1,15 +1,11 @@
 # Scoring Metrics
 
-All of the scoring metrics that affect the relevancy scores live in CustomMetadata.
+All the scoring metrics that affect relevancy scores are in CustomMetadata. For each metric, you can modify the weighting field. Relative to the other weights, it’s a unitless measure. To ignore a weight, set it to 0.
 
-For each metric, there is a weighting field that you can modify...it's a unitless measure, relative to the other weights.
 
-Set a weight to 0 to cause it to be ignored.
+## Customized metrics
 
-## Org-based metrics
+Some weights are based on your Salesforce org's data and are calculated. For example, ratings quantity and ratings average  scores are based on how a service compares to the other services tracked in your org. So the minimum and maximum for the org are calculated and stored to avoid running them in real-time.
 
-Some weights are based on your org's data and are calculated.  
-For example, ratings quantity and ratings average.
-The score is based on how a service compares to the other services tracked in your org, so the min/max for the org are calculated and stored to avoid running all that in real-time.
+To manually trigger this calculation, you can run Scoring.ScoreAll(); in the developer console/execute anonymous.
 
-You can manually trigger this calculation by running `Scoring.ScoreAll();` in the developer console/execute anonymous.

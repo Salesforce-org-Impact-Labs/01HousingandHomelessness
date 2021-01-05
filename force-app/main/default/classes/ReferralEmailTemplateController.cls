@@ -26,6 +26,7 @@ public with sharing class ReferralEmailTemplateController {
                         Referral__r.Score__c
                         FROM Referral_Response__c
                         WHERE Id = :referralResponseId
+                        WITH SECURITY_ENFORCED 
                     ]
                     : new List<Referral_Response__c>();
     
@@ -36,6 +37,7 @@ public with sharing class ReferralEmailTemplateController {
 
     public Organization org {
         get {
+            // Secrev : This is query for Organization record. Hence we are not performing CRUD / FLS check
             List<Organization> orgs = [
                 SELECT 
                     Id,
@@ -56,7 +58,7 @@ public with sharing class ReferralEmailTemplateController {
                     End_Time__c,
                     Start_Time__c
                 FROM Open_Hours__c
-                WHERE Service__c = :referralResponse.Referral__r.Service__c
+                WHERE Service__c = :referralResponse.Referral__r.Service__c WITH SECURITY_ENFORCED
             ];
             return hours;
         }

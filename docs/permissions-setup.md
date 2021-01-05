@@ -2,13 +2,11 @@
 
 ## Permission Set
 
-The package includes a permission set called **RefRecAdmin**.
+Your package includes a RefRecAdmin permission set . You can add this permission set for users who need full admin access to the package objects.
 
-Add this for any user who needs full admin access the package objects.
 
 ## Testing Beta Packages
 
-There's an apex script that automates some CMDT updates. Beta packages require you to allow this.
+An apex script automates some CMDT updates, as required by Beta packages.
+From Setup, select Apex Settings, check Deploy Metadata from Non-Certified Package Versions via Apex.
 
-- Setup > Apex Settings
-- Check the box that says **Deploy Metadata from Non-Certified Package Versions via Apex**

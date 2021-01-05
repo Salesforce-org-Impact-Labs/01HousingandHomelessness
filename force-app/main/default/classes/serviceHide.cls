@@ -16,24 +16,26 @@ public with sharing class serviceHide {
 
   @AuraEnabled
   public static void unHide(id serviceId, Id contactId) {
-    if (contactId != null) {
-      delete [
-        SELECT id
-        FROM Service_Exclusion__c
-        WHERE
-          createdById = :UserInfo.getUserId()
-          AND Service__c = :serviceId
-          AND Contact__c = :contactId
-      ];
-    } else {
-      delete [
-        SELECT id
-        FROM Service_Exclusion__c
-        WHERE
-          createdById = :UserInfo.getUserId()
-          AND Service__c = :serviceId
-          AND Contact__c = null
-      ];
+    if(Schema.sObjectType.Service_Exclusion__c.isDeletable()) {
+      if (contactId != null) {
+        delete [
+          SELECT id
+          FROM Service_Exclusion__c
+          WHERE
+            createdById = :UserInfo.getUserId()
+            AND Service__c = :serviceId
+            AND Contact__c = :contactId
+            WITH SECURITY_ENFORCED];
+      } else {
+        delete [
+          SELECT id
+          FROM Service_Exclusion__c
+          WHERE
+            createdById = :UserInfo.getUserId()
+            AND Service__c = :serviceId
+            AND Contact__c = null
+            WITH SECURITY_ENFORCED];
+      }
     }
-  }
+  } 
 }

@@ -121,13 +121,18 @@ public with sharing class EmailService {
             Messaging.SingleEmailMessage email = contMsg.messageToSend;
             referralResponseIds.add(email.getWhatId());
         }
+
+        /**
+         * SECREV FALSE POSITIVE : referralResponseIds only have the WHAT IDS from the salesforce
+         * Messaging.SingleEmailMessage object in the above line. THIS will not cause SOQL injection. 
+         */
         List<Referral_Response__c> referralResponses = [
             SELECT 
                 Id,
                 Referral__c,
                 Task_Id__c
             FROM Referral_Response__c
-            WHERE Id IN :referralResponseIds
+            WHERE Id IN :referralResponseIds WITH SECURITY_ENFORCED
         ];
         Map<Id, Id> referralResponseIdToReferralIdMap = new Map<Id, Id>();
         Map<Id, Id> referralResponseIdToTaskIdMap = new Map<Id, Id>();
@@ -253,11 +258,11 @@ public with sharing class EmailService {
         }
         // update any contacts that have been changed (eg the mobile carrier has been changed)
         if (!contactsToUpdate.isEmpty()) {
-            update contactsToUpdate;
+            update Security.stripInaccessible(AccessType.UPDATABLE, contactsToUpdate).getRecords();      
         }
         // update any tasks that have been completed
         if (!tasksToUpdate.isEmpty()) {
-            update tasksToUpdate;
+            update Security.stripInaccessible(AccessType.UPDATABLE, tasksToUpdate).getRecords();     
         }
     }
 
@@ -339,7 +344,7 @@ public with sharing class EmailService {
                 Mobile_Phone_Carrier__c,
                 Phone
             FROM Contact
-            WHERE Id IN :contactIds
+            WHERE Id IN :contactIds WITH SECURITY_ENFORCED
         ];
 
         for (Contact cont : contactList) {
@@ -358,7 +363,7 @@ public with sharing class EmailService {
                 Mobile_Phone_Carrier__c,
                 Phone
             FROM Contact
-            WHERE Id = :clientContactId
+            WHERE Id = :clientContactId WITH SECURITY_ENFORCED
         ];
 
         if (clientContacts.size() > 0) {
