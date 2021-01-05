@@ -335,8 +335,8 @@ public with sharing class ClientMessageHelper {
                 Preferred_Channel__c,
                 Owner.Name,
                 Owner.Email
-            FROM Referral__c
-            WHERE Id IN :referralIds
+            FROM Referral__c 
+            WITH SECURITY_ENFORCED
         ];
         for (Referral__c refer : referrals) {
             referralMap.put(refer.Id, refer);
@@ -391,7 +391,8 @@ public with sharing class ClientMessageHelper {
                 Referral__r.OwnerId,
                 Referral__r.Owner.Email
             FROM Referral_Response__c
-            WHERE Id = :referralResponseId
+            WHERE Id = :referralResponseId WITH
+            SECURITY_ENFORCED
         ];
 
         // create the email message

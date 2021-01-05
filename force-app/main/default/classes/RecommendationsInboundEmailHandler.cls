@@ -121,60 +121,52 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             OwnerId = runningUserId,
             Description = emailBody
         );
-        /* Task confirmTask = new Task();
-        if (Schema.SObjectType.Task.fields.Subject.isCreateable()) {
-            confirmTask.Subject = 'Confirm Organization-Wide Email Address';
-        }
-        if (Schema.SObjectType.Task.fields.Status.isCreateable()) {
-            confirmTask.Status = 'Not Started';
-        }
-        if (Schema.SObjectType.Task.fields.OwnerId.isCreateable()) {
-            confirmTask.OwnerId = runningUserId;
-        }
-        if (Schema.SObjectType.Task.fields.Description.isCreateable()) {
-            confirmTask.Description = emailBody;
-        }*/
-             
-         if (!Schema.sObjectType.Task.isCreateable()){
-        throw new EmailServicenException(
+        
+        /**
+         * SECREV FALSE POSTIVE : Standard Task fields like SUBJECT, STATUS, OWNERID & DESCRIPTION are 
+         * not checked for CREATE permission because the email hander is expected to create
+         * tasks as system admin .
+         */
+        
+        if (!Schema.sObjectType.Task.isCreateable()){
+            throw new EmailServicenException(
                 System.Label.flsError);
            
          } else { 
              insert confirmTask;
-        }
+        } 
 
-        
-        
       }
 
       @TestVisible
       private static Referral_Response__c getReferralResponse(String referralResponseId) {
-        
-        if (!Schema.sObjectType.Referral_Response__c.isAccessible()){
-            throw new EmailServicenException(
+            Referral_Response__c response = new Referral_Response__c();  
+            List<Referral_Response__c> responses = new List<Referral_Response__c>();
+            
+            try
+            {
+                responses = [
+                    SELECT
+                        Id,
+                        Referral__c,
+                        Referral__r.Service__r.Type__c,
+                        Referral__r.Contact__c,
+                        Referral__r.Preferred_Channel__c,
+                        Question__c,
+                        Response__c
+                    FROM Referral_Response__c
+                    WHERE Id = :referralResponseId WITH SECURITY_ENFORCED
+                ];
+            }catch(QueryException exp){
+                throw new EmailServicenException(
                     System.Label.flsError);
-               
-             } else { 
+            }
 
-        Referral_Response__c response = new Referral_Response__c();  
-        List<Referral_Response__c> responses = [
-            SELECT
-                Id,
-                Referral__c,
-                Referral__r.Service__r.Type__c,
-                Referral__r.Contact__c,
-                Referral__r.Preferred_Channel__c,
-                Question__c,
-                Response__c
-            FROM Referral_Response__c
-            WHERE Id = :referralResponseId
-        ];
-        if (responses.size() > 0) {
-            response = responses[0];
-        }
-        return response;
+            if (responses.size() > 0) {
+                response = responses[0];
+            }
 
-                    }
+            return response;
       }
 
       @TestVisible
@@ -184,23 +176,41 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             throw new EmailServicenException(
                 System.Label.flsError);
                
-             } else { 
+        } else { 
         // get the next recommended service of the same type
         Service__c recService = 
             getNextServiceRecommendationForClient(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Service__r.Type__c);
             
-        if (recService != null) {
-            // create the new referral
-            Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
-                   if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
-                newReferral.Service__c = recService.Id;
+            if (recService != null) {
+                
+                /**
+                 * create the new referral
+                 * SECREV FALSE POSITIVE : createNewReferralCopy method is checking for Indiviaul fields FLS.
+                 * This method is any how supposed to be run as system admin.
+                */
+
+                Referral__c newReferral = createNewReferralCopy(refResponse.Referral__r.Contact__c, refResponse.Referral__r.Preferred_Channel__c);
+                
+                if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
+                    newReferral.Service__c = recService.Id;
+                }
+                insert newReferral;
+                /** 
+                * Create a new task for the next batch job run.
+                * SECREV FALSE POSITIVE : createReferralTask method is checking for Indiviaul fields FLS.
+                * This method is any how supposed to be run as system admin.
+                */
+                Task newTask = createReferralTask(newReferral.Id);
+                
+                if (!Schema.sObjectType.Task.isCreateable()){
+                    throw new EmailServicenException(
+                        System.Label.flsError);
+                   
+                 } else { 
+                    insert newTask;
+                } 
             }
-            insert newReferral;
-            // create a new task for the next batch job run
-            Task newTask = createReferralTask(newReferral.Id);
-            insert newTask;
         }
-                    }
       }
 
       @TestVisible
