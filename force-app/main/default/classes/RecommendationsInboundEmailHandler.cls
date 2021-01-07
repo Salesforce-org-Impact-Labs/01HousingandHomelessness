@@ -188,7 +188,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
                 if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
                     newReferral.Service__c = recService.Id;
                 }
-                if (Schema.sObjectType.Referral__c.isCreatable()) {
+                if (Schema.sObjectType.Referral__c.isCreateable()) {
                     insert newReferral;
                 }
 
