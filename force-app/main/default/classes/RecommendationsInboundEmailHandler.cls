@@ -162,7 +162,12 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
 
             return response;
       }
-
+      
+      /**
+       * Security Review : This method takes only one parameter for referral response and 
+       * creates a task. Hence this method is not bulkified
+       **/ 
+          
       @TestVisible
       private static void createNewReferralAndTask(Referral_Response__c refResponse) {
 
