@@ -131,12 +131,11 @@ public with sharing class ServicePrint {
         Attachment attach = new Attachment();
         attach.body = Blob.valueOf('');  
         Blob body = Blob.valueOf(''); 
+        PageReference nr = Page.ServicePrintPage;
 
         try {
-           	PageReference nr = Page.ServicePrintPage;
             nr.getParameters().put('servId', serviceId);
-            body = nr.getContentAsPDF();
-            
+            body = nr.getContentAsPDF(); 
 
             // need to pass unit test -- current bug
         } catch (Exception err) {
@@ -156,9 +155,7 @@ public with sharing class ServicePrint {
          * */ 
         insert attach;
 
-        String fullURL = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/refrec__ServicePrintPage?servId=' + serviceId;
-        System.debug(fullURL);
-        return fullURL;
+        return nr.getUrl();
 
     }
 }
