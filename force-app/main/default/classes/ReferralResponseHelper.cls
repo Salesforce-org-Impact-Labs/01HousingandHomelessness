@@ -35,11 +35,13 @@ public with sharing class ReferralResponseHelper {
     }
 
     public static List<Referral_Response__c> saveQuestionRecords(List<Referral_Response__c> referralResponses) {
-        if (Schema.sObjectType.Referral_Response__c.isCreateable()){
-
-            insert referralResponses;
-        }
-        return referralResponses;
+        SObjectAccessDecision decision = Security.stripInaccessible(
+        AccessType.CREATABLE,
+        referralResponses);
+        
+        insert decision.getRecords();
+    
+        return (List<Referral_Response__c>)decision.getRecords();
     }
 
     public static Referral_Response__c updateRecordWithResponse(String referralResponseId, String response) {

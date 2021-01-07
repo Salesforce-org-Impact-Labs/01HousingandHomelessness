@@ -122,20 +122,13 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             Description = emailBody
         );
         
-        /**
-         * SECREV FALSE POSTIVE : Standard Task fields like SUBJECT, STATUS, OWNERID & DESCRIPTION are 
-         * not checked for CREATE permission because the email hander is expected to create
-         * tasks as system admin .
-         */
-        
-        if (!Schema.sObjectType.Task.isCreateable()){
-            throw new EmailServicenException(
-                System.Label.flsError);
-           
-         } else { 
-             insert confirmTask;
-        } 
+        List<Task> taskToCreate = new List<Task>();
+        taskToCreate.add(confirmTask);
 
+        SObjectAccessDecision taskSecurityDecision = Security.stripInaccessible(
+                                         AccessType.CREATABLE, taskToCreate);
+                
+        insert taskSecurityDecision.getRecords();
       }
 
       @TestVisible
@@ -145,6 +138,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
             
             try
             {
+                
                 responses = [
                     SELECT
                         Id,
@@ -155,7 +149,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
                         Question__c,
                         Response__c
                     FROM Referral_Response__c
-                    WHERE Id = :referralResponseId WITH SECURITY_ENFORCED
+                    WHERE Id = :referralResponseId  WITH SECURITY_ENFORCED limit 1
                 ];
             }catch(QueryException exp){
                 throw new EmailServicenException(
@@ -194,21 +188,19 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
                 if (Schema.SObjectType.Referral__c.fields.Service__c.isCreateable()) {
                     newReferral.Service__c = recService.Id;
                 }
-                insert newReferral;
-                /** 
-                * Create a new task for the next batch job run.
-                * SECREV FALSE POSITIVE : createReferralTask method is checking for Indiviaul fields FLS.
-                * This method is any how supposed to be run as system admin.
-                */
+                if (Schema.sObjectType.Referral__c.isCreatable()) {
+                    insert newReferral;
+                }
+
                 Task newTask = createReferralTask(newReferral.Id);
+                List<Task> taskToCreate = new List<Task>();
+                taskToCreate.add(newTask);
+
+                SObjectAccessDecision taskSecurityDecision = Security.stripInaccessible(
+                                         AccessType.CREATABLE, taskToCreate);
                 
-                if (!Schema.sObjectType.Task.isCreateable()){
-                    throw new EmailServicenException(
-                        System.Label.flsError);
-                   
-                 } else { 
-                    insert newTask;
-                } 
+                insert taskSecurityDecision.getRecords();
+                 
             }
         }
       }
