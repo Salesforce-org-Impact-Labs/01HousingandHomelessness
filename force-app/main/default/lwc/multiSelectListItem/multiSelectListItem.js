@@ -44,34 +44,36 @@ export default class MultiSelectListItem extends LightningElement{
         }
     }
 
+    error;
+    stack;
+    errorCallback(error) {
+        this.error = error;
+        window.console.log(this.error);
+    }
+
 
     handleItemSelection(){
-        if(this.selected === false){
-            this.selected = true;
-            this.listClass = 'slds-dropdown__item slds-is-selected';
+        // event.preventDefault();
+        try{
+
+            if(this.selected === false){
+                this.selected = true;
+                this.listClass = 'slds-dropdown__item slds-is-selected';
+            }
+            else{
+                this.selected = false;
+                this.listClass = 'slds-dropdown__item';
+            }
+            
+            const selectMultiselectValueEvent = new CustomEvent('filter', {
+                detail: {
+                    value : this.value
+                }
+            });
+            this.dispatchEvent(selectMultiselectValueEvent);
+        }catch(error){
+            window.console.log(error.message);
         }
-        else{
-            this.selected = false;
-            this.listClass = 'slds-dropdown__item';
-        }
-
-        const eventParams = {
-            apiName : this.apiName,
-            fieldType : this.fieldType,
-            value : this.value,
-            selected : this.selected,
-
-        };
-        
-
-        window.console.log('show event params' + eventParams);
-
-        const selectMultiselectValueEvent = new CustomEvent('selectfiltervalue', {
-            detail: {
-                eventParams
-              }
-        });
-        this.dispatchEvent(selectMultiselectValueEvent);
     }
 
 }

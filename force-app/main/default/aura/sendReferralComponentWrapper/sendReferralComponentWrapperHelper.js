@@ -50,7 +50,6 @@
 
                           iconList.push(`custom:custom${icons.get(types[t])}`)
                         }
-                        console.log('service id' + res[i].ServiceId);
                         res[i].ProgramIcons = iconList;
                         let marker = {
                           location:{
@@ -62,7 +61,6 @@
                           title: '',
                           description: ''
                         };
-                        console.log(marker);
                         if(res[i].Hidden === true || res[i].HiddenAll === true){
                           hiddenResult.push(res[i]);
                           
@@ -94,11 +92,15 @@
                     showResult.sort((a,b)=>{
     
                       return (a.Relevance < b.Relevance) ? 1 : -1
-                    })
-                    component.set('v.unfilteredRecommendations', showResult);
-                    component.set('v.returnRecommendations', showResult);
+                    });
+                    try{
+                    component.set('v.unfilteredRecs', showResult);
+                    component.set('v.returnRecs', showResult);
                     component.set('v.returnHiddenRecommendations', hiddenResult);
                     component.set('v.returnHiddenRecommendationsCount', hiddenResult.length);
+                    }catch(error) {
+                      console.log(error);
+                    }
             }
         });
         $A.enqueueAction(action);

@@ -136,34 +136,54 @@
     },
 
     handleTypeFilterUpdate : function(component, event, helper) {
+        let returnRecs = component.get('v.returnRecs');
+        let evt = event.getParam('value');
+        console.log(evt);
         let filterList = component.get('v.typeFilters');
-        var evt = event.getParam('eventParams');
-        if(filterList.includes(evt.value)){
-            const index = filterList.indexOf(evt.value);
+        if(filterList.includes(evt)){
+            const index = filterList.indexOf(evt);
             filterList.splice(index, 1);
-        }else{
-            filterList.push(evt.value);
+        }else {
+            filterList.push(evt);
         }
-        component.set('v.typeFilters' , filterList);
+        component.set('v.typeFilters', filterList);
+        let unfiltered = component.get('v.unfilteredRecs');
+        
+        //
         if(filterList.length === 0) {
-          component.set('v.typeFilterLabel', 'View All');
-        } else if(filterList.length === 1) {
-            component.set('v.typeFilterLabel','Filtering ' +filterList.length + ' Service Type');
-        } else{
-            component.set('v.typeFilterLabel','Filtering ' +filterList.length + ' Service Types');
-        }
-        var unfiltered = component.get('v.unfilteredRecommendations');
-        const filteredRecs = unfiltered.filter(rec => {      
-          for(let k in filterList){
-            if(rec.AllTypes.includes(filterList[k])){
-              return rec;
-            }
-          }
-        });
-        if(filteredRecs.length === 0 && filterList.length === 0){
-            component.set('v.returnRecommendations', unfiltered);
+            component.set('v.typeFilterLabel', 'View All');
+        }else if (filterList.length === 1) {
+            component.set('v.typeFilterLabel', 'Filtering ' + filterList.length + ' Service Type');
         }else{
-            component.set('v.returnRecommendations', filteredRecs);
+            component.set('v.typeFilterLabel', 'Filtering ' + filterList.length + ' Service Types');
         }
-    },
+        console.log('before filtering');
+        let filteredRecs = unfiltered.filter(rec => {      
+            for(let k in filterList){
+                console.log(filterList[k]);
+              if(rec.AllTypes.includes(filterList[k])){
+                  console.log(rec);
+                return rec;
+              }
+            }
+          });
+        try{
+            if(filteredRecs.length === 0 && filterList.length === 0 ){
+                component.set('v.showRecommendationResults', true);
+                component.set('v.returnRecs',unfiltered);
+                
+            }else if(filteredRecs.length === 0 && filterList.length > 0) {
+                component.set('v.showRecommendationResults', false);
+                component.set('v.returnRecs',null);
+            }else {
+                component.set('v.showRecommendationResults', true);
+                component.set('v.returnRecs',filteredRecs);
+            }
+            console.log(JSON.stringify(component.get('v.returnRecs')));
+        }catch(error){
+            console.log('error' + error);
+        }
+        
+        
+    }
 })

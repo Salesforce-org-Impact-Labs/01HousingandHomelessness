@@ -5,7 +5,7 @@
   <aura:attribute name="showReferFlow" type="Boolean" default="false"/>
   <aura:attribute name="showMapReferFlow" type="Boolean" default="false"/>
   <aura:attribute name="showRecommendations" type="Boolean" default="false"/>
-  <aura:attribute name="showRecommendationResults" type="Boolean" default="false"/>
+  <aura:attribute name="showRecommendationResults" type="Boolean" />
   <aura:attribute name="showRelevancePopover" type="Boolean" default="false"/>
   <aura:attribute name="showDropdown" type="Boolean" default="false"/>
   <aura:attribute name="showAddComment" type="Boolean" default="false"/>
@@ -21,14 +21,14 @@
   <aura:attribute name="contactId" type="String" />
   <aura:attribute name="serviceId" type="String"/>
   <aura:attribute name="mapMarkers" type="Object"/>
-  <aura:attribute name="unfilteredRecommendations" type="ServiceRecommendation[]" />
-  <aura:attribute name="returnRecommendations" type="ServiceRecommendation[]" />
-  <aura:attribute name="returnHiddenRecommendations" type="ServiceRecommendation[]" />
+  <aura:attribute name="unfilteredRecommendations" type="Object[]" />
+  <aura:attribute name="returnHiddenRecommendations" type="Object[]" />
+  <aura:attribute name="returnRecs" type="ServiceRecommendation[]" />
+  <aura:attribute name="unfilteredRecs" type="ServiceRecommendation[]" />
   <aura:attribute name="typeFilterLabel" type="String" default="View All"/>
   <aura:attribute name="apiName" type="String" default=" "/>
   <aura:attribute name="picklistValues" type="String[]"/>
   <aura:attribute name="typeFilters" type="String[]"/>
-  
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
 
   <!-- outer div -->
@@ -88,7 +88,7 @@
                             <ul role="menu">
                               <aura:iteration items="{!v.picklistValues}" var="picklistValue">
                                 
-                                <c:multiSelectListItem onselectfiltervalue="{!c.handleTypeFilterUpdate}" key="{!picklistValue}"  api-name="{!v.apiName}" value="{!picklistValue}"></c:multiSelectListItem>
+                                <c:multiSelectListItem onfilter="{!c.handleTypeFilterUpdate}" key="{!picklistValue}"  value="{!picklistValue}"></c:multiSelectListItem>
                               </aura:iteration>
                             </ul>
                         </div>
@@ -98,7 +98,7 @@
         </div>
         <!-- show me filter -->
         <div class="slds-float_right slds-p-top_large">
-          <c:sortingMenu sortedRecommendations="{!v.returnRecommendations}" unfilteredRecommendations="{!v.unfilteredRecommendations}"></c:sortingMenu>
+          <c:sortingMenu sortedRecommendations="{!v.returnRecs}" unfilteredRecommendations="{!v.unfilteredRecommendations}"></c:sortingMenu>
         </div>
       </div>
     </aura:if>
@@ -143,7 +143,7 @@
     </aura:if>
     <aura:if isTrue="{!v.showRecommendationResults}">
       <div class="innerRecDiv   slds-size_1-of-1 viewHeightFifty slds-scrollable_y">
-        <aura:iteration items="{!v.returnRecommendations}" var="recommendation">
+        <aura:iteration items="{!v.returnRecs}" var="recommendation">
             <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
             onflowlaunch="{!c.handleShare}" servicerecommendation="{!recommendation}" serviceid="{!recommendation.ServiceId}"
             contactid="{!v.recordId}"></c:serviceRecommendation>
@@ -287,7 +287,7 @@
                     </div>
                     <!-- show me filter -->
                     <div class="slds-float_right slds-p-top_large">
-                      <c:sortingMenu sortedRecommendations="{!v.returnRecommendations}" unfilteredRecommendations="{!v.unfilteredRecommendations}"></c:sortingMenu>
+                      <c:sortingMenu sortedRecommendations="{!v.returnRecs}" unfilteredRecommendations="{!v.unfilteredRecommendations}"></c:sortingMenu>
                     </div>
                   </div>
                   <aura:if isTrue="{!v.showMapReferFlow}">
@@ -315,8 +315,7 @@
                     <div
                       class="innerRecModalDiv slds-scrollable_y"
                       >
-                      <aura:iteration items="{!v.returnRecommendations}" var="recommendation">
-                       
+                      <aura:iteration items="{!v.returnRecs}" var="recommendation">
                         <c:serviceRecommendation
                         onreloadafterhide="{!c.handleRequestRecommendations}"
                         servicerecommendation="{!recommendation}"
