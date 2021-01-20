@@ -77,21 +77,23 @@ public with sharing class ServicePrint {
     }
 
     public ServicePrint() {
-       
-        String servId = [SELECT Id FROM Service__c WHERE id =:ApexPages.currentPage().getParameters().get('servId')].Id;
+        
+        // Secrev:  This query is just returning ID. It is not exposing any sensitive information as part of SOQL
+
+        String servId = [SELECT Id FROM Service__c WHERE id =:ApexPages.currentPage().getParameters().get('servId') WITH SECURITY_ENFORCED].Id;
         System.debug('serviceId' + servId);
         List<Open_Hours__c> allHours = getOpenHours(servId);
     }
 
     public Service__c getServices(string serviceId) {
-        Service__c newserv = [SELECT Id, Name, Account__r.Name, Type__c,Description__c, Website__c, Street__c, City__c, Zip_Code__c, Phone__c FROM Service__c WHERE Id = :serviceId];
+        Service__c newserv = [SELECT Id, Name, Account__r.Name, Type__c,Description__c, Website__c, Street__c, City__c, Zip_Code__c, Phone__c FROM Service__c WHERE Id = :serviceId WITH SECURITY_ENFORCED];
         ProviderName = newserv.Account__r.Name;
         return newserv;
     }
 
     public List<Open_Hours__c> getOpenHours(string serviceId){
         system.debug('serviceId' + serviceId);
-        List<Open_Hours__c> hrs = [SELECT Id,Day__c, End_Time__c, Start_Time__c, Service__c FROM Open_Hours__c WHERE Service__c = :serviceId];
+        List<Open_Hours__c> hrs = [SELECT Id,Day__c, End_Time__c, Start_Time__c, Service__c FROM Open_Hours__c WHERE Service__c = :serviceId WITH SECURITY_ENFORCED];
         
         for(Open_Hours__c hour: hrs){
             switch on hour.Day__c {
@@ -129,12 +131,11 @@ public with sharing class ServicePrint {
         Attachment attach = new Attachment();
         attach.body = Blob.valueOf('');  
         Blob body = Blob.valueOf(''); 
+        PageReference nr = Page.ServicePrintPage;
 
         try {
-           	PageReference nr = new PageReference('/apex/refrec__ServicePrintPage?servId=' + serviceId);
-            //nr.getParameters().put('service', service);
-            body = nr.getContentAsPDF();
-            
+            nr.getParameters().put('servId', serviceId);
+            body = nr.getContentAsPDF(); 
 
             // need to pass unit test -- current bug
         } catch (Exception err) {
@@ -147,11 +148,14 @@ public with sharing class ServicePrint {
         attach.Name = 'Referral - ' + Datetime.now().format('yyyy-MM-dd') + ' - ' + String.valueOf(count) + '.pdf';
         attach.IsPrivate = false; //make public
         attach.ParentId = serviceId; //attach pdf to record
+
+        /**
+         * Secrev : Print Page method is only called when ServiceId (ParentId) is accessible.
+         * Hence explicit CRUD check on attachment object is not added.
+         * */ 
         insert attach;
 
-        String fullURL = URL.getSalesforceBaseUrl().toExternalForm() + '/apex/refrec__ServicePrintPage?servId=' + serviceId;
-        System.debug(fullURL);
-        return fullURL;
+        return nr.getUrl();
 
     }
 }

@@ -2,14 +2,19 @@ public with sharing class getRecommendations {
 
   @AuraEnabled
     public static string getCaseContactId(String caseId){
-        String contactId = [SELECT Id, ContactId FROM Case WHERE Id =:caseId].ContactId;
-
+      String contactId ;
+      
+      if(Schema.Case.SObjectType == Id.valueOf(caseId).getSobjectType()){
+         contactId = [SELECT Id, ContactId FROM Case WHERE Id =:caseId].ContactId;
+      }
         return contactId;
     }
 
   @AuraEnabled
   public static list<ServiceRecommendation> getRecommendations(id contactId) {
     Client_Profile__c CP = getProfile(contactId);
+
+    // Security Review : Matching Client Profile is only fetched if the Contact Id is found in above line.
     List<Service__c> services = getRecommendationsServiceQuery.primaryQuery(CP);
     System.debug('services' + services);
     // convert to ServiceRecommendation
@@ -277,35 +282,33 @@ public with sharing class getRecommendations {
   }
 
   public static Client_Profile__c getProfile(id contactId) {
-    Client_Profile__c output = [
-      SELECT
-        id,
-        Date_Of_Birth__c,
-        Location__Latitude__s,
-        Location__Longitude__s,
-        Near_Homeless__c,
-        Homeless__c,
-        Runaway__c,
-        Home_Owner__c,
-        Home_Renter__c,
-        Employment__c
-      FROM Client_Profile__c
-      WHERE Contact__c = :contactId
-      WITH SECURITY_ENFORCED
-    ];
+    Client_Profile__c output;
+    if(Schema.Contact.SObjectType == Id.valueOf(contactId).getSobjectType())
+    {
+       output = [
+          SELECT
+            id,
+            Date_Of_Birth__c,
+            Location__Latitude__s,
+            Location__Longitude__s,
+            Near_Homeless__c,
+            Homeless__c,
+            Runaway__c,
+            Home_Owner__c,
+            Home_Renter__c,
+            Employment__c
+          FROM Client_Profile__c
+          WHERE Contact__c = :contactId
+          WITH SECURITY_ENFORCED
+        ];
+    }
+    RefRecSettings__mdt recSettings = [SELECT Default_Latitude__c,Default_Longitude__c FROM RefRecSettings__mdt limit 1];
+    
     if (output.Location__Latitude__s == null) {
-      output.Location__Latitude__s = [
-        SELECT Default_Latitude__c
-        FROM RefRecSettings__mdt
-      ]
-      .Default_Latitude__c;
+      output.Location__Latitude__s = recSettings.Default_Latitude__c;
     }
     if (output.Location__Longitude__s == null) {
-      output.Location__Longitude__s = [
-        SELECT Default_Longitude__c
-        FROM RefRecSettings__mdt
-      ]
-      .Default_Longitude__c;
+      output.Location__Longitude__s = recSettings.Default_Longitude__c;
     }
     return output;
   }
