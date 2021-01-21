@@ -1,5 +1,5 @@
 global with sharing class Scoring {
-  // Positive Weights
+  // Positive Weights 
 
   // example metric: my referrals
   // myReferralsPercentile: service referrals / (orgMax - orgMin)
@@ -20,7 +20,7 @@ global with sharing class Scoring {
   // Org-level (boolean) // this record is an org-level stat
   // Calculate User-level (boolean) // there *Should* be one for each user
   // Specific User // if not org level, which user this applies to
-  // Weighting (0-10)
+  // Weighting  (0-10)
   // Org Soql query (string)
   // Service-level SOQL Query
 
