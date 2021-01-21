@@ -85,7 +85,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Weighting__c</field>
+                <field>Weight__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

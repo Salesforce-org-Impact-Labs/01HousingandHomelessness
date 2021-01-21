@@ -43,10 +43,10 @@ global with sharing class Scoring {
         QualifiedApiName,
         NamespacePrefix,
         DeveloperName,
-        Weighting__c
+        Weight__c
       FROM Scoring_Metric__mdt
       WHERE
-        Weighting__c != 0
+        Weight__c != 0
         AND Org_Level__c = true
         AND Org_Minimum__c != null
         AND Org_Maximum__c != null
@@ -54,7 +54,7 @@ global with sharing class Scoring {
     ];
 
     for (Scoring_Metric__mdt metricIterator : metrics) {
-      weightTotal = weightTotal + metricIterator.Weighting__c;
+      weightTotal = weightTotal + metricIterator.Weight__c;
     }
 
     for (Scoring_Metric__mdt metricIterator : metrics) {
@@ -95,7 +95,7 @@ global with sharing class Scoring {
             indicator.IndicatorValue = string.valueOf(serviceValue);
             indicator.IndicatorPercentile = Math.round(
               ((serviceValue - metricIterator.Org_Minimum__c) / spread) *
-              (metricIterator.Weighting__c / weightTotal) *
+              (metricIterator.Weight__c / weightTotal) *
               100
             );
             Rec.Indicators.add(indicator);
@@ -125,7 +125,7 @@ global with sharing class Scoring {
         NamespacePrefix,
         DeveloperName
       FROM Scoring_Metric__mdt
-      WHERE Weighting__c != 0
+      WHERE Weight__c != 0
       WITH SECURITY_ENFORCED
     ]) {
       if (metricIterator.Org_SOQL_Query__c != null) {
