@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Weighting__c</fullName>
+    <fullName>Weight__c</fullName>
     <defaultValue>5</defaultValue>
     <externalId>false</externalId>
-    <fieldManageability>DeveloperControlled</fieldManageability>
-    <label>Weighting Deprecated(DO NOT USE)</label>
+    <fieldManageability>SubscriberControlled</fieldManageability>
+    <label>Weighting</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>
