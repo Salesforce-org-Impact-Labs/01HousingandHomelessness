@@ -42,4 +42,8 @@
         <field>Weighting__c</field>
         <value xsi:type="xsd:double">-2.0</value>
     </values>
+    <values>
+        <field>Weight__c</field>
+        <value xsi:type="xsd:double">-2.0</value>
+    </values>
 </CustomMetadata>
