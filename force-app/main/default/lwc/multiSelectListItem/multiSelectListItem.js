@@ -1,38 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@anilpilakavv 
-Salesforce-org-Impact-Labs
-/
-01HousingandHomelessness
-11
-8
-8
-Code
-Issues
-32
-Pull requests
-1
-Actions
-Projects
-1
-Wiki
-Security
-Insights
-01HousingandHomelessness/force-app/main/default/lwc/multiSelectListItem/multiSelectListItem.js /
-@AIrwin33
-AIrwin33 update pages with try catch
-Latest commit d0c715d 15 days ago
- History
- 2 contributors
-@airwin606@AIrwin33
-79 lines (68 sloc)  2.22 KB
-  
 import {LightningElement, api, track} from 'lwc';
 
 export default class MultiSelectListItem extends LightningElement{
