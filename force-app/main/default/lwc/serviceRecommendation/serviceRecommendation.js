@@ -27,29 +27,13 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   newComment;
 
   connectedCallback(rec = this.servicerecommendation) {
-    window.console.log('connected callnback ' + JSON.stringify(rec));
+    window.console.log('connected callback recommendation');
     if (rec.Comments.length > 0) {
       this.commentCount = rec.Comments.length;
     }
     if (rec.Indicators.length > 0) {
       this.indicatorCount = rec.Indicators.length;
     }
-    // console.log('showing program icons');
-    // console.log(JSON.stringify(rec.AllTypes));
-    // this.servicerecommendation.ProgramIcons = [];
-    // let iconList = [];
-    // let types = rec.AllTypes;
-    // let i;
-    // for(i=0;i < types.length; i++){
-    //   console.log(types);
-    //   console.log(`custom:custom${icons.get(types[i])}`);
-
-    //   iconList.push(`custom:custom${icons.get(types[i])}`)
-    // }
-    
-    // console.log(iconList);
-    // this.servicerecommendation.ProgramIcons.push(iconList);
-
   }
 
   handleSendReferral() {
