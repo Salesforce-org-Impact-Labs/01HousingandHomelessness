@@ -15,7 +15,7 @@ env:
 
 jobs:
   unit_tests:
-    name: 'Verify sample data'
+    name: 'Run robot tests'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
