@@ -38,7 +38,7 @@ jobs:
         run: |
           cci flow run qa_org --org qa
       - run: |
-          cci task run robot --org dev -o vars BROWSER:headlesschrome
+          cci task run robot --org qa -o vars BROWSER:headlesschrome
       - name: Store robot results
         uses: actions/upload-artifact@v1
         with:
