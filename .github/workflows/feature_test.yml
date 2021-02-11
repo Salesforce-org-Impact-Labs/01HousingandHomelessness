@@ -85,7 +85,7 @@ jobs:
       - name: Create dev org and run robot tests
         run: |
           cci flow run dev_org --org dev
-          cci org list
+          sfdx force:org:list
           cci task run robot --org dev -o vars BROWSER:headlesschrome
       - name: Store robot results
         uses: actions/upload-artifact@v1
