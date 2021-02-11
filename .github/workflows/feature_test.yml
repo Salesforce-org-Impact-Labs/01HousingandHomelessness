@@ -88,14 +88,12 @@ jobs:
       - name: Create dev org and run robot tests
         run: |
           cci flow run dev_org --org dev
-          sfdx force:org:list
-          cci task run robot --org dev -o vars BROWSER:headlesschrome
-      - name: Store robot results
+      - name: Show org list
         if: success()
-        uses: actions/upload-artifact@v1
-        with:
-          name: robot
-          path: robot/01HousingandHomelessness/results
+          sfdx force:org:list
+      - name: Run robot tests
+        if: success()
+          cci task run robot --org dev -o vars BROWSER:headlesschrome
       - name: Delete scratch org
         if: always()
         run: |
