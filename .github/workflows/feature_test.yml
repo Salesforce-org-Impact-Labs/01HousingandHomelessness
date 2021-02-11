@@ -92,14 +92,10 @@ jobs:
         with:
           name: robot
           path: robot/01HousingandHomelessness/results
-      # - name: Delete scratch org
-      #   if: always()
-      #   run: |
-      #     cci org scratch_delete dev
-      - name: Output org password
-        if: failure()
+      - name: Delete scratch org
+        if: always()
         run: |
-          sfdx force:user:password:generate
+          cci org scratch_delete dev
       - name: Store robot results
         if: failure()
         uses: actions/upload-artifact@v1
