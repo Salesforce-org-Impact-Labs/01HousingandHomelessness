@@ -15,8 +15,7 @@ ${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and 
 
 Create Referral Program
 
-    Go To Page                              Listing
-    ...                                     Service__c
+    Go To Page                              Listing             Service__c
     Click Object Button                     New
     Wait For Modal                          New                 Service__c
 
@@ -30,6 +29,6 @@ Create Referral Program
     Populate Field                          City                San Francisco
     Populate Field                          Zip Code            95202
     Populate Field                          Latitude            37.7897
-    Populate Field                          Longitude            -122.397
+    Populate Field                          Longitude           -122.397
 
     Click Button                            ${Save_Button}
