@@ -84,7 +84,7 @@ jobs:
           pip install cumulusci
       - name: Create dev org and run robot tests
         run: |
-          cci flow run run_robot_and_delete_org --org dev
+          cci flow run run_robot_and_delete_dev_org --org dev
       # - name: Create dev org and run robot tests
       #   run: |
       #     cci flow run dev_org --org dev
