@@ -9,26 +9,48 @@ Suite Teardown  Delete Records and Close Browser
 
 *** Variables ***
 
-${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and contains(text(), 'Save')]
+${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and text()='Save']
+
+
+*** Keywords ***
+
+Navigate to Referral Program Tab
+    Go To Page                              Listing             Service__c
+
+Click Referral Program "New" Button
+    Click Object Button                     New
+    Wait For Modal                          New                 Service__c
+
+Populate New Referral Program Modal with Fake Data
+
+    Populate Form                           Name=My Referral Program
+    ...                                     Phone=${faker.phone_number()}
+    ...                                     Website=${faker.url()}
+    ...                                     Description=${faker.paragraph(nb_sentences=3)}
+    ...                                     Minimum Age=${faker.random_int(min=0, max=20)}
+    ...                                     Maximum Age=${faker.random_int(min=20, max=150)}
+    ...                                     Street=${faker.street_address()}
+    ...                                     City=${faker.city()}
+    ...                                     Zip Code=${faker.postcode()}
+    ...                                     Latitude=${faker.random_int(min=-90, max=90)}.${faker.random_int(min=0, max=999999)}
+    ...                                     Longitude=${faker.random_int(min=-180, max=180)}.${faker.random_int(min=0, max=999999)}
+
+Click Save Button
+    Click Button                            ${Save_Button}
+
+Click on Newly Created Referral Program
+    Click Link                              My Referral Program
+
 
 *** Test Cases ***
 
 Create Referral Program
+    [Documentation]     Create a Referral Program, populate it with fake date, and save it.
 
-    Go To Page                              Listing             Service__c
-    Click Object Button                     New
-    Wait For Modal                          New                 Service__c
-
-    Populate Field                          Name                My First Program
-    Populate Field                          Phone               555-555-1234
-    Populate Field                          Website             www.google.com
-    Populate Field                          Description         My program description
-    Populate Field                          Minimum Age         17
-    Populate Field                          Maximum Age         30
-    Populate Field                          Street              355 15th Street
-    Populate Field                          City                San Francisco
-    Populate Field                          Zip Code            95202
-    Populate Field                          Latitude            37.7897
-    Populate Field                          Longitude           -122.397
-
-    Click Button                            ${Save_Button}
+    Navigate to Referral Program Tab
+    Click Referral Program "New" Button
+    Populate New Referral Program Modal with Fake Data
+    Click Save Button
+    Wait Until Modal Is Closed
+    Navigate to Referral Program Tab
+    Click on Newly Created Referral Program

@@ -85,17 +85,6 @@ jobs:
       - name: Create qa org and run robot tests
         run: |
           cci flow run run_robot --org qa --delete-org
-      # - name: Create dev org and run robot tests
-      #   run: |
-      #     cci flow run dev_org --org dev
-      # - name: Run robot tests
-      #   if: success()
-      #   run: |
-      #     cci task run robot --org dev -o vars BROWSER:headlesschrome
-      # - name: Delete scratch org
-      #   if: always()
-      #   run: |
-      #     cci org scratch_delete dev
       - name: Store robot results
         if: failure()
         uses: actions/upload-artifact@v1
