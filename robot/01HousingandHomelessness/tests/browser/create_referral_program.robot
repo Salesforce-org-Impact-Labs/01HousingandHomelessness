@@ -4,12 +4,12 @@ Resource        cumulusci/robotframework/Salesforce.robot
 Library         cumulusci.robotframework.PageObjects
 
 Suite Setup     Open Test Browser
-Suite Teardown  Delete Records and Close Browser
+# Suite Teardown  Delete Records and Close Browser
 
 
 *** Variables ***
 
-${Save_Button}  //*[@id="content_816:0"]/div/div/div/records-lwc-detail-panel/records-base-record-form/div/div/div/force-form-footer/div/lightning-button[3]/button
+${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and contains(text(), 'Save')]
 
 *** Test Cases ***
 
