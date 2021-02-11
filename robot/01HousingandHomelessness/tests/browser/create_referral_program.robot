@@ -4,7 +4,7 @@ Resource        cumulusci/robotframework/Salesforce.robot
 Library         cumulusci.robotframework.PageObjects
 
 Suite Setup     Open Test Browser
-# Suite Teardown  Delete Records and Close Browser
+Suite Teardown  Delete Records and Close Browser
 
 
 *** Variables ***
@@ -18,6 +18,7 @@ Create Referral Program
     Go To Page                              Listing
     ...                                     Service__c
     Click Object Button                     New
+    Wait For Modal                          New                 Service__c
 
     Populate Field                          Name                My First Program
     Populate Field                          Phone               555-555-1234
