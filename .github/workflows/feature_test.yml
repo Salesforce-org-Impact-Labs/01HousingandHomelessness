@@ -88,10 +88,10 @@ jobs:
       - name: Create dev org and run robot tests
         run: |
           cci flow run dev_org --org dev
-      - name: Show org list
-        if: success()
-        run: |
-          cci org list
+      # - name: Show org list
+      #   if: success()
+      #   run: |
+      #     cci org list
       - name: Run robot tests
         if: success()
         run: |
