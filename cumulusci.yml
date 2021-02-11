@@ -84,6 +84,24 @@ flows:
         options:
           command: cci org default dev
 
+  config_qa:
+    steps:
+      2:
+        task: dx_push
+      3:
+        task: assign_permset
+        ignore_failure: True
+      4:
+        task: update_admin_profile
+      5:
+        task: load_dataset
+      6:
+        task: score_services
+      7:
+        task: command
+        options:
+          command: cci org default dev
+
   config_packaging:
     steps:
       2:
@@ -106,15 +124,11 @@ flows:
         options:
           apex: 'refrec.Scoring.scoreAllServices();'
 
-  run_robot_and_delete_dev_org:
+  run_robot:
     steps:
       1:
-        flow: dev_org
+        flow: qa_org
       2:
         task: robot
         options:
           vars: BROWSER:headlesschrome
-      3:
-        task: command
-        options:
-          command: cci org scratch_delete dev
