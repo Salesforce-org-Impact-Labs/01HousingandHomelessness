@@ -84,18 +84,21 @@ jobs:
           pip install cumulusci
       - name: Create dev org and run robot tests
         run: |
-          cci flow run dev_org --org dev
-          sfdx force:org:list
-          cci task run robot --org dev -o vars BROWSER:headlesschrome
-      - name: Store robot results
-        uses: actions/upload-artifact@v1
-        with:
-          name: robot
-          path: robot/01HousingandHomelessness/results
-      - name: Delete scratch org
-        if: always()
-        run: |
-          cci org scratch_delete dev
+          cci flow run run_robot_and_delete_org --org dev
+      # - name: Create dev org and run robot tests
+      #   run: |
+      #     cci flow run dev_org --org dev
+      #     sfdx force:org:list
+      #     cci task run robot --org dev -o vars BROWSER:headlesschrome
+      # - name: Store robot results
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: robot
+      #     path: robot/01HousingandHomelessness/results
+      # - name: Delete scratch org
+      #   if: always()
+      #   run: |
+      #     cci org scratch_delete dev
       - name: Store robot results
         if: failure()
         uses: actions/upload-artifact@v1
