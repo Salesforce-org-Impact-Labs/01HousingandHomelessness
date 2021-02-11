@@ -91,7 +91,7 @@ jobs:
       - name: Show org list
         if: success()
         run: |
-          sfdx force:org:list
+          cci org list
       - name: Run robot tests
         if: success()
         run: |
