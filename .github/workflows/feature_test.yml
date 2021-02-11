@@ -73,7 +73,7 @@ jobs:
           wget -qO- https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz | tar xJ -C sfdx --strip-components 1
           ./sfdx/install
           echo ${{ secrets.SFDX_AUTH_URL }} > sfdx_auth
-          sfdx force:auth:sfdxurl:store -f sfdx_auth -d
+          sfdx auth:sfdxurl:store -f sfdx_auth -d
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
