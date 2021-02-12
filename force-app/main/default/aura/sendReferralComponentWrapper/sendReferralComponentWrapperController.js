@@ -184,18 +184,20 @@
     },
     
     handleSelect : function(component, event, helper) {
-        // This will contain the index (position) of the selected lightning:menuItem
+        
         var selectedMenuItemValue = event.getParam("value");
+       
         component.set('v.showRecommendationResults',false);
+      
         // Find all menu items
         var menuItems = component.find("menuItems");
-        // Get the selected menu item
-        var menuItem = menuItems.find(function(menuItem) {
-            return menuItem.get("v.value") === selectedMenuItemValue;
+        menuItems.forEach(function(menuItem) {
+           if(menuItem.get("v.value") === selectedMenuItemValue)
+                menuItem.set("v.checked", !menuItem.get("v.checked"));
+            else
+                menuItem.set("v.checked", false);
         });
-        // Toggle the existing checked value, if it was true, it will be set to false, and vice-versa
-        menuItem.set("v.checked", !menuItem.get("v.checked"));
-       
+        
         let sortedRecommendations = [];
         sortedRecommendations = component.get('v.returnRecs');
       
