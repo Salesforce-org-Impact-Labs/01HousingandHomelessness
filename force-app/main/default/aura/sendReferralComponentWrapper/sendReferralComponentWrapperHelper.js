@@ -103,9 +103,9 @@
                   component.set('v.returnHiddenRecommendations', hiddenResult);
                   component.set('v.returnHiddenRecommendationsCount', hiddenResult.length);
                       if(showResult.length ==0){
-                          $A.util.addClass(component.find("recRec"), "slds-hide");
+                          $A.util.addClass(component.find("showRec"), "slds-hide");
                       }else{
-                          $A.util.removeClass(component.find("recRec"), "slds-hide");
+                          $A.util.removeClass(component.find("showRec"), "slds-hide");
                       }
                   }catch(error) {
                     console.log(error);

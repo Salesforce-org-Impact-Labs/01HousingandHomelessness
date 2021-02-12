@@ -28,9 +28,7 @@
   <aura:attribute name="unfilteredRecs" type="ServiceRecommendation[]" />
   
   <aura:attribute name="typeFilterLabel" type="String" default="View All"/>
-  <aura:attribute name="typeFilterExpLabel" type="String" default="View All"/>
   <aura:attribute name="apiName" type="String" default=" "/>
-  <aura:attribute name="apiNameExpanded" type="String" default=" "/>
   <aura:attribute name="picklistValues" type="String[]"/>
   <aura:attribute name="typeFilters" type="String[]"/>
   
@@ -151,7 +149,7 @@
         
       </div>
     </aura:if>
-   <div aura:id="recRec">
+   <div aura:id="showRec">
       <aura:if isTrue="{!v.showRecommendationResults}">
       <div class="innerRecDiv  slds-size_1-of-1 viewHeightFifty slds-scrollable_y">
         <aura:iteration items="{!v.returnRecs}" var="recommendation">
