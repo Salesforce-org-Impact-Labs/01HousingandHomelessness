@@ -133,7 +133,8 @@
     openMultiSelectPicklist : function(component, event, helper) {
         var div = component.find('viewAll');
         $A.util.toggleClass(div, 'slds-is-open');
-    },
+    }
+    ,
 
      handleTypeFilterUpdate : function(component, event, helper) {
         let returnRecs = component.get('v.returnRecs');
@@ -149,7 +150,6 @@
         component.set('v.typeFilters', filterList);
         let unfiltered = component.get('v.unfilteredRecs');
         
-        //
         if(filterList.length === 0) {
             component.set('v.typeFilterLabel', 'View All');
         }else if (filterList.length === 1) {
@@ -157,7 +157,6 @@
         }else{
             component.set('v.typeFilterLabel', 'Filtering ' + filterList.length + ' Service Types');
         }
-        console.log('before filtering');
         let filteredRecs = unfiltered.filter(rec => {      
             for(let k in filterList){
               if(rec.AllTypes.includes(filterList[k])){
@@ -182,5 +181,38 @@
             console.log('error' + error);
         }
           
+    },
+    
+    handleSelect : function(component, event, helper) {
+        
+        var selectedMenuItemValue = event.getParam("value");
+       
+        component.set('v.showRecommendationResults',false);
+      
+        // Find all menu items
+        var menuItems = component.find("menuItems");
+        menuItems.forEach(function(menuItem) {
+           if(menuItem.get("v.value") === selectedMenuItemValue)
+                menuItem.set("v.checked", !menuItem.get("v.checked"));
+            else
+                menuItem.set("v.checked", false);
+        });
+        
+        let sortedRecommendations = [];
+        sortedRecommendations = component.get('v.returnRecs');
+      
+        if(selectedMenuItemValue === 'distance'){
+          sortedRecommendations.sort((a,b) => (a.Distance < b.Distance) ? 1 : -1 );
+        }else if (selectedMenuItemValue === 'rating'){
+          sortedRecommendations.sort((a,b) => (a.totalRatings < b.totalRatings) ? 1 : -1);
+        }else if (selectedMenuItemValue === 'popular'){
+          sortedRecommendations.sort((a,b) => (a.Relevance < b.Relevance) ? 1 : -1);
+            
+        // eslint-disable-next-line no-empty
+        }else{
+          
+        }
+        component.set('v.showRecommendationResults',true);
+        component.set('v.returnRecs',sortedRecommendations);
     }
 })
