@@ -6,8 +6,8 @@ public with sharing class getRecommendationsServiceQuery {
       if(Schema.Client_Profile__c.SObjectType == Id.valueOf(client.id).getSobjectType()) {
         decimal age = calculateAge(client.Date_Of_Birth__c);
         List<String> filters = new List<String>();
-        if(filterList.isEmpty() || filterList == '')
-        filterList = 'Food,Education,Housing,Goods,Money,Transit,Health,Care,Work,Legal';
+        if(filterList == null || filterList == '')
+          filterList = 'Food,Education,Housing,Goods,Money,Transit,Health,Care,Work,Legal';
         
         filters.addALL(filterList.split(','));
         String filterValue = '(\'' + String.join(filters, '\',\'') + '\')';
