@@ -248,7 +248,7 @@ public with sharing class RecommendationsInboundEmailHandler implements Messagin
 
       @TestVisible
       private static Service__c getNextServiceRecommendationForClient(Id contactId, String serviceType) {
-        List<ServiceRecommendation> recommendationsList = getRecommendations.getRecommendations(contactId);
+        List<ServiceRecommendation> recommendationsList = getRecommendations.getRecommendations(contactId, '');
 
         Service__c nextService = null;
         for (ServiceRecommendation recommendation : recommendationsList) {

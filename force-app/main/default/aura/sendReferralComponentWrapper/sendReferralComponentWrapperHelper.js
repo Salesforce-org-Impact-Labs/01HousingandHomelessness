@@ -27,13 +27,25 @@
     console.log('in request');
     console.log(component.get("v.recordId"));
       
-      component.set('v.showRecommendations',false);
-      component.set('v.showRecommendationResults',false);
+    component.set('v.showRecommendations',false);
+    component.set('v.searchedRecommendations',false);
+    component.set('v.showRecommendationResults',false);
+    
+    let evt ;
+    if(component.get('v.typeFilters').length==0){ 
+       evt = 'Food,Education,Housing,Goods,Money,Transit,Health,Care,Work,Legal';
+        component.set('v.showFilterOptions',false);
+    }else{
+        evt = component.get('v.typeFilters').toString();
+    }
+        
       
       var action = component.get("c.getRecommendations");
       action.setParams({
-          contactId : component.get("v.recordId")
+          contactId : component.get("v.recordId"),
+          filterList : evt
       });
+
       action.setCallback(this, function(result){
           if(result.getState() === "SUCCESS"){
             var res = result.getReturnValue();
@@ -82,34 +94,43 @@
                       component.set('v.mapMarkers', mapMarkers);
                     }
                   }
-                  
-                  if(showResult.length === 0 && hiddenResult.length === 0){
-                      component.set('v.noRecsMessage',true);
-                      component.set('v.showRecommendations',false);
-                      component.set('v.showRecommendationResults',false);
-                  }else{
-                      component.set('v.showRecommendations',true);
-                      component.set('v.showRecommendationResults',true);
-                      component.set('v.noRecsMessage',false);
-                  }
-  
+
                   showResult.sort((a,b)=>{
-  
                     return (a.Relevance < b.Relevance) ? 1 : -1
-                  })
-                  try{
-                  component.set('v.unfilteredRecs', showResult);
-                  component.set('v.returnRecs', showResult);
-                  component.set('v.returnHiddenRecommendations', hiddenResult);
-                  component.set('v.returnHiddenRecommendationsCount', hiddenResult.length);
-                      if(showResult.length ==0){
-                          $A.util.addClass(component.find("showRec"), "slds-hide");
-                      }else{
-                          $A.util.removeClass(component.find("showRec"), "slds-hide");
-                      }
-                  }catch(error) {
-                    console.log(error);
+                  });
+                   
+                try{
+
+                  if(!component.get('v.showFilterOptions')){
+                    component.set('v.showFilterOptions',true);
                   }
+                  component.set('v.showHiddenRecsList',true);
+                  component.set('v.returnHiddenRecommendationsCount', hiddenResult.length);
+
+                  if(showResult.length === 0 && hiddenResult.length === 0){
+                    component.set('v.noRecsMessage',true);
+                    component.set('v.showRecommendations',false);
+                    component.set('v.showRecommendationResults',false);
+                 }else{ 
+                    component.set('v.showRecommendations',true);
+                    component.set('v.showRecommendationResults',true);
+                    component.set('v.searchedRecommendations',true);
+                    component.set('v.noRecsMessage',false);
+
+                    component.set('v.unfilteredRecs',showResult);
+                    component.set('v.unfilteredRecs',showResult);
+                    component.set('v.returnHiddenRecommendations', hiddenResult);
+                    component.set('v.returnRecs', showResult);
+                    
+                    if(showResult.length ==0){
+                      $A.util.addClass(component.find("showRec"), "slds-hide");
+                    }else{
+                      $A.util.removeClass(component.find("showRec"), "slds-hide");
+                    }
+                }
+                }catch(error) {
+                 console.log(error);
+                }
           }
       });
       $A.enqueueAction(action);
