@@ -27,7 +27,7 @@ public with sharing class Test_getRecommendations {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
       getTestContact().Id
-    );
+    ,'');
     test.stopTest();
 
     integer goodServiceIndex = getRecommendationIndexByServiceName(
@@ -87,7 +87,7 @@ public with sharing class Test_getRecommendations {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
       getTestContact().Id
-    );
+    ,'');
     test.stopTest();
     // you are too old for the teen service
     system.assertEquals(
@@ -100,7 +100,7 @@ public with sharing class Test_getRecommendations {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
       getTestContact().Id
-    );
+    ,'');
     test.stopTest();
     // too far away!
     system.assertEquals(
@@ -113,7 +113,7 @@ public with sharing class Test_getRecommendations {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
       getTestContact().Id
-    );
+    ,'');
     test.stopTest();
 
     integer badServiceIndex = getRecommendationIndexByServiceName(
@@ -133,7 +133,7 @@ public with sharing class Test_getRecommendations {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
       getTestContact().Id
-    );
+    ,'');
     test.stopTest();
 
     integer badServiceIndex = getRecommendationIndexByServiceName(
@@ -151,7 +151,7 @@ public with sharing class Test_getRecommendations {
     test.startTest();
     List<ServiceRecommendation> recs = getRecommendations.getRecommendations(
       getTestContact().Id
-    );
+    ,'');
     test.stopTest();
 
     integer badServiceIndex = getRecommendationIndexByServiceName(
