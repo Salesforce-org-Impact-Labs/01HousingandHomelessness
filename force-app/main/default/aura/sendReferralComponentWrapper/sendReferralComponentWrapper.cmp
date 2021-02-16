@@ -5,6 +5,7 @@
   <aura:attribute name="showReferFlow" type="Boolean" default="false"/>
   <aura:attribute name="showMapReferFlow" type="Boolean" default="false"/>
   <aura:attribute name="showRecommendations" type="Boolean" default="false"/>
+  <aura:attribute name="showFilterOptions" type="Boolean" default="false"/>
   <aura:attribute name="showRecommendationResults" type="Boolean"/>
   <aura:attribute name="showRelevancePopover" type="Boolean" default="false"/>
   <aura:attribute name="showDropdown" type="Boolean" default="false"/>
@@ -75,7 +76,7 @@
     </div>
 
    
-    <aura:if isTrue="{!v.showRecommendations}">
+    <aura:if isTrue="{!v.showFilterOptions}"> 
       <div class="slds-size_1-of-1 slds-clearfix slds-m-top_small slds-m-bottom_small">
         <!-- multi select picklist for filter of program types -->
         <div class="slds-float_left">

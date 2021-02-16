@@ -11,11 +11,11 @@ public with sharing class getRecommendations {
     }
 
   @AuraEnabled
-  public static list<ServiceRecommendation> getRecommendations(id contactId) {
+  public static list<ServiceRecommendation> getRecommendations(id contactId, string filterList) {
     Client_Profile__c CP = getProfile(contactId);
 
     // Security Review : Matching Client Profile is only fetched if the Contact Id is found in above line.
-    List<Service__c> services = getRecommendationsServiceQuery.primaryQuery(CP);
+    List<Service__c> services = getRecommendationsServiceQuery.primaryQuery(CP, filterList);
     System.debug('services' + services);
     // convert to ServiceRecommendation
     list<ServiceRecommendation> output = servicesToRecommendations(services);

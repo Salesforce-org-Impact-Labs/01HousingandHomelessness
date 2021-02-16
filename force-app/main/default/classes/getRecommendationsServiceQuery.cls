@@ -2,14 +2,30 @@ public with sharing class getRecommendationsServiceQuery {
 
     // list of services with any hard filters
     // hard filters are currently Age
-    public static list<Service__c> primaryQuery(Client_Profile__c client) {
+    public static list<Service__c> primaryQuery(Client_Profile__c client, String filterList) {
       if(Schema.Client_Profile__c.SObjectType == Id.valueOf(client.id).getSobjectType()) {
         decimal age = calculateAge(client.Date_Of_Birth__c);
+        List<String> filters = new List<String>();
+      
+        filters.addALL(filterList.split(','));
+        String filterValue = '(\'' + String.join(filters, '\',\'') + '\')';
+      
+        String queryStr = 'SELECT id from Service__c where (Minimum_Age__c = null OR Minimum_Age__c < :age) AND (Maximum_Age__c = null OR Maximum_Age__c > :age)';
+        if(filterList != null && filterList != ''){
+              queryStr += 'AND All_Types__c includes '+ filterValue +' WITH SECURITY_ENFORCED';
+        }else{
+            queryStr += ' WITH SECURITY_ENFORCED';
+        }
+          
         decimal defaultMaxDistance = [
           SELECT Default_Max_Distance__c
           FROM RefRecSettings__mdt limit 1
         ]
         .Default_Max_Distance__c;
+        
+        List<Service__c> serList = new List<Service__c>();
+        serList = database.query(queryStr);
+            
         return [
           SELECT
             id,
@@ -45,17 +61,15 @@ public with sharing class getRecommendationsServiceQuery {
             ) dist
           FROM Service__c
           WHERE
-            (Minimum_Age__c = null
-            OR Minimum_Age__c < :age)
-            AND (Maximum_Age__c = null
-            OR Maximum_Age__c > :age)
-            AND DISTANCE(
+            DISTANCE(
               Location__c,
               GEOLOCATION(:client.Location__Latitude__s,
                 :client.Location__Longitude__s
               ),
               'mi'
             ) < :defaultMaxDistance
+            AND
+                Id in : serList
           WITH SECURITY_ENFORCED
         ];
       } else{
