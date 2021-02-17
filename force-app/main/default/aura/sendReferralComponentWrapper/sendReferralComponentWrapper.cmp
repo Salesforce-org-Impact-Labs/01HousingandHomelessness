@@ -150,9 +150,9 @@
         
       </div>
     </aura:if>
-   <div aura:id="showRec">
+   <div aura:id="showRec" class="innerRecDiv slds-size_1-of-1 slds-scrollable_y">
       <aura:if isTrue="{!v.showRecommendationResults}">
-      <div class="innerRecDiv  slds-size_1-of-1 viewHeightFifty slds-scrollable_y">
+      <div class="innerRecDiv slds-size_1-of-1 viewHeightFifty slds-scrollable_y">
         <aura:iteration items="{!v.returnRecs}" var="recommendation">
             <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
             onflowlaunch="{!c.handleShare}" servicerecommendation="{!recommendation}" serviceid="{!recommendation.ServiceId}"
