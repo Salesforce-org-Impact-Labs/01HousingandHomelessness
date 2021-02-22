@@ -1,0 +1,18 @@
+- object: Client_Profile__c
+  fields:
+    First_Name__c:
+      fake: first_name
+    Last_Name__c:
+      fake: last_name
+    Contact__c:
+      - object: Contact
+        fields:
+          FirstName: ${{Client_Profile__c.First_Name__c}}
+          LastName: ${{Client_Profile__c.Last_Name__c}}
+          Email:
+            fake: email
+
+- object: Service__c
+  fields:
+    Name:
+      fake: company
