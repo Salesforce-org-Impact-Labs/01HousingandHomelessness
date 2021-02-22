@@ -4,6 +4,40 @@
       fake: first_name
     Last_Name__c:
       fake: last_name
+    Postal_Code__c:
+      fake: postcode
+    Date_of_Birth__c:
+      fake: date
+    Employment__c:
+      random_choice:
+        - "Employed full-time"
+        - "Employed part-time"
+        - "Retired"
+        - "Unemployed"
+    Home_Renter__c:
+      random_choice:
+        - "True"
+        - "False"
+    Home_Owner__c:
+      random_choice:
+        - "True"
+        - "False"
+    Homeless__c:
+      random_choice:
+        - "True"
+        - "False"
+    Near_Homeless__c:
+      random_choice:
+        - "True"
+        - "False"
+    Runaway__c:
+      random_choice:
+        - "True"
+        - "False"
+    Location__Latitude__s:
+      fake: latitude
+    Location__Longitude__s:
+      fake: longitude
     Contact__c:
       - object: Contact
         fields:
@@ -16,3 +50,80 @@
   fields:
     Name:
       fake: company
+    Maximum_Age__c:
+      random_number:
+        min: 0
+        max: 20
+    Minimum_Age__c:
+      random_number:
+        min: 20
+        max: 150
+    City__c:
+      fake: city
+    # Description__c:
+    #   fake: 
+    Phone__c:
+      fake: phone_number
+    Street__c:
+      fake: street_address
+    Type__c:
+      random_choice:
+        - "Care"
+        - "Education"
+        - "Food"
+        - "Goods"
+        - "Housing"
+        - "Legal"
+        - "Money"
+        - "Transit"
+        - "Work"
+    Website__c:
+      fake: url
+    Zip_Code__c:
+      fake: postcode
+    # External_ID__c:
+    #   fake: 
+    Preferred__c:
+      random_choice:
+        - "True"
+        - "False"
+    Location__Latitude__s:
+      fake: latitude
+    Location__Longitude__s:
+      fake: longitude
+    Home_Renter__c:
+      random_choice:
+        - "True"
+        - "False"
+    Home_Owner__c:
+      random_choice:
+        - "True"
+        - "False"
+    Homeless__c:
+      random_choice:
+        - "True"
+        - "False"
+    Near_Homeless__c:
+      random_choice:
+        - "True"
+        - "False"
+    Runaway__c:
+      random_choice:
+        - "True"
+        - "False"
+    Unemployed__c:
+      random_choice:
+        - "True"
+        - "False"
+    Retired__c:
+      random_choice:
+        - "True"
+        - "False"
+    Employed_part_time__c:
+      random_choice:
+        - "True"
+        - "False"
+    Employed_full_time__c:
+      random_choice:
+        - "True"
+        - "False"
