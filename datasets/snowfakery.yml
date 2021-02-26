@@ -52,12 +52,12 @@
       fake: company
     Maximum_Age__c:
       random_number:
-        min: 0
-        max: 20
-    Minimum_Age__c:
-      random_number:
         min: 20
         max: 150
+    Minimum_Age__c:
+      random_number:
+        min: 0
+        max: 20
     City__c:
       fake: city
     # Description__c:
@@ -68,6 +68,19 @@
       fake: street_address
     Type__c:
       random_choice:
+        - "Care"
+        - "Education"
+        - "Food"
+        - "Goods"
+        - "Housing"
+        - "Legal"
+        - "Money"
+        - "Transit"
+        - "Work"
+    All_Types__c:
+      random_choices:
+      min: 0
+      max: 5
         - "Care"
         - "Education"
         - "Food"
