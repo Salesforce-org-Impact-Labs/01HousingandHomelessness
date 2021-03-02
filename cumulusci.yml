@@ -123,3 +123,12 @@ flows:
         task: score_services
         options:
           apex: 'refrec.Scoring.scoreAllServices();'
+
+  run_robot:
+    steps:
+      1:
+        flow: qa_org
+      2:
+        task: robot
+        options:
+          vars: BROWSER:headlesschrome
