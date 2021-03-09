@@ -5,7 +5,7 @@ Impact Lab - Housing & Homelessness
 ![Manual Production Package Release](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/workflows/Manual%20Production%20Package%20Release/badge.svg)
 ![Beta Package and Install](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/workflows/Package%20and%20Install/badge.svg)
 
-## Installation and setup
+## Installation and Setup
 
 Install package using the link from Releases above. Reminder: If testing in sandbox, add "test" to package url when installing
 
@@ -15,7 +15,7 @@ Complete the following required setup steps
 2. [Data Setup](/docs/data-setup.md)
 3. [Messaging Setup](/docs/messaging-setup.md)
 
-### Optional steps
+### Optional Steps
 
 1. [Adjust scoring metrics](/docs/scoring-metrics.md)
 2. [UI Setup](/docs/ui-setup.md)
