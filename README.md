@@ -25,13 +25,17 @@ Complete the following required setup steps
 
 To work on this project in a scratch org:
 
-1. [Set up CumulusCI](https://cumulusci.readthedocs.io/en/latest/tutorial.html)
-2. Run `cci flow run dev_org --org dev` to deploy this project.
-3. You can now use sfdx commands like `org:open`, push, pull, etc.
-4. After step 2, you can run `cci task run run_tests --org dev` to run all the apex tests
-5. Delete orgs like this `cci org scratch_delete dev`
+1. [Set up CumulusCI](https://cumulusci.readthedocs.io/en/latest/get_started.html)
+2. Run `cci flow run dev_org --org dev` to deploy this project
+3. Run `cci org browser dev` to open your newley created org
 
-## Sample Data
+## Test
+1. [Set up CumulusCI](https://cumulusci.readthedocs.io/en/latest/get_started.html)
+2. Run `cci flow run qa_org --org qa` to deploy this project
+3. Run `cci org browser qa` to open your newley created org
+1. Run `cci task run run_tests --org qa` to run all the apex tests
+
+## Create Sample Data
 
 1. Put data in the org however you like
 2. Run `cci task run extract_dataset`
