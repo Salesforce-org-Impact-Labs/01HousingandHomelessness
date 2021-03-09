@@ -40,12 +40,12 @@ To work on this project in a scratch org:
 1. Put data in the org however you like
 2. Run `cci task run extract_dataset`
 
-## Packaging
+## Release
 
 1. The packaging flow creates a new beta package when you merge your PR into master
 2. It's possible that you'll get a passing PR check (it deploys, all tests pass) but then there are packaging errors (namespace issues, overall code coverage < 75%, etc)
-3. `cci flow run release_production --org packaging` will do a non-beta release
+3. To release navigate to the [Release Github Action](https://github.com/Salesforce-org-Impact-Labs/01HousingandHomelessness/actions/workflows/production_release.yml) and click "Run Workflow" twice
 
 ## Troubleshooting
 
-If the default org doesn't show up down in the vscode tray, you can run `cci org default dev` to manually set the default org
+If the default org doesn't show up down in the vscode tray, you can run `cci org default <org_name>` to manually set the default org
