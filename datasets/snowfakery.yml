@@ -48,6 +48,11 @@
 
 - object: Service__c
   fields:
+    Account__c:
+      - object: Account
+        fields:
+          Name:
+            fake: company
     Name:
       fake: company
     Maximum_Age__c:
@@ -61,7 +66,7 @@
     City__c:
       fake: city
     # Description__c:
-    #   fake: 
+    #   fake:
     Phone__c:
       fake: phone_number
     Street__c:
@@ -77,25 +82,25 @@
         - "Money"
         - "Transit"
         - "Work"
-    All_Types__c:
-      random_choices:
-      min: 0
-      max: 5
-        - "Care"
-        - "Education"
-        - "Food"
-        - "Goods"
-        - "Housing"
-        - "Legal"
-        - "Money"
-        - "Transit"
-        - "Work"
+    # All_Types__c:
+    #   random_choices:
+    #   min: 0
+    #   max: 5
+    #     - "Care"
+    #     - "Education"
+    #     - "Food"
+    #     - "Goods"
+    #     - "Housing"
+    #     - "Legal"
+    #     - "Money"
+    #     - "Transit"
+    #     - "Work"
     Website__c:
       fake: url
     Zip_Code__c:
       fake: postcode
     # External_ID__c:
-    #   fake: 
+    #   fake:
     Preferred__c:
       random_choice:
         - "True"

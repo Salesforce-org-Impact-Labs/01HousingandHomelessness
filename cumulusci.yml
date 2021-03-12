@@ -94,7 +94,11 @@ flows:
       4:
         task: update_admin_profile
       5:
-        task: load_dataset
+        task: generate_and_load_from_yaml
+        options:
+          generator_yaml: datasets/snowfakery.yml
+          num_records: 300
+          num_records_tablename: Contact
       6:
         task: score_services
       7:
