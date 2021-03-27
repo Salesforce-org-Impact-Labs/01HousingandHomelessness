@@ -1,5 +1,5 @@
 *** Settings ***
-
+Resource        robot/01HousingandHomelessness/resources/Refrec.robot
 Resource        cumulusci/robotframework/Salesforce.robot
 Library         cumulusci.robotframework.PageObjects
 
@@ -10,7 +10,7 @@ Suite Teardown  Delete Records and Close Browser
 *** Variables ***
 
 ${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and text()='Save']
-
+# ${Save_Button}  refrec:modal_button.save
 
 *** Keywords ***
 
