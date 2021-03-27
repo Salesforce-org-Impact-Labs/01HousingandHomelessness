@@ -1,16 +1,19 @@
 *** Settings ***
-Resource        robot/01HousingandHomelessness/resources/Refrec.robot
 Resource        cumulusci/robotframework/Salesforce.robot
+Library         cumulusci.robotframework.locator_manager
+Resource        robot/01HousingandHomelessness/resources/locators.robot
 Library         cumulusci.robotframework.PageObjects
 
-Suite Setup     Open Test Browser
+Suite Setup     Run Keywords
+...             Open Test Browser
+...             AND  Register Locators  refrec  ${refrec_lex_locators}
 Suite Teardown  Delete Records and Close Browser
 
 
 *** Variables ***
 
-${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and text()='Save']
-# ${Save_Button}  refrec:modal_button.save
+# ${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and text()='Save']
+${Save_Button}  refrec:save
 
 *** Keywords ***
 
