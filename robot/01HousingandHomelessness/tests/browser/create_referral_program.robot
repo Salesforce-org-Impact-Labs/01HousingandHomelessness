@@ -1,19 +1,29 @@
 *** Settings ***
-
 Resource        cumulusci/robotframework/Salesforce.robot
+Library         cumulusci.robotframework.locator_manager
+Resource        robot/01HousingandHomelessness/resources/locators.robot
 Library         cumulusci.robotframework.PageObjects
 
-Suite Setup     Open Test Browser
-Suite Teardown  Delete Records and Close Browser
+Suite Setup     Run Keywords
+...             Register Locators  refrec  ${refrec_lex_locators}
+...             AND  Open Test Browser
+Suite Teardown  Delete Records And Close Browser
 
 
-*** Variables ***
+*** Test Cases ***
+Create Referral Program
+    [Documentation]     Create a Referral Program, populate it with fake date, and save it.
 
-${Save_Button}  //button[contains(@class, 'slds-button') and @type='button' and text()='Save']
+    Navigate To Referral Program Tab
+    Click Referral Program "New" Button
+    Populate New Referral Program Modal With Fake Data
+    Click Save Button
+    Wait Until Modal Is Closed
+    Navigate To Referral Program Tab
+    Click On Newly Created Referral Program
 
 
 *** Keywords ***
-
 Navigate to Referral Program Tab
     Go To Page                              Listing             Service__c
 
@@ -36,21 +46,7 @@ Populate New Referral Program Modal with Fake Data
     ...                                     Longitude=${faker.random_int(min=-180, max=180)}.${faker.random_int(min=0, max=999999)}
 
 Click Save Button
-    Click Button                            ${Save_Button}
+    Click Button                            refrec:save
 
 Click on Newly Created Referral Program
     Click Link                              My Referral Program
-
-
-*** Test Cases ***
-
-Create Referral Program
-    [Documentation]     Create a Referral Program, populate it with fake date, and save it.
-
-    Navigate to Referral Program Tab
-    Click Referral Program "New" Button
-    Populate New Referral Program Modal with Fake Data
-    Click Save Button
-    Wait Until Modal Is Closed
-    Navigate to Referral Program Tab
-    Click on Newly Created Referral Program
