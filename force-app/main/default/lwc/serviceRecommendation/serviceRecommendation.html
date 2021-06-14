@@ -120,8 +120,8 @@
       <div class="slds-m-around_small">
         <ul class="bodyList">
           <li><p>{servicerecommendation.ProgramDescription}</p></li>
-          <li><p>Service Tags: {servicerecommendation.ServiceTags}</p></li>
-          <li><p>Situation Tags: {servicerecommendation.SituationTags}</p></li>
+          <li if:true={servicerecommendation.ServiceTags}><p>Service Tags: {servicerecommendation.ServiceTags}</p></li>
+          <li if:true={servicerecommendation.SituationTags}><p>Situation Tags: {servicerecommendation.SituationTags}</p></li>
           <template if:true={servicerecommendation.TodaysHours}>
             <li>
               <span class="slds-text-title_bold"
