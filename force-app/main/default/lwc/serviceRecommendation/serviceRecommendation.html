@@ -51,9 +51,12 @@
           </div>
         </div>
         <div class="slds-p-top_small">
-          <div class="headerText">
-            <p>{servicerecommendation.ProgramName}</p>
-          </div>
+            <div class="slds-text-heading_medium">{servicerecommendation.ProgramName}</div>
+              <div>
+                <span class="slds-text-color_weak">
+                  Provided by:&nbsp;</span>
+                <a onclick={handleAccountRedirect} class="slds-text-heading_small">{servicerecommendation.ProviderName}</a>
+              </div>
           <!-- loop through icons -->
           <div class="slds-grid">
             <template
@@ -116,12 +119,6 @@
     <div class="slds-media__body">
       <div class="slds-m-around_small">
         <ul class="bodyList">
-          <li>
-            <p>
-              Provided by:
-              <a href="#" onclick={handleAccountRedirect}> {servicerecommendation.ProviderName}</a>
-            </p>
-          </li>
           <li><p>{servicerecommendation.ProgramDescription}</p></li>
           <li><p>Service Tags: {servicerecommendation.ServiceTags}</p></li>
           <li><p>Situation Tags: {servicerecommendation.SituationTags}</p></li>
