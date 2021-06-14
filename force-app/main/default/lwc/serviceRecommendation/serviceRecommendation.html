@@ -40,23 +40,14 @@
             </p>
           </header>
           <div
-            class="slds-size_1-of-1 slds-grid slds-wrap slds-text-body_regular factorsDiv"
+            class="slds-text-body_regular factorsDiv"
           >
-            <ul>
-              <template
-                for:each={servicerecommendation.Indicators}
-                for:item="ind"
-              >
-                <div key={ind.IndicatorType}>
-                  <li>
-                    <span class="boldText">{ind.IndicatorType}</span>
-                  </li>
-                  <li>
-                    {ind.IndicatorValue}
-                  </li>
-                </div>
-              </template>
-            </ul>
+            <template iterator:it={servicerecommendation.Indicators}>
+              <span key={it.value.IndicatorType}>
+                <span><strong>{it.value.IndicatorType}:&nbsp;</strong>{it.value.IndicatorValue}</span>
+                <span if:false={it.last} class="divider"></span>
+              </span>
+            </template>
           </div>
         </div>
         <div class="slds-p-top_small">
