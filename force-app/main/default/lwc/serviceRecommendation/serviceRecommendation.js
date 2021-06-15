@@ -221,7 +221,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   }
 
   handlePrintReferral() {
-    console.log(this.serviceid);
+
     print({ serviceId: this.serviceid })
       .then((result) => {
         let downloadLink = document.createElement('a');
@@ -229,7 +229,7 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
         window.console.log(downloadLink.href);
         downloadLink.download = 'referral.pdf';
 
-        downloadLink.click();
+        window.open(downloadLink.href, '_blank');
       })
       .catch((error) => {
         window.console.log('error:' + JSON.stringify(error));
