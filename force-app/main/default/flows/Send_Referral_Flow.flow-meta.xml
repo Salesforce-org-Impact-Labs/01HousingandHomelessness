@@ -452,7 +452,7 @@
             <name>Preferred_Method_of_Contact</name>
             <choiceReferences>Email</choiceReferences>
             <choiceReferences>SMS</choiceReferences>
-            <choiceReferences>Print</choiceReferences>
+            <!--<choiceReferences>Print</choiceReferences>-->
             <dataType>String</dataType>
             <fieldText>Send to Client Via:</fieldText>
             <fieldType>MultiSelectCheckboxes</fieldType>
