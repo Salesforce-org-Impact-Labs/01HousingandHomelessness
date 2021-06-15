@@ -26,6 +26,10 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
 
   newComment;
 
+  get hasHoursAndAddress() {
+    return this.servicerecommendation.TodaysHours && this.servicerecommendation.address;
+  }
+
   connectedCallback(rec = this.servicerecommendation) {
     window.console.log('connected callback recommendation');
     if (rec.Comments.length > 0) {

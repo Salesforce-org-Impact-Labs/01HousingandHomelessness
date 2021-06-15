@@ -56,9 +56,17 @@
                   let i;
 
                   if(res.length > 0){
-                    
+
                     for(i = 0; i < res.length; i++) {
 
+                      //form address with comma if contains street and city
+                      res[i].address = '';
+            
+                      if(res[i].MailingStreet && res[i].MailingCity) {
+                        res[i].address = res[i].MailingStreet + ', ' + res[i].MailingCity;
+                      } else {
+                        res[i].address = res[i].MailingStreet ? res[i].MailingStreet : res[i].MailingCity;
+                      }
                       let t;
                       const types = res[i].AllTypes;
                       let iconList = [];

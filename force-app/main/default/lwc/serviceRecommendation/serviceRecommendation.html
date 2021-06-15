@@ -122,22 +122,21 @@
           <li><p>{servicerecommendation.ProgramDescription}</p></li>
           <li if:true={servicerecommendation.ServiceTags}><p>Service Tags: {servicerecommendation.ServiceTags}</p></li>
           <li if:true={servicerecommendation.SituationTags}><p>Situation Tags: {servicerecommendation.SituationTags}</p></li>
-          <template if:true={servicerecommendation.TodaysHours}>
             <li>
-              <span class="slds-text-title_bold"
-                >Open until &nbsp;
+              <span class="slds-text-title_bold" if:true={servicerecommendation.TodaysHours}>
+                Open until &nbsp;
                 <lightning-formatted-date-time
                   hour="numeric"
                   minute="2-digit"
                   time-zone="UTC"
-                  value={servicerecommendation.TodaysEndHours}
-                ></lightning-formatted-date-time></span
-              >&nbsp;&nbsp;&nbsp;<span class="slds-text-title_bold"
-                >{servicerecommendation.MailingStreet},
-                {servicerecommendation.MailingCity}</span
-              >
+                  value={servicerecommendation.TodaysEndHours}>
+                </lightning-formatted-date-time>
+              </span>
+              <span class="divider" if:true={hasHoursAndAddress}></span>
+              <span class="slds-text-title_bold" if:true={servicerecommendation.address}>
+                {servicerecommendation.address}
+              </span>
             </li>
-          </template>
           <li>
             <span
               ><a href="#">{servicerecommendation.ServicePhone}</a> * &nbsp;
