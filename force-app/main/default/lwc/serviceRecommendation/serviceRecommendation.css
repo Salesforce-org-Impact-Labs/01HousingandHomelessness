@@ -17,6 +17,22 @@
     content: " \25CF";
 }
 
+.icon-label {
+    font-size: 1.1em;
+    margin-left: 3px;
+    margin-right: 6px;
+    position: relative;
+    top: 2px;
+}
+
+.program-icon-container {
+    white-space: pre;
+}
+
+.program-icon {
+    margin-top: 7px;
+}
+
 .slds-dropdown__item span {
     color:black !important;
 }

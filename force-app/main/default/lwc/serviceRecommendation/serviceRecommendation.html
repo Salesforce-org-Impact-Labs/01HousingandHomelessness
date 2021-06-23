@@ -1,6 +1,69 @@
 <template>
   <article key={servicerecommendation.ServiceId} class="slds-card parentCard">
     <div class="slds-card__header slds-clearfix">
+      <div class="slds-float_right" slot="actions">
+        <div
+          style="position: relative; top: 22px;"
+          class="slds-button-group"
+          role="group"
+        >
+          <button
+            class="slds-button slds-button_neutral"
+            onclick={handleSendReferral}
+          >
+            Refer
+          </button>
+          <button
+            class="slds-button slds-button_icon slds-button_icon-border-filled"
+            value={serviceid}
+            onclick={handlePrintReferral}
+          >
+            <lightning-icon
+              icon-name="utility:print"
+              alternative-text="Print"
+              size="x-small"
+            >
+            </lightning-icon>
+          </button>
+          <div
+            class="slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last"
+          >
+            <lightning-button-icon
+              icon-name="utility:down"
+              class="slds-button slds-button_icon slds-button_icon-border-filled"
+              onclick={handleOpenMenu}
+            ></lightning-button-icon>
+            <div
+              class="slds-dropdown slds-dropdown_right slds-dropdown_actions"
+            >
+              <lightning-menu-item
+                if:false={servicerecommendation.Hidden}
+                value="Hide for this Contact"
+                label="Hide for this Contact"
+                onclick={handleHideForThisContact}
+              ></lightning-menu-item>
+              <lightning-menu-item
+                if:true={servicerecommendation.Hidden}
+                value="unhide for this Contact"
+                label="Unhide for this Contact"
+                onclick={handleUnhideForThisContact}
+              ></lightning-menu-item>
+              <lightning-menu-item
+                if:false={servicerecommendation.HiddenAll}
+                value="Hide for all Contacts"
+                label="Hide for all Contacts"
+                onclick={handleHideForAllContacts}
+              ></lightning-menu-item>
+              <lightning-menu-item
+                if:true={servicerecommendation.HiddenAll}
+                value="unhide for all Contacts"
+                label="Unhide for all Contacts"
+                onclick={handleUnhideForAllContacts}
+              ></lightning-menu-item>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="slds-float_left" slot="title">
         <div class="relevancePara">
           <a
@@ -39,108 +102,94 @@
               <br />
             </p>
           </header>
-          <div
-            class="slds-text-body_regular factorsDiv"
-          >
+          <div class="slds-text-body_regular factorsDiv">
             <template iterator:it={servicerecommendation.Indicators}>
               <span key={it.value.IndicatorType}>
-                <span><strong>{it.value.IndicatorType}:&nbsp;</strong>{it.value.IndicatorValue}</span>
+                <span
+                  ><strong>{it.value.IndicatorType}:&nbsp;</strong
+                  >{it.value.IndicatorValue}</span
+                >
                 <span if:false={it.last} class="divider"></span>
               </span>
             </template>
           </div>
         </div>
         <div class="slds-p-top_small">
-            <div class="slds-text-heading_medium"><strong>{servicerecommendation.ProgramName}</strong></div>
-              <div>
-                <span class="slds-text-color_weak">
-                  Provided by:&nbsp;</span>
-                <a onclick={handleAccountRedirect} class="slds-text-heading_small">{servicerecommendation.ProviderName}</a>
-              </div>
+          <div class="slds-text-heading_medium">
+            <strong>{servicerecommendation.ProgramName}</strong>
+          </div>
+          <div>
+            <span class="slds-text-color_weak"> Provided by:&nbsp;</span>
+            <a onclick={handleAccountRedirect} class="slds-text-heading_small"
+              >{servicerecommendation.ProviderName}</a
+            >
+          </div>
           <!-- loop through icons -->
-          <div class="slds-grid">
+          <div class="slds-m-vertical_small">
             <template
-                  for:each={servicerecommendation.ProgramIcons}
-                  for:item="iconName"
-                >
-              <div key={iconName} class="headerIconDiv slds-col slds-p-top_x-small ">
+              for:each={servicerecommendation.iconList}
+              for:item="programIcon"
+            >
+              <span
+                key={programIcon.label}
+                class="program-icon-container slds-col slds-m-horizontal_xx-small slds-m-vertical_small"
+              >
                 <lightning-icon
-                  if:true={iconName}
-                  icon-name={iconName}
-                  size="medium"
-                  alternative-text={iconName}
+                  icon-name={programIcon.icon}
+                  size="small"
+                  alternative-text={programIcon.label}
+                  class="program-icon"
                 ></lightning-icon>
-              </div>
+                <span class="icon-label">{programIcon.label}</span>
+              </span>
             </template>
           </div>
         </div>
-      </div>
-      <div class="slds-float_right" slot="actions">
-        <div class="slds-button-group" role="group">
-            <button class="slds-button slds-button_neutral"
-            onclick={handleSendReferral}>Refer</button>
-            <button class="slds-button slds-button_icon slds-button_icon-border-filled" value={serviceid} onclick={handlePrintReferral}>
-              <lightning-icon icon-name="utility:print" alternative-text="Print" size="x-small" >
-                
-              </lightning-icon>
-            </button>
-            <div class="slds-dropdown-trigger slds-dropdown-trigger_click slds-button_last">
-              <lightning-button-icon icon-name="utility:down" class="slds-button slds-button_icon slds-button_icon-border-filled" onclick={handleOpenMenu}></lightning-button-icon>
-              <div class="slds-dropdown slds-dropdown_right slds-dropdown_actions">
-                  <lightning-menu-item
-                    if:false={servicerecommendation.Hidden}
-                    value="Hide for this Contact"
-                    label="Hide for this Contact"
-                    onclick={handleHideForThisContact}
-                  ></lightning-menu-item>
-                  <lightning-menu-item
-                    if:true={servicerecommendation.Hidden}
-                    value="unhide for this Contact"
-                    label="Unhide for this Contact"
-                    onclick={handleUnhideForThisContact}
-                  ></lightning-menu-item>
-                  <lightning-menu-item
-                  if:false={servicerecommendation.HiddenAll}
-                    value="Hide for all Contacts"
-                    label="Hide for all Contacts"
-                    onclick={handleHideForAllContacts}
-                  ></lightning-menu-item>
-                  <lightning-menu-item
-                    if:true={servicerecommendation.HiddenAll}
-                    value="unhide for all Contacts"
-                    label="Unhide for all Contacts"
-                    onclick={handleUnhideForAllContacts}
-                  ></lightning-menu-item>
-                </div>
-            </div>
-          </div>
       </div>
     </div>
     <div class="slds-media__body">
       <div class="slds-m-around_small">
         <ul class="bodyList">
           <li><p>{servicerecommendation.ProgramDescription}</p></li>
-          <li if:true={servicerecommendation.ServiceTags}><p>Service Tags: {servicerecommendation.ServiceTags}</p></li>
-          <li if:true={servicerecommendation.SituationTags}><p>Situation Tags: {servicerecommendation.SituationTags}</p></li>
-            <li>
-              <span class="slds-text-title_bold" if:true={servicerecommendation.TodaysHours}>
-                Open until &nbsp;
-                <lightning-formatted-date-time
-                  hour="numeric"
-                  minute="2-digit"
-                  time-zone="UTC"
-                  value={servicerecommendation.TodaysEndHours}>
-                </lightning-formatted-date-time>
-              </span>
-              <span class="divider" if:true={hasHoursAndAddress}></span>
-              <span class="slds-text-title_bold" if:true={servicerecommendation.address}>
-                {servicerecommendation.address}
-              </span>
-            </li>
+          <li if:true={servicerecommendation.ServiceTags}>
+            <p>Service Tags: {servicerecommendation.ServiceTags}</p>
+          </li>
+          <li if:true={servicerecommendation.SituationTags}>
+            <p>Situation Tags: {servicerecommendation.SituationTags}</p>
+          </li>
           <li>
             <span
-              ><a href="#">{servicerecommendation.ServicePhone}</a> * &nbsp;
-              <a href={servicerecommendation.Website}>{servicerecommendation.Website}</a></span
+              class="slds-text-title_bold"
+              if:true={servicerecommendation.TodaysHours}
+            >
+              Open until &nbsp;
+              <lightning-formatted-date-time
+                hour="numeric"
+                minute="2-digit"
+                time-zone="UTC"
+                value={servicerecommendation.TodaysEndHours}
+              >
+              </lightning-formatted-date-time>
+            </span>
+            <span class="divider" if:true={hasHoursAndAddress}></span>
+            <span
+              data-id={servicerecommendation.Id}
+              class="slds-text-title_bold"
+              if:true={servicerecommendation.address}
+              onclick={handleAddressClick}
+            >
+              {servicerecommendation.address}
+            </span>
+          </li>
+          <li>
+            <span
+              ><a href="javascript:void(0);"
+                >{servicerecommendation.ServicePhone}</a
+              >
+              &nbsp; * &nbsp;
+              <a href={servicerecommendation.Website} target="_blank"
+                >{servicerecommendation.Website}</a
+              ></span
             >
           </li>
         </ul>
@@ -156,7 +205,8 @@
             ></c-star-rating>
           </div>
           <div class="slds-float_right">
-            <a onclick={handleCommentRedirect}>{commentCount} Comments</a> |&nbsp;
+            <a onclick={handleCommentRedirect}>{commentCount} Comments</a>
+            &nbsp;|&nbsp;
             <a href="#" onclick={handleShowAddComment}>Add Comment</a>
           </div>
         </div>

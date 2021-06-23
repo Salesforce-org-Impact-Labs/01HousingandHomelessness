@@ -27,7 +27,10 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   newComment;
 
   get hasHoursAndAddress() {
-    return this.servicerecommendation.TodaysHours && this.servicerecommendation.address;
+    return (
+      this.servicerecommendation.TodaysHours &&
+      this.servicerecommendation.address
+    );
   }
 
   connectedCallback(rec = this.servicerecommendation) {
@@ -148,13 +151,15 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   }
 
   handleAccountRedirect() {
-    this[NavigationMixin.Navigate] ({
+    this[NavigationMixin.GenerateUrl]({
       type: 'standard__recordPage',
       attributes: {
-          recordId: this.servicerecommendation.AccountId,
-          objectApiName: 'Account',
-          actionName: 'view'
+        recordId: this.servicerecommendation.AccountId,
+        objectApiName: 'Account',
+        actionName: 'view'
       }
+    }).then((generatedUrl) => {
+      window.open(generatedUrl, '_blank');
     });
   }
 
@@ -168,16 +173,16 @@ export default class ServiceRecommendation extends NavigationMixin(LightningElem
   handleCommentRedirect(event){
     event.preventDefault();
 
-    console.log('here');
-    console.log(this.serviceid);
-    this[NavigationMixin.Navigate]({
+    this[NavigationMixin.GenerateUrl]({
       type: 'standard__recordPage',
       attributes: {
-          recordId: this.serviceid,
-          objectApiName: 'Service__c',
-          actionName: 'view'
-      },
-  });
+        recordId: this.serviceid,
+        objectApiName: 'Service__c',
+        actionName: 'view'
+      }
+    }).then((generatedUrl) => {
+      window.open(generatedUrl, '_blank');
+    });
   }
 
   handleShowAddComment(event) {
