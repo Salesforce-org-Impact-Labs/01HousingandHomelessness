@@ -150,7 +150,11 @@
     <div class="slds-media__body">
       <div class="slds-m-around_small">
         <ul class="bodyList">
-          <li><p>{servicerecommendation.ProgramDescription}</p></li>
+          <li>
+            <p class="slds-text-heading_small">
+              {servicerecommendation.ProgramDescription}
+            </p>
+          </li>
           <li if:true={servicerecommendation.ServiceTags}>
             <p>Service Tags: {servicerecommendation.ServiceTags}</p>
           </li>
@@ -183,11 +187,14 @@
           </li>
           <li>
             <span
-              ><a href="javascript:void(0);"
+              ><a href="javascript:void(0);" class="slds-text-heading_small"
                 >{servicerecommendation.ServicePhone}</a
               >
               &nbsp; * &nbsp;
-              <a href={servicerecommendation.Website} target="_blank"
+              <a
+                href={servicerecommendation.Website}
+                target="_blank"
+                class="slds-text-heading_small"
                 >{servicerecommendation.Website}</a
               ></span
             >
