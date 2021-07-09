@@ -262,7 +262,9 @@ public with sharing class EmailService {
         }
         // update any tasks that have been completed
         if (!tasksToUpdate.isEmpty()) {
-            update Security.stripInaccessible(AccessType.UPDATABLE, tasksToUpdate).getRecords();     
+            map<id,Task> tskMap = new map<id,Task>();
+            tskMap.putAll(tasksToUpdate);
+            update Security.stripInaccessible(AccessType.UPDATABLE, tskMap.values()).getRecords();     
         }
     }
 
