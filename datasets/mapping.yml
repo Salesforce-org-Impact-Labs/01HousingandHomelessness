@@ -54,6 +54,7 @@ Insert Service__c:
     Phone__c: Phone__c
     Street__c: Street__c
     Type__c: Type__c
+    All_Types__c: All_Types__c
     Website__c: Website__c
     Zip_Code__c: Zip_Code__c
     External_ID__c: External_ID__c
