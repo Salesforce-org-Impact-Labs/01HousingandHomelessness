@@ -4,7 +4,6 @@ public with sharing class getRecommendationsServiceQuery {
   // hard filters are currently Age
   public static list<Service__c> primaryQuery(Client_Profile__c client, String filterList) {
     if(Schema.Client_Profile__c.SObjectType == Id.valueOf(client.id).getSobjectType()) {
-      //decimal age = calculateAge(client.Date_Of_Birth__c);
       List<String> filters = new List<String>();
     
         filters.addALL(filterList.split(','));
