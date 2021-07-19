@@ -12,6 +12,7 @@ env:
   CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
   CUMULUSCI_SERVICE_github: ${{ secrets.CUMULUSCI_SERVICE_github }}
   CUMULUSCI_ORG_packaging: ${{ secrets.CUMULUSCI_ORG_PACKAGING }}
+  CUMULUSCI_SERVICE_connected_app: "{"client_id": "3MVG9i1HRpGLXp.or6OVlWVWyn8DXi9xueKNM4npq_AWh.yqswojK9sE5WY7f.biP0w7bNJIENfXc7JMDZGO1", "client_secret": None, "callback_url": f"http://localhost:8080/callback"}"
 
 jobs:
   unit_tests:
