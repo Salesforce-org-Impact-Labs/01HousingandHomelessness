@@ -43,6 +43,7 @@ public with sharing class getRecommendations {
     List<ServiceRecommendation> output = new List<ServiceRecommendation>();
     for (Service__c service : services) {
       ServiceRecommendation SR = new ServiceRecommendation();
+      Sr.Id = service.Id;
       SR.Service = service;
       SR.AllTypes = service.All_Types__c == null
         ? null
