@@ -3,6 +3,9 @@ public class ServiceRecommendation {
   public Service__c Service { get; set; }
 
   @AuraEnabled
+  public String Id { get; set; }
+
+  @AuraEnabled
   public Decimal Relevance { get; set; }
 
   @AuraEnabled
@@ -88,9 +91,6 @@ public class ServiceRecommendation {
 
   @AuraEnabled
   public Integer Preferred { get; set; }
-
-  @AuraEnabled
-  public List<String> ProgramIcons { get; set; }
 
   @AuraEnabled
   public List<Indicator> Indicators { get; set; }
