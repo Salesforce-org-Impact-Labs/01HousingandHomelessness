@@ -36,7 +36,7 @@ jobs:
           pip install cumulusci
       - name: Deploy to Packaging Org
         run: |
-          cci flow run ci_master --org packaging
+          cci flow run ci_master --org packaging --debug
       - name: Build a beta version of the package
         run: |
           cci flow run release_beta --org packaging

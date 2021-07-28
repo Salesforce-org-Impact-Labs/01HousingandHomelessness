@@ -1,9 +1,35 @@
 .parentCard {
     margin-top:0.5em !important;
     margin-bottom:0.5em !important;
-    border:1px solid grey !important;
-    border-radius:5px !important;
+    border:none !important;
+    box-shadow: none !important;
     width: 100%;
+}
+
+.divider {
+    margin-left: 6px;
+    margin-right: 6px;
+    white-space:nowrap;
+}
+
+.divider:after {
+    white-space:nowrap;
+    content: " \25CF";
+}
+
+.icon-label {
+    margin-left: 3px;
+    margin-right: 6px;
+    position: relative;
+    top: 2px;
+}
+
+.program-icon-container {
+    white-space: pre;
+}
+
+.program-icon {
+    margin-top: 7px;
 }
 
 .slds-dropdown__item span {
@@ -26,6 +52,10 @@
 .relevanceDiv {
     background-color:rgb(232, 232, 232);
     width:100%;
+    padding: 10px;
+    padding: 12px;
+    border-radius: 5px;
+    color:rgb(91, 90, 90);
 }
 
 .relevanceDiv p {
@@ -66,12 +96,6 @@
 
 .commentInput {
     text-align:left;
-}
-
-.relevanceDiv {
-    padding: 5px;
-    border-radius: 5px;
-    color:rgb(91, 90, 90);
 }
 
 footer {
