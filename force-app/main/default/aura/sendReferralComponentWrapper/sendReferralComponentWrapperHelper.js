@@ -55,84 +55,94 @@
                   let mapMarkers = [];
                   let i;
 
-                  if(res.length > 0){
-                    
-                    for(i = 0; i < res.length; i++) {
+          if(res.length > 0){
+            for (i = 0; i < res.length; i++) {
+              //form address with comma if contains street and city
+              res[i].address = '';
 
-                      let t;
-                      const types = res[i].AllTypes;
-                      let iconList = [];
-                      for(t=0; t < types.length;t++){
+              if (res[i].MailingStreet && res[i].MailingCity) {
+                res[i].address = res[i].MailingStreet + ', ' + res[i].MailingCity;
+              } else {
+                res[i].address = res[i].MailingStreet
+                  ? res[i].MailingStreet
+                  : res[i].MailingCity;
+              }
+              let t;
+              const types = res[i].AllTypes;
+              let newIconList = [];
+              for (t = 0; t < types.length; t++) {
+                newIconList.push({
+                  label: types[t],
+                  icon: `custom:custom${icons.get(types[t])}`
+                });
+              }
+              res[i].iconList = newIconList;
+              let marker = {
+                location: {
+                  Street: '',
+                  City: '',
+                  State: ''
+                },
 
-                        iconList.push(`custom:custom${icons.get(types[t])}`)
-                      }
-                      
-                      res[i].ProgramIcons = iconList;
-                      let marker = {
-                        location:{
-                          Street: '',
-                          City: '',
-                          State: ''
-                        },
-                  
-                        title: '',
-                        description: ''
-                      };
-                      
-                      if(res[i].Hidden === true || res[i].HiddenAll === true){
-                        hiddenResult.push(res[i]);
-                        
-                      }else{
-                        showResult.push(res[i]);
-                        marker.location.Street = res[i].MailingStreet;
-                        marker.location.City = res[i].MailingCity;
-                        marker.location.State = 'CA';
-                        marker.title = res[i].ProgramName;
-                        mapMarkers.push(marker);
-                      }
-                      
-                      component.set('v.mapMarkers', mapMarkers);
-                    }
-                  }
+                title: '',
+                description: ''
+              };
 
-                  showResult.sort((a,b)=>{
-                    return (a.Relevance < b.Relevance) ? 1 : -1
-                  });
-                   
-                try{
+              if (res[i].Hidden === true || res[i].HiddenAll === true) {
+                hiddenResult.push(res[i]);
+              } else {
+                showResult.push(res[i]);
+                marker.location.Street = res[i].MailingStreet;
+                marker.location.City = res[i].MailingCity;
+                marker.location.State = 'CA';
+                marker.title = res[i].ProgramName;
+                mapMarkers.push(marker);
+              }
 
-                  if(!component.get('v.showFilterOptions')){
-                    component.set('v.showFilterOptions',true);
-                  }
-                  component.set('v.showHiddenRecsList',true);
-                  component.set('v.returnHiddenRecommendationsCount', hiddenResult.length);
+              component.set('v.mapMarkers', mapMarkers);
+            }
+        }
 
-                  if(showResult.length === 0 && hiddenResult.length === 0){
-                    component.set('v.noRecsMessage',true);
-                    component.set('v.showRecommendations',false);
-                    component.set('v.showRecommendationResults',false);
-                 }else{ 
-                    component.set('v.showRecommendations',true);
-                    component.set('v.showRecommendationResults',true);
-                    component.set('v.searchedRecommendations',true);
-                    component.set('v.noRecsMessage',false);
+        showResult.sort((a, b) => {
+          return a.Relevance < b.Relevance ? 1 : -1;
+        });
 
-                    component.set('v.unfilteredRecs',showResult);
-                    component.set('v.unfilteredRecs',showResult);
-                    component.set('v.returnHiddenRecommendations', hiddenResult);
-                    component.set('v.returnRecs', showResult);
-                    
-                    if(showResult.length ==0){
-                      $A.util.addClass(component.find("showRec"), "slds-hide");
-                    }else{
-                      $A.util.removeClass(component.find("showRec"), "slds-hide");
-                    }
-                }
-                }catch(error) {
-                 console.log(error);
-                }
+        try {
+          if (!component.get('v.showFilterOptions')) {
+            component.set('v.showFilterOptions', true);
           }
-      });
-      $A.enqueueAction(action);
-  },
-})
+          component.set('v.showHiddenRecsList', true);
+          component.set(
+            'v.returnHiddenRecommendationsCount',
+            hiddenResult.length
+          );
+
+          if (showResult.length === 0 && hiddenResult.length === 0) {
+            component.set('v.noRecsMessage', true);
+            component.set('v.showRecommendations', false);
+            component.set('v.showRecommendationResults', false);
+          } else {
+            component.set('v.showRecommendations', true);
+            component.set('v.showRecommendationResults', true);
+            component.set('v.searchedRecommendations', true);
+            component.set('v.noRecsMessage', false);
+
+            component.set('v.unfilteredRecs', showResult);
+            component.set('v.unfilteredRecs', showResult);
+            component.set('v.returnHiddenRecommendations', hiddenResult);
+            component.set('v.returnRecs', showResult);
+
+            if (showResult.length == 0) {
+              $A.util.addClass(component.find('showRec'), 'slds-hide');
+            } else {
+              $A.util.removeClass(component.find('showRec'), 'slds-hide');
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    });
+    $A.enqueueAction(action);
+  }
+});
