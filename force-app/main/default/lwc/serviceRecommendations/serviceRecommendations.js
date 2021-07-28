@@ -73,13 +73,6 @@ export default class ServiceRecommendations extends LightningElement {
                 if(result.length > 0){
                   
                   for(i = 0; i < result.length; i++) {
-                    let t;
-                    const types = result[i].AllTypes;
-                    let iconList = [];
-                    for(t=0; t < types.length;t++){
-                      iconList.push(`custom:custom${icons.get(types[t])}`)
-                    }
-                    result[i].ProgramIcons = iconList;
                     let marker = {
                       location:{
                         Street: '',
