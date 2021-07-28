@@ -153,11 +153,15 @@
    <div aura:id="showRec" class="innerRecDiv slds-size_1-of-1 slds-scrollable_y">
       <aura:if isTrue="{!v.showRecommendationResults}">
       <div class="innerRecDiv slds-size_1-of-1 viewHeightFifty slds-scrollable_y">
-        <aura:iteration items="{!v.returnRecs}" var="recommendation">
-            <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
-            onflowlaunch="{!c.handleShare}" servicerecommendation="{!recommendation}" serviceid="{!recommendation.ServiceId}"
-            contactid="{!v.recordId}"></c:serviceRecommendation>
-        </aura:iteration>
+        <ul class="slds-has-dividers_bottom">
+          <aura:iteration items="{!v.returnRecs}" var="recommendation">
+            <li class="slds-item">
+              <c:serviceRecommendation  onreloadafterhide="{!c.handleRequestRecommendations}"
+              onflowlaunch="{!c.handleShare}" servicerecommendation="{!recommendation}" serviceid="{!recommendation.ServiceId}"
+              contactid="{!v.recordId}"></c:serviceRecommendation>
+            </li>
+          </aura:iteration>
+        </ul>
       </div>
     </aura:if>
       </div>
