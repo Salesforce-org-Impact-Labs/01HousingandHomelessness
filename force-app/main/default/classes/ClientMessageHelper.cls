@@ -283,8 +283,18 @@ public with sharing class ClientMessageHelper {
 
         // create the email messages
         for (Referral_Response__c refResp : referralResponses) {
+            string peferedChannel=referralMap.get(refResp.Referral__c).Preferred_Channel__c;
+            if(peferedChannel=='Email; SMS' || peferedChannel=='SMS; Email' ){
+                referralMap.get(refResp.Referral__c).Preferred_Channel__c='SMS';
+                messages.add(createEmail(referralMap, orgWideEmail, emailTemplateType, refResp, refResp.Referral__c));
+                referralMap.get(refResp.Referral__c).Preferred_Channel__c='Email';
+                messages.add(createEmail(referralMap, orgWideEmail, emailTemplateType, refResp, refResp.Referral__c));
+                referralMap.get(refResp.Referral__c).Preferred_Channel__c=peferedChannel;
+            }
+            else{
                 Messaging.SingleEmailMessage message = createEmail(referralMap, orgWideEmail, emailTemplateType, refResp, refResp.Referral__c);
                 messages.add(message);
+                }
         }
 
         return messages;
@@ -295,7 +305,6 @@ public with sharing class ClientMessageHelper {
                                                             String emailTemplateType,
                                                             Referral_Response__c refResp,
                                                             Id referralId) {
-
         Map<String,EmailTemplate> templateMap = getTemplatesByType(emailTemplateType); 
         Id templateId = null;
         if (referralMap.get(referralId).Preferred_Channel__c != null) {
