@@ -25,7 +25,7 @@ public with sharing class getRecommendations {
     // figure out which services to hide
     output = addHides(output, contactId);
     // do the comments for each service
-    output = getComments(output);
+    output = CommentsController.getComments(output);
     
     // do the Star Rating for each service
     output = addStars(output);
@@ -217,38 +217,7 @@ public with sharing class getRecommendations {
     return recs;
   }
 
-  public static List<ServiceRecommendation> getComments(
-    List<ServiceRecommendation> recs
-  ) {
-    list<FeedItem> FeedItems = [
-      SELECT id, ParentId, Body
-      FROM FeedItem
-      WHERE ParentId IN :IDsFromRecommendations(recs) AND Type = 'TextPost'
-      WITH SECURITY_ENFORCED
-      ORDER BY ParentId
-    ];
-    map<id, list<string>> feedItemsByService = new Map<id, list<string>>();
-    for (feedItem fi : FeedItems) {
-      list<string> existing = feedItemsByService.get(fi.ParentId);
-      if (existing == null) {
-        existing = new List<string>();
-      }
-      existing.add(fi.Body);
-      feedItemsByService.put(fi.ParentId, existing);
-    }
-
-    for (ServiceRecommendation rec : recs) {
-      list<string> comments = feedItemsByService.get(rec.ServiceId);
-      if (comments != null && comments.size() > 0) {
-        for (string comment : comments) {
-          ServiceRecommendation.Comment commentToAdd = new ServiceRecommendation.Comment();
-          commentToAdd.CommentText = comment;
-          rec.Comments.add(commentToAdd);
-        }
-      }
-    }
-    return recs;
-  }
+  
 
   @AuraEnabled
   public static String addNewComment(id serviceId, String newComment) {
