@@ -115,11 +115,6 @@
     </classAccesses>
     <custom>false</custom>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Account.External_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Aunt_Bertha_Attribute_Setting__mdt.Attribute_Tag__c</field>
         <readable>false</readable>
