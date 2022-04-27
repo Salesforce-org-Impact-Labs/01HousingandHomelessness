@@ -35,9 +35,6 @@
     <constants>
         <name>ContactId</name>
         <dataType>String</dataType>
-        <value>
-            <stringValue>0030t000019UwP3AAK</stringValue>
-        </value>
     </constants>
     <decisions>
         <name>Contact_Selected</name>
@@ -62,6 +59,7 @@
         </rules>
     </decisions>
     <interviewLabel>Refer Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
     <label>Refer Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
