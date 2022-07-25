@@ -133,7 +133,7 @@
             <inputParameters>
                 <name>fieldApiName</name>
                 <value>
-                    <stringValue>Contact__c</stringValue>
+                    <stringValue>refrec__Contact__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -145,7 +145,7 @@
             <inputParameters>
                 <name>objectApiName</name>
                 <value>
-                    <stringValue>Referral__c</stringValue>
+                    <stringValue>refrec__Referral__c</stringValue>
                 </value>
             </inputParameters>
             <isRequired>true</isRequired>
