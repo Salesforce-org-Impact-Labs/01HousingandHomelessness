@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>49.0</apiVersion>
+    <apiVersion>53.0</apiVersion>
     <assignments>
         <name>Set_Create_Contact_Id</name>
         <label>Set Create Contact Id</label>
@@ -157,7 +157,7 @@
             <inputParameters>
                 <name>fieldApiName</name>
                 <value>
-                    <stringValue>Contact__c</stringValue>
+                    <stringValue>%%%NAMESPACE%%%Contact__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -169,7 +169,7 @@
             <inputParameters>
                 <name>objectApiName</name>
                 <value>
-                    <stringValue>Referral__c</stringValue>
+                    <stringValue>%%%NAMESPACE%%%Referral__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
