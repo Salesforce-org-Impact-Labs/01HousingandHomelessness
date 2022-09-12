@@ -1,3 +1,3 @@
 <design:component label="Recommended Services" >
-    <design:attribute name="FlowName" description="namespaced flow API name" default="refrec__Send_Referral_Flow"/>
+    <design:attribute name="FlowName" description="namespaced flow API name" default="%%%NAMESPACE%%%Send_Referral_Flow"/>
 </design:component>
