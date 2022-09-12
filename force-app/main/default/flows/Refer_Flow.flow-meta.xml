@@ -195,6 +195,7 @@
         <fields>
             <name>Contact_Selection_Section1</name>
             <fieldType>RegionContainer</fieldType>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Contact_Selection_Section1_Column1</name>
                 <fieldType>Region</fieldType>
