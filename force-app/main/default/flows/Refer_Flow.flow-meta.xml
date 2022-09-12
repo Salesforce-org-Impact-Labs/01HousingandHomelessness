@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
     <assignments>
         <name>Set_Create_Contact_Id</name>
         <label>Set Create Contact Id</label>
         <locationX>314</locationX>
-        <locationY>638</locationY>
+        <locationY>518</locationY>
         <assignmentItems>
             <assignToReference>selectedContactId</assignToReference>
             <operator>Assign</operator>
@@ -32,30 +33,43 @@
             <targetReference>Send_Referral</targetReference>
         </connector>
     </assignments>
+    <choices>
+        <name>Create</name>
+        <choiceText>Create</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>Find</name>
+        <choiceText>Find</choiceText>
+        <dataType>String</dataType>
+    </choices>
     <constants>
         <name>ContactId</name>
         <dataType>String</dataType>
     </constants>
     <decisions>
-        <name>Contact_Selected</name>
-        <label>Contact Selected?</label>
+        <name>Find_or_Create_Selected</name>
+        <label>Find or Create Selected?</label>
         <locationX>182</locationX>
         <locationY>278</locationY>
         <defaultConnector>
-            <targetReference>Create_Contact</targetReference>
+            <targetReference>Create_Contact_Record</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <defaultConnectorLabel>Create Selected</defaultConnectorLabel>
         <rules>
-            <name>Yes</name>
+            <name>Find_Selected</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Contact_Lookup.recordId</leftValueReference>
-                <operator>NotEqualTo</operator>
+                <leftValueReference>Find</leftValueReference>
+                <operator>WasSelected</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
             </conditions>
             <connector>
                 <targetReference>Set_Lookup_Contact_Id</targetReference>
             </connector>
-            <label>Yes</label>
+            <label>Find Selected</label>
         </rules>
     </decisions>
     <interviewLabel>Refer Flow {!$Flow.CurrentDateTime}</interviewLabel>
@@ -84,7 +98,7 @@
         <name>Create_Contact_Record</name>
         <label>Create Contact Record</label>
         <locationX>314</locationX>
-        <locationY>518</locationY>
+        <locationY>398</locationY>
         <connector>
             <targetReference>Set_Create_Contact_Id</targetReference>
         </connector>
@@ -109,7 +123,7 @@
         <inputAssignments>
             <field>MobilePhone</field>
             <value>
-                <elementReference>Mobile.value</elementReference>
+                <elementReference>MobilePhone.value</elementReference>
             </value>
         </inputAssignments>
         <object>Contact</object>
@@ -124,8 +138,18 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Contact_Selected</targetReference>
+            <targetReference>Find_or_Create_Selected</targetReference>
         </connector>
+        <fields>
+            <name>Find_or_Create_Contact</name>
+            <choiceReferences>Find</choiceReferences>
+            <choiceReferences>Create</choiceReferences>
+            <dataType>String</dataType>
+            <defaultSelectedChoiceReference>Find</defaultSelectedChoiceReference>
+            <fieldText>Find or Create Contact?</fieldText>
+            <fieldType>RadioButtons</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
         <fields>
             <name>Contact_Lookup</name>
             <extensionName>flowruntime:lookup</extensionName>
@@ -133,71 +157,103 @@
             <inputParameters>
                 <name>fieldApiName</name>
                 <value>
-                    <stringValue>refrec__Contact__c</stringValue>
+                    <stringValue>%%%NAMESPACE%%%Contact__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>label</name>
                 <value>
-                    <stringValue>Contact</stringValue>
+                    <stringValue>Existing Contact</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>objectApiName</name>
                 <value>
-                    <stringValue>refrec__Referral__c</stringValue>
+                    <stringValue>%%%NAMESPACE%%%Referral__c</stringValue>
                 </value>
             </inputParameters>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>Create_Contact</name>
-        <label>Create Contact</label>
-        <locationX>314</locationX>
-        <locationY>398</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Create_Contact_Record</targetReference>
-        </connector>
-        <fields>
-            <name>First_Name</name>
-            <dataType>String</dataType>
-            <fieldText>First Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>false</isRequired>
-        </fields>
-        <fields>
-            <name>Last_Name</name>
-            <dataType>String</dataType>
-            <fieldText>Last Name</fieldText>
-            <fieldType>InputField</fieldType>
-            <isRequired>true</isRequired>
-        </fields>
-        <fields>
-            <name>Email</name>
-            <extensionName>flowruntime:email</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>Mobile</name>
-            <extensionName>flowruntime:phone</extensionName>
-            <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>label</name>
+                <name>required</name>
                 <value>
-                    <stringValue>Mobile</stringValue>
+                    <booleanValue>true</booleanValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Find</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Contact_Selection_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <fields>
+                <name>Contact_Selection_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>First_Name</name>
+                    <dataType>String</dataType>
+                    <fieldText>First Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                </fields>
+                <fields>
+                    <name>Last_Name</name>
+                    <dataType>String</dataType>
+                    <fieldText>Last Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <fields>
+                    <name>Email</name>
+                    <extensionName>flowruntime:email</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>MobilePhone</name>
+                    <extensionName>flowruntime:phone</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>Mobile</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Create</leftValueReference>
+                    <operator>WasSelected</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -214,7 +270,7 @@
         <name>Send_Referral</name>
         <label>Send Referral</label>
         <locationX>182</locationX>
-        <locationY>854</locationY>
+        <locationY>734</locationY>
         <flowName>Send_Referral_Flow</flowName>
         <inputAssignments>
             <name>contactId</name>
