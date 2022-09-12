@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>53.0</apiVersion>
+    <apiVersion>55.0</apiVersion>
     <assignments>
         <name>Set_Create_Contact_Id</name>
         <label>Set Create Contact Id</label>
@@ -195,6 +195,7 @@
         <fields>
             <name>Contact_Selection_Section1</name>
             <fieldType>RegionContainer</fieldType>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
             <fields>
                 <name>Contact_Selection_Section1_Column1</name>
                 <fieldType>Region</fieldType>
@@ -254,7 +255,6 @@
                 </conditions>
             </visibilityRule>
         </fields>
-        <pauseButtonLabel>Create New Contact</pauseButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
