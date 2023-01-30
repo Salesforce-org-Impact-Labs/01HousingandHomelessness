@@ -157,7 +157,7 @@
             <inputParameters>
                 <name>fieldApiName</name>
                 <value>
-                    <stringValue>%%%NAMESPACE%%%Contact__c</stringValue>
+                    <stringValue>%%%NAMESPACED_ORG%%%Contact__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -169,7 +169,7 @@
             <inputParameters>
                 <name>objectApiName</name>
                 <value>
-                    <stringValue>%%%NAMESPACE%%%Referral__c</stringValue>
+                    <stringValue>%%%NAMESPACED_ORG%%%Referral__c</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
