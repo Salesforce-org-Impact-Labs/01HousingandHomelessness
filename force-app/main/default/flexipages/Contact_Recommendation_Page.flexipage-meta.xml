@@ -31,7 +31,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>FlowName</name>
-                    <value>%%%NAMESPACE%%%Send_Referral_Flow</value>
+                    <value>%%%NAMESPACED_ORG%%%Send_Referral_Flow</value>
                 </componentInstanceProperties>
                 <componentName>sendReferralComponentWrapper</componentName>
                 <identifier>sendReferralComponentWrapper</identifier>
