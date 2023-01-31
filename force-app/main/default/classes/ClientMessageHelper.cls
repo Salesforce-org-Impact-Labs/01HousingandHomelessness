@@ -284,7 +284,7 @@ public with sharing class ClientMessageHelper {
         // create the email messages
         for (Referral_Response__c refResp : referralResponses) {
             string peferedChannel=referralMap.get(refResp.Referral__c).Preferred_Channel__c;
-            if(peferedChannel=='Email; SMS' || peferedChannel=='SMS; Email' ){
+            if(peferedChannel=='Email;SMS' || peferedChannel=='SMS; Email' ){
                 referralMap.get(refResp.Referral__c).Preferred_Channel__c='SMS';
                 messages.add(createEmail(referralMap, orgWideEmail, emailTemplateType, refResp, refResp.Referral__c));
                 referralMap.get(refResp.Referral__c).Preferred_Channel__c='Email';
